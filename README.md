@@ -2,69 +2,137 @@
 
 ![YONBUS Logo](public/images/logo.png)
 
-> **YONBUS Tax & Accounting Services Inc.** is a multi-tenant, role-based SaaS platform built for professional tax preparation, bookkeeping, accounting, payroll, and business consultation management.
+> **YONBUS Tax & Accounting Services Inc.** is a production-ready, multi-tenant, role-based SaaS platform engineered for tax preparation, bookkeeping, accounting, payroll, and financial consultation management.
 
 ---
 
-## 🚀 Key Features
+## 🔑 Pre-Seeded System Credentials & Access Portals
 
-* **Multi-Role Portal System**:
-  * 👑 **Admin Portal**: System oversight, user CRUD, service management, audit activity logs, global billing logs, and configuration.
-  * 💼 **Accountant / CPA Portal**: Client directory, consultation scheduling, document vault access, tax return workflow processing, and invoice generation.
-  * 👤 **Client Portal**: Online appointment booking, secure document vault uploads, 6-stage Tax Return Tracker timeline, invoice payments, and direct CPA chat messaging.
-* **Modern Design System**: Built with Tailwind CSS, Alpine.js, dark mode toggle, Inter & Poppins typography, and custom soft shadows.
-* **Security & Access Control**: Role-Based Access Control (RBAC) via custom `EnsureRole` middleware and Laravel Breeze authentication.
+All administrative and client accounts are pre-seeded in `database/seeders/DatabaseSeeder.php`:
 
----
-
-## 🛠️ Tech Stack
-
-* **Backend**: Laravel 11, PHP 8.3, MySQL / SQLite
-* **Frontend**: Laravel Livewire 3, Alpine.js, Tailwind CSS, Blade Templates
-* **Data Visualization**: Chart.js
-* **Iconography**: Heroicons
+| Role | Email | Password | Access URI | Dashboard Capabilities |
+| :--- | :--- | :--- | :--- | :--- |
+| 👑 **Super Admin** | `admin@yonbus.com` | `password` | `/admin/dashboard` | Full system control, user CRUD, pricing, global audit logs & settings |
+| 💼 **Accountant / CPA** | `accountant@yonbus.com` | `password` | `/accountant/dashboard` | Client directory, appointment calendar, document vault & tax returns |
+| 👤 **Client** | `client@yonbus.com` | `password` | `/client/dashboard` | Consultation booking, document uploads, 6-stage tax tracker & invoices |
 
 ---
 
-## 🔑 Pre-Seeded Test Credentials
+## 🏛️ Admin Logic & Core Business Workflow Architecture
 
-| Role | Email | Password | Access URI |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@yonbus.com` | `password` | `/admin/dashboard` |
-| **Accountant** | `accountant@yonbus.com` | `password` | `/accountant/dashboard` |
-| **Client** | `client@yonbus.com` | `password` | `/client/dashboard` |
+### 1. Centralized Authorization & Role Redirection (`/dashboard`)
+* Upon login, `RegisteredUserController` and `AuthenticatedSessionController` route users to `/dashboard`.
+* The `/dashboard` route invokes role-based dispatching in `routes/web.php` and `EnsureRole` middleware:
+  * **Admin / Super Admin** $\rightarrow$ Redirected to `/admin/dashboard`
+  * **Accountant** $\rightarrow$ Redirected to `/accountant/dashboard`
+  * **Client** $\rightarrow$ Redirected to `/client/dashboard`
 
----
-
-## ⚙️ Installation & Local Setup
-
-```bash
-# 1. Clone or navigate to the project repository
-cd frontend
-
-# 2. Install PHP & Node dependencies
-composer install
-npm install
-
-# 3. Setup environment variables
-cp .env.example .env
-php artisan key:generate
-
-# 4. Run database migrations & seed demo data
-php artisan migrate:fresh --seed
-
-# 5. Build frontend Tailwind CSS assets
-npm run build
-
-# 6. Start the Laravel development server
-php artisan serve
-```
-
-Access the application at **`http://127.0.0.1:8000`**.
+### 2. Admin Portal Modules & Functionality
+* **User Management (`/admin/users` & `AddUserForm`)**:
+  * Full user lifecycle CRUD with support for `first_name`, `last_name`, `email`, `phone`, `role` (`admin`, `accountant`, `client`), and `is_active` status toggles.
+  * Real-time search and filter logic with defensive null handling across Eloquent models.
+* **Services & Catalog Management (`/admin/services`)**:
+  * Manage tax preparation tiers, accounting packages, hourly consultation rates, and active/inactive status.
+* **Global Appointment Audit Trail (`/admin/appointments`)**:
+  * Real-time oversight of all scheduled client consultations, assigned CPAs, status updates (`pending`, `confirmed`, `completed`, `cancelled`), and date/time slot validation.
+* **Global Invoicing Log (`/admin/invoices`)**:
+  * Centralized billing administration, payment status monitoring (`unpaid`, `paid`, `overdue`), line-item breakdowns, and payment gateway logs.
+* **System Activity & Audit Log (`/admin/activity-logs`)**:
+  * Automated system audit trail powered by `AuditService` tracking logins, document uploads, user modifications, and role updates.
+* **Platform Settings (`/admin/settings`)**:
+  * Global corporate configurations, default tax year parameters, notification webhooks, and company contact metadata.
 
 ---
 
-## 🌐 Complete System Route Reference (All 54 Routes)
+## 🚀 Deployment Guides (Vercel, Netlify, cPanel)
+
+### 1. 🔺 Deploying to Vercel
+
+Vercel support is pre-configured via `vercel.json` and the serverless front-controller entry point `api/index.php`.
+
+#### Deployment Steps:
+1. **Connect Repository to Vercel**:
+   * Push your project to GitHub/GitLab.
+   * Import the repository in your [Vercel Dashboard](https://vercel.com).
+   * Set Root Directory to `frontend`.
+2. **Configure Environment Variables**:
+   Add the following environment variables in Vercel settings:
+   ```env
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_KEY=base64:T8+ihHiiRMoaNtyr5UIOgaG5l46HtWOaxjN30/tqti0=
+   APP_URL=https://your-app.vercel.app
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/tmp/database.sqlite
+   SESSION_DRIVER=array
+   CACHE_STORE=array
+   ```
+3. **Deploy**:
+   * Click **Deploy**. Vercel will process the build and serve the application using `vercel-php`.
+
+---
+
+### 2. 🩵 Deploying to Netlify
+
+Netlify support is pre-configured via `netlify.toml` for static asset compilation and serverless proxy routing.
+
+#### Deployment Steps:
+1. **Connect Repository to Netlify**:
+   * Log into [Netlify](https://netlify.com) and select **Add new site** > **Import an existing project**.
+   * Link your repository and set Base directory to `frontend`.
+2. **Build Settings**:
+   * **Build Command**: `npm run build`
+   * **Publish Directory**: `public`
+3. **Environment Variables**:
+   Set `PHP_VERSION=8.3`, `NODE_VERSION=20`, `APP_ENV=production`, `APP_KEY=...` in **Site Configuration > Environment Variables**.
+4. **Deploy**:
+   * Trigger deployment. Netlify will build Tailwind CSS assets and enforce redirect rules (`/*` to `/index.php`).
+
+---
+
+### 3. 🌐 Deploying to cPanel (Traditional Web Hosting)
+
+Full cPanel compatibility is enforced via `frontend/.htaccess` and `frontend/public/.htaccess`.
+
+#### Deployment Steps:
+1. **Upload Project Files**:
+   * Compress the `frontend` folder into a `.zip` archive.
+   * Log into cPanel File Manager and upload the archive to your domain root (e.g., `public_html`).
+   * Extract the files.
+2. **Configure MySQL Database**:
+   * Navigate to **cPanel > MySQL Database Wizard**.
+   * Create a database (e.g., `yonbus_db`) and database user with full privileges.
+3. **Update Environment File (`.env`)**:
+   Edit `.env` inside your project folder:
+   ```env
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=https://yourdomain.com
+   
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=cpaneluser_yonbus_db
+   DB_USERNAME=cpaneluser_dbuser
+   DB_PASSWORD=your_secure_password
+   ```
+4. **Run Migrations & Seed Data via Terminal/SSH**:
+   ```bash
+   cd /path/to/public_html
+   composer install --optimize-autoloader --no-dev
+   php artisan migrate:fresh --seed --force
+   php artisan storage:link
+   php artisan config:cache
+   php artisan route:cache
+   php artisan view:cache
+   ```
+5. **Set File Permissions**:
+   * Ensure `storage` and `bootstrap/cache` directories have `775` permissions.
+   * Confirm domain document root points to `public_html/public` (or use the included root `.htaccess`).
+
+---
+
+## 🛠️ Complete System Route Reference (All 54 Routes)
 
 | Method | URI | Route Name | Middleware / Protection | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -74,10 +142,6 @@ Access the application at **`http://127.0.0.1:8000`**.
 | `POST` | `/logout` | `logout` | `auth` | End User Session |
 | `GET` | `/register` | `register` | `guest` | Client Registration Page |
 | `POST` | `/register` | `register` | `guest` | Process Client Registration |
-| `GET` | `/forgot-password` | `password.request` | `guest` | Password Reset Request |
-| `POST` | `/forgot-password` | `password.email` | `guest` | Send Reset Password Link |
-| `GET` | `/reset-password/{token}` | `password.reset` | `guest` | Reset Password Form |
-| `POST` | `/reset-password` | `password.store` | `guest` | Store New Password |
 | `GET` | `/dashboard` | `dashboard` | `auth, verified` | Role-Based Post-Login Dispatcher |
 | `GET` | `/documents/{document}/download` | `documents.download` | `auth` | Secure File Download Handler |
 | **CLIENT PORTAL** | | | `auth, role:client` | |
@@ -110,8 +174,8 @@ Access the application at **`http://127.0.0.1:8000`**.
 
 ---
 
-## 📱 Mobile Responsiveness
+## 📱 Mobile Responsiveness & UI Excellence
 
-The application is engineered for all device viewports:
-* **Desktops & Laptops**: Multi-column grids, fixed sidebars, and persistent top controls.
-* **Tablets & Mobile**: Collapsible drawer sidebars triggered via Alpine.js `mobileMenuOpen`, responsive scrollable tables (`overflow-x-auto`), and flexible stacked card grid layouts.
+The platform is designed with high-end financial SaaS standards:
+* **Dark Mode & Modern Aesthetics**: Harmonious Slate/Indigo palette, custom soft shadows, glassmorphic UI elements, and responsive typography.
+* **Cross-Device Viewports**: Mobile drawer navigation powered by Alpine.js (`mobileMenuOpen`), scrollable tables (`overflow-x-auto`), and dynamic card layouts for all device sizes.

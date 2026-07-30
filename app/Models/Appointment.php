@@ -4,20 +4,50 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'client_id', 'accountant_id', 'service_id',
-        'date', 'time', 'status', 'notes', 'meeting_link'
+        'appointment_number',
+        'client_id',
+        'accountant_id',
+        'service_id',
+        'date',
+        'time',
+        'duration',
+        'status',
+        'notes',
+        'meeting_link',
     ];
 
-    protected $casts = ['date' => 'date'];
+    protected $casts = [
+        'date' => 'date',
+    ];
 
-    const STATUSES = ['pending', 'confirmed', 'cancelled', 'completed', 'rescheduled'];
+    // ── Statuses ──────────────────────────────────────────────────
+    const STATUSES = ['pending', 'confirmed', 'completed', 'cancelled', 'rescheduled'];
 
+    // ── Scopes ────────────────────────────────────────────────────
+    public function scopeUpcoming($query)
+    {
+        return $query->where('date', '>=', now()->toDateString())
+                     ->whereNotIn('status', ['cancelled', 'completed']);
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'completed');
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    // ── Relationships ──────────────────────────────────────────────
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
@@ -31,17 +61,5 @@ class Appointment extends Model
     public function service()
     {
         return $this->belongsTo(Service::class);
-    }
-
-    public function getStatusColorAttribute(): string
-    {
-        return match ($this->status) {
-            'confirmed' => 'green',
-            'pending'   => 'yellow',
-            'cancelled' => 'red',
-            'completed' => 'blue',
-            'rescheduled' => 'purple',
-            default     => 'gray',
-        };
     }
 }

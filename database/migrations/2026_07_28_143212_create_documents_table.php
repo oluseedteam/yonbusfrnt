@@ -10,16 +10,15 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
+            $table->foreignId('client_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('uploaded_by')->constrained('users')->cascadeOnDelete();
             $table->string('original_name');
-            $table->string('type')->default('other'); // tax_form, bank_statement, receipt, payroll_report, financial_statement
-            $table->string('path');
-            $table->string('mime_type')->nullable();
-            $table->unsignedBigInteger('size')->default(0); // bytes
+            $table->string('stored_name');
+            $table->string('file_type');
+            $table->unsignedBigInteger('file_size')->default(0);
             $table->integer('version')->default(1);
-            $table->text('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

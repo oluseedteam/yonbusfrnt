@@ -31,16 +31,44 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'name'         => ['nullable', 'string', 'max:255'],
+            'first_name'   => ['nullable', 'string', 'max:255'],
+            'last_name'    => ['nullable', 'string', 'max:255'],
+            'company_name' => ['nullable', 'string', 'max:255'],
+            'phone'        => ['nullable', 'string', 'max:50'],
+            'email'        => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password'     => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $firstName = $request->first_name;
+        $lastName  = $request->last_name;
+
+        if (!$firstName && $request->name) {
+            $parts = explode(' ', trim($request->name), 2);
+            $firstName = $parts[0] ?? 'User';
+            $lastName  = $parts[1] ?? '';
+        }
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'first_name'   => $firstName ?: 'Valued',
+            'last_name'    => $lastName ?: 'Client',
+            'email'        => $request->email,
+            'password'     => Hash::make($request->password),
+            'phone'        => $request->phone,
+            'company_name' => $request->company_name,
+            'role'         => 'client',
+            'is_active'    => true,
         ]);
+
+        // Assign Spatie permission role if available
+        try {
+            if (class_exists(\Spatie\Permission\Models\Role::class)) {
+                \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'client', 'guard_name' => 'web']);
+                $user->assignRole('client');
+            }
+        } catch (\Throwable $e) {
+            // Role may already be handled via attribute fallback
+        }
 
         event(new Registered($user));
 
@@ -49,3 +77,5 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 }
+
+

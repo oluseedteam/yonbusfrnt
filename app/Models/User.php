@@ -2,27 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
-        'role',
         'phone',
+        'role',
         'company_name',
         'tax_identification_number',
         'address',
         'avatar',
-        'dark_mode',
         'is_active',
+        'notification_email',
+        'notification_database',
     ];
 
     protected $hidden = [
@@ -33,30 +37,59 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'dark_mode' => 'boolean',
-            'is_active' => 'boolean',
+            'email_verified_at'      => 'datetime',
+            'password'               => 'hashed',
+            'is_active'              => 'boolean',
+            'notification_email'     => 'boolean',
+            'notification_database'  => 'boolean',
         ];
     }
 
-    // Role helpers
-    public function isAdmin(): bool
+    // ── Accessors ──────────────────────────────────────────────────
+    public function getNameAttribute(): string
     {
-        return $this->role === 'admin';
+        return trim("{$this->first_name} {$this->last_name}");
     }
 
-    public function isAccountant(): bool
+    public function getRoleAttribute(): string
     {
-        return $this->role === 'accountant';
+        if ($this->relationLoaded('roles') && $this->roles->count() > 0) {
+            return $this->roles->first()->name;
+        }
+        $spatieRole = $this->getRoleNames()->first();
+        if ($spatieRole) {
+            return $spatieRole;
+        }
+        return $this->attributes['role'] ?? 'client';
     }
 
-    public function isClient(): bool
+    public function getAvatarUrlAttribute(): string
     {
-        return $this->role === 'client';
+        if ($this->avatar && \Storage::disk('public')->exists($this->avatar)) {
+            return asset('storage/' . $this->avatar);
+        }
+        $name = urlencode($this->name ?: $this->email);
+        return "https://ui-avatars.com/api/?name={$name}&background=005DFF&color=fff&bold=true";
     }
 
-    // Relationships
+    // ── Role helpers ───────────────────────────────────────────────
+    public function isSuperAdmin(): bool  { return $this->hasRole(['super-admin', 'superadmin']) || $this->role === 'superadmin' || $this->role === 'super-admin'; }
+    public function isAdmin(): bool       { return $this->hasRole(['admin', 'super-admin', 'superadmin', 'subadmin']) || in_array($this->role, ['admin', 'superadmin', 'subadmin']); }
+    public function isAccountant(): bool  { return $this->hasRole('accountant') || $this->role === 'accountant'; }
+    public function isClient(): bool      { return $this->hasRole('client') || $this->role === 'client'; }
+
+
+    // ── Relationships ───────────────────────────────────────────────
+    public function clientProfile()
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function accountantProfile()
+    {
+        return $this->hasOne(Accountant::class);
+    }
+
     public function appointments()
     {
         return $this->hasMany(Appointment::class, 'client_id');
@@ -69,12 +102,12 @@ class User extends Authenticatable
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'client_id');
     }
 
-    public function taxReturns()
+    public function serviceRequests()
     {
-        return $this->hasMany(TaxReturn::class, 'client_id');
+        return $this->hasMany(ServiceRequest::class, 'client_id');
     }
 
     public function invoices()
@@ -82,32 +115,13 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class, 'client_id');
     }
 
-    public function sentMessages()
-    {
-        return $this->hasMany(Message::class, 'sender_id');
-    }
-
-    public function receivedMessages()
-    {
-        return $this->hasMany(Message::class, 'receiver_id');
-    }
-
-    public function reports()
-    {
-        return $this->hasMany(Report::class, 'client_id');
-    }
-
     public function activityLogs()
     {
         return $this->hasMany(ActivityLog::class);
     }
 
-    public function getAvatarUrlAttribute(): string
+    public function communicationLogs()
     {
-        if ($this->avatar) {
-            return asset('storage/' . $this->avatar);
-        }
-        $name = urlencode($this->name);
-        return "https://ui-avatars.com/api/?name={$name}&background=005DFF&color=fff&bold=true";
+        return $this->hasMany(CommunicationLog::class, 'sender_id');
     }
 }

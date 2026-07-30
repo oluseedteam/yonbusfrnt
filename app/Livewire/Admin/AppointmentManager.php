@@ -2,22 +2,54 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Appointment;
+use App\Repositories\AppointmentRepository;
+use App\Services\AppointmentService;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AppointmentManager extends Component
 {
+    use WithPagination;
+
     public $search = '';
     public $statusFilter = 'all';
 
+    protected function repo(): AppointmentRepository
+    {
+        return app(AppointmentRepository::class);
+    }
+
+    protected function service(): AppointmentService
+    {
+        return app(AppointmentService::class);
+    }
+
     public function render()
     {
-        $query = Appointment::with(['client', 'accountant', 'service']);
-        if ($this->statusFilter !== 'all') $query->where('status', $this->statusFilter);
-        if ($this->search) {
-            $query->whereHas('client', fn($q) => $q->where('name', 'like', "%{$this->search}%"));
+        $filters = [];
+        if ($this->statusFilter !== 'all') {
+            $filters['status'] = $this->statusFilter;
         }
-        $appointments = $query->orderByDesc('date')->paginate(15);
+
+        $appointments = $this->repo()->paginate(15, $filters);
         return view('livewire.admin.appointment-manager', compact('appointments'))->layout('layouts.admin');
+    }
+
+    public function confirm($id)
+    {
+        $this->service()->confirm($id);
+        session()->flash('message', 'Appointment confirmed successfully.');
+    }
+
+    public function cancel($id)
+    {
+        $this->service()->cancel($id, 'Cancelled by admin');
+        session()->flash('message', 'Appointment cancelled.');
+    }
+
+    public function complete($id)
+    {
+        $this->service()->complete($id);
+        session()->flash('message', 'Appointment marked as completed.');
     }
 }

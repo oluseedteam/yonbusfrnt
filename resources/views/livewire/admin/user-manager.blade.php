@@ -1,123 +1,160 @@
-<div>
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div class="p-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-            <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">User Management</h1>
-            <p class="text-xs text-gray-500 mt-1">Manage all platform accounts, assign roles, and control access permissions.</p>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">User Management</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Manage system administrators, accountants, subadmins, and client accounts</p>
         </div>
-        <button wire:click="openModal" class="btn-primary">
-            + Add New User
+        <button wire:click="openModal" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Add New User
         </button>
     </div>
 
-    <!-- Filters -->
-    <div class="card-box p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-gray-500 uppercase font-heading">Role:</span>
-            @foreach(['all' => 'All', 'client' => 'Clients', 'accountant' => 'Accountants', 'admin' => 'Admins'] as $key => $label)
-                <button wire:click="$set('roleFilter', '{{ $key }}')" 
-                        class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all {{ $roleFilter === $key ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
-                    {{ $label }}
-                </button>
-            @endforeach
+    @if (session()->has('message'))
+        <div class="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm">
+            {{ session('message') }}
         </div>
-        <input type="text" wire:model.live="search" placeholder="Search by name or email..." class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-1.5 px-3 text-xs w-full sm:w-64">
+    @endif
+
+    <!-- Filters & Search -->
+    <div class="bg-white dark:bg-slate-800 rounded-xl p-4 mb-6 shadow-sm border border-slate-200 dark:border-slate-700/50 flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search by name or email..." class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div class="w-full md:w-48">
+            <select wire:model.live="roleFilter" class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="all">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="subadmin">Subadmin</option>
+                <option value="accountant">Accountant</option>
+                <option value="client">Client</option>
+            </select>
+        </div>
     </div>
 
     <!-- Users Table -->
-    <div class="card-box">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/50 overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-gray-50 dark:bg-gray-800 text-gray-500 uppercase font-semibold">
-                    <tr>
-                        <th class="p-3.5">User</th>
-                        <th class="p-3.5">Role</th>
-                        <th class="p-3.5">Phone / Company</th>
-                        <th class="p-3.5">Status</th>
-                        <th class="p-3.5 text-right">Actions</th>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-slate-900/50">
+                        <th class="px-6 py-4">User</th>
+                        <th class="px-6 py-4">Role</th>
+                        <th class="px-6 py-4">Phone</th>
+                        <th class="px-6 py-4">Status</th>
+                        <th class="px-6 py-4">Created</th>
+                        <th class="px-6 py-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                    @forelse($users as $u)
-                        <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
-                            <td class="p-3.5 flex items-center gap-3">
-                                <img src="{{ $u->avatar_url }}" class="w-9 h-9 rounded-xl object-cover">
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-sm text-slate-700 dark:text-slate-300">
+                    @forelse ($users as $user)
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <td class="px-6 py-4 flex items-center gap-3">
+                                <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700">
                                 <div>
-                                    <p class="font-bold text-gray-900 dark:text-white font-heading">{{ $u->name }}</p>
-                                    <p class="text-[11px] text-gray-500">{{ $u->email }}</p>
+                                    <div class="font-medium text-slate-900 dark:text-white">{{ $user->name }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ $user->email }}</div>
                                 </div>
                             </td>
-                            <td class="p-3.5">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider 
-                                    {{ $u->role === 'admin' ? 'bg-purple-100 text-purple-700' : ($u->role === 'accountant' ? 'bg-blue-100 text-[#005DFF]' : 'bg-emerald-100 text-emerald-700') }}">
-                                    {{ $u->role }}
+                            <td class="px-6 py-4">
+                                @php $roleName = $user->getRoleNames()->first() ?? 'client'; @endphp
+                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full 
+                                    {{ $roleName === 'admin' || $roleName === 'super-admin' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400' : '' }}
+                                    {{ $roleName === 'subadmin' ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : '' }}
+                                    {{ $roleName === 'accountant' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' : '' }}
+                                    {{ $roleName === 'client' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : '' }}">
+                                    {{ ucfirst($roleName) }}
                                 </span>
                             </td>
-                            <td class="p-3.5 text-gray-600 dark:text-gray-400">
-                                {{ $u->phone ?? 'N/A' }} @if($u->company_name) • {{ $u->company_name }} @endif
-                            </td>
-                            <td class="p-3.5">
-                                <button wire:click="toggleStatus({{ $u->id }})" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $u->is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
-                                    {{ $u->is_active ? 'Active' : 'Inactive' }}
+                            <td class="px-6 py-4 text-slate-500 dark:text-slate-400">{{ $user->phone ?? '—' }}</td>
+                            <td class="px-6 py-4">
+                                <button wire:click="toggleStatus({{ $user->id }})" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition {{ $user->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $user->is_active ? 'bg-emerald-500' : 'bg-rose-500' }}"></span>
+                                    {{ $user->is_active ? 'Active' : 'Inactive' }}
                                 </button>
                             </td>
-                            <td class="p-3.5 text-right space-x-2">
-                                <button wire:click="edit({{ $u->id }})" class="text-[#005DFF] font-semibold hover:underline">Edit</button>
-                                <button wire:click="delete({{ $u->id }})" wire:confirm="Delete user account?" class="text-red-500 font-semibold hover:underline">Delete</button>
+                            <td class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs">{{ $user->created_at->format('M d, Y') }}</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button wire:click="edit({{ $user->id }})" class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-xs">Edit</button>
+                                @if($user->id !== auth()->id())
+                                    <button wire:click="delete({{ $user->id }})" onclick="confirm('Are you sure you want to delete this user?') || event.stopImmediatePropagation()" class="text-rose-600 dark:text-rose-400 hover:underline font-medium text-xs">Delete</button>
+                                @endif
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="text-center py-8 text-gray-500">No users found.</td></tr>
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                                <svg class="w-12 h-12 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                                <p class="text-base font-semibold text-slate-900 dark:text-white mb-1">No users found</p>
+                                <p class="text-xs">No records exist matching your filter criteria.</p>
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="mt-4">{{ $users->links() }}</div>
+        @if ($users->hasPages())
+            <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700">
+                {{ $users->links() }}
+            </div>
+        @endif
     </div>
 
-    <!-- Create/Edit Modal -->
-    @if($showModal)
-        <div class="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-gray-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-800">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white font-heading mb-4">{{ $editId ? 'Edit User' : 'Add New Platform User' }}</h3>
+    <!-- User Add/Edit Modal -->
+    @if ($showModal)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 dark:border-slate-700">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ $editId ? 'Edit User' : 'Add New User' }}</h3>
+                    <button wire:click="$set('showModal', false)" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
                 <form wire:submit.prevent="save" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
-                        <input type="text" wire:model="name" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                        @error('name') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
-                        <input type="email" wire:model="email" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                        @error('email') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
-                    </div>
-
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">User Role</label>
-                            <select wire:model="role" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                                <option value="client">Client</option>
-                                <option value="accountant">Accountant / CPA</option>
-                                <option value="admin">Administrator</option>
-                            </select>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">First Name</label>
+                            <input type="text" wire:model="first_name" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            @error('first_name') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Phone</label>
-                            <input type="text" wire:model="phone" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Last Name</label>
+                            <input type="text" wire:model="last_name" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            @error('last_name') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                         </div>
                     </div>
-
-                    @if(!$editId)
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                        <input type="email" wire:model="email" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        @error('email') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Password</label>
-                            <input type="password" wire:model="password" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                            @error('password') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">User Role</label>
+                            <select wire:model="role" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                                <option value="client">Client</option>
+                                <option value="accountant">Accountant</option>
+                                <option value="subadmin">Subadmin</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            @error('role') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+                            <input type="text" wire:model="phone" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            @error('phone') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    @if (!$editId)
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+                            <input type="password" wire:model="password" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            @error('password') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                         </div>
                     @endif
-
-                    <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">
-                        <button type="button" wire:click="$set('showModal', false)" class="btn-secondary text-xs">Cancel</button>
-                        <button type="submit" class="btn-primary text-xs">Save User</button>
+                    <div class="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <button type="button" wire:click="$set('showModal', false)" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition">Save User</button>
                     </div>
                 </form>
             </div>

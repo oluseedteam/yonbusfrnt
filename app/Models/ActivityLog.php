@@ -9,28 +9,30 @@ class ActivityLog extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'user_id', 'action', 'model_type', 'model_id',
-        'description', 'ip_address', 'user_agent', 'properties'
+        'user_id',
+        'action',
+        'description',
+        'model_type',
+        'record_id',
+        'ip_address',
+        'user_agent',
+        'created_at',
     ];
 
-    protected $casts = ['properties' => 'array'];
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($log) {
+            $log->created_at = now();
+        });
+    }
 
+    // ── Relationships ──────────────────────────────────────────────
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public static function log(string $action, string $description = '', $model = null): void
-    {
-        static::create([
-            'user_id'     => auth()->id(),
-            'action'      => $action,
-            'model_type'  => $model ? get_class($model) : null,
-            'model_id'    => $model?->id,
-            'description' => $description,
-            'ip_address'  => request()->ip(),
-            'user_agent'  => request()->userAgent(),
-        ]);
     }
 }

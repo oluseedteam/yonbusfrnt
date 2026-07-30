@@ -1,17 +1,24 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboard;
-use App\Http\Controllers\Client\AppointmentController as ClientAppointment;
 use App\Http\Controllers\Client\DocumentController as ClientDocument;
 use App\Http\Controllers\Accountant\DashboardController as AccountantDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use Illuminate\Support\Facades\Route;
 
-// Public landing page
-Route::get('/', function () {
-    return view('welcome');
-});
+// ─── PUBLIC MARKETING ROUTES ─────────────────────────────────────
+Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/services', [PublicController::class, 'services'])->name('services');
+Route::get('/blog', [PublicController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [PublicController::class, 'blogPost'])->name('blog.show');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::post('/contact', [PublicController::class, 'submitContact'])->name('contact.submit');
+Route::get('/book-appointment', [PublicController::class, 'bookAppointment'])->name('book-appointment');
+Route::get('/privacy-policy', [PublicController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [PublicController::class, 'terms'])->name('terms');
 
 // Auth routes (Breeze)
 require __DIR__.'/auth.php';
@@ -20,9 +27,9 @@ require __DIR__.'/auth.php';
 Route::get('/dashboard', function () {
     $role = auth()->user()->role;
     return match ($role) {
-        'admin'      => redirect()->route('admin.dashboard'),
-        'accountant' => redirect()->route('accountant.dashboard'),
-        default      => redirect()->route('client.dashboard'),
+        'admin', 'superadmin' => redirect()->route('admin.dashboard'),
+        'accountant'          => redirect()->route('accountant.dashboard'),
+        default               => redirect()->route('client.dashboard'),
     };
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -52,12 +59,24 @@ Route::prefix('accountant')->name('accountant.')->middleware(['auth', 'verified'
 });
 
 // ─── ADMIN PORTAL ───────────────────────────────────────────────
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
+Route::get('/admin', function () {
+    if (auth()->check()) {
+        if (in_array(auth()->user()->role, ['admin', 'superadmin', 'subadmin'])) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+})->name('admin');
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:admin,superadmin,subadmin'])->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/users', \App\Livewire\Admin\UserManager::class)->name('users');
     Route::get('/services', \App\Livewire\Admin\ServiceManager::class)->name('services');
     Route::get('/appointments', \App\Livewire\Admin\AppointmentManager::class)->name('appointments');
     Route::get('/invoices', \App\Livewire\Admin\InvoiceManager::class)->name('invoices');
+    Route::get('/blogs', \App\Livewire\Admin\BlogManager::class)->name('blogs');
+    Route::get('/reports', \App\Livewire\Admin\ReportManager::class)->name('reports');
     Route::get('/activity-logs', \App\Livewire\Admin\ActivityLogs::class)->name('activity-logs');
     Route::get('/settings', \App\Livewire\Admin\Settings::class)->name('settings');
 });
