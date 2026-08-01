@@ -1,87 +1,66 @@
 <x-public-layout>
     <x-slot name="title">Professional Tax & Accounting Services | YONBUS Tax & Accounting Services Inc.</x-slot>
 
-    <!-- 1. Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-[#002B8A] to-[#005DFF] text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-wider text-blue-200">
-                        <span class="w-2 h-2 rounded-full bg-[#00A3FF] animate-pulse"></span>
-                        <span>CRA Registered & Certified CPAs</span>
-                    </div>
+    <!-- 1. Hero Section (Full-Bleed Finance & Loan Background Image with Gradient Overlay) -->
+    <section class="relative min-h-[640px] flex items-center overflow-hidden bg-slate-950 text-white pt-20 pb-24 lg:pt-28 lg:pb-32">
+        <!-- Full-Bleed High-Resolution Finance, Investment & Business Loan Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=2400&q=90" alt="YONBUS Finance, Corporate Taxes & Business Loans" class="w-full h-full object-cover object-center scale-105">
+            <!-- Multi-Layer Deep Navy Gradient Overlays for Maximum Contrast & Premium Finish -->
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-900/60"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70"></div>
+            <div class="absolute inset-0 bg-[#002B8A]/45 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
+        </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-tight">
-                        Professional Tax & Accounting Services for Individuals and Businesses
-                    </h1>
-
-                    <p class="text-lg sm:text-xl text-blue-100/90 max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
-                        Empower your financial future with Canada's trusted tax strategies, seamless bookkeeping, corporate audit defense, and automated payroll systems.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-                        <a href="{{ route('book-appointment') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-slate-900 bg-white hover:bg-slate-100 shadow-2xl shadow-blue-900/50 transition-all transform hover:-translate-y-0.5">
-                            Book Appointment
-                            <svg class="w-5 h-5 ml-2 text-[#005DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-
-                        <a href="{{ route('register') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-white bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md transition-all">
-                            Get Started
-                        </a>
-                    </div>
-
-                    <!-- Trust Stats -->
-                    <div class="pt-8 border-t border-white/15 grid grid-cols-3 gap-6 text-center lg:text-left">
-                        <div>
-                            <div class="font-heading text-3xl font-extrabold text-white">99.8%</div>
-                            <div class="text-xs text-blue-200 mt-1">Filing Accuracy</div>
-                        </div>
-                        <div>
-                            <div class="font-heading text-3xl font-extrabold text-white">$12M+</div>
-                            <div class="text-xs text-blue-200 mt-1">Tax Savings Found</div>
-                        </div>
-                        <div>
-                            <div class="font-heading text-3xl font-extrabold text-white">1,500+</div>
-                            <div class="text-xs text-blue-200 mt-1">Active Clients</div>
-                        </div>
-                    </div>
+        <!-- Foreground Hero Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="max-w-3xl space-y-8 text-center lg:text-left">
+                <!-- Badge Header -->
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider text-blue-200 shadow-xl">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>CRA Registered & Certified CPAs • Loan Advisory</span>
                 </div>
 
-                <!-- Hero Graphic Card: Financial & Money Image -->
-                <div class="lg:col-span-5 relative">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 group">
-                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80" alt="YONBUS Financial & Tax Management" class="w-full h-[450px] object-cover transform group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent flex flex-col justify-between p-8">
-                            <div class="flex items-center justify-between">
-                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md text-white border border-white/30">
-                                    💰 Corporate Tax & Financial Advisory
-                                </span>
-                                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/80 text-white backdrop-blur-md shadow-md">
-                                    CRA Certified
-                                </span>
-                            </div>
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-[1.15] drop-shadow-lg">
+                    Professional Tax & Accounting Services for Individuals and Businesses
+                </h1>
 
-                            <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/20 space-y-3 shadow-xl">
-                                <div class="flex items-center justify-between text-xs text-blue-100">
-                                    <span>YONBUS Accounting Portal</span>
-                                    <span class="font-bold text-emerald-400">● Live Synchronization</span>
-                                </div>
-                                <div class="text-white font-extrabold text-lg font-heading">
-                                    $4,850,000+ Corporate Taxes Prepared
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 pt-1 text-xs">
-                                    <div class="bg-white/10 rounded-lg p-2 text-center text-blue-100">
-                                        <div class="font-bold text-white text-sm">100%</div>
-                                        <div>Audit Protection</div>
-                                    </div>
-                                    <div class="bg-white/10 rounded-lg p-2 text-center text-blue-100">
-                                        <div class="font-bold text-white text-sm">24 Hours</div>
-                                        <div>Doc Turnaround</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Sub-headline -->
+                <p class="text-lg sm:text-xl text-slate-200 max-w-2xl font-light leading-relaxed drop-shadow-md">
+                    Empower your financial future with Canada's trusted tax strategies, commercial loan advisory, corporate audit defense, and automated payroll systems.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="{{ route('book-appointment') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-extrabold text-slate-900 bg-white hover:bg-slate-100 shadow-2xl shadow-blue-500/40 transition-all transform hover:-translate-y-0.5">
+                        Book Appointment
+                        <svg class="w-5 h-5 ml-2 text-[#005DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <a href="{{ route('register') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-extrabold text-white bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md transition-all shadow-lg">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Trust Stats Grid -->
+                <div class="pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center lg:text-left">
+                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                        <div class="font-heading text-3xl font-extrabold text-white">99.8%</div>
+                        <div class="text-xs text-blue-200 mt-1 font-medium">Filing Accuracy</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                        <div class="font-heading text-3xl font-extrabold text-emerald-400">$12M+</div>
+                        <div class="text-xs text-blue-200 mt-1 font-medium">Tax Savings Found</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                        <div class="font-heading text-3xl font-extrabold text-amber-300">$15M+</div>
+                        <div class="text-xs text-blue-200 mt-1 font-medium">Loans Approved</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                        <div class="font-heading text-3xl font-extrabold text-white">1,500+</div>
+                        <div class="text-xs text-blue-200 mt-1 font-medium">Active Corporate Clients</div>
                     </div>
                 </div>
             </div>

@@ -3,15 +3,9 @@
 <aside class="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col justify-between h-screen sticky top-0 z-30 transition-all duration-300">
     <div>
         <!-- Logo -->
-        <div class="h-20 flex items-center px-6 border-b border-gray-100 dark:border-gray-800/60">
+        <div class="h-24 flex items-center px-6 border-b border-gray-100 dark:border-gray-800/60">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#002B8A] via-[#005DFF] to-[#00A3FF] flex items-center justify-center text-white font-bold text-lg shadow-md">
-                    Y
-                </div>
-                <div>
-                    <span class="font-extrabold text-base tracking-tight font-heading text-gray-900 dark:text-white leading-none block">YONBUS</span>
-                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block mt-0.5">Tax & Accounting</span>
-                </div>
+                <x-application-logo class="h-14 w-auto object-contain" />
             </a>
         </div>
 

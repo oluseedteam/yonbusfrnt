@@ -25,16 +25,10 @@
     <!-- Top Header Navigation -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-24">
                 <!-- Brand Logo -->
-                <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#002B8A] via-[#005DFF] to-[#00A3FF] flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
-                        Y
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-heading font-extrabold text-xl tracking-tight text-[#002B8A]">YONBUS</span>
-                        <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest -mt-1">Tax & Accounting</span>
-                    </div>
+                <a href="{{ route('home') }}" class="flex items-center space-x-3 group py-2">
+                    <x-application-logo class="h-16 sm:h-20 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
                 </a>
 
                 <!-- Navigation Links (Desktop) -->
@@ -87,10 +81,7 @@
                 <!-- Col 1: Brand Info -->
                 <div class="space-y-4">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#002B8A] via-[#005DFF] to-[#00A3FF] flex items-center justify-center text-white font-bold text-xl shadow-md">
-                            Y
-                        </div>
-                        <span class="font-heading font-extrabold text-2xl text-white">YONBUS</span>
+                        <x-application-logo class="h-12 w-auto object-contain bg-white/90 p-1.5 rounded-xl shadow-md" />
                     </div>
                     <p class="text-sm text-slate-400 leading-relaxed">
                         YONBUS Tax & Accounting Services Inc. delivers high-precision corporate tax, bookkeeping, payroll, and business advisory services designed for modern enterprises and individuals.

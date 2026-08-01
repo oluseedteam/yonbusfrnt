@@ -20,6 +20,20 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Display the dedicated admin login view.
+     */
+    public function createAdmin(): View|\Illuminate\Http\RedirectResponse
+    {
+        if (auth()->check()) {
+            if (in_array(auth()->user()->role, ['admin', 'superadmin', 'subadmin'])) {
+                return redirect()->route('admin.dashboard');
+            }
+            return redirect()->route('dashboard');
+        }
+        return view('auth.admin-login');
+    }
+
+    /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse

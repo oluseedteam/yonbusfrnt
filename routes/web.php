@@ -59,6 +59,8 @@ Route::prefix('accountant')->name('accountant.')->middleware(['auth', 'verified'
 });
 
 // ─── ADMIN PORTAL ───────────────────────────────────────────────
+Route::get('/admin/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'createAdmin'])->name('admin.login');
+
 Route::get('/admin', function () {
     if (auth()->check()) {
         if (in_array(auth()->user()->role, ['admin', 'superadmin', 'subadmin'])) {
@@ -66,7 +68,7 @@ Route::get('/admin', function () {
         }
         return redirect()->route('dashboard');
     }
-    return redirect()->route('login');
+    return redirect()->route('admin.login');
 })->name('admin');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:admin,superadmin,subadmin'])->group(function () {
