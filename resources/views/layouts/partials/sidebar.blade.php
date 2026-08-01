@@ -3,9 +3,9 @@
 <aside class="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col justify-between h-screen sticky top-0 z-30 transition-all duration-300">
     <div>
         <!-- Logo -->
-        <div class="h-24 flex items-center px-6 border-b border-gray-100 dark:border-gray-800/60">
+        <div class="h-28 flex items-center px-6 border-b border-gray-100 dark:border-gray-800/60">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                <x-application-logo class="h-14 w-auto object-contain" />
+                <x-application-logo class="h-16 w-auto object-contain drop-shadow-md" />
             </a>
         </div>
 

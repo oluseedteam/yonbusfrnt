@@ -69,9 +69,9 @@ class ReportService
      */
     public function serviceReport(array $filters = []): array
     {
-        $query = Appointment::selectRaw('service_id, count(*) as total, 
-                sum(case when status="completed" then 1 else 0 end) as completed,
-                sum(case when status="cancelled" then 1 else 0 end) as cancelled')
+        $query = Appointment::selectRaw("service_id, count(*) as total, 
+                sum(case when status='completed' then 1 else 0 end) as completed,
+                sum(case when status='cancelled' then 1 else 0 end) as cancelled")
             ->with('service')
             ->groupBy('service_id')
             ->when(!empty($filters['date_from']), fn($q) => $q->where('date', '>=', $filters['date_from']))
@@ -167,8 +167,11 @@ class ReportService
         $months = collect(range(5, 0))->map(fn($i) => now()->subMonths($i)->format('Y-m'))->values();
 
         $data = $months->map(function ($month) {
+            $startOfMonth = Carbon::parse($month . '-01')->startOfMonth();
+            $endOfMonth   = Carbon::parse($month . '-01')->endOfMonth();
+
             $revenue = Invoice::where('status', 'paid')
-                ->where(\DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $month)
+                ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->sum('total_amount');
 
             return [

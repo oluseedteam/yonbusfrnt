@@ -28,6 +28,17 @@
             margin: auto;
         }
 
+        @keyframes adminCardEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(24px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         .admin-card {
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid rgba(59, 130, 246, 0.25);
@@ -37,6 +48,7 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 93, 255, 0.15);
             position: relative;
             overflow: hidden;
+            animation: adminCardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .admin-card::before {

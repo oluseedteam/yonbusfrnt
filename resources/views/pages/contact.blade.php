@@ -2,7 +2,7 @@
     <x-slot name="title">Contact Us | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Header Banner -->
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20">
+    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Contact YONBUS</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">We're Here to Help Your Business Succeed</h1>
@@ -10,7 +10,7 @@
         </div>
     </section>
 
-    <section class="py-20 bg-slate-50">
+    <section class="py-20 bg-slate-50" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @if(session('success'))
                 <div class="mb-8 p-4 bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-2xl text-center font-semibold">
@@ -19,7 +19,7 @@
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-5 space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="lg:col-span-5 space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm" data-aos="fade-right">
                     <h2 class="text-2xl font-bold font-heading text-slate-900">Head Office</h2>
                     
                     <div class="space-y-6 text-sm text-slate-600">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm" data-aos="fade-left">
                     <h2 class="text-2xl font-bold font-heading text-slate-900 mb-6">Send Us a Direct Message</h2>
                     <form action="{{ route('contact.submit') }}" method="POST" class="space-y-4">
                         @csrf

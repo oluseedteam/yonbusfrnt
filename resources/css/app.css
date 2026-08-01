@@ -15,19 +15,59 @@
 }
 
 .btn-primary {
-    @apply bg-gradient-to-r from-[#005DFF] to-[#00A3FF] hover:from-[#0052e0] hover:to-[#008fe6] text-white font-medium px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm;
+    @apply bg-gradient-to-r from-[#005DFF] to-[#00A3FF] hover:from-[#0052e0] hover:to-[#008fe6] text-white font-medium px-5 py-2.5 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
 }
 
 .btn-secondary {
-    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center justify-center gap-2 text-sm;
+    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
 }
 
 .card-box {
-    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800/60 rounded-2xl p-6 shadow-soft transition-all duration-200;
+    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800/60 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
 }
 
 .glass-card {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-800/40 rounded-2xl p-6 shadow-soft;
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-800/40 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+}
+
+/* Page Entrance & Motion Animations */
+@keyframes pageFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.animate-page-entry {
+    animation: pageFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+    animation: floatSlow 5s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */

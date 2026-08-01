@@ -1,5 +1,5 @@
 <x-public-layout>
-    <x-slot name="title">Professional Tax & Accounting Services | YONBUS Tax & Accounting Services Inc.</x-slot>
+    <x-slot name="title">YONBUS - Professional Tax & Accounting Services</x-slot>
 
     <!-- 1. Hero Section (Full-Bleed Finance & Loan Background Image with Gradient Overlay) -->
     <section class="relative min-h-[640px] flex items-center overflow-hidden bg-slate-950 text-white pt-20 pb-24 lg:pt-28 lg:pb-32">
@@ -68,7 +68,7 @@
     </section>
 
     <!-- 2. Services Overview (All 9 Categories) -->
-    <section class="py-24 bg-slate-50">
+    <section class="py-24 bg-slate-50" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
                 <span class="text-xs font-bold text-[#005DFF] uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">Our Expertise</span>
@@ -78,7 +78,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($services as $service)
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="100">
                         <div class="space-y-4">
                             <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#005DFF] group-hover:bg-[#005DFF] group-hover:text-white transition-colors">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -100,7 +100,7 @@
     </section>
 
     <!-- 3. Why Choose YONBUS -->
-    <section class="py-24 bg-white border-y border-slate-200">
+    <section class="py-24 bg-white border-y border-slate-200" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-6 space-y-6">

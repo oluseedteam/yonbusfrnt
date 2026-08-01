@@ -2,7 +2,7 @@
     <x-slot name="title">About Us | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Header Banner -->
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20">
+    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">About Our Firm</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">Empowering Canadian Business Growth Since 2012</h1>
@@ -11,10 +11,10 @@
     </section>
 
     <!-- Content Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-white" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
+                <div class="space-y-6" data-aos="fade-right">
                     <h2 class="text-3xl font-extrabold font-heading text-slate-900">Who We Are</h2>
                     <p class="text-slate-600 leading-relaxed text-base">
                         YONBUS Tax & Accounting Services Inc. is a premier Canadian financial services firm based in Toronto. Our team of certified public accountants (CPAs), corporate tax auditors, and payroll specialists provide end-to-end tax compliance, bookkeeping, and strategic advisory.
@@ -23,7 +23,7 @@
                         Whether you are an ambitious startup needing provincial business registration or an established enterprise requiring CRA representation, YONBUS delivers accuracy and proactive savings.
                     </p>
                 </div>
-                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 space-y-6 shadow-sm">
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 space-y-6 shadow-sm" data-aos="fade-left">
                     <h3 class="text-xl font-bold font-heading text-slate-900">Firm Accreditations</h3>
                     <ul class="space-y-3 text-sm text-slate-700">
                         <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-[#005DFF] mr-3"></span>Chartered Professional Accountants (CPA Canada)</li>
@@ -35,14 +35,14 @@
             </div>
 
             <!-- Leadership Team -->
-            <div class="space-y-8">
+            <div class="space-y-8" data-aos="fade-up">
                 <div class="text-center max-w-2xl mx-auto space-y-2">
                     <h2 class="text-3xl font-extrabold font-heading text-slate-900">Our Senior Accountant Partners</h2>
                     <p class="text-slate-600 text-sm">Direct expertise guiding your corporate tax returns and financial filings.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 text-center space-y-4">
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 text-center space-y-4 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-24 h-24 bg-gradient-to-tr from-[#002B8A] to-[#005DFF] rounded-full mx-auto flex items-center justify-center text-white text-3xl font-extrabold shadow-lg">
                             SJ
                         </div>
@@ -51,7 +51,7 @@
                         <p class="text-slate-600 text-xs leading-relaxed">Over 12 years of specialized practice in corporate restructuring, capital gains optimization, and CRA audit defense.</p>
                     </div>
 
-                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 text-center space-y-4">
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 text-center space-y-4 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-24 h-24 bg-gradient-to-tr from-[#00A3FF] to-[#002B8A] rounded-full mx-auto flex items-center justify-center text-white text-3xl font-extrabold shadow-lg">
                             MB
                         </div>

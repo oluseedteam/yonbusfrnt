@@ -16,7 +16,7 @@
     </div>
 
     <!-- 6 Detailed Stat Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
         <div class="card-box">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase font-heading">Total Bookings</span>
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Chart.js Visualizations Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8" data-aos="fade-up" data-aos-delay="200">
         <!-- Monthly Revenue Chart -->
         <div class="lg:col-span-8 card-box">
             <h3 class="font-bold text-base text-gray-900 dark:text-white font-heading mb-4">Monthly Revenue Overview ($ CAD)</h3>
@@ -74,7 +74,7 @@
     </div>
 
     <!-- System Activity Log Table -->
-    <div class="card-box mb-8">
+    <div class="card-box mb-8" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-base text-gray-900 dark:text-white font-heading">Recent System Activity Audit</h3>
             <a href="{{ route('admin.activity-logs') }}" class="text-xs font-semibold text-[#005DFF] hover:underline">View All Logs</a>
@@ -138,9 +138,9 @@
             new Chart(srvCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: {!! json_encode($servicePopularity['labels']) !!},
+                    labels: {!! json_encode($serviceChart['labels']) !!},
                     datasets: [{
-                        data: {!! json_encode($servicePopularity['data']) !!},
+                        data: {!! json_encode($serviceChart['data']) !!},
                         backgroundColor: ['#005DFF', '#00A3FF', '#38BDF8', '#818CF8', '#A7F3D0']
                     }]
                 },

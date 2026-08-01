@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'YONBUS Tax & Accounting Services Inc.' }}</title>
+    <title>{{ $title ?? 'YONBUS' }}</title>
+
+    <!-- Favicon / Website Title Icon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
 
     <!-- Google Fonts: Inter / Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Framer-Motion Style Scroll Animations) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- Tailwind & Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -23,12 +31,12 @@
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
     <!-- Top Header Navigation -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-24">
+            <div class="flex items-center justify-between h-28 sm:h-32">
                 <!-- Brand Logo -->
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 group py-2">
-                    <x-application-logo class="h-16 sm:h-20 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
+                    <x-application-logo class="h-20 sm:h-24 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-all duration-300" />
                 </a>
 
                 <!-- Navigation Links (Desktop) -->
@@ -69,8 +77,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <!-- Main Content Area with Page Motion Animation -->
+    <main class="flex-grow animate-page-entry">
         {{ $slot }}
     </main>
 
@@ -144,6 +152,21 @@
             </div>
         </div>
     </footer>
+
+    <!-- AOS (Framer-Motion Style Scroll Animations Script) -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 650,
+                    once: true,
+                    easing: 'ease-out-cubic',
+                    offset: 40
+                });
+            }
+        });
+    </script>
 
     @livewireScripts
 </body>

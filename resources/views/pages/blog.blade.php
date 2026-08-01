@@ -2,7 +2,7 @@
     <x-slot name="title">Tax Tips & Accounting Blog | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Header Banner -->
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20">
+    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Tax & Financial Insights</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">Canadian Tax Tips, Guides & Accounting News</h1>
@@ -11,10 +11,10 @@
     </section>
 
     <!-- Blog Listing Section -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-slate-50" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <!-- Search & Filter Bar -->
-            <form method="GET" action="{{ route('blog') }}" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+            <form method="GET" action="{{ route('blog') }}" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between" data-aos="fade-up" data-aos-delay="50">
                 <div class="w-full md:w-1/2">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Search articles, tax tips, business registration..." class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm">
                 </div>
@@ -32,7 +32,7 @@
             <!-- Blog Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($blogs as $b)
-                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="100">
                         <div>
                             @if($b->featured_image)
                                 <div class="h-48 overflow-hidden relative">

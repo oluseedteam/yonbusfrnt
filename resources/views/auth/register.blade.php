@@ -33,6 +33,17 @@
             margin: auto;
         }
 
+        @keyframes cardEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(24px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         /* ── LEFT PANEL (Glassmorphism over Image BG) ── */
         .left-panel {
             background: rgba(255, 255, 255, 0.06);
@@ -44,6 +55,7 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: cardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .panel-logo-wrap {
@@ -122,6 +134,7 @@
             padding: 38px 40px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.8);
+            animation: cardEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .card-eyebrow { font-size: 12px; font-weight: 700; color: #005DFF; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
