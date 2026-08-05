@@ -1,325 +1,263 @@
 <x-public-layout>
-    <x-slot name="title">YONBUS - Professional Tax & Accounting Services</x-slot>
+    <x-slot name="title">YONBUS Tax & Accounting Services Inc. — Your Partner in Financial Clarity & Growth</x-slot>
 
-    <!-- 1. Hero Section (Full-Bleed Finance & Loan Background Image with Gradient Overlay) -->
-    <section class="relative min-h-[640px] flex items-center overflow-hidden bg-slate-950 text-white pt-20 pb-24 lg:pt-28 lg:pb-32">
-        <!-- Full-Bleed High-Resolution Finance, Investment & Business Loan Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=2400&q=90" alt="YONBUS Finance, Corporate Taxes & Business Loans" class="w-full h-full object-cover object-center scale-105">
-            <!-- Multi-Layer Deep Navy Gradient Overlays for Maximum Contrast & Premium Finish -->
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-900/60"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70"></div>
-            <div class="absolute inset-0 bg-[#002B8A]/45 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
+    {{-- ============================================================
+         HERO — Dark navy background with strong overlay on image
+         ============================================================ --}}
+    <section class="relative overflow-hidden" style="min-height: 88vh; display: flex; align-items: center; background: #020B24;">
+        {{-- Background Image with visible contrast & dark gradient overlay --}}
+        <div class="absolute inset-0" style="z-index: 0;">
+            <img src="{{ asset('images/accounting-hero-bg.jpg') }}"
+                 alt="YONBUS Office"
+                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.65;">
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(2,11,36,0.88) 0%, rgba(0,30,90,0.70) 55%, rgba(2,11,36,0.80) 100%);"></div>
         </div>
 
-        <!-- Foreground Hero Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="max-w-3xl space-y-8 text-center lg:text-left">
-                <!-- Badge Header -->
-                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider text-blue-200 shadow-xl">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>CRA Registered & Certified CPAs • Loan Advisory</span>
+        <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32" style="z-index: 1;">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+                {{-- LEFT: Headline & CTAs --}}
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                    {{-- Badge --}}
+                    <div class="inline-flex items-center gap-2" style="background: rgba(0,82,255,0.2); border: 1px solid rgba(77,139,255,0.35); color: #93c5fd; padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content;">
+                        <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                        Trusted by 5,000+ Canadian Businesses
+                    </div>
+
+                    {{-- Main Headline --}}
+                    <h1 class="font-heading font-extrabold" style="color: #ffffff; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em;">
+                        YONBUS Tax &<br>
+                        Accounting <span style="color: #60a5fa;">Services Inc.</span>
+                    </h1>
+
+                    {{-- Subheadline --}}
+                    <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.75; max-width: 520px;">
+                        A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
+                    </p>
+
+                    {{-- Slogan box --}}
+                    <div style="border-left: 4px solid #0052ff; background: rgba(0,82,255,0.12); padding: 14px 18px; border-radius: 0 12px 12px 0;">
+                        <p style="color: #bfdbfe; font-size: 0.9rem; font-style: italic;">
+                            "Your Partner in Financial Clarity and Growth"
+                        </p>
+                    </div>
+
+                    {{-- CTA Buttons --}}
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-top: 0.25rem;">
+                        <a href="{{ route('register') }}"
+                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.35); text-decoration: none; transition: transform 0.15s ease;">
+                            Get Started Free
+                            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <a href="{{ route('book-appointment') }}"
+                           style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: #ffffff; font-weight: 600; font-size: 0.95rem; padding: 14px 26px; border-radius: 12px; text-decoration: none;">
+                            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            Book Consultation
+                        </a>
+                    </div>
+
+                    {{-- Social Proof --}}
+                    <div style="display: flex; align-items: center; gap: 1rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; margin-right: 4px;">
+                            @foreach(['photo-1534528741775-53994a69daeb','photo-1507003211169-0a1dd7228f2d','photo-1500648767791-00dcc994a43e','photo-1573496359142-b8d87734a5a2'] as $p)
+                            <img src="https://images.unsplash.com/{{ $p }}?auto=format&fit=crop&w=80&q=80"
+                                 style="width:34px;height:34px;border-radius:999px;object-fit:cover;margin-left:-8px;border:2px solid #020B24;">
+                            @endforeach
+                        </div>
+                        <div>
+                            <div style="display:flex;gap:2px;color:#fbbf24;">
+                                @for($i=0;$i<5;$i++)<svg style="width:14px;height:14px;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>@endfor
+                            </div>
+                            <div style="font-size:0.8rem;font-weight:600;color:#ffffff;margin-top:2px;">4.9/5 <span style="color:#94a3b8;font-weight:400;">from 500+ reviews</span></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Main Headline -->
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-[1.15] drop-shadow-lg">
-                    Professional Tax & Accounting Services for Individuals and Businesses
-                </h1>
-
-                <!-- Sub-headline -->
-                <p class="text-lg sm:text-xl text-slate-200 max-w-2xl font-light leading-relaxed drop-shadow-md">
-                    Empower your financial future with Canada's trusted tax strategies, commercial loan advisory, corporate audit defense, and automated payroll systems.
-                </p>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                    <a href="{{ route('book-appointment') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-extrabold text-slate-900 bg-white hover:bg-slate-100 shadow-2xl shadow-blue-500/40 transition-all transform hover:-translate-y-0.5">
-                        Book Appointment
-                        <svg class="w-5 h-5 ml-2 text-[#005DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-
-                    <a href="{{ route('register') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-extrabold text-white bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md transition-all shadow-lg">
-                        Get Started
-                    </a>
+                {{-- RIGHT: 4 KPI Cards (desktop only) --}}
+                <div class="hidden lg:grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    @foreach([
+                        ['bg'=>'rgba(16,185,129,0.12)','bc'=>'rgba(16,185,129,0.25)','ic'=>'rgba(16,185,129,0.2)','icc'=>'#34d399','path'=>'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6','label'=>'Tax Savings','value'=>'$125,430','sub'=>'▲ 12.5% this quarter','sc'=>'#34d399'],
+                        ['bg'=>'rgba(0,82,255,0.12)','bc'=>'rgba(0,82,255,0.25)','ic'=>'rgba(0,82,255,0.2)','icc'=>'#60a5fa','path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','label'=>'CRA Tax Return','value'=>'✓ 2024 Filed','sub'=>'Successfully verified','sc'=>'#34d399'],
+                        ['bg'=>'rgba(251,191,36,0.1)','bc'=>'rgba(251,191,36,0.25)','ic'=>'rgba(251,191,36,0.2)','icc'=>'#fbbf24','path'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','label'=>'Next Appointment','value'=>'Aug 12, 2026','sub'=>'10:00 AM · Confirmed','sc'=>'#94a3b8'],
+                        ['bg'=>'rgba(0,82,255,0.18)','bc'=>'rgba(0,82,255,0.35)','ic'=>'rgba(0,82,255,0.25)','icc'=>'#93c5fd','path'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','label'=>'Active Clients','value'=>'5,000+','sub'=>'Across Canada','sc'=>'#93c5fd'],
+                    ] as $card)
+                    <div style="background:{{ $card['bg'] }};border:1px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;">
+                        <div style="width:44px;height:44px;border-radius:12px;background:{{ $card['ic'] }};display:flex;align-items:center;justify-content:center;">
+                            <svg style="width:22px;height:22px;color:{{ $card['icc'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['path'] }}"/></svg>
+                        </div>
+                        <div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">{{ $card['label'] }}</div>
+                            <div style="font-size:1.1rem;font-weight:800;color:#ffffff;margin-top:2px;">{{ $card['value'] }}</div>
+                            <div style="font-size:11px;color:{{ $card['sc'] }};margin-top:2px;">{{ $card['sub'] }}</div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Trust Stats Grid -->
-                <div class="pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center lg:text-left">
-                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <div class="font-heading text-3xl font-extrabold text-white">99.8%</div>
-                        <div class="text-xs text-blue-200 mt-1 font-medium">Filing Accuracy</div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <div class="font-heading text-3xl font-extrabold text-emerald-400">$12M+</div>
-                        <div class="text-xs text-blue-200 mt-1 font-medium">Tax Savings Found</div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <div class="font-heading text-3xl font-extrabold text-amber-300">$15M+</div>
-                        <div class="text-xs text-blue-200 mt-1 font-medium">Loans Approved</div>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <div class="font-heading text-3xl font-extrabold text-white">1,500+</div>
-                        <div class="text-xs text-blue-200 mt-1 font-medium">Active Corporate Clients</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. Services Overview (All 9 Categories) -->
-    <section class="py-24 bg-slate-50" data-aos="fade-up">
+    {{-- ============================================================
+         STATS BAR
+         ============================================================ --}}
+    <section style="background: #0052ff; padding: 2.5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-bold text-[#005DFF] uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">Our Expertise</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading">Comprehensive Tax & Accounting Solutions</h2>
-                <p class="text-slate-600 text-base sm:text-lg">From personal tax returns to complex corporate restructuring and CRA audit representation, our accredited advisors deliver reliable outcomes.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($services as $service)
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="100">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#005DFF] group-hover:bg-[#005DFF] group-hover:text-white transition-colors">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold font-heading text-slate-900 group-hover:text-[#005DFF] transition-colors">{{ $service->name }}</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">{{ $service->description }}</p>
-                        </div>
-                        <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
-                            <span class="text-slate-500">Duration: {{ $service->duration }} mins</span>
-                            <a href="{{ route('book-appointment') }}?service={{ $service->id }}" class="text-[#005DFF] hover:text-[#002B8A] inline-flex items-center">
-                                Book Now
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                @foreach([
+                    ['num'=>'5,000+','label'=>'Satisfied Clients'],
+                    ['num'=>'10+','label'=>'Years of Expertise'],
+                    ['num'=>'98%','label'=>'CRA Compliance Rate'],
+                    ['num'=>'4.9★','label'=>'Client Rating'],
+                ] as $s)
+                <div>
+                    <div class="font-heading font-extrabold" style="font-size:1.9rem;color:#ffffff;">{{ $s['num'] }}</div>
+                    <div style="font-size:0.82rem;color:#bfdbfe;margin-top:4px;font-weight:500;">{{ $s['label'] }}</div>
+                </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    <!-- 3. Why Choose YONBUS -->
-    <section class="py-24 bg-white border-y border-slate-200" data-aos="fade-up">
+    {{-- ============================================================
+         SECTION PREVIEW CARDS — link to individual pages
+         ============================================================ --}}
+    <section style="background: #f8faff; padding: 5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-6 space-y-6">
-                    <span class="text-xs font-bold text-[#005DFF] uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">Why YONBUS</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading leading-tight">Built on Precision, Transparency, and Dedicated Professionalism</h2>
-                    <p class="text-slate-600 text-base leading-relaxed">
-                        We don't just file taxes; we establish long-term financial clarity for your business. Our dedicated team of CPAs combines cutting-edge portal technology with deep Canadian tax code mastery.
-                    </p>
-
-                    <div class="space-y-4 pt-2">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-[#005DFF] flex items-center justify-center shrink-0 mt-1 font-bold">1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 font-heading">Dedicated CPA & Accountant Assignment</h4>
-                                <p class="text-slate-600 text-sm">Direct access to your assigned tax specialist through integrated client messaging.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-[#005DFF] flex items-center justify-center shrink-0 mt-1 font-bold">2</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 font-heading">24/7 Secure Document Management</h4>
-                                <p class="text-slate-600 text-sm">Upload tax slips, receipts, and payroll records securely from any desktop or mobile device.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-[#005DFF] flex items-center justify-center shrink-0 mt-1 font-bold">3</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 font-heading">Complete Audit & CRA Protection</h4>
-                                <p class="text-slate-600 text-sm">Proactive audit defense and direct correspondence handling with tax authorities.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative">
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-bold font-heading text-white">Client Portal Advantage</h3>
-                        <p class="text-slate-300 text-sm">Manage all corporate filings, message accountants, download reports, and view invoice history in one place.</p>
-                        
-                        <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-4">
-                            <div class="flex justify-between items-center text-xs text-slate-400">
-                                <span>Status Tracker</span>
-                                <span class="text-emerald-400 font-bold">Completed</span>
-                            </div>
-                            <div class="text-lg font-bold text-white">2023 Federal Corporate Return (T2)</div>
-                            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-[#005DFF] h-full w-full"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Submitted to CRA</span>
-                                <span>Notice of Assessment Ready</span>
-                            </div>
-                        </div>
-
-                        <a href="{{ route('login') }}" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl font-semibold bg-[#005DFF] hover:bg-[#002B8A] text-white transition">
-                            Access Client Portal
-                        </a>
-                    </div>
-                </div>
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <span style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.08em;">What We Offer</span>
+                <h2 class="font-heading font-extrabold" style="font-size:clamp(1.8rem,4vw,2.5rem);color:#0a1a4a;margin-top:8px;">Everything Your Business Needs</h2>
+                <p style="color:#4b5563;font-size:1rem;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto;">From tax filing to business advisory, YONBUS has you fully covered. Explore our services and learn about who we are.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- 4. Appointment Booking CTA -->
-    <section class="py-20 bg-gradient-to-r from-[#002B8A] via-[#005DFF] to-[#00A3FF] text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-            <h2 class="text-3xl sm:text-5xl font-extrabold font-heading tracking-tight">Ready to Optimize Your Tax & Business Accounting?</h2>
-            <p class="text-xl text-blue-100 max-w-2xl mx-auto font-light">Book an online consultation with our senior tax accountants today and get your finances on track.</p>
-            <div>
-                <a href="{{ route('book-appointment') }}" class="inline-flex items-center justify-center px-10 py-4 rounded-xl text-lg font-bold text-[#002B8A] bg-white hover:bg-slate-100 shadow-2xl transition transform hover:-translate-y-0.5">
-                    Schedule Your Consultation
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {{-- About Card --}}
+                <a href="{{ route('about') }}" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s ease;"
+                   onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 8px 28px rgba(0,82,255,0.1)';this.style.transform='translateY(-4px)';"
+                   onmouseleave="this.style.borderColor='#e0e7ff';this.style.boxShadow='none';this.style.transform='translateY(0)';">
+                    <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏢</div>
+                    <div>
+                        <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About Us</div>
+                        <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1.15rem;margin-bottom:8px;">Who We Are & Our Values</h3>
+                        <p style="color:#4b5563;font-size:0.87rem;line-height:1.65;">Learn about YONBUS, our mission, core values (Integrity, Professionalism, Excellence, Client Focus), and our commitment to Canadian clients.</p>
+                    </div>
+                    <div style="display:inline-flex;align-items:center;gap:6px;color:#0052ff;font-size:0.85rem;font-weight:700;">
+                        Learn More <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </div>
+                </a>
+
+                {{-- Services Card --}}
+                <a href="{{ route('services') }}" style="background:#0052ff;border:1.5px solid #0052ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📋</div>
+                    <div>
+                        <div style="font-size:11px;font-weight:800;color:#bfdbfe;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Our Services</div>
+                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;margin-bottom:8px;">5 Specialized Practice Areas</h3>
+                        <p style="color:#bfdbfe;font-size:0.87rem;line-height:1.65;">Tax Services, Accounting & Bookkeeping, Payroll, Business Advisory, and Compliance Services — all tailored for Canadian businesses.</p>
+                    </div>
+                    <div style="display:inline-flex;align-items:center;gap:6px;color:#ffffff;font-size:0.85rem;font-weight:700;">
+                        View Services <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </div>
+                </a>
+
+                {{-- Contact Card --}}
+                <a href="{{ route('contact') }}" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s ease;"
+                   onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 8px 28px rgba(0,82,255,0.1)';this.style.transform='translateY(-4px)';"
+                   onmouseleave="this.style.borderColor='#e0e7ff';this.style.boxShadow='none';this.style.transform='translateY(0)';">
+                    <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📞</div>
+                    <div>
+                        <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Get In Touch</div>
+                        <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1.15rem;margin-bottom:8px;">Contact Our Team</h3>
+                        <p style="color:#4b5563;font-size:0.87rem;line-height:1.65;">Reach our Gatineau office, send a direct message, or book a free consultation — we're here to help your business succeed.</p>
+                    </div>
+                    <div style="display:inline-flex;align-items:center;gap:6px;color:#0052ff;font-size:0.85rem;font-weight:700;">
+                        Contact Us <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 5. Featured Blog Posts (Replacing Pricing Section) -->
-    <section class="py-24 bg-slate-50 border-b border-slate-200">
+    {{-- ============================================================
+         FEATURED BLOG SECTION
+         ============================================================ --}}
+    <section style="background: #ffffff; padding: 5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                <div class="space-y-3">
-                    <span class="text-xs font-bold text-[#005DFF] uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">Insights & Resources</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading">Featured Articles, Tax Tips & Accounting Guides</h2>
-                    <p class="text-slate-600 text-sm sm:text-base max-w-2xl">Stay updated with Canadian tax updates, business registration tips, and accounting strategies written by expert CPAs.</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2.5rem;">
+                <div>
+                    <span style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.08em;">Insights & Guides</span>
+                    <h2 class="font-heading font-extrabold" style="font-size:clamp(1.6rem,3vw,2.2rem);color:#0a1a4a;margin-top:6px;">Tax Tips & Blog Posts</h2>
                 </div>
-                <div class="mt-6 md:mt-0">
-                    <a href="{{ route('blog') }}" class="inline-flex items-center text-sm font-bold text-[#005DFF] hover:text-[#002B8A] transition">
-                        View All Articles
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
+                <a href="{{ route('blog') }}" style="display:inline-flex;align-items:center;gap:6px;color:#0052ff;font-size:0.87rem;font-weight:700;text-decoration:none;">
+                    View All Articles <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @foreach($featuredBlogs as $blog)
-                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            @if($blog->featured_image)
-                                <div class="h-48 overflow-hidden relative">
-                                    <img src="{{ $blog->featured_image }}" alt="{{ $blog->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <span class="absolute top-4 left-4 bg-[#005DFF] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                                        {{ $blog->category->name }}
-                                    </span>
-                                </div>
-                            @endif
-                            <div class="p-6 space-y-3">
-                                <div class="text-xs text-slate-400 font-medium">Published {{ $blog->published_at ? $blog->published_at->format('M d, Y') : 'Recently' }}</div>
-                                <h3 class="font-heading font-bold text-lg text-slate-900 group-hover:text-[#005DFF] transition-colors leading-snug">
-                                    <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
-                                </h3>
-                                <p class="text-slate-600 text-sm line-clamp-3 leading-relaxed">{{ $blog->excerpt }}</p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @if(isset($featuredBlogs) && count($featuredBlogs) > 0)
+                    @foreach($featuredBlogs as $blog)
+                    <article style="background:#f8faff;border:1.5px solid #e0e7ff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+                        @if($blog->featured_image)
+                        <div style="height:180px;overflow:hidden;">
+                            <img src="{{ $blog->featured_image }}" alt="{{ $blog->title }}" style="width:100%;height:100%;object-fit:cover;">
                         </div>
-                        <div class="px-6 pb-6 pt-2">
-                            <a href="{{ route('blog.show', $blog->slug) }}" class="text-xs font-bold text-[#005DFF] group-hover:text-[#002B8A] inline-flex items-center">
-                                Read Full Guide
-                                <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        @endif
+                        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:8px;">
+                            <div style="font-size:11px;color:#9ca3af;font-weight:500;">{{ $blog->published_at ? $blog->published_at->format('M d, Y') : 'Recently' }}</div>
+                            <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1rem;line-height:1.45;">{{ $blog->title }}</h3>
+                            <p style="color:#4b5563;font-size:0.85rem;line-height:1.6;flex:1;">{{ Str::limit($blog->excerpt, 120) }}</p>
+                            <a href="{{ route('blog.show', $blog->slug) }}" style="display:inline-flex;align-items:center;gap:5px;color:#0052ff;font-size:0.8rem;font-weight:700;text-decoration:none;margin-top:8px;">
+                                Read Guide <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                             </a>
                         </div>
                     </article>
-                @endforeach
+                    @endforeach
+                @else
+                    @foreach([
+                        ['tag'=>'Tax Filing','date'=>'Aug 01, 2026','title'=>'Top 10 Corporate Tax Deductions for Small Businesses in Canada','excerpt'=>'Discover essential capital cost allowances and deductible business expenses to minimize your tax liability.'],
+                        ['tag'=>'Bookkeeping','date'=>'Jul 28, 2026','title'=>'How to Prepare for a CRA Audit with Zero Stress','excerpt'=>'A step-by-step audit preparation roadmap to keep your financial records organized and fully compliant.'],
+                        ['tag'=>'Payroll','date'=>'Jul 20, 2026','title'=>'Complete Payroll Automation Guide for Growing Enterprises','excerpt'=>'Streamline monthly employee remittances, T4 slips, and direct deposits with automated payroll systems.'],
+                    ] as $post)
+                    <article style="background:#f8faff;border:1.5px solid #e0e7ff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+                        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:8px;">
+                            <span style="display:inline-block;background:#eff6ff;color:#0052ff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;padding:4px 10px;border-radius:999px;width:fit-content;">{{ $post['tag'] }}</span>
+                            <div style="font-size:11px;color:#9ca3af;font-weight:500;">{{ $post['date'] }}</div>
+                            <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1rem;line-height:1.45;">{{ $post['title'] }}</h3>
+                            <p style="color:#4b5563;font-size:0.85rem;line-height:1.6;flex:1;">{{ $post['excerpt'] }}</p>
+                            <a href="{{ route('blog') }}" style="display:inline-flex;align-items:center;gap:5px;color:#0052ff;font-size:0.8rem;font-weight:700;text-decoration:none;margin-top:8px;">
+                                Read Guide <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </article>
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>
 
-    <!-- 6. Testimonials -->
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-bold text-[#005DFF] uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">Client Reviews</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading">Trusted by Entrepreneurs & Individuals</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-4">
-                    <div class="flex text-amber-400">★★★★★</div>
-                    <p class="text-slate-700 text-sm leading-relaxed">"YONBUS transformed our corporate tax preparation. Sarah and her team identified key capital cost allowances that saved us over $15,000 this tax year."</p>
-                    <div class="pt-4 border-t border-slate-200">
-                        <div class="font-bold text-slate-900 text-sm">Robert Wilson</div>
-                        <div class="text-xs text-slate-500">CEO, Wilson Tech Ltd</div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-4">
-                    <div class="flex text-amber-400">★★★★★</div>
-                    <p class="text-slate-700 text-sm leading-relaxed">"The online booking system and client portal make uploading monthly bookkeeping documents effortless. I always know where my filings stand."</p>
-                    <div class="pt-4 border-t border-slate-200">
-                        <div class="font-bold text-slate-900 text-sm">Jane Smith</div>
-                        <div class="text-xs text-slate-500">Founder, Smith & Co. Retail</div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-4">
-                    <div class="flex text-amber-400">★★★★★</div>
-                    <p class="text-slate-700 text-sm leading-relaxed">"When the CRA sent an audit audit review notice, YONBUS represented us directly and resolved the inquiry within 10 days. Outstanding professional service!"</p>
-                    <div class="pt-4 border-t border-slate-200">
-                        <div class="font-bold text-slate-900 text-sm">John Doe</div>
-                        <div class="text-xs text-slate-500">Managing Principal, Doe Enterprises</div>
-                    </div>
-                </div>
+    {{-- ============================================================
+         CTA BANNER
+         ============================================================ --}}
+    <section style="background: #0052ff; padding: 4.5rem 0;">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-heading font-extrabold" style="color:#ffffff;font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:14px;">
+                Ready to Simplify Your Taxes & Accounting?
+            </h2>
+            <p style="color:#bfdbfe;font-size:1rem;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.65;">
+                Join thousands of satisfied Canadian businesses who trust YONBUS for all their financial needs.
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+                <a href="{{ route('register') }}"
+                   style="display:inline-flex;align-items:center;gap:8px;background:#ffffff;color:#0052ff;font-weight:700;font-size:0.95rem;padding:14px 28px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);text-decoration:none;">
+                    Get Started Free
+                    <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+                <a href="{{ route('book-appointment') }}"
+                   style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.35);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;">
+                    Book Consultation
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- 7. Contact Section -->
-    <section class="py-20 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-5 space-y-6">
-                    <span class="text-xs font-bold text-[#00A3FF] uppercase tracking-widest bg-blue-900/50 px-3.5 py-1.5 rounded-full border border-blue-700">Get in Touch</span>
-                    <h2 class="text-3xl font-extrabold font-heading text-white">Have a Specific Tax or Accounting Question?</h2>
-                    <p class="text-slate-300 text-sm leading-relaxed">Send us a direct message or stop by our Toronto office. Our team responds within one business day.</p>
-                    
-                    <div class="space-y-4 text-sm text-slate-300 pt-4">
-                        <p class="flex items-center"><strong class="w-24 text-white">Office:</strong> 100 Financial Plaza, Toronto, ON</p>
-                        <p class="flex items-center"><strong class="w-24 text-white">Phone:</strong> +1 (800) 555-YONBUS</p>
-                        <p class="flex items-center"><strong class="w-24 text-white">Email:</strong> info@yonbus.com</p>
-                        <p class="flex items-center"><strong class="w-24 text-white">Hours:</strong> Mon - Fri: 8:30 AM - 6:00 PM EST</p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 bg-white text-slate-900 rounded-3xl p-8 shadow-2xl">
-                    <form action="{{ route('contact.submit') }}" method="POST" class="space-y-4">
-                        @csrf
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Your Name</label>
-                                <input type="text" name="name" required class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm" placeholder="John Doe">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email Address</label>
-                                <input type="email" name="email" required class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm" placeholder="john@example.com">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Phone Number</label>
-                                <input type="text" name="phone" class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm" placeholder="+1 (555) 000-0000">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Subject</label>
-                                <input type="text" name="subject" required class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm" placeholder="Corporate Tax Inquiry">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Message</label>
-                            <textarea name="message" rows="4" required class="w-full rounded-xl border-slate-300 focus:border-[#005DFF] focus:ring-[#005DFF] text-sm" placeholder="How can our accounting team assist you?"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full py-4 bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold rounded-xl shadow-lg transition">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 </x-public-layout>

@@ -247,21 +247,6 @@
             <p class="card-sub">Authorized personnel authentication portal.</p>
         </div>
 
-        <!-- Quick Credentials Hint Card -->
-        <div class="cred-box">
-            <div class="cred-header">
-                <span>🔑 Default Administrator Credentials</span>
-                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">System Default</span>
-            </div>
-            <div class="cred-items">
-                <div><strong>Email:</strong> admin@admin.com</div>
-                <div><strong>Password:</strong> admin</div>
-            </div>
-            <button type="button" class="btn-autofill" onclick="autofillAdmin()">
-                ⚡ Auto-Fill Admin Credentials
-            </button>
-        </div>
-
         @if (session('status'))
             <div class="status-alert">{{ session('status') }}</div>
         @endif
@@ -283,9 +268,9 @@
                     id="admin_email"
                     type="email"
                     name="email"
-                    value="admin@admin.com"
+                    value="{{ old('email') }}"
                     class="form-input {{ $errors->has('email') ? 'is-error' : '' }}"
-                    placeholder="admin@admin.com"
+                    placeholder="Enter administrator email"
                     required
                     autofocus
                     autocomplete="username"
@@ -299,7 +284,6 @@
                         id="admin_password"
                         type="password"
                         name="password"
-                        value="admin"
                         class="form-input {{ $errors->has('password') ? 'is-error' : '' }}"
                         placeholder="••••••••"
                         required

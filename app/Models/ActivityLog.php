@@ -11,6 +11,10 @@ class ActivityLog extends Model
 
     public $timestamps = false;
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'user_id',
         'action',
