@@ -41,7 +41,7 @@ class BookingSystem extends Component
         }
 
         // Auto select first available accountant if any
-        $accountant = User::role('accountant')->first();
+        $accountant = User::roleSafe('accountant')->first();
         if ($accountant) {
             $this->accountant_id = $accountant->id;
         }
@@ -96,13 +96,13 @@ class BookingSystem extends Component
                 'phone'      => $this->client_phone,
                 'is_active'  => true,
             ]);
-            $user->assignRole('client');
+            $user->safeAssignRole('client');
         }
 
         // 2. Resolve assigned accountant
         $accountantId = $this->accountant_id;
         if (!$accountantId) {
-            $firstAccountant = User::role('accountant')->first();
+            $firstAccountant = User::roleSafe('accountant')->first();
             $accountantId = $firstAccountant ? $firstAccountant->id : 1;
         }
 
@@ -132,7 +132,7 @@ class BookingSystem extends Component
     public function render()
     {
         $services    = Service::where('is_active', true)->get();
-        $accountants = User::role('accountant')->get();
+        $accountants = User::roleSafe('accountant')->get();
 
         // Calculate available time slots
         $timeSlots = [];

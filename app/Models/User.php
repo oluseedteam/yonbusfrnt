@@ -72,11 +72,30 @@ class User extends Authenticatable implements MustVerifyEmail
         return "https://ui-avatars.com/api/?name={$name}&background=005DFF&color=fff&bold=true";
     }
 
-    // ── Role helpers ───────────────────────────────────────────────
+    // ── Role helpers & safe scopes ─────────────────────────────────
     public function isSuperAdmin(): bool  { return $this->hasRole(['super-admin', 'superadmin']) || $this->role === 'superadmin' || $this->role === 'super-admin'; }
     public function isAdmin(): bool       { return $this->hasRole(['admin', 'super-admin', 'superadmin', 'subadmin']) || in_array($this->role, ['admin', 'superadmin', 'subadmin']); }
     public function isAccountant(): bool  { return $this->hasRole('accountant') || $this->role === 'accountant'; }
     public function isClient(): bool      { return $this->hasRole('client') || $this->role === 'client'; }
+
+    public function scopeRoleSafe($query, $role)
+    {
+        try {
+            return $query->role($role);
+        } catch (\Throwable $e) {
+            $roles = is_array($role) ? $role : [$role];
+            return $query->whereIn('role', $roles);
+        }
+    }
+
+    public function safeAssignRole($role)
+    {
+        try {
+            $this->assignRole($role);
+        } catch (\Throwable $e) {
+            $this->update(['role' => is_array($role) ? $role[0] : $role]);
+        }
+    }
 
 
     // ── Relationships ───────────────────────────────────────────────

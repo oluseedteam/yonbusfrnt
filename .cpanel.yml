@@ -2,3 +2,6 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/yonbgfra/public_html
     - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R public/* $DEPLOYPATH/
+    - /bin/cp -R public/* $DEPLOYPATH/public/
+    - /bin/rm -rf $DEPLOYPATH/storage/framework/views/*

@@ -12,7 +12,7 @@ class UserRepository implements RepositoryInterface
     {
         $query = User::query();
         if (!empty($filters['role'])) {
-            $query->role($filters['role']); // Spatie scope
+            $query->roleSafe($filters['role']);
         }
         if (!empty($filters['search'])) {
             $query->where(function ($q) use ($filters) {
@@ -35,12 +35,12 @@ class UserRepository implements RepositoryInterface
     public function create(array $data)
     {
         $role = $data['role'] ?? 'client';
-        unset($data['role']);
+        $data['role'] = $role;
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
         $user = User::create($data);
-        $user->assignRole($role);
+        $user->safeAssignRole($role);
         return $user;
     }
 
@@ -48,8 +48,11 @@ class UserRepository implements RepositoryInterface
     {
         $user = User::findOrFail($id);
         if (!empty($data['role'])) {
-            $user->syncRoles([$data['role']]);
-            unset($data['role']);
+            try {
+                $user->syncRoles([$data['role']]);
+            } catch (\Throwable $e) {
+                // Fall back to direct column update
+            }
         }
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);

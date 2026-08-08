@@ -87,7 +87,7 @@ class ReportService
      */
     public function staffPerformanceReport(array $filters = []): array
     {
-        $accountants = User::role('accountant')
+        $accountants = User::roleSafe('accountant')
             ->with(['accountantAppointments' => function ($q) use ($filters) {
                 $q->when(!empty($filters['date_from']), fn($q) => $q->where('date', '>=', $filters['date_from']))
                   ->when(!empty($filters['date_to']),   fn($q) => $q->where('date', '<=', $filters['date_to']));
@@ -116,7 +116,7 @@ class ReportService
      */
     public function clientActivityReport(array $filters = []): array
     {
-        $query = User::role('client')
+        $query = User::roleSafe('client')
             ->with(['appointments' => fn($q) => $q
                 ->when(!empty($filters['date_from']), fn($q) => $q->where('date', '>=', $filters['date_from']))
                 ->when(!empty($filters['date_to']),   fn($q) => $q->where('date', '<=', $filters['date_to']))
@@ -146,8 +146,8 @@ class ReportService
     public function dashboardSummary(): array
     {
         return [
-            'total_clients'        => User::role('client')->count(),
-            'total_accountants'    => User::role('accountant')->count(),
+            'total_clients'        => User::roleSafe('client')->count(),
+            'total_accountants'    => User::roleSafe('accountant')->count(),
             'total_appointments'   => Appointment::count(),
             'upcoming_appointments'=> Appointment::where('status', 'confirmed')
                                         ->where('date', '>=', now()->toDateString())
