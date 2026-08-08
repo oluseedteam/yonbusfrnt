@@ -5,12 +5,12 @@
          HERO — Dark navy background with strong overlay on image
          ============================================================ --}}
     <section class="relative overflow-hidden" style="min-height: 88vh; display: flex; align-items: center; background: #020B24;">
-        {{-- Background Image with visible contrast & dark gradient overlay --}}
+        {{-- Background Image with full vibrant clarity & directional overlay --}}
         <div class="absolute inset-0" style="z-index: 0;">
             <img src="{{ asset('images/accounting-hero-bg.jpg') }}"
                  alt="YONBUS Office"
-                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.65;">
-            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(2,11,36,0.88) 0%, rgba(0,30,90,0.70) 55%, rgba(2,11,36,0.80) 100%);"></div>
+                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.95;">
+            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(2,11,36,0.94) 0%, rgba(2,11,36,0.80) 38%, rgba(2,11,36,0.32) 72%, rgba(2,11,36,0.55) 100%);"></div>
         </div>
 
         <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32" style="z-index: 1;">
@@ -20,24 +20,24 @@
                 <div style="display: flex; flex-direction: column; gap: 1.5rem;">
 
                     {{-- Badge --}}
-                    <div class="inline-flex items-center gap-2" style="background: rgba(0,82,255,0.2); border: 1px solid rgba(77,139,255,0.35); color: #93c5fd; padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content;">
+                    <div class="inline-flex items-center gap-2" style="background: rgba(0,82,255,0.28); border: 1px solid rgba(77,139,255,0.5); color: #93c5fd; backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content;">
                         <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
                         Trusted by 5,000+ Canadian Businesses
                     </div>
 
                     {{-- Main Headline --}}
-                    <h1 class="font-heading font-extrabold" style="color: #ffffff; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em;">
+                    <h1 class="font-heading font-extrabold" style="color: #ffffff; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em; text-shadow: 0 4px 16px rgba(0,0,0,0.6);">
                         YONBUS Tax &<br>
                         Accounting <span style="color: #60a5fa;">Services Inc.</span>
                     </h1>
 
                     {{-- Subheadline --}}
-                    <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.75; max-width: 520px;">
+                    <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.75; max-width: 520px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
                         A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
                     </p>
 
                     {{-- Slogan box --}}
-                    <div style="border-left: 4px solid #0052ff; background: rgba(0,82,255,0.12); padding: 14px 18px; border-radius: 0 12px 12px 0;">
+                    <div style="border-left: 4px solid #0052ff; background: rgba(2,11,36,0.65); backdrop-filter: blur(10px); border-radius: 0 12px 12px 0; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">
                         <p style="color: #bfdbfe; font-size: 0.9rem; font-style: italic;">
                             "Your Partner in Financial Clarity and Growth"
                         </p>
@@ -46,19 +46,19 @@
                     {{-- CTA Buttons --}}
                     <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-top: 0.25rem;">
                         <a href="{{ route('register') }}"
-                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.35); text-decoration: none; transition: transform 0.15s ease;">
+                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.45); text-decoration: none; transition: transform 0.15s ease;">
                             Get Started Free
                             <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                         <a href="{{ route('book-appointment') }}"
-                           style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: #ffffff; font-weight: 600; font-size: 0.95rem; padding: 14px 26px; border-radius: 12px; text-decoration: none;">
+                           style="display: inline-flex; align-items: center; gap: 8px; background: rgba(2,11,36,0.5); backdrop-filter: blur(8px); border: 1.5px solid rgba(255,255,255,0.35); color: #ffffff; font-weight: 600; font-size: 0.95rem; padding: 14px 26px; border-radius: 12px; text-decoration: none;">
                             <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             Book Consultation
                         </a>
                     </div>
 
                     {{-- Social Proof --}}
-                    <div style="display: flex; align-items: center; gap: 1rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div style="display: flex; align-items: center; gap: 1rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.15);">
                         <div style="display: flex; margin-right: 4px;">
                             @foreach(['photo-1534528741775-53994a69daeb','photo-1507003211169-0a1dd7228f2d','photo-1500648767791-00dcc994a43e','photo-1573496359142-b8d87734a5a2'] as $p)
                             <img src="https://images.unsplash.com/{{ $p }}?auto=format&fit=crop&w=80&q=80"
@@ -69,25 +69,25 @@
                             <div style="display:flex;gap:2px;color:#fbbf24;">
                                 @for($i=0;$i<5;$i++)<svg style="width:14px;height:14px;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>@endfor
                             </div>
-                            <div style="font-size:0.8rem;font-weight:600;color:#ffffff;margin-top:2px;">4.9/5 <span style="color:#94a3b8;font-weight:400;">from 500+ reviews</span></div>
+                            <div style="font-size:0.8rem;font-weight:600;color:#ffffff;margin-top:2px;">4.9/5 <span style="color:#cbd5e1;font-weight:400;">from 500+ reviews</span></div>
                         </div>
                     </div>
                 </div>
 
-                {{-- RIGHT: 4 KPI Cards (desktop only) --}}
+                {{-- RIGHT: 4 KPI Cards (desktop only) with Glassmorphism --}}
                 <div class="hidden lg:grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
                     @foreach([
-                        ['bg'=>'rgba(16,185,129,0.12)','bc'=>'rgba(16,185,129,0.25)','ic'=>'rgba(16,185,129,0.2)','icc'=>'#34d399','path'=>'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6','label'=>'Tax Savings','value'=>'$125,430','sub'=>'▲ 12.5% this quarter','sc'=>'#34d399'],
-                        ['bg'=>'rgba(0,82,255,0.12)','bc'=>'rgba(0,82,255,0.25)','ic'=>'rgba(0,82,255,0.2)','icc'=>'#60a5fa','path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','label'=>'CRA Tax Return','value'=>'✓ 2024 Filed','sub'=>'Successfully verified','sc'=>'#34d399'],
-                        ['bg'=>'rgba(251,191,36,0.1)','bc'=>'rgba(251,191,36,0.25)','ic'=>'rgba(251,191,36,0.2)','icc'=>'#fbbf24','path'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','label'=>'Next Appointment','value'=>'Aug 12, 2026','sub'=>'10:00 AM · Confirmed','sc'=>'#94a3b8'],
-                        ['bg'=>'rgba(0,82,255,0.18)','bc'=>'rgba(0,82,255,0.35)','ic'=>'rgba(0,82,255,0.25)','icc'=>'#93c5fd','path'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','label'=>'Active Clients','value'=>'5,000+','sub'=>'Across Canada','sc'=>'#93c5fd'],
+                        ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(16,185,129,0.35)','ic'=>'rgba(16,185,129,0.25)','icc'=>'#34d399','path'=>'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6','label'=>'Tax Savings','value'=>'$125,430','sub'=>'▲ 12.5% this quarter','sc'=>'#34d399'],
+                        ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(0,82,255,0.35)','ic'=>'rgba(0,82,255,0.25)','icc'=>'#60a5fa','path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','label'=>'CRA Tax Return','value'=>'✓ 2024 Filed','sub'=>'Successfully verified','sc'=>'#34d399'],
+                        ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(251,191,36,0.35)','ic'=>'rgba(251,191,36,0.25)','icc'=>'#fbbf24','path'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','label'=>'Next Appointment','value'=>'Aug 12, 2026','sub'=>'10:00 AM · Confirmed','sc'=>'#cbd5e1'],
+                        ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(0,82,255,0.4)','ic'=>'rgba(0,82,255,0.3)','icc'=>'#93c5fd','path'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','label'=>'Active Clients','value'=>'5,000+','sub'=>'Across Canada','sc'=>'#93c5fd'],
                     ] as $card)
-                    <div style="background:{{ $card['bg'] }};border:1px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;">
+                    <div style="background:{{ $card['bg'] }};backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.35);">
                         <div style="width:44px;height:44px;border-radius:12px;background:{{ $card['ic'] }};display:flex;align-items:center;justify-content:center;">
                             <svg style="width:22px;height:22px;color:{{ $card['icc'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['path'] }}"/></svg>
                         </div>
                         <div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">{{ $card['label'] }}</div>
+                            <div style="font-size:11px;color:#cbd5e1;font-weight:500;">{{ $card['label'] }}</div>
                             <div style="font-size:1.1rem;font-weight:800;color:#ffffff;margin-top:2px;">{{ $card['value'] }}</div>
                             <div style="font-size:11px;color:{{ $card['sc'] }};margin-top:2px;">{{ $card['sub'] }}</div>
                         </div>
