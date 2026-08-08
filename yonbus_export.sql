@@ -834,11 +834,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO \`users\` (\`id\`, \`first_name\`, \`last_name\`, \`email\`, \`email_verified_at\`, \`password\`, \`role\`, \`phone\`, \`company_name\`, \`tax_identification_number\`, \`address\`, \`avatar\`, \`dark_mode\`, \`is_active\`, \`notification_email\`, \`notification_database\`, \`remember_token\`, \`created_at\`, \`updated_at\`) VALUES
-(1, 'System', 'Administrator', 'admin@admin.com', '2026-08-05 14:21:48', '$2y$12$KiyKLVWM8E3n7ePVBDe31u3eyBrPawAsN.u7wd3hcGTFllSVlZF4y', 'client', '+1 (800) 555-YONBUS', NULL, NULL, NULL, NULL, 0, 1, 1, 1, NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48');
+(1, 'System', 'Administrator', 'admin@admin.com', '2026-08-05 14:21:48', '$2y$12$KiyKLVWM8E3n7ePVBDe31u3eyBrPawAsN.u7wd3hcGTFllSVlZF4y', 'admin', '+1 (800) 555-YONBUS', NULL, NULL, NULL, NULL, 0, 1, 1, 1, NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48');
 
 
 SET FOREIGN_KEY_CHECKS=1;
 
 -- ============================================================
--- Export complete. Admin login: admin@admin.com / admin
+-- Export complete.
+-- Admin login: admin@admin.com  |  password: admin
+-- !! Change the password immediately after your first login !!
 -- ============================================================

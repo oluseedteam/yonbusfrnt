@@ -1,7 +1,19 @@
 deployment:
   tasks:
+    # ── Copy all files to deployment path ──────────────────────────
     - export DEPLOYPATH=/home/yonbgfra/public_html
     - /bin/cp -R * $DEPLOYPATH
-    - /bin/cp -R public/* $DEPLOYPATH/
-    - /bin/cp -R public/* $DEPLOYPATH/public/
+    - /bin/cp -R public/. $DEPLOYPATH/
+
+    # ── Clear cached config/views so production .env is loaded ─────
+    - /bin/rm -rf $DEPLOYPATH/bootstrap/cache/config.php
+    - /bin/rm -rf $DEPLOYPATH/bootstrap/cache/routes*.php
     - /bin/rm -rf $DEPLOYPATH/storage/framework/views/*
+    - /bin/rm -rf $DEPLOYPATH/storage/framework/cache/data/*
+
+    # ── Run artisan post-deploy commands ───────────────────────────
+    - cd $DEPLOYPATH && php artisan config:cache
+    - cd $DEPLOYPATH && php artisan route:cache
+    - cd $DEPLOYPATH && php artisan view:cache
+    - cd $DEPLOYPATH && php artisan migrate --force
+    - cd $DEPLOYPATH && php artisan storage:link
