@@ -23,7 +23,7 @@ class DashboardController extends Controller
             'total_users'           => User::count(),
             'total_clients'         => User::role('client')->count(),
             'total_accountants'     => User::role('accountant')->count(),
-            'total_revenue'         => Invoice::where('status', 'paid')->sum('total_amount') ?? 0,
+            'total_revenue'         => Invoice::where('status', 'paid')->selectRaw('COALESCE(SUM(total_amount), SUM(amount), 0) as aggregate')->value('aggregate') ?? 0,
             'pending_returns'       => TaxReturn::whereNotIn('status', ['completed'])->count(),
             'active_appointments'   => Appointment::whereIn('status', ['confirmed', 'pending'])->count(),
             'pending_invoices'      => Invoice::where('status', 'pending')->count(),

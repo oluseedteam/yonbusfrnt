@@ -304,7 +304,8 @@
         </form>
 
         <div class="admin-footer">
-            Return to <a href="{{ route('home') }}">Public Website</a> or <a href="{{ route('login') }}">Standard Client Login</a>
+            Need initial setup? <a href="{{ route('admin.register') }}" style="color: #34d399; font-weight: 700; margin-right: 8px;">Register Admin Account</a> |
+            Return to <a href="{{ route('home') }}">Public Site</a>
         </div>
     </div>
 </div>

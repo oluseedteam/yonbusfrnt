@@ -11,15 +11,21 @@ class Invoice extends Model
 
     protected $fillable = [
         'client_id', 'accountant_id', 'invoice_number',
-        'amount', 'tax', 'status', 'due_date', 'issued_date',
+        'amount', 'tax', 'subtotal', 'tax_amount', 'discount_amount', 'total_amount',
+        'status', 'paid_at', 'due_date', 'issued_date',
         'description', 'notes'
     ];
 
     protected $casts = [
-        'amount'      => 'decimal:2',
-        'tax'         => 'decimal:2',
-        'due_date'    => 'date',
-        'issued_date' => 'date',
+        'amount'          => 'decimal:2',
+        'tax'             => 'decimal:2',
+        'subtotal'        => 'decimal:2',
+        'tax_amount'      => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'total_amount'    => 'decimal:2',
+        'paid_at'         => 'datetime',
+        'due_date'        => 'date',
+        'issued_date'     => 'date',
     ];
 
     const STATUSES = ['paid', 'pending', 'overdue'];

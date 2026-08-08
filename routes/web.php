@@ -60,6 +60,8 @@ Route::prefix('accountant')->name('accountant.')->middleware(['auth', 'verified'
 
 // ─── ADMIN PORTAL ───────────────────────────────────────────────
 Route::get('/admin/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'createAdmin'])->name('admin.login');
+Route::get('/admin/register', [\App\Http\Controllers\Auth\AdminRegisterController::class, 'create'])->name('admin.register');
+Route::post('/admin/register', [\App\Http\Controllers\Auth\AdminRegisterController::class, 'store'])->name('admin.register.store');
 
 Route::get('/admin', function () {
     if (auth()->check()) {

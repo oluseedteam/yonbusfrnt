@@ -49,16 +49,16 @@ class ReportService
         $byMonth = $records->groupBy(fn($inv) => $inv->created_at->format('Y-m'))
             ->map(fn($group) => [
                 'month'   => $group->first()->created_at->format('M Y'),
-                'total'   => $group->sum('total_amount'),
-                'paid'    => $group->where('status', 'paid')->sum('total_amount'),
-                'pending' => $group->where('status', 'pending')->sum('total_amount'),
+                'total'   => $group->sum(fn($inv) => $inv->total_amount ?? $inv->amount ?? 0),
+                'paid'    => $group->where('status', 'paid')->sum(fn($inv) => $inv->total_amount ?? $inv->amount ?? 0),
+                'pending' => $group->where('status', 'pending')->sum(fn($inv) => $inv->total_amount ?? $inv->amount ?? 0),
                 'count'   => $group->count(),
             ]);
 
         return [
             'records'             => $records,
-            'total_revenue'       => $records->where('status', 'paid')->sum('total_amount'),
-            'total_outstanding'   => $records->where('status', 'pending')->sum('total_amount'),
+            'total_revenue'       => $records->where('status', 'paid')->sum(fn($inv) => $inv->total_amount ?? $inv->amount ?? 0),
+            'total_outstanding'   => $records->where('status', 'pending')->sum(fn($inv) => $inv->total_amount ?? $inv->amount ?? 0),
             'invoice_count'       => $records->count(),
             'monthly_breakdown'   => $byMonth->values(),
         ];
@@ -153,7 +153,7 @@ class ReportService
                                         ->where('date', '>=', now()->toDateString())
                                         ->count(),
             'completed_appointments' => Appointment::where('status', 'completed')->count(),
-            'total_revenue'        => Invoice::where('status', 'paid')->sum('total_amount') ?? 0,
+            'total_revenue'        => Invoice::where('status', 'paid')->selectRaw('COALESCE(SUM(total_amount), SUM(amount), 0) as aggregate')->value('aggregate') ?? 0,
             'active_services'      => Service::where('is_active', true)->count(),
             'pending_appointments' => Appointment::where('status', 'pending')->count(),
         ];
@@ -172,11 +172,12 @@ class ReportService
 
             $revenue = Invoice::where('status', 'paid')
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
-                ->sum('total_amount');
+                ->selectRaw('COALESCE(SUM(total_amount), SUM(amount), 0) as aggregate')
+                ->value('aggregate');
 
             return [
                 'month'   => Carbon::parse($month . '-01')->format('M Y'),
-                'revenue' => round($revenue, 2),
+                'revenue' => round($revenue ?? 0, 2),
             ];
         });
 
