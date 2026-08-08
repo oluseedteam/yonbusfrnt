@@ -21,12 +21,13 @@ class DatabaseSeeder extends Seeder
         $this->command->call('permission:setup');
 
         // 2. Primary System Administrator Account (user: admin@admin.com / pass: admin)
-        $admin = User::firstOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@admin.com'],
             [
                 'first_name'         => 'System',
                 'last_name'          => 'Administrator',
                 'password'           => Hash::make('admin'),
+                'role'               => 'admin',
                 'phone'              => '+1 (800) 555-YONBUS',
                 'email_verified_at'  => now(),
                 'is_active'          => true,
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $admin->assignRole('admin');
+        $admin->safeAssignRole('admin');
 
         // 3. System Blog Categories
         $categories = [
