@@ -17,7 +17,12 @@ class EnsureRole
         $userRole = auth()->user()->role;
 
         if (!in_array($userRole, $roles)) {
-            abort(403, 'Unauthorized: You do not have the required role to access this area.');
+            $message = 'Access restricted: You do not have permission to access that section.';
+            return match ($userRole) {
+                'admin', 'superadmin', 'subadmin' => redirect()->route('admin.dashboard')->with('error', $message),
+                'accountant'          => redirect()->route('accountant.dashboard')->with('error', $message),
+                default               => redirect()->route('client.dashboard')->with('error', $message),
+            };
         }
 
         return $next($request);

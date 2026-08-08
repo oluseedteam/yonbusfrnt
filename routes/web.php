@@ -15,7 +15,7 @@ Route::get('/services', [PublicController::class, 'services'])->name('services')
 Route::get('/blog', [PublicController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [PublicController::class, 'blogPost'])->name('blog.show');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
-Route::post('/contact', [PublicController::class, 'submitContact'])->name('contact.submit');
+Route::post('/contact', [PublicController::class, 'submitContact'])->middleware('throttle:10,1')->name('contact.submit');
 Route::get('/book-appointment', [PublicController::class, 'bookAppointment'])->name('book-appointment');
 Route::get('/privacy-policy', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PublicController::class, 'terms'])->name('terms');
@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 Route::get('/dashboard', function () {
     $role = auth()->user()->role;
     return match ($role) {
-        'admin', 'superadmin' => redirect()->route('admin.dashboard'),
+        'admin', 'superadmin', 'subadmin' => redirect()->route('admin.dashboard'),
         'accountant'          => redirect()->route('accountant.dashboard'),
         default               => redirect()->route('client.dashboard'),
     };
@@ -61,7 +61,7 @@ Route::prefix('accountant')->name('accountant.')->middleware(['auth', 'verified'
 // ─── ADMIN PORTAL ───────────────────────────────────────────────
 Route::get('/admin/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'createAdmin'])->name('admin.login');
 Route::get('/admin/register', [\App\Http\Controllers\Auth\AdminRegisterController::class, 'create'])->name('admin.register');
-Route::post('/admin/register', [\App\Http\Controllers\Auth\AdminRegisterController::class, 'store'])->name('admin.register.store');
+Route::post('/admin/register', [\App\Http\Controllers\Auth\AdminRegisterController::class, 'store'])->middleware('throttle:5,1')->name('admin.register.store');
 
 Route::get('/admin', function () {
     if (auth()->check()) {

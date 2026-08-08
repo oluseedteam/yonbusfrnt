@@ -14,18 +14,25 @@ class AdminRegisterController extends Controller
 {
     public function create()
     {
-        // If user is already logged in as admin, redirect to admin dashboard
-        if (Auth::check() && in_array(Auth::user()->role, ['admin', 'superadmin', 'subadmin'])) {
-            return redirect()->route('admin.dashboard');
-        }
+        $adminCount = User::roleSafe(['admin', 'superadmin', 'subadmin'])->count();
 
-        $adminCount = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->count();
+        // If admins exist and user is not logged in as admin, redirect to admin login
+        if ($adminCount > 0 && (!Auth::check() || !Auth::user()->isAdmin())) {
+            return redirect()->route('admin.login')->with('error', 'Administrator setup completed. Please log in.');
+        }
 
         return view('auth.admin-register', compact('adminCount'));
     }
 
     public function store(Request $request)
     {
+        $adminCount = User::roleSafe(['admin', 'superadmin', 'subadmin'])->count();
+
+        // If admins exist and user is not logged in as admin, block registration
+        if ($adminCount > 0 && (!Auth::check() || !Auth::user()->isAdmin())) {
+            return redirect()->route('admin.login')->with('error', 'Unauthorized attempt to register administrator account.');
+        }
+
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name'  => ['required', 'string', 'max:255'],
