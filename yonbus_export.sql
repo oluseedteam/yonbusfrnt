@@ -1,7 +1,8 @@
 -- ============================================================
 -- YONBUS Tax & Accounting Services — Full Database Export
 -- Generated: 2026-08-05 14:30:17
--- Import into phpMyAdmin: Import tab → select this file → Go
+-- Import into phpMyAdmin: select your cPanel DB first,
+-- then Import tab → select this file → Go
 -- ============================================================
 
 SET NAMES utf8mb4;
@@ -9,9 +10,7 @@ SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 SET time_zone='+00:00';
 
--- Create database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS \`yonbus\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE \`yonbus\`;
+
 
 -- ──────────────────────────────────────────────────────────
 -- Table: `accountants`
