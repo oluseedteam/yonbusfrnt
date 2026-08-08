@@ -15,7 +15,7 @@ SET time_zone='+00:00';
 -- ──────────────────────────────────────────────────────────
 -- Table: `accountants`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`accountants\`;
+DROP TABLE IF EXISTS `accountants`;
 CREATE TABLE `accountants` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `accountants` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `activity_logs`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`activity_logs\`;
+DROP TABLE IF EXISTS `activity_logs`;
 CREATE TABLE `activity_logs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE `activity_logs` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `appointments`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`appointments\`;
+DROP TABLE IF EXISTS `appointments`;
 CREATE TABLE `appointments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `appointment_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `appointments` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `availability_slots`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`availability_slots\`;
+DROP TABLE IF EXISTS `availability_slots`;
 CREATE TABLE `availability_slots` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `accountant_id` bigint unsigned NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `availability_slots` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `blog_categories`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`blog_categories\`;
+DROP TABLE IF EXISTS `blog_categories`;
 CREATE TABLE `blog_categories` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `blog_categories` (
   UNIQUE KEY `blog_categories_slug_unique` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`blog_categories\` (\`id\`, \`name\`, \`slug\`, \`description\`, \`created_at\`, \`updated_at\`) VALUES
+INSERT INTO `blog_categories` (`id`, `name`, `slug`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'Tax Tips', 'tax-tips', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
 (2, 'Accounting', 'accounting', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
 (3, 'Payroll', 'payroll', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
@@ -131,7 +131,7 @@ INSERT INTO \`blog_categories\` (\`id\`, \`name\`, \`slug\`, \`description\`, \`
 -- ──────────────────────────────────────────────────────────
 -- Table: `blogs`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`blogs\`;
+DROP TABLE IF EXISTS `blogs`;
 CREATE TABLE `blogs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `blog_category_id` bigint unsigned NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `blogs` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `cache`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`cache\`;
+DROP TABLE IF EXISTS `cache`;
 CREATE TABLE `cache` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `cache` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `cache_locks`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`cache_locks\`;
+DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE `cache_locks` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `clients`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`clients\`;
+DROP TABLE IF EXISTS `clients`;
 CREATE TABLE `clients` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE `clients` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `communication_logs`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`communication_logs\`;
+DROP TABLE IF EXISTS `communication_logs`;
 CREATE TABLE `communication_logs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `sender_id` bigint unsigned DEFAULT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE `communication_logs` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `documents`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`documents\`;
+DROP TABLE IF EXISTS `documents`;
 CREATE TABLE `documents` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `client_id` bigint unsigned NOT NULL,
@@ -266,7 +266,7 @@ CREATE TABLE `documents` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `failed_jobs`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`failed_jobs\`;
+DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE `failed_jobs` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `holidays`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`holidays\`;
+DROP TABLE IF EXISTS `holidays`;
 CREATE TABLE `holidays` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE `holidays` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `invoices`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`invoices\`;
+DROP TABLE IF EXISTS `invoices`;
 CREATE TABLE `invoices` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `client_id` bigint unsigned NOT NULL,
@@ -330,7 +330,7 @@ CREATE TABLE `invoices` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `job_batches`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`job_batches\`;
+DROP TABLE IF EXISTS `job_batches`;
 CREATE TABLE `job_batches` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -350,7 +350,7 @@ CREATE TABLE `job_batches` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `jobs`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`jobs\`;
+DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -368,7 +368,7 @@ CREATE TABLE `jobs` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `messages`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`messages\`;
+DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `sender_id` bigint unsigned NOT NULL,
@@ -391,7 +391,7 @@ CREATE TABLE `messages` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `migrations`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`migrations\`;
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -399,7 +399,7 @@ CREATE TABLE `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`migrations\` (\`id\`, \`migration\`, \`batch\`) VALUES
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
@@ -423,7 +423,7 @@ INSERT INTO \`migrations\` (\`id\`, \`migration\`, \`batch\`) VALUES
 -- ──────────────────────────────────────────────────────────
 -- Table: `model_has_permissions`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`model_has_permissions\`;
+DROP TABLE IF EXISTS `model_has_permissions`;
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -438,7 +438,7 @@ CREATE TABLE `model_has_permissions` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `model_has_roles`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`model_has_roles\`;
+DROP TABLE IF EXISTS `model_has_roles`;
 CREATE TABLE `model_has_roles` (
   `role_id` bigint unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -448,13 +448,13 @@ CREATE TABLE `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`model_has_roles\` (\`role_id\`, \`model_type\`, \`model_id\`) VALUES
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 1);
 
 -- ──────────────────────────────────────────────────────────
 -- Table: `password_reset_tokens`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`password_reset_tokens\`;
+DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -467,7 +467,7 @@ CREATE TABLE `password_reset_tokens` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `payments`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`payments\`;
+DROP TABLE IF EXISTS `payments`;
 CREATE TABLE `payments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `invoice_id` bigint unsigned NOT NULL,
@@ -493,7 +493,7 @@ CREATE TABLE `payments` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `permissions`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`permissions\`;
+DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE `permissions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -504,7 +504,7 @@ CREATE TABLE `permissions` (
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`permissions\` (\`id\`, \`name\`, \`guard_name\`, \`created_at\`, \`updated_at\`) VALUES
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'view-users', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
 (2, 'create-users', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
 (3, 'edit-users', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
@@ -545,7 +545,7 @@ INSERT INTO \`permissions\` (\`id\`, \`name\`, \`guard_name\`, \`created_at\`, \
 -- ──────────────────────────────────────────────────────────
 -- Table: `reports`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`reports\`;
+DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `client_id` bigint unsigned NOT NULL,
@@ -569,7 +569,7 @@ CREATE TABLE `reports` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `role_has_permissions`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`role_has_permissions\`;
+DROP TABLE IF EXISTS `role_has_permissions`;
 CREATE TABLE `role_has_permissions` (
   `permission_id` bigint unsigned NOT NULL,
   `role_id` bigint unsigned NOT NULL,
@@ -579,7 +579,7 @@ CREATE TABLE `role_has_permissions` (
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`role_has_permissions\` (\`permission_id\`, \`role_id\`) VALUES
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
@@ -631,7 +631,7 @@ INSERT INTO \`role_has_permissions\` (\`permission_id\`, \`role_id\`) VALUES
 (13, 2),
 (14, 2);
 
-INSERT INTO \`role_has_permissions\` (\`permission_id\`, \`role_id\`) VALUES
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (15, 2),
 (16, 2),
 (17, 2),
@@ -674,7 +674,7 @@ INSERT INTO \`role_has_permissions\` (\`permission_id\`, \`role_id\`) VALUES
 -- ──────────────────────────────────────────────────────────
 -- Table: `roles`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`roles\`;
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -685,7 +685,7 @@ CREATE TABLE `roles` (
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`roles\` (\`id\`, \`name\`, \`guard_name\`, \`created_at\`, \`updated_at\`) VALUES
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'super-admin', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
 (2, 'admin', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
 (3, 'accountant', 'web', '2026-08-05 14:21:47', '2026-08-05 14:21:47'),
@@ -694,7 +694,7 @@ INSERT INTO \`roles\` (\`id\`, \`name\`, \`guard_name\`, \`created_at\`, \`updat
 -- ──────────────────────────────────────────────────────────
 -- Table: `service_requests`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`service_requests\`;
+DROP TABLE IF EXISTS `service_requests`;
 CREATE TABLE `service_requests` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `client_id` bigint unsigned NOT NULL,
@@ -716,7 +716,7 @@ CREATE TABLE `service_requests` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `services`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`services\`;
+DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -735,7 +735,7 @@ CREATE TABLE `services` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `sessions`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`sessions\`;
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint unsigned DEFAULT NULL,
@@ -753,7 +753,7 @@ CREATE TABLE `sessions` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `settings`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`settings\`;
+DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -767,7 +767,7 @@ CREATE TABLE `settings` (
   UNIQUE KEY `settings_key_unique` (`key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`settings\` (\`id\`, \`key\`, \`value\`, \`type\`, \`group\`, \`label\`, \`created_at\`, \`updated_at\`) VALUES
+INSERT INTO `settings` (`id`, `key`, `value`, `type`, `group`, `label`, `created_at`, `updated_at`) VALUES
 (1, 'company_name', 'YONBUS Tax & Accounting Services Inc.', 'string', 'general', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
 (2, 'company_email', 'info@yonbus.com', 'string', 'general', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
 (3, 'company_phone', '+1 (800) 555-YONBUS', 'string', 'general', NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48'),
@@ -779,7 +779,7 @@ INSERT INTO \`settings\` (\`id\`, \`key\`, \`value\`, \`type\`, \`group\`, \`lab
 -- ──────────────────────────────────────────────────────────
 -- Table: `tax_returns`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`tax_returns\`;
+DROP TABLE IF EXISTS `tax_returns`;
 CREATE TABLE `tax_returns` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `client_id` bigint unsigned NOT NULL,
@@ -807,7 +807,7 @@ CREATE TABLE `tax_returns` (
 -- ──────────────────────────────────────────────────────────
 -- Table: `users`
 -- ──────────────────────────────────────────────────────────
-DROP TABLE IF EXISTS \`users\`;
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -832,7 +832,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO \`users\` (\`id\`, \`first_name\`, \`last_name\`, \`email\`, \`email_verified_at\`, \`password\`, \`role\`, \`phone\`, \`company_name\`, \`tax_identification_number\`, \`address\`, \`avatar\`, \`dark_mode\`, \`is_active\`, \`notification_email\`, \`notification_database\`, \`remember_token\`, \`created_at\`, \`updated_at\`) VALUES
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `role`, `phone`, `company_name`, `tax_identification_number`, `address`, `avatar`, `dark_mode`, `is_active`, `notification_email`, `notification_database`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'System', 'Administrator', 'admin@admin.com', '2026-08-05 14:21:48', '$2y$12$KiyKLVWM8E3n7ePVBDe31u3eyBrPawAsN.u7wd3hcGTFllSVlZF4y', 'admin', '+1 (800) 555-YONBUS', NULL, NULL, NULL, NULL, 0, 1, 1, 1, NULL, '2026-08-05 14:21:48', '2026-08-05 14:21:48');
 
 
