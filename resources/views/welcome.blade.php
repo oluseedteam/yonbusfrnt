@@ -17,10 +17,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                 {{-- LEFT: Headline & CTAs --}}
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;" data-aos="fade-right" data-aos-duration="800">
 
                     {{-- Badge --}}
-                    <div class="inline-flex items-center gap-2" style="background: rgba(0,82,255,0.28); border: 1px solid rgba(77,139,255,0.5); color: #93c5fd; backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content;">
+                    <div class="inline-flex items-center gap-2 animate-glow" style="background: rgba(0,82,255,0.28); border: 1px solid rgba(77,139,255,0.5); color: #93c5fd; backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content;">
                         <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
                         Trusted by 5,000+ Canadian Businesses
                     </div>
@@ -37,7 +37,7 @@
                     </p>
 
                     {{-- Slogan box --}}
-                    <div style="border-left: 4px solid #0052ff; background: rgba(2,11,36,0.65); backdrop-filter: blur(10px); border-radius: 0 12px 12px 0; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <div style="border-left: 4px solid #0052ff; background: rgba(2,11,36,0.65); backdrop-filter: blur(10px); border-radius: 0 12px 12px 0; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);" class="hover-lift">
                         <p style="color: #bfdbfe; font-size: 0.9rem; font-style: italic;">
                             "Your Partner in Financial Clarity and Growth"
                         </p>
@@ -46,11 +46,13 @@
                     {{-- CTA Buttons --}}
                     <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-top: 0.25rem;">
                         <a href="{{ route('register') }}"
-                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.45); text-decoration: none; transition: transform 0.15s ease;">
+                           class="hover-lift hover-glow-blue"
+                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.45); text-decoration: none;">
                             Get Started Free
                             <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                         <a href="{{ route('book-appointment') }}"
+                           class="hover-lift"
                            style="display: inline-flex; align-items: center; gap: 8px; background: rgba(2,11,36,0.5); backdrop-filter: blur(8px); border: 1.5px solid rgba(255,255,255,0.35); color: #ffffff; font-weight: 600; font-size: 0.95rem; padding: 14px 26px; border-radius: 12px; text-decoration: none;">
                             <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             Book Consultation
@@ -75,14 +77,14 @@
                 </div>
 
                 {{-- RIGHT: 4 KPI Cards (desktop only) with Glassmorphism --}}
-                <div class="hidden lg:grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="hidden lg:grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;" data-aos="fade-left" data-aos-duration="800">
                     @foreach([
                         ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(16,185,129,0.35)','ic'=>'rgba(16,185,129,0.25)','icc'=>'#34d399','path'=>'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6','label'=>'Tax Savings','value'=>'$125,430','sub'=>'▲ 12.5% this quarter','sc'=>'#34d399'],
                         ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(0,82,255,0.35)','ic'=>'rgba(0,82,255,0.25)','icc'=>'#60a5fa','path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','label'=>'CRA Tax Return','value'=>'✓ 2024 Filed','sub'=>'Successfully verified','sc'=>'#34d399'],
                         ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(251,191,36,0.35)','ic'=>'rgba(251,191,36,0.25)','icc'=>'#fbbf24','path'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','label'=>'Next Appointment','value'=>'Aug 12, 2026','sub'=>'10:00 AM · Confirmed','sc'=>'#cbd5e1'],
                         ['bg'=>'rgba(2,11,36,0.60)','bc'=>'rgba(0,82,255,0.4)','ic'=>'rgba(0,82,255,0.3)','icc'=>'#93c5fd','path'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','label'=>'Active Clients','value'=>'5,000+','sub'=>'Across Canada','sc'=>'#93c5fd'],
                     ] as $card)
-                    <div style="background:{{ $card['bg'] }};backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.35);">
+                    <div class="hover-lift hover-glow-blue" style="background:{{ $card['bg'] }};backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.35);">
                         <div style="width:44px;height:44px;border-radius:12px;background:{{ $card['ic'] }};display:flex;align-items:center;justify-content:center;">
                             <svg style="width:22px;height:22px;color:{{ $card['icc'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['path'] }}"/></svg>
                         </div>
@@ -102,7 +104,7 @@
     {{-- ============================================================
          STATS BAR
          ============================================================ --}}
-    <section style="background: #0052ff; padding: 2.5rem 0;">
+    <section style="background: #0052ff; padding: 2.5rem 0;" data-aos="fade-up" data-aos-duration="600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 @foreach([
@@ -111,7 +113,7 @@
                     ['num'=>'98%','label'=>'CRA Compliance Rate'],
                     ['num'=>'4.9★','label'=>'Client Rating'],
                 ] as $s)
-                <div>
+                <div class="hover-scale">
                     <div class="font-heading font-extrabold" style="font-size:1.9rem;color:#ffffff;">{{ $s['num'] }}</div>
                     <div style="font-size:0.82rem;color:#bfdbfe;margin-top:4px;font-weight:500;">{{ $s['label'] }}</div>
                 </div>
@@ -123,7 +125,7 @@
     {{-- ============================================================
          SECTION PREVIEW CARDS — link to individual pages
          ============================================================ --}}
-    <section style="background: #f8faff; padding: 5rem 0;">
+    <section style="background: #f8faff; padding: 5rem 0;" data-aos="fade-up" data-aos-duration="700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center" style="margin-bottom: 3rem;">
                 <span style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.08em;">What We Offer</span>
@@ -133,9 +135,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {{-- About Card --}}
-                <a href="{{ route('about') }}" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s ease;"
-                   onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 8px 28px rgba(0,82,255,0.1)';this.style.transform='translateY(-4px)';"
-                   onmouseleave="this.style.borderColor='#e0e7ff';this.style.boxShadow='none';this.style.transform='translateY(0)';">
+                <a href="{{ route('about') }}" class="hover-lift hover-glow-blue" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
                     <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏢</div>
                     <div>
                         <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About Us</div>
@@ -148,7 +148,7 @@
                 </a>
 
                 {{-- Services Card --}}
-                <a href="{{ route('services') }}" style="background:#0052ff;border:1.5px solid #0052ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
+                <a href="{{ route('services') }}" class="hover-lift hover-glow-blue" style="background:#0052ff;border:1.5px solid #0052ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
                     <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📋</div>
                     <div>
                         <div style="font-size:11px;font-weight:800;color:#bfdbfe;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Our Services</div>
@@ -161,9 +161,7 @@
                 </a>
 
                 {{-- Contact Card --}}
-                <a href="{{ route('contact') }}" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s ease;"
-                   onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 8px 28px rgba(0,82,255,0.1)';this.style.transform='translateY(-4px)';"
-                   onmouseleave="this.style.borderColor='#e0e7ff';this.style.boxShadow='none';this.style.transform='translateY(0)';">
+                <a href="{{ route('contact') }}" class="hover-lift hover-glow-blue" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
                     <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📞</div>
                     <div>
                         <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Get In Touch</div>

@@ -127,7 +127,7 @@
     </header>
 
     <!-- Main Content Area with Page Motion Animation -->
-    <main class="flex-grow">
+    <main class="flex-grow animate-page-entry">
         {{ $slot }}
     </main>
 

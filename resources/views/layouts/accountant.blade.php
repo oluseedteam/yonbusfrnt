@@ -22,7 +22,7 @@
         <div class="flex-1 flex flex-col min-w-0">
             @include('layouts.partials.topnav')
 
-            <main class="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
+            <main class="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto animate-page-entry">
                 @if (session()->has('message'))
                     <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" class="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 flex items-center justify-between shadow-sm">
                         <div class="flex items-center gap-3">

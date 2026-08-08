@@ -54,8 +54,18 @@
 }
 
 @keyframes floatSlow {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
 .animate-page-entry {
@@ -68,6 +78,33 @@
 
 .animate-float {
     animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-shimmer-btn {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+}
+
+/* Motion & Micro-Interactions */
+.hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
+}
+
+.hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+}
+
+.hover-glow-blue {
+    @apply transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,93,255,0.35)] hover:border-blue-500/50;
+}
+
+.hover-glow-emerald {
+    @apply transition-all duration-300 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:border-emerald-500/50;
 }
 
 /* Custom Scrollbar */
