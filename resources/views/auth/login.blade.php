@@ -244,7 +244,9 @@
     <!-- LEFT PANEL (Glassmorphism over Image BG) -->
     <div class="left-panel">
         <div class="panel-logo-wrap">
-            <img src="/images/yonbus-logo.jpg" alt="YONBUS Tax & Accounting Services Inc." class="official-logo-img">
+            <a href="{{ route('home') }}" style="display:inline-block;">
+                <img src="/images/yonbus-logo.jpg" alt="YONBUS Tax & Accounting Services Inc." class="official-logo-img" style="cursor:pointer;">
+            </a>
         </div>
 
         <div class="illustration-card">
@@ -292,7 +294,9 @@
     <div class="auth-card">
         <!-- Official Wide YONBUS Logo Image in Card -->
         <div class="card-brand-logo-wrap">
-            <img src="/images/yonbus-logo.jpg" alt="YONBUS Tax & Accounting Services Inc." class="card-logo-img">
+            <a href="{{ route('home') }}" style="display:inline-block;">
+                <img src="/images/yonbus-logo.jpg" alt="YONBUS Tax & Accounting Services Inc." class="card-logo-img" style="cursor:pointer;">
+            </a>
         </div>
 
         <div class="card-eyebrow">Welcome Back</div>

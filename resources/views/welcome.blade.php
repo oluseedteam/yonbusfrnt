@@ -104,18 +104,22 @@
     {{-- ============================================================
          STATS BAR
          ============================================================ --}}
-    <section style="background: #0052ff; padding: 2.5rem 0;" data-aos="fade-up" data-aos-duration="600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    {{-- Stats Bar --}}
+    <section style="position: relative; overflow: hidden; background: linear-gradient(135deg, #010d24 0%, #020c22 100%); padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07);" data-aos="fade-up" data-aos-duration="600">
+        <div style="position:absolute;top:-60px;left:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(0,82,255,0.22) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-60px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,43,138,0.28) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @foreach([
-                    ['num'=>'5,000+','label'=>'Satisfied Clients'],
-                    ['num'=>'10+','label'=>'Years of Expertise'],
-                    ['num'=>'98%','label'=>'CRA Compliance Rate'],
-                    ['num'=>'4.9★','label'=>'Client Rating'],
+                    ['num'=>'5,000+','label'=>'Satisfied Clients','icon'=>'👥'],
+                    ['num'=>'10+','label'=>'Years of Expertise','icon'=>'🏆'],
+                    ['num'=>'98%','label'=>'CRA Compliance Rate','icon'=>'✅'],
+                    ['num'=>'4.9★','label'=>'Client Rating','icon'=>'⭐'],
                 ] as $s)
-                <div class="hover-scale">
-                    <div class="font-heading font-extrabold" style="font-size:1.9rem;color:#ffffff;">{{ $s['num'] }}</div>
-                    <div style="font-size:0.82rem;color:#bfdbfe;margin-top:4px;font-weight:500;">{{ $s['label'] }}</div>
+                <div class="hover-scale" style="background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 16px;text-align:center;">
+                    <div style="font-size:1.3rem;margin-bottom:6px;">{{ $s['icon'] }}</div>
+                    <div class="font-heading font-extrabold" style="font-size:1.8rem;color:#ffffff;">{{ $s['num'] }}</div>
+                    <div style="font-size:0.78rem;color:rgba(148,163,184,0.85);margin-top:4px;font-weight:500;">{{ $s['label'] }}</div>
                 </div>
                 @endforeach
             </div>
@@ -125,35 +129,42 @@
     {{-- ============================================================
          SECTION PREVIEW CARDS — link to individual pages
          ============================================================ --}}
-    <section style="background: #f8faff; padding: 5rem 0;" data-aos="fade-up" data-aos-duration="700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- Section Preview Cards --}}
+    <section style="position:relative;overflow:hidden;background:linear-gradient(160deg,#010d24 0%,#020c22 50%,#010818 100%);padding:5rem 0;" data-aos="fade-up" data-aos-duration="700">
+        <div style="position:absolute;top:-80px;right:-60px;width:350px;height:350px;background:radial-gradient(circle,rgba(0,82,255,0.18) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-60px;left:-40px;width:280px;height:280px;background:radial-gradient(circle,rgba(0,43,138,0.2) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
             <div class="text-center" style="margin-bottom: 3rem;">
-                <span style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.08em;">What We Offer</span>
-                <h2 class="font-heading font-extrabold" style="font-size:clamp(1.8rem,4vw,2.5rem);color:#0a1a4a;margin-top:8px;">Everything Your Business Needs</h2>
-                <p style="color:#4b5563;font-size:1rem;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto;">From tax filing to business advisory, YONBUS has you fully covered. Explore our services and learn about who we are.</p>
+                <span style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.08em;">What We Offer</span>
+                <h2 class="font-heading font-extrabold" style="font-size:clamp(1.8rem,4vw,2.5rem);color:#ffffff;margin-top:8px;">Everything Your Business Needs</h2>
+                <p style="color:rgba(148,163,184,0.85);font-size:1rem;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto;">From tax filing to business advisory, YONBUS has you fully covered.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {{-- About Card --}}
-                <a href="{{ route('about') }}" class="hover-lift hover-glow-blue" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
-                    <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏢</div>
+                <a href="{{ route('about') }}" class="hover-lift" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s;"
+                   onmouseenter="this.style.background='rgba(255,255,255,0.10)';this.style.borderColor='rgba(0,82,255,0.5)';this.style.boxShadow='0 12px 40px rgba(0,82,255,0.2)';"
+                   onmouseleave="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)';this.style.boxShadow='none';">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,82,255,0.25);border:1px solid rgba(0,82,255,0.35);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏢</div>
                     <div>
-                        <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About Us</div>
-                        <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1.15rem;margin-bottom:8px;">Who We Are & Our Values</h3>
-                        <p style="color:#4b5563;font-size:0.87rem;line-height:1.65;">Learn about YONBUS, our mission, core values (Integrity, Professionalism, Excellence, Client Focus), and our commitment to Canadian clients.</p>
+                        <div style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About Us</div>
+                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;margin-bottom:8px;">Who We Are &amp; Our Values</h3>
+                        <p style="color:rgba(148,163,184,0.85);font-size:0.87rem;line-height:1.65;">Learn about YONBUS, our mission, core values (Integrity, Professionalism, Excellence, Client Focus), and our commitment to Canadian clients.</p>
                     </div>
-                    <div style="display:inline-flex;align-items:center;gap:6px;color:#0052ff;font-size:0.85rem;font-weight:700;">
+                    <div style="display:inline-flex;align-items:center;gap:6px;color:#60a5fa;font-size:0.85rem;font-weight:700;">
                         Learn More <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </div>
                 </a>
 
-                {{-- Services Card --}}
-                <a href="{{ route('services') }}" class="hover-lift hover-glow-blue" style="background:#0052ff;border:1.5px solid #0052ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
+                {{-- Services Card (highlighted) --}}
+                <a href="{{ route('services') }}" class="hover-lift" style="background:rgba(0,82,255,0.25);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,82,255,0.5);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;box-shadow:0 8px 32px rgba(0,82,255,0.25);transition:all 0.25s;"
+                   onmouseenter="this.style.background='rgba(0,82,255,0.35)';this.style.boxShadow='0 16px 48px rgba(0,82,255,0.4)';"
+                   onmouseleave="this.style.background='rgba(0,82,255,0.25)';this.style.boxShadow='0 8px 32px rgba(0,82,255,0.25)';">
                     <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📋</div>
                     <div>
                         <div style="font-size:11px;font-weight:800;color:#bfdbfe;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Our Services</div>
                         <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;margin-bottom:8px;">5 Specialized Practice Areas</h3>
-                        <p style="color:#bfdbfe;font-size:0.87rem;line-height:1.65;">Tax Services, Accounting & Bookkeeping, Payroll, Business Advisory, and Compliance Services — all tailored for Canadian businesses.</p>
+                        <p style="color:#bfdbfe;font-size:0.87rem;line-height:1.65;">Tax Services, Accounting &amp; Bookkeeping, Payroll, Business Advisory, and Compliance — tailored for Canadian businesses.</p>
                     </div>
                     <div style="display:inline-flex;align-items:center;gap:6px;color:#ffffff;font-size:0.85rem;font-weight:700;">
                         View Services <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -161,14 +172,16 @@
                 </a>
 
                 {{-- Contact Card --}}
-                <a href="{{ route('contact') }}" class="hover-lift hover-glow-blue" style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;">
-                    <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📞</div>
+                <a href="{{ route('contact') }}" class="hover-lift" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;text-decoration:none;transition:all 0.25s;"
+                   onmouseenter="this.style.background='rgba(255,255,255,0.10)';this.style.borderColor='rgba(0,82,255,0.5)';this.style.boxShadow='0 12px 40px rgba(0,82,255,0.2)';"
+                   onmouseleave="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)';this.style.boxShadow='none';">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,82,255,0.25);border:1px solid rgba(0,82,255,0.35);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📞</div>
                     <div>
-                        <div style="font-size:11px;font-weight:800;color:#0052ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Get In Touch</div>
-                        <h3 class="font-heading font-bold" style="color:#0a1a4a;font-size:1.15rem;margin-bottom:8px;">Contact Our Team</h3>
-                        <p style="color:#4b5563;font-size:0.87rem;line-height:1.65;">Reach our Gatineau office, send a direct message, or book a free consultation — we're here to help your business succeed.</p>
+                        <div style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Get In Touch</div>
+                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;margin-bottom:8px;">Contact Our Team</h3>
+                        <p style="color:rgba(148,163,184,0.85);font-size:0.87rem;line-height:1.65;">Reach our Gatineau office, send a direct message, or book a free consultation — we're here to help.</p>
                     </div>
-                    <div style="display:inline-flex;align-items:center;gap:6px;color:#0052ff;font-size:0.85rem;font-weight:700;">
+                    <div style="display:inline-flex;align-items:center;gap:6px;color:#60a5fa;font-size:0.85rem;font-weight:700;">
                         Contact Us <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </div>
                 </a>
@@ -179,7 +192,8 @@
     {{-- ============================================================
          FEATURED BLOG SECTION
          ============================================================ --}}
-    <section style="background: #ffffff; padding: 5rem 0;">
+    {{-- Blog Section --}}
+    <section style="background: #f8faff; padding: 5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2.5rem;">
                 <div>
@@ -216,7 +230,9 @@
                         ['tag'=>'Bookkeeping','date'=>'Jul 28, 2026','title'=>'How to Prepare for a CRA Audit with Zero Stress','excerpt'=>'A step-by-step audit preparation roadmap to keep your financial records organized and fully compliant.'],
                         ['tag'=>'Payroll','date'=>'Jul 20, 2026','title'=>'Complete Payroll Automation Guide for Growing Enterprises','excerpt'=>'Streamline monthly employee remittances, T4 slips, and direct deposits with automated payroll systems.'],
                     ] as $post)
-                    <article style="background:#f8faff;border:1.5px solid #e0e7ff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+                    <article style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(0,82,255,0.05);transition:all 0.25s;"
+                             onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 8px 30px rgba(0,82,255,0.12)';this.style.transform='translateY(-3px)';"
+                             onmouseleave="this.style.borderColor='#e0e7ff';this.style.boxShadow='0 4px 20px rgba(0,82,255,0.05)';this.style.transform='translateY(0)';">
                         <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:8px;">
                             <span style="display:inline-block;background:#eff6ff;color:#0052ff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;padding:4px 10px;border-radius:999px;width:fit-content;">{{ $post['tag'] }}</span>
                             <div style="font-size:11px;color:#9ca3af;font-weight:500;">{{ $post['date'] }}</div>
@@ -236,22 +252,31 @@
     {{-- ============================================================
          CTA BANNER
          ============================================================ --}}
-    <section style="background: #0052ff; padding: 4.5rem 0;">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-heading font-extrabold" style="color:#ffffff;font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:14px;">
-                Ready to Simplify Your Taxes & Accounting?
+    {{-- CTA Banner (Glassmorphism) --}}
+    <section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#010d24 0%,#020c22 50%,#010818 100%);padding:5rem 0;">
+        <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(0,82,255,0.25) 0%,transparent 70%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(0,43,138,0.22) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,82,255,0.18) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" style="position:relative;z-index:1;">
+            <span style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.08em;background:rgba(0,82,255,0.2);border:1px solid rgba(0,82,255,0.35);padding:5px 14px;border-radius:999px;display:inline-block;margin-bottom:1.25rem;">Get Started Today</span>
+            <h2 class="font-heading font-extrabold" style="color:#ffffff;font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:14px;text-shadow:0 4px 16px rgba(0,0,0,0.5);">
+                Ready to Simplify Your Taxes &amp; Accounting?
             </h2>
-            <p style="color:#bfdbfe;font-size:1rem;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.65;">
+            <p style="color:rgba(148,163,184,0.9);font-size:1rem;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;">
                 Join thousands of satisfied Canadian businesses who trust YONBUS for all their financial needs.
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
                 <a href="{{ route('register') }}"
-                   style="display:inline-flex;align-items:center;gap:8px;background:#ffffff;color:#0052ff;font-weight:700;font-size:0.95rem;padding:14px 28px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);text-decoration:none;">
+                   style="display:inline-flex;align-items:center;gap:8px;background:#0052ff;color:#ffffff;font-weight:700;font-size:0.95rem;padding:14px 30px;border-radius:12px;box-shadow:0 8px 24px rgba(0,82,255,0.5);text-decoration:none;transition:all 0.2s;"
+                   onmouseenter="this.style.boxShadow='0 12px 32px rgba(0,82,255,0.7)';this.style.transform='translateY(-2px)';"
+                   onmouseleave="this.style.boxShadow='0 8px 24px rgba(0,82,255,0.5)';this.style.transform='translateY(0)';">
                     Get Started Free
                     <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
                 <a href="{{ route('book-appointment') }}"
-                   style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.35);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;">
+                   style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.25);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;transition:all 0.2s;"
+                   onmouseenter="this.style.background='rgba(255,255,255,0.15)';this.style.borderColor='rgba(255,255,255,0.45)';"
+                   onmouseleave="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.25)';">
                     Book Consultation
                 </a>
             </div>
