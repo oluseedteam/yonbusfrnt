@@ -110,14 +110,32 @@
             @endforelse
         </div>
 
-        <!-- Input Form -->
-        <form wire:submit.prevent="send" class="p-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 bg-white dark:bg-gray-900">
-            <input type="text" wire:model="body" placeholder="Type your message to YONBUS Admin..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#005DFF] focus:border-[#005DFF]">
-            <button type="submit" class="btn-primary text-xs py-2.5 px-5 flex items-center gap-1.5">
-                <span>Send</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-        </form>
+        <!-- Input Form or Appointment Requirement Notice -->
+        @if(!$hasAppointment)
+            <div class="p-6 border-t border-gray-100 dark:border-gray-800 bg-amber-50/60 dark:bg-amber-950/30 text-center space-y-3">
+                <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white font-heading">Book an Appointment First</h4>
+                <p class="text-xs text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                    You have not booked an appointment yet. To start messaging our admin team, please schedule your consultation appointment first.
+                </p>
+                <div class="pt-1">
+                    <a href="{{ route('client.appointments') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span>Book Appointment First</span>
+                    </a>
+                </div>
+            </div>
+        @else
+            <form wire:submit.prevent="send" class="p-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 bg-white dark:bg-gray-900">
+                <input type="text" wire:model="body" placeholder="Type your message to YONBUS Admin..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#005DFF] focus:border-[#005DFF]">
+                <button type="submit" class="btn-primary text-xs py-2.5 px-5 flex items-center gap-1.5">
+                    <span>Send</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </form>
+        @endif
     </div>
 
     <!-- LiveKit / WebRTC Video Call & Screen Share Modal -->

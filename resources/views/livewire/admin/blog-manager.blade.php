@@ -89,6 +89,7 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Title *</label>
                         <input type="text" wire:model.live="title" class="w-full rounded-xl border-slate-300 text-sm focus:ring-[#005DFF]">
+                        @error('title') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Category *</label>
@@ -97,6 +98,7 @@
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                             @endforeach
                         </select>
+                        @error('blog_category_id') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
@@ -113,6 +115,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Full Content *</label>
                     <textarea wire:model="content" rows="6" class="w-full rounded-xl border-slate-300 text-sm focus:ring-[#005DFF]"></textarea>
+                    @error('content') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="flex items-center space-x-6 pt-2">
@@ -142,6 +145,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Category Name *</label>
                     <input type="text" wire:model="newCategoryName" class="w-full rounded-xl border-slate-300 text-sm focus:ring-[#005DFF]">
+                    @error('newCategoryName') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Description</label>

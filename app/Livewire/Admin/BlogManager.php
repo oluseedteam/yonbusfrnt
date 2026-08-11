@@ -49,9 +49,14 @@ class BlogManager extends Component
     {
         $this->reset(['editingBlogId', 'title', 'slug', 'excerpt', 'content', 'featured_image', 'meta_title', 'meta_description', 'is_featured', 'is_published']);
         $firstCat = BlogCategory::first();
-        if ($firstCat) {
-            $this->blog_category_id = $firstCat->id;
+        if (!$firstCat) {
+            $firstCat = BlogCategory::create([
+                'name' => 'General News',
+                'slug' => 'general-news',
+                'description' => 'General news and financial updates',
+            ]);
         }
+        $this->blog_category_id = $firstCat->id;
         $this->showModal = true;
     }
 

@@ -89,26 +89,33 @@ class Messages extends Component
             }
         }
 
-        $adminIds = $this->getAdminIds();
         $userId = auth()->id();
+        $hasAppointment = \App\Models\Appointment::where('client_id', $userId)->exists();
 
         // Get all messages between client and ANY admin user
-        $messages = Message::where(function ($q) use ($userId, $adminIds) {
-            $q->where('sender_id', $userId)->whereIn('receiver_id', $adminIds);
-        })->orWhere(function ($q) use ($userId, $adminIds) {
-            $q->whereIn('sender_id', $adminIds)->where('receiver_id', $userId);
-        })->with(['sender', 'receiver'])->orderBy('created_at')->get();
+        $messages = Message::where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->with(['sender', 'receiver'])
+            ->orderBy('created_at')
+            ->get();
 
-        // Mark received messages from any admin as read
-        Message::whereIn('sender_id', $adminIds)->where('receiver_id', $userId)->whereNull('read_at')
+        // Mark unread received messages as read
+        Message::where('receiver_id', $userId)
+            ->whereNull('read_at')
             ->update(['read_at' => now()]);
 
-        return view('livewire.client.messages', compact('admins', 'messages'))
+        return view('livewire.client.messages', compact('admins', 'messages', 'hasAppointment'))
             ->layout('layouts.client');
     }
 
     public function send()
     {
+        $hasAppointment = \App\Models\Appointment::where('client_id', auth()->id())->exists();
+        if (!$hasAppointment) {
+            session()->flash('error', 'You must book an appointment first before messaging our support team.');
+            return;
+        }
+
         $this->validate();
 
         if (!$this->selectedAdminId) {
@@ -124,16 +131,17 @@ class Messages extends Component
         $data = [
             'sender_id'   => auth()->id(),
             'receiver_id' => $this->selectedAdminId,
-            'body'        => $this->body,
+            'body'        => trim($this->body),
         ];
 
         if ($this->attachment) {
-            $path = $this->attachment->store('messages', 'local');
+            $path = $this->attachment->store('messages', 'public');
             $data['attachment'] = $path;
             $data['attachment_name'] = $this->attachment->getClientOriginalName();
         }
 
         Message::create($data);
         $this->reset(['body', 'attachment']);
+        session()->flash('message', 'Message sent successfully.');
     }
 }

@@ -48,7 +48,12 @@ class InvoiceManager extends Component
                 ->orWhereHas('client', fn($q) => $q->where('first_name', 'like', "%{$this->search}%")->orWhere('last_name', 'like', "%{$this->search}%"));
         }
         $invoices = $query->orderByDesc('created_at')->paginate(15);
-        $clients  = User::roleSafe('client')->get();
+        $clients  = User::whereIn('role', ['client', 'user'])
+            ->orWhereHas('roles', fn($q) => $q->whereIn('name', ['client', 'user']))
+            ->get();
+        if ($clients->isEmpty()) {
+            $clients = User::whereNotIn('role', ['admin', 'superadmin'])->get();
+        }
 
         return view('livewire.admin.invoice-manager', compact('invoices', 'clients'))->layout('layouts.admin');
     }

@@ -20,8 +20,17 @@ class Appointment extends Model
         'duration',
         'status',
         'notes',
-        'meeting_link',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($appointment) {
+            if (empty($appointment->appointment_number)) {
+                $count = static::withTrashed()->count() + 1;
+                $appointment->appointment_number = 'APT-' . str_pad($count, 5, '0', STR_PAD_LEFT);
+            }
+        });
+    }
 
     protected $casts = [
         'date' => 'date',

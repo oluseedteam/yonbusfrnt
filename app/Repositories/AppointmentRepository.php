@@ -30,7 +30,7 @@ class AppointmentRepository implements RepositoryInterface
             $query->where('date', '<=', $filters['date_to']);
         }
 
-        return $query->latest('date');
+        return $query->orderByDesc('created_at');
     }
 
     public function find(int $id)

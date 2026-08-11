@@ -80,49 +80,45 @@ class Messages extends Component
 
     public function render()
     {
-        $adminIds = $this->getAdminIds();
-
-        // Get clients who have actually sent or received messages with admins
-        $clientsQuery = User::where('role', 'client');
+        // Query clients or users who have message history or role client
+        $clientsQuery = User::where(function ($q) {
+            $q->whereIn('role', ['client', 'user'])
+              ->orWhereHas('sentMessages')
+              ->orWhereHas('receivedMessages');
+        });
 
         if ($this->searchClient) {
-            $clientsQuery->where(function ($q) {
-                $q->where('first_name', 'like', "%{$this->searchClient}%")
-                  ->orWhere('last_name', 'like', "%{$this->searchClient}%")
-                  ->orWhere('email', 'like', "%{$this->searchClient}%")
-                  ->orWhere('company_name', 'like', "%{$this->searchClient}%");
-            });
-        } else {
-            // Only show clients who have existing message history with admin team
-            $clientsQuery->where(function ($q) use ($adminIds) {
-                $q->whereHas('sentMessages', function ($sq) use ($adminIds) {
-                    $sq->whereIn('receiver_id', $adminIds);
-                })->orWhereHas('receivedMessages', function ($rq) use ($adminIds) {
-                    $rq->whereIn('sender_id', $adminIds);
-                });
+            $search = $this->searchClient;
+            $clientsQuery->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('company_name', 'like', "%{$search}%");
             });
         }
 
-        $clients = $clientsQuery->get()->map(function ($client) use ($adminIds) {
+        $allClients = $clientsQuery->get();
+
+        $clients = $allClients->map(function ($client) {
             $client->unread_count = Message::where('sender_id', $client->id)
-                ->whereIn('receiver_id', $adminIds)
                 ->whereNull('read_at')
                 ->count();
 
-            $lastMsg = Message::where(function ($q) use ($client, $adminIds) {
-                $q->where('sender_id', $client->id)->whereIn('receiver_id', $adminIds);
-            })->orWhere(function ($q) use ($client, $adminIds) {
-                $q->whereIn('sender_id', $adminIds)->where('receiver_id', $client->id);
-            })->latest()->first();
+            $lastMsg = Message::where('sender_id', $client->id)
+                ->orWhere('receiver_id', $client->id)
+                ->latest('created_at')
+                ->first();
 
             $client->last_message = $lastMsg?->body;
             $client->last_message_time = $lastMsg?->created_at;
             return $client;
         })->filter(function ($c) {
-            return !empty($this->searchClient) || $c->last_message !== null;
-        })->sortByDesc('last_message_time');
+            return !empty($this->searchClient) || $c->last_message !== null || $c->unread_count > 0;
+        })->sortByDesc(function ($c) {
+            return $c->last_message_time ? $c->last_message_time->timestamp : 0;
+        });
 
-        // Fallback: If selected client is not set but clients exist, pick first client
+        // Fallback: If selected client is not set but clients exist, pick first client with messages
         if (!$this->selectedClientId && $clients->isNotEmpty()) {
             $this->selectedClientId = $clients->first()->id;
         }
@@ -131,14 +127,15 @@ class Messages extends Component
         if ($this->selectedClientId) {
             $clientId = $this->selectedClientId;
 
-            $messages = Message::where(function ($q) use ($adminIds, $clientId) {
-                $q->whereIn('sender_id', $adminIds)->where('receiver_id', $clientId);
-            })->orWhere(function ($q) use ($adminIds, $clientId) {
-                $q->where('sender_id', $clientId)->whereIn('receiver_id', $adminIds);
-            })->with(['sender', 'receiver'])->orderBy('created_at')->get();
+            $messages = Message::where('sender_id', $clientId)
+                ->orWhere('receiver_id', $clientId)
+                ->with(['sender', 'receiver'])
+                ->orderBy('created_at')
+                ->get();
 
             // Mark unread messages from this client as read
-            Message::where('sender_id', $clientId)->whereIn('receiver_id', $adminIds)->whereNull('read_at')
+            Message::where('sender_id', $clientId)
+                ->whereNull('read_at')
                 ->update(['read_at' => now()]);
         }
 
