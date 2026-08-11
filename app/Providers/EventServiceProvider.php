@@ -10,6 +10,12 @@ class EventServiceProvider extends ServiceProvider
      * The event to listener mappings for the application.
      */
     protected $listen = [
+        \Illuminate\Auth\Events\Login::class => [
+            \App\Listeners\LogUserAuthenticationActivity::class,
+        ],
+        \Illuminate\Auth\Events\Logout::class => [
+            \App\Listeners\LogUserAuthenticationActivity::class,
+        ],
         \App\Events\AppointmentBooked::class => [
             \App\Listeners\SendBookingConfirmation::class,
         ],

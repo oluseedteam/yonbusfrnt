@@ -78,11 +78,35 @@ class ServiceManager extends Component
         session()->flash('message', 'Service saved successfully.');
     }
 
+    public $showDeleteModal = false;
+    public $confirmingDeleteId = null;
+
+    public function confirmDelete($id)
+    {
+        $this->confirmingDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
+
+    public function cancelDelete()
+    {
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function deleteConfirmed()
+    {
+        if ($this->confirmingDeleteId) {
+            $s = Service::findOrFail($this->confirmingDeleteId);
+            AuditService::log('service.deleted', "Deleted service: {$s->name}", 'Service', $s->id);
+            $s->delete();
+            session()->flash('message', "Service '{$s->name}' deleted successfully.");
+        }
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
     public function delete($id)
     {
-        $s = Service::findOrFail($id);
-        AuditService::log('service.deleted', "Deleted service: {$s->name}", 'Service', $s->id);
-        $s->delete();
-        session()->flash('message', 'Service deleted successfully.');
+        $this->confirmDelete($id);
     }
 }

@@ -12,7 +12,18 @@ class Settings extends Component
 
     public function mount()
     {
-        $this->settings = Setting::all()->keyBy('key')->map(fn($s) => $s->value)->toArray();
+        $dbSettings = Setting::all()->keyBy('key')->map(fn($s) => $s->value)->toArray();
+
+        $defaults = [
+            'company_name'  => 'YONBUS & Associates Accounting',
+            'company_email' => 'support@yonbus.com',
+            'company_phone' => '+1 (555) 019-2831',
+            'company_ein'   => '12-3456789',
+            'tax_rate'      => '7.5',
+            'currency'      => 'USD',
+        ];
+
+        $this->settings = array_merge($defaults, $dbSettings);
     }
 
     public function render()
@@ -25,6 +36,7 @@ class Settings extends Component
         foreach ($this->settings as $key => $value) {
             Setting::set($key, $value);
         }
-        session()->flash('message', 'Settings saved successfully.');
+        \App\Services\AuditService::log('system.settings_updated', 'Updated system configuration settings.');
+        session()->flash('message', 'System settings saved successfully.');
     }
 }

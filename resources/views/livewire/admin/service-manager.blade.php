@@ -28,7 +28,7 @@
                             <td class="p-3.5 font-extrabold text-[#005DFF] font-heading">${{ number_format($s->price, 2) }}</td>
                             <td class="p-3.5 text-right space-x-2">
                                 <button wire:click="edit({{ $s->id }})" class="text-[#005DFF] font-semibold hover:underline">Edit</button>
-                                <button wire:click="delete({{ $s->id }})" wire:confirm="Delete service?" class="text-red-500 font-semibold hover:underline">Delete</button>
+                                <button wire:click="confirmDelete({{ $s->id }})" class="text-red-500 font-semibold hover:underline">Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -70,6 +70,23 @@
                         <button type="submit" class="btn-primary text-xs">Save Service</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    @endif
+
+    <!-- Custom Popout Delete Confirmation Modal -->
+    @if ($showDeleteModal)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-fade-in">
+            <div class="bg-white dark:bg-gray-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-800 text-center">
+                <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white font-heading mb-2">Delete Service?</h3>
+                <p class="text-xs text-gray-500 mb-6">Are you sure you want to delete this service? It will no longer be available for appointment booking.</p>
+                <div class="flex items-center justify-center gap-3">
+                    <button wire:click="cancelDelete" class="btn-secondary text-xs">Cancel</button>
+                    <button wire:click="deleteConfirmed" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl shadow-md transition">Yes, Delete Service</button>
+                </div>
             </div>
         </div>
     @endif

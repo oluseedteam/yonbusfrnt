@@ -64,7 +64,7 @@
                         <td class="py-4 px-4 text-xs text-slate-500">{{ $b->created_at->format('M d, Y') }}</td>
                         <td class="py-4 px-4 text-right space-x-2">
                             <button wire:click="editBlog({{ $b->id }})" class="text-[#005DFF] hover:underline font-semibold text-xs">Edit</button>
-                            <button wire:click="deleteBlog({{ $b->id }})" onclick="confirm('Delete this article?') || event.stopImmediatePropagation()" class="text-red-600 hover:underline font-semibold text-xs">Delete</button>
+                            <button wire:click="confirmDeleteBlog({{ $b->id }})" class="text-red-600 hover:underline font-semibold text-xs">Delete</button>
                         </td>
                     </tr>
                 @empty
@@ -150,6 +150,23 @@
                 <div class="pt-4 flex justify-end space-x-3">
                     <button wire:click="$set('showCategoryModal', false)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm">Cancel</button>
                     <button wire:click="saveCategory" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm">Add Category</button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Custom Popout Delete Confirmation Modal -->
+    @if ($showDeleteModal)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fade-in">
+            <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 text-center space-y-4">
+                <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 font-heading">Delete Blog Article?</h3>
+                <p class="text-xs text-slate-500">Are you sure you want to delete this article? This action will remove it from the public blog and homepage.</p>
+                <div class="flex items-center justify-center gap-3 pt-2">
+                    <button wire:click="cancelDeleteBlog" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50">Cancel</button>
+                    <button wire:click="deleteBlogConfirmed" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-md transition">Yes, Delete Article</button>
                 </div>
             </div>
         </div>

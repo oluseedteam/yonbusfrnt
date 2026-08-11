@@ -102,10 +102,35 @@ class BlogManager extends Component
         $this->showModal = false;
     }
 
+    public $showDeleteModal = false;
+    public $confirmingDeleteId = null;
+
+    public function confirmDeleteBlog($id)
+    {
+        $this->confirmingDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
+
+    public function cancelDeleteBlog()
+    {
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function deleteBlogConfirmed()
+    {
+        if ($this->confirmingDeleteId) {
+            $b = Blog::findOrFail($this->confirmingDeleteId);
+            $b->delete();
+            session()->flash('message', "Blog post '{$b->title}' deleted successfully.");
+        }
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
     public function deleteBlog($id)
     {
-        Blog::findOrFail($id)->delete();
-        session()->flash('message', 'Blog post deleted successfully.');
+        $this->confirmDeleteBlog($id);
     }
 
     public function saveCategory()

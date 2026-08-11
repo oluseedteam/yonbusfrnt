@@ -23,6 +23,21 @@ class ReportManager extends Component
         return app(ReportService::class);
     }
 
+    public function exportExcel()
+    {
+        $fileName = 'YONBUS_' . ucfirst($this->reportType) . '_Report_' . date('Ymd_His') . '.xls';
+
+        $headers = [
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        return $this->generateFileStream($fileName, $headers, "\t");
+    }
+
     public function exportCsv()
     {
         $fileName = 'YONBUS_' . ucfirst($this->reportType) . '_Report_' . date('Ymd_His') . '.csv';
@@ -35,12 +50,17 @@ class ReportManager extends Component
             "Expires"             => "0"
         ];
 
-        $callback = function () {
+        return $this->generateFileStream($fileName, $headers, ",");
+    }
+
+    protected function generateFileStream($fileName, $headers, $delimiter = ",")
+    {
+        $callback = function () use ($delimiter) {
             $file = fopen('php://output', 'w');
             $filters = ['date_from' => $this->dateFrom, 'date_to' => $this->dateTo];
 
             if ($this->reportType === 'booking') {
-                fputcsv($file, ['Ref #', 'Client', 'Accountant', 'Service', 'Date', 'Time', 'Status']);
+                fputcsv($file, ['Ref #', 'Client', 'Accountant', 'Service', 'Date', 'Time', 'Status'], $delimiter);
                 $report = $this->service()->appointmentReport($filters);
                 foreach ($report['records'] as $app) {
                     fputcsv($file, [
@@ -51,10 +71,10 @@ class ReportManager extends Component
                         $app->date?->format('Y-m-d'),
                         $app->time,
                         $app->status
-                    ]);
+                    ], $delimiter);
                 }
             } elseif ($this->reportType === 'revenue') {
-                fputcsv($file, ['Invoice #', 'Client', 'Total Amount ($)', 'Status', 'Date']);
+                fputcsv($file, ['Invoice #', 'Client', 'Total Amount ($)', 'Status', 'Date'], $delimiter);
                 $report = $this->service()->revenueReport($filters);
                 foreach ($report['records'] as $inv) {
                     fputcsv($file, [
@@ -63,10 +83,10 @@ class ReportManager extends Component
                         $inv->total_amount,
                         $inv->status,
                         $inv->created_at->format('Y-m-d')
-                    ]);
+                    ], $delimiter);
                 }
             } elseif ($this->reportType === 'staff') {
-                fputcsv($file, ['Accountant', 'Total Appointments', 'Completed', 'Cancelled', 'Completion Rate (%)']);
+                fputcsv($file, ['Accountant', 'Total Appointments', 'Completed', 'Cancelled', 'Completion Rate (%)'], $delimiter);
                 $report = $this->service()->staffPerformanceReport($filters);
                 foreach ($report['records'] as $rec) {
                     fputcsv($file, [
@@ -75,10 +95,10 @@ class ReportManager extends Component
                         $rec['completed'],
                         $rec['cancelled'],
                         $rec['completion_rate']
-                    ]);
+                    ], $delimiter);
                 }
             } else {
-                fputcsv($file, ['Client Name', 'Email', 'Total Appointments', 'Completed', 'Last Active']);
+                fputcsv($file, ['Client Name', 'Email', 'Total Appointments', 'Completed', 'Last Active'], $delimiter);
                 $report = $this->service()->clientActivityReport($filters);
                 foreach ($report['records'] as $rec) {
                     fputcsv($file, [
@@ -87,7 +107,7 @@ class ReportManager extends Component
                         $rec['total_appointments'],
                         $rec['completed'],
                         $rec['last_active'] ?? 'Never'
-                    ]);
+                    ], $delimiter);
                 }
             }
 

@@ -15,6 +15,8 @@ class UserManager extends Component
     public $search = '';
     public $roleFilter = 'all';
     public $showModal = false;
+    public $showDeleteModal = false;
+    public $confirmingDeleteId = null;
     public $editId = null;
     public $first_name = '';
     public $last_name = '';
@@ -107,11 +109,32 @@ class UserManager extends Component
         AuditService::log('user.status_toggled', "Toggled status for: {$user->name}", 'User', $user->id);
     }
 
+    public function confirmDelete($id)
+    {
+        $this->confirmingDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
+
+    public function cancelDelete()
+    {
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function deleteConfirmed()
+    {
+        if ($this->confirmingDeleteId) {
+            $user = User::findOrFail($this->confirmingDeleteId);
+            AuditService::log('user.deleted', "Deleted user: {$user->name}", 'User', $user->id);
+            $this->repo()->delete($this->confirmingDeleteId);
+            session()->flash('message', "User '{$user->name}' deleted successfully.");
+        }
+        $this->confirmingDeleteId = null;
+        $this->showDeleteModal = false;
+    }
+
     public function delete($id)
     {
-        $user = User::findOrFail($id);
-        AuditService::log('user.deleted', "Deleted user: {$user->name}", 'User', $user->id);
-        $this->repo()->delete($id);
-        session()->flash('message', 'User deleted successfully.');
+        $this->confirmDelete($id);
     }
 }
