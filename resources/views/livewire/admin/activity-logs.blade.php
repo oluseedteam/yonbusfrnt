@@ -4,8 +4,25 @@
             <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">System Activity & Audit Logs</h1>
             <p class="text-xs text-gray-500 mt-1">Full audit trail of user actions, logins, status updates, and administrative changes.</p>
         </div>
-        <input type="text" wire:model.live="search" placeholder="Filter logs..." class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-4 text-xs w-full sm:w-64">
+        <div class="flex items-center gap-3 flex-wrap">
+            <input type="text" wire:model.live="search" placeholder="Search logs..." class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-4 text-xs w-48">
+            <select wire:model.live="filterAction" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
+                <option value="">All Actions</option>
+                @foreach($actionTypes as $action)
+                    <option value="{{ $action }}">{{ $action }}</option>
+                @endforeach
+            </select>
+            <button wire:click="clearOldLogs" wire:confirm="Clear all log entries older than 90 days?" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow transition">
+                🗑️ Clear Old Logs (90d+)
+            </button>
+        </div>
     </div>
+
+    @if (session()->has('message'))
+        <div class="mb-4 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold rounded-xl">
+            {{ session('message') }}
+        </div>
+    @endif
 
     <div class="card-box">
         <div class="overflow-x-auto">
