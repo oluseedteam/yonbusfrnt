@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'livekit' => [
+        'url'    => env('LIVEKIT_URL', 'wss://yonbus-tax-jzqr2nc3.livekit.cloud'),
+        'key'    => env('LIVEKIT_API_KEY', 'APIMzUfWXsnDyvG'),
+        'secret' => env('LIVEKIT_API_SECRET', 'egA5rehXpGRR2sEweCFxVPHwlvJIHvWPZQ44zevqpcYD'),
+    ],
+
 ];

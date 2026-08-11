@@ -23,12 +23,40 @@ class Messages extends Component
 
     public function mount()
     {
-        // Auto-select primary admin support account
-        $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->first();
+        $admin = $this->getPrimaryAdmin();
+        $this->selectedAdminId = $admin?->id;
+    }
+
+    private function getAdminIds(): array
+    {
+        $ids = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
+            ->orWhereHas('roles', function ($q) {
+                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+            })
+            ->pluck('id')
+            ->toArray();
+
+        if (empty($ids)) {
+            $first = User::first();
+            $ids = $first ? [$first->id] : [1];
+        }
+
+        return array_unique($ids);
+    }
+
+    private function getPrimaryAdmin(): ?User
+    {
+        $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
+            ->orWhereHas('roles', function ($q) {
+                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+            })
+            ->first();
+
         if (!$admin) {
             $admin = User::first();
         }
-        $this->selectedAdminId = $admin?->id;
+
+        return $admin;
     }
 
     public function selectAdmin($adminId)
@@ -48,26 +76,32 @@ class Messages extends Component
 
     public function render()
     {
-        $admins = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->get();
-        if ($admins->isEmpty() && $this->selectedAdminId) {
-            $admins = User::where('id', $this->selectedAdminId)->get();
+        $admins = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
+            ->orWhereHas('roles', function ($q) {
+                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+            })
+            ->get();
+
+        if ($admins->isEmpty()) {
+            $primary = $this->getPrimaryAdmin();
+            if ($primary) {
+                $admins = collect([$primary]);
+            }
         }
 
-        $messages = [];
-        if ($this->selectedAdminId) {
-            $userId = auth()->id();
-            $adminId = $this->selectedAdminId;
+        $adminIds = $this->getAdminIds();
+        $userId = auth()->id();
 
-            $messages = Message::where(function ($q) use ($userId, $adminId) {
-                $q->where('sender_id', $userId)->where('receiver_id', $adminId);
-            })->orWhere(function ($q) use ($userId, $adminId) {
-                $q->where('sender_id', $adminId)->where('receiver_id', $userId);
-            })->with(['sender', 'receiver'])->orderBy('created_at')->get();
+        // Get all messages between client and ANY admin user
+        $messages = Message::where(function ($q) use ($userId, $adminIds) {
+            $q->where('sender_id', $userId)->whereIn('receiver_id', $adminIds);
+        })->orWhere(function ($q) use ($userId, $adminIds) {
+            $q->whereIn('sender_id', $adminIds)->where('receiver_id', $userId);
+        })->with(['sender', 'receiver'])->orderBy('created_at')->get();
 
-            // Mark received messages as read
-            Message::where('sender_id', $adminId)->where('receiver_id', $userId)->whereNull('read_at')
-                ->update(['read_at' => now()]);
-        }
+        // Mark received messages from any admin as read
+        Message::whereIn('sender_id', $adminIds)->where('receiver_id', $userId)->whereNull('read_at')
+            ->update(['read_at' => now()]);
 
         return view('livewire.client.messages', compact('admins', 'messages'))
             ->layout('layouts.client');
@@ -78,12 +112,12 @@ class Messages extends Component
         $this->validate();
 
         if (!$this->selectedAdminId) {
-            $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->first();
+            $admin = $this->getPrimaryAdmin();
             $this->selectedAdminId = $admin?->id;
         }
 
         if (!$this->selectedAdminId) {
-            session()->flash('error', 'Unable to find an admin support account. Please try again later.');
+            session()->flash('error', 'Unable to find an admin support account.');
             return;
         }
 

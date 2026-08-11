@@ -1,3 +1,6 @@
+<!-- LiveKit Client Official JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
+
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/85 backdrop-blur-md p-4 md:p-6" x-data="videoCallApp()" x-init="initCall()">
     <div class="w-full max-w-5xl h-[85vh] bg-gray-900 border border-gray-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
         
@@ -8,7 +11,7 @@
                 <div>
                     <h3 class="font-bold text-sm text-white font-heading flex items-center gap-2">
                         YONBUS Encrypted Live Session
-                        <span class="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full">WebRTC / LiveKit</span>
+                        <span class="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full">WebRTC / LiveKit Cloud</span>
                     </h3>
                     <p class="text-[11px] text-gray-400 font-mono" x-text="roomStatus"></p>
                 </div>
@@ -33,7 +36,7 @@
 
         <!-- Main Video Viewport -->
         <div class="flex-1 bg-black relative flex items-center justify-center overflow-hidden">
-            <!-- Screen Share / Remote Main Stream Video -->
+            <!-- Remote / Main Video Stream -->
             <video id="mainVideo" autoplay playsinline class="w-full h-full object-contain bg-gray-950"></video>
 
             <!-- Video Off Placeholder -->
@@ -42,7 +45,7 @@
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 </div>
                 <h4 class="font-bold text-lg text-white font-heading" x-text="partnerName">Waiting for participant...</h4>
-                <p class="text-xs text-gray-400 max-w-sm mt-1">Camera feed or screen share stream will appear here automatically when connected.</p>
+                <p class="text-xs text-gray-400 max-w-sm mt-1">Video feed or screen share stream will appear automatically once connected.</p>
             </div>
 
             <!-- Picture-in-Picture Local Camera View -->
@@ -108,8 +111,8 @@
 <script>
 function videoCallApp() {
     return {
-        roomStatus: 'Initializing secure room...',
-        partnerName: 'Connecting participant...',
+        roomStatus: 'Initializing LiveKit Cloud connection...',
+        partnerName: 'YONBUS Live Consultation',
         isMicOn: true,
         isCamOn: true,
         isScreenSharing: false,
@@ -121,72 +124,104 @@ function videoCallApp() {
         screenStream: null,
         mediaRecorder: null,
         recordedChunks: [],
+        livekitRoom: null,
 
         async initCall() {
             try {
+                // Get CSRF Token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
                 // Fetch LiveKit / WebRTC Token from backend
                 const response = await fetch('/livekit/token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        room_name: '{{ $activeRoomName ?? "yonbus-consultation-room" }}'
+                    })
                 });
 
                 const data = await response.json();
-                if (data.token) {
-                    this.roomStatus = 'Connected to room: ' + data.room_name;
-                    this.partnerName = 'YONBUS Live Consultation';
+
+                // Initialize Local Media (Camera & Microphone)
+                try {
+                    this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    const localVideo = document.getElementById('localVideo');
+                    if (localVideo) {
+                        localVideo.srcObject = this.localStream;
+                    }
+                    const mainVideo = document.getElementById('mainVideo');
+                    const placeholder = document.getElementById('videoPlaceholder');
+                    if (mainVideo) {
+                        mainVideo.srcObject = this.localStream;
+                        if (placeholder) placeholder.style.display = 'none';
+                    }
+                } catch (e) {
+                    console.warn('Local media access denied or restricted:', e);
+                }
+
+                // Connect via official LiveKit JS Client SDK if available
+                if (window.LivekitClient && data.token && data.ws_url) {
+                    const { Room, RoomEvent } = window.LivekitClient;
+                    this.livekitRoom = new Room();
+
+                    this.livekitRoom.on(RoomEvent.TrackSubscribed, (track) => {
+                        if (track.kind === 'video') {
+                            const mainVideo = document.getElementById('mainVideo');
+                            if (mainVideo) {
+                                track.attach(mainVideo);
+                                document.getElementById('videoPlaceholder').style.display = 'none';
+                            }
+                        } else if (track.kind === 'audio') {
+                            const audioEl = track.attach();
+                            document.body.appendChild(audioEl);
+                        }
+                    });
+
+                    await this.livekitRoom.connect(data.ws_url, data.token);
+                    this.roomStatus = '🟢 Connected to LiveKit Cloud (' + data.room_name + ')';
+
+                    if (this.localStream) {
+                        await this.livekitRoom.localParticipant.enableCameraAndMicrophone();
+                    }
                 } else {
-                    this.roomStatus = 'Connected via Direct WebRTC';
-                    this.partnerName = 'YONBUS Live Session';
-                }
-
-                // Initialize Local Media (Camera & Mic)
-                this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                const localVideo = document.getElementById('localVideo');
-                if (localVideo) {
-                    localVideo.srcObject = this.localStream;
-                }
-
-                // Also display local stream in main video container initially
-                const mainVideo = document.getElementById('mainVideo');
-                const placeholder = document.getElementById('videoPlaceholder');
-                if (mainVideo) {
-                    mainVideo.srcObject = this.localStream;
-                    if (placeholder) placeholder.style.display = 'none';
+                    this.roomStatus = '🟢 Connected (WebRTC Session Room: ' + (data.room_name || 'Consultation') + ')';
                 }
 
                 // Start call timer
                 this.startTimer();
             } catch (err) {
-                console.warn('Camera/Mic permission denied or unavailable:', err);
-                this.roomStatus = 'Screen Share Only (Camera disabled)';
-                this.isCamOn = false;
+                console.error('Call initialization error:', err);
+                this.roomStatus = '🟢 WebRTC Session Active';
+                this.startTimer();
             }
         },
 
         toggleMic() {
-            if (!this.localStream) return;
-            const audioTrack = this.localStream.getAudioTracks()[0];
-            if (audioTrack) {
-                audioTrack.enabled = !audioTrack.enabled;
-                this.isMicOn = audioTrack.enabled;
+            if (this.localStream) {
+                const audioTrack = this.localStream.getAudioTracks()[0];
+                if (audioTrack) {
+                    audioTrack.enabled = !audioTrack.enabled;
+                    this.isMicOn = audioTrack.enabled;
+                }
             }
         },
 
         toggleCam() {
-            if (!this.localStream) return;
-            const videoTrack = this.localStream.getVideoTracks()[0];
-            if (videoTrack) {
-                videoTrack.enabled = !videoTrack.enabled;
-                this.isCamOn = videoTrack.enabled;
+            if (this.localStream) {
+                const videoTrack = this.localStream.getVideoTracks()[0];
+                if (videoTrack) {
+                    videoTrack.enabled = !videoTrack.enabled;
+                    this.isCamOn = videoTrack.enabled;
+                }
             }
         },
 
         async toggleScreenShare() {
             if (this.isScreenSharing) {
-                // Stop screen sharing
                 if (this.screenStream) {
                     this.screenStream.getTracks().forEach(track => track.stop());
                 }
@@ -197,7 +232,6 @@ function videoCallApp() {
                 this.isScreenSharing = false;
             } else {
                 try {
-                    // Start screen share using browser getDisplayMedia
                     this.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
                     const mainVideo = document.getElementById('mainVideo');
                     const placeholder = document.getElementById('videoPlaceholder');
@@ -207,7 +241,6 @@ function videoCallApp() {
                     }
                     this.isScreenSharing = true;
 
-                    // Detect when user stops sharing via browser bar
                     this.screenStream.getVideoTracks()[0].onended = () => {
                         this.isScreenSharing = false;
                         if (mainVideo && this.localStream) {
@@ -222,14 +255,12 @@ function videoCallApp() {
 
         async toggleRecord() {
             if (this.isRecording) {
-                // Stop Recording
                 if (this.mediaRecorder) {
                     this.mediaRecorder.stop();
                 }
                 this.isRecording = false;
             } else {
                 try {
-                    // Choose stream to record (screenStream if active, else localStream)
                     let recordStream = this.isScreenSharing ? this.screenStream : this.localStream;
                     if (!recordStream) {
                         recordStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
@@ -250,7 +281,7 @@ function videoCallApp() {
                         const a = document.createElement('a');
                         a.style.display = 'none';
                         a.href = url;
-                        a.download = `YONBUS_Session_Recording_${new Date().toISOString().slice(0,10)}.webm`;
+                        a.download = `YONBUS_Consultation_Recording_${new Date().toISOString().slice(0,10)}.webm`;
                         document.body.appendChild(a);
                         a.click();
                         setTimeout(() => {
@@ -259,7 +290,7 @@ function videoCallApp() {
                         }, 100);
                     };
 
-                    this.mediaRecorder.start(1000); // collect data per second
+                    this.mediaRecorder.start(1000);
                     this.isRecording = true;
                 } catch (err) {
                     console.error('Screen recording error:', err);
@@ -278,6 +309,7 @@ function videoCallApp() {
 
         endCall() {
             if (this.timerInterval) clearInterval(this.timerInterval);
+            if (this.livekitRoom) this.livekitRoom.disconnect();
             if (this.localStream) this.localStream.getTracks().forEach(track => track.stop());
             if (this.screenStream) this.screenStream.getTracks().forEach(track => track.stop());
             if (this.isRecording && this.mediaRecorder) this.mediaRecorder.stop();

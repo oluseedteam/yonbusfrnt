@@ -27,15 +27,34 @@ class Messages extends Component
         // Select client with most recent message or first client
         $recentMsg = Message::latest()->first();
         if ($recentMsg) {
-            $this->selectedClientId = $recentMsg->sender_id === auth()->id() 
-                ? $recentMsg->receiver_id 
-                : $recentMsg->sender_id;
+            $adminIds = $this->getAdminIds();
+            if (in_array($recentMsg->sender_id, $adminIds)) {
+                $this->selectedClientId = $recentMsg->receiver_id;
+            } else {
+                $this->selectedClientId = $recentMsg->sender_id;
+            }
         }
 
         if (!$this->selectedClientId) {
             $client = User::where('role', 'client')->first();
             $this->selectedClientId = $client?->id;
         }
+    }
+
+    private function getAdminIds(): array
+    {
+        $ids = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
+            ->orWhereHas('roles', function ($q) {
+                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+            })
+            ->pluck('id')
+            ->toArray();
+
+        if (empty($ids)) {
+            $ids = [auth()->id()];
+        }
+
+        return array_unique($ids);
     }
 
     public function selectClient($clientId)
@@ -55,7 +74,7 @@ class Messages extends Component
 
     public function render()
     {
-        $adminId = auth()->id();
+        $adminIds = $this->getAdminIds();
 
         // Get all clients who have messaged or registered
         $clientsQuery = User::where('role', 'client');
@@ -69,16 +88,16 @@ class Messages extends Component
             });
         }
 
-        $clients = $clientsQuery->get()->map(function ($client) use ($adminId) {
+        $clients = $clientsQuery->get()->map(function ($client) use ($adminIds) {
             $client->unread_count = Message::where('sender_id', $client->id)
-                ->where('receiver_id', $adminId)
+                ->whereIn('receiver_id', $adminIds)
                 ->whereNull('read_at')
                 ->count();
 
-            $lastMsg = Message::where(function ($q) use ($client, $adminId) {
-                $q->where('sender_id', $client->id)->where('receiver_id', $adminId);
-            })->orWhere(function ($q) use ($client, $adminId) {
-                $q->where('sender_id', $adminId)->where('receiver_id', $client->id);
+            $lastMsg = Message::where(function ($q) use ($client, $adminIds) {
+                $q->where('sender_id', $client->id)->whereIn('receiver_id', $adminIds);
+            })->orWhere(function ($q) use ($client, $adminIds) {
+                $q->whereIn('sender_id', $adminIds)->where('receiver_id', $client->id);
             })->latest()->first();
 
             $client->last_message = $lastMsg?->body;
@@ -90,14 +109,14 @@ class Messages extends Component
         if ($this->selectedClientId) {
             $clientId = $this->selectedClientId;
 
-            $messages = Message::where(function ($q) use ($adminId, $clientId) {
-                $q->where('sender_id', $adminId)->where('receiver_id', $clientId);
-            })->orWhere(function ($q) use ($adminId, $clientId) {
-                $q->where('sender_id', $clientId)->where('receiver_id', $adminId);
+            $messages = Message::where(function ($q) use ($adminIds, $clientId) {
+                $q->whereIn('sender_id', $adminIds)->where('receiver_id', $clientId);
+            })->orWhere(function ($q) use ($adminIds, $clientId) {
+                $q->where('sender_id', $clientId)->whereIn('receiver_id', $adminIds);
             })->with(['sender', 'receiver'])->orderBy('created_at')->get();
 
             // Mark unread messages from this client as read
-            Message::where('sender_id', $clientId)->where('receiver_id', $adminId)->whereNull('read_at')
+            Message::where('sender_id', $clientId)->whereIn('receiver_id', $adminIds)->whereNull('read_at')
                 ->update(['read_at' => now()]);
         }
 

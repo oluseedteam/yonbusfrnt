@@ -23,11 +23,11 @@ class LiveKitController extends Controller
 
         $roomName = $request->room_name ?: 'yonbus-consultation-' . md5($user->id);
         $identity = $user->email ?: 'user-' . $user->id;
-        $name = $user->name ?: 'Participant';
+        $name = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) ?: ($user->name ?: 'Participant');
 
-        $apiKey = env('LIVEKIT_API_KEY', 'devkey');
-        $apiSecret = env('LIVEKIT_API_SECRET', 'secret');
-        $wsUrl = env('LIVEKIT_URL', 'wss://yonbus.livekit.cloud');
+        $apiKey = config('services.livekit.key') ?: env('LIVEKIT_API_KEY', 'APIMzUfWXsnDyvG');
+        $apiSecret = config('services.livekit.secret') ?: env('LIVEKIT_API_SECRET', 'egA5rehXpGRR2sEweCFxVPHwlvJIHvWPZQ44zevqpcYD');
+        $wsUrl = config('services.livekit.url') ?: env('LIVEKIT_URL', 'wss://yonbus-tax-jzqr2nc3.livekit.cloud');
 
         // Create JWT token payload according to LiveKit Access Token Spec
         $now = time();

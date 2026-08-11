@@ -347,19 +347,20 @@
         #wa-btn {
             width: 60px;
             height: 60px;
-            background: #25d366;
+            background: #005DFF;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+            box-shadow: 0 6px 24px rgba(0,93,255,0.45);
             text-decoration: none;
             animation: wa-bounce 2.2s infinite;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
             cursor: pointer;
         }
         #wa-btn:hover {
             animation: none;
+            background: #25d366;
             transform: scale(1.12);
             box-shadow: 0 10px 32px rgba(37,211,102,0.6);
         }
