@@ -22,7 +22,7 @@ class DashboardController extends Controller
             'tax_completed'     => TaxReturn::where('client_id', $user->id)->where('status', 'completed')->count(),
             'appointments'      => Appointment::where('client_id', $user->id)->count(),
             'appointments_upcoming' => Appointment::where('client_id', $user->id)->whereIn('status', ['pending', 'confirmed'])->where('date', '>=', now())->count(),
-            'documents'         => Document::where('user_id', $user->id)->count(),
+            'documents'         => Document::where('client_id', $user->id)->count(),
             'invoices'          => Invoice::where('client_id', $user->id)->count(),
             'invoices_pending'  => Invoice::where('client_id', $user->id)->where('status', 'pending')->count(),
         ];
@@ -40,7 +40,7 @@ class DashboardController extends Controller
             ->get();
 
         $recentInvoices = Invoice::where('client_id', $user->id)->latest()->take(3)->get();
-        $recentDocuments = Document::where('user_id', $user->id)->latest()->take(3)->get();
+        $recentDocuments = Document::where('client_id', $user->id)->latest()->take(3)->get();
 
         return view('client.dashboard', compact(
             'user', 'stats', 'upcomingAppointment',
