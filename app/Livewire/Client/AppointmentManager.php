@@ -11,6 +11,8 @@ use Illuminate\Support\Carbon;
 class AppointmentManager extends Component
 {
     public $showModal = false;
+    public $showVideoCallModal = false;
+    public $activeRoomName = null;
     public $editId = null;
     public $service_id = '';
     public $date = '';
@@ -57,6 +59,22 @@ class AppointmentManager extends Component
         $this->showModal = true;
     }
 
+    public function startConsultation($appointmentId)
+    {
+        $appt = Appointment::where('id', $appointmentId)
+            ->where('client_id', auth()->id())
+            ->firstOrFail();
+
+        $this->activeRoomName = 'yonbus-consultation-apt-' . $appt->id;
+        $this->showVideoCallModal = true;
+    }
+
+    public function closeVideoCall()
+    {
+        $this->showVideoCallModal = false;
+        $this->activeRoomName = null;
+    }
+
     public function save()
     {
         $this->validate();
@@ -82,7 +100,7 @@ class AppointmentManager extends Component
                 'status'     => 'pending',
             ]);
             ActivityLog::log('appointment.created', 'Appointment booked.', $appt);
-            session()->flash('message', 'Appointment booked successfully!');
+            session()->flash('message', 'Appointment booked successfully! Admin will confirm your time.');
         }
 
         $this->showModal = false;

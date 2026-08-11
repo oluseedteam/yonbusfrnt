@@ -25,7 +25,7 @@ class DocumentManager extends Component
 
     public function render()
     {
-        $documents = Document::where('user_id', auth()->id())
+        $documents = Document::where('client_id', auth()->id())
             ->when($this->search, fn($q) => $q->where('name', 'like', "%{$this->search}%"))
             ->latest()->paginate(10);
 
@@ -39,7 +39,7 @@ class DocumentManager extends Component
 
         $path = $this->file->store('documents/' . auth()->id(), 'local');
         $doc = Document::create([
-            'user_id'       => auth()->id(),
+            'client_id'     => auth()->id(),
             'name'          => pathinfo($this->file->getClientOriginalName(), PATHINFO_FILENAME),
             'original_name' => $this->file->getClientOriginalName(),
             'type'          => $this->type,
@@ -56,7 +56,7 @@ class DocumentManager extends Component
 
     public function delete($id)
     {
-        $doc = Document::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        $doc = Document::where('id', $id)->where('client_id', auth()->id())->firstOrFail();
         Storage::delete($doc->path);
         ActivityLog::log('document.deleted', "Deleted document: {$doc->original_name}", $doc);
         $doc->delete();

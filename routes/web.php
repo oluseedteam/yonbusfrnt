@@ -79,12 +79,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:ad
     Route::get('/services', \App\Livewire\Admin\ServiceManager::class)->name('services');
     Route::get('/appointments', \App\Livewire\Admin\AppointmentManager::class)->name('appointments');
     Route::get('/invoices', \App\Livewire\Admin\InvoiceManager::class)->name('invoices');
+    Route::get('/messages', \App\Livewire\Admin\Messages::class)->name('messages');
     Route::get('/blogs', \App\Livewire\Admin\BlogManager::class)->name('blogs');
     Route::get('/reports', \App\Livewire\Admin\ReportManager::class)->name('reports');
     Route::get('/activity-logs', \App\Livewire\Admin\ActivityLogs::class)->name('activity-logs');
     Route::get('/settings', \App\Livewire\Admin\Settings::class)->name('settings');
 });
 
+// LiveKit / WebRTC Video Call & Screen Share Token API
+Route::post('/livekit/token', [\App\Http\Controllers\LiveKitController::class, 'token'])
+    ->middleware(['auth'])
+    ->name('livekit.token');
+
 // Document download
 Route::get('/documents/{document}/download', [ClientDocument::class, 'download'])
     ->middleware(['auth'])->name('documents.download');
+

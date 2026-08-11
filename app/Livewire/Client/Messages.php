@@ -13,7 +13,8 @@ class Messages extends Component
 
     public $body = '';
     public $attachment;
-    public $selectedAccountantId = null;
+    public $selectedAdminId = null;
+    public $showVideoCallModal = false;
 
     protected $rules = [
         'body'       => 'required|string|max:1000',
@@ -22,47 +23,82 @@ class Messages extends Component
 
     public function mount()
     {
-        // Auto-select first accountant if available
-        $accountant = User::where('role', 'accountant')->first();
-        $this->selectedAccountantId = $accountant?->id;
+        // Auto-select primary admin support account
+        $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->first();
+        if (!$admin) {
+            $admin = User::first();
+        }
+        $this->selectedAdminId = $admin?->id;
+    }
+
+    public function selectAdmin($adminId)
+    {
+        $this->selectedAdminId = $adminId;
+    }
+
+    public function startVideoCall()
+    {
+        $this->showVideoCallModal = true;
+    }
+
+    public function closeVideoCall()
+    {
+        $this->showVideoCallModal = false;
     }
 
     public function render()
     {
-        $accountants = User::where('role', 'accountant')->get();
+        $admins = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->get();
+        if ($admins->isEmpty() && $this->selectedAdminId) {
+            $admins = User::where('id', $this->selectedAdminId)->get();
+        }
 
         $messages = [];
-        if ($this->selectedAccountantId) {
+        if ($this->selectedAdminId) {
             $userId = auth()->id();
-            $acctId = $this->selectedAccountantId;
-            $messages = Message::where(function ($q) use ($userId, $acctId) {
-                $q->where('sender_id', $userId)->where('receiver_id', $acctId);
-            })->orWhere(function ($q) use ($userId, $acctId) {
-                $q->where('sender_id', $acctId)->where('receiver_id', $userId);
+            $adminId = $this->selectedAdminId;
+
+            $messages = Message::where(function ($q) use ($userId, $adminId) {
+                $q->where('sender_id', $userId)->where('receiver_id', $adminId);
+            })->orWhere(function ($q) use ($userId, $adminId) {
+                $q->where('sender_id', $adminId)->where('receiver_id', $userId);
             })->with(['sender', 'receiver'])->orderBy('created_at')->get();
 
             // Mark received messages as read
-            Message::where('sender_id', $acctId)->where('receiver_id', $userId)->whereNull('read_at')
+            Message::where('sender_id', $adminId)->where('receiver_id', $userId)->whereNull('read_at')
                 ->update(['read_at' => now()]);
         }
 
-        return view('livewire.client.messages', compact('accountants', 'messages'))
+        return view('livewire.client.messages', compact('admins', 'messages'))
             ->layout('layouts.client');
     }
 
     public function send()
     {
         $this->validate();
+
+        if (!$this->selectedAdminId) {
+            $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])->first();
+            $this->selectedAdminId = $admin?->id;
+        }
+
+        if (!$this->selectedAdminId) {
+            session()->flash('error', 'Unable to find an admin support account. Please try again later.');
+            return;
+        }
+
         $data = [
             'sender_id'   => auth()->id(),
-            'receiver_id' => $this->selectedAccountantId,
+            'receiver_id' => $this->selectedAdminId,
             'body'        => $this->body,
         ];
+
         if ($this->attachment) {
             $path = $this->attachment->store('messages', 'local');
             $data['attachment'] = $path;
             $data['attachment_name'] = $this->attachment->getClientOriginalName();
         }
+
         Message::create($data);
         $this->reset(['body', 'attachment']);
     }
