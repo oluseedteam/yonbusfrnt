@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\WelcomeClientNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -70,6 +71,11 @@ class RegisteredUserController extends Controller
             // Role may already be handled via attribute fallback
         }
 
+        $otp = random_int(100000, 999999);
+        session(['otp' => $otp]);
+
+        $user->notify(new WelcomeClientNotification($otp));
+
         event(new Registered($user));
 
         Auth::login($user);
@@ -77,5 +83,3 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 }
-
-
