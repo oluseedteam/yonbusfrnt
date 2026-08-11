@@ -38,7 +38,7 @@
                     </button>
                 @empty
                     <div class="p-4 text-center text-xs text-gray-400">
-                        No clients found.
+                        No active client message threads found. Search for a client above to initiate a chat.
                     </div>
                 @endforelse
             </div>

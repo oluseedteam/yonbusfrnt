@@ -2,10 +2,10 @@
 <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
 
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/85 backdrop-blur-md p-4 md:p-6" x-data="videoCallApp()" x-init="initCall()">
-    <div class="w-full max-w-5xl h-[85vh] bg-gray-900 border border-gray-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
+    <div class="w-full max-w-6xl h-[88vh] bg-gray-900 border border-gray-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
         
         <!-- Call Top Navigation Header -->
-        <div class="p-4 px-6 border-b border-gray-800/80 flex items-center justify-between bg-gray-900/90 z-20">
+        <div class="p-4 px-6 border-b border-gray-800/80 flex items-center justify-between bg-gray-900/90 z-20 flex-shrink-0">
             <div class="flex items-center gap-3">
                 <div class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
                 <div>
@@ -21,12 +21,18 @@
             <div class="flex items-center gap-4">
                 <div x-show="isRecording" x-cloak class="flex items-center gap-2 px-3 py-1 bg-red-500/20 border border-red-500/40 text-red-400 rounded-full text-xs font-bold animate-pulse">
                     <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span>Recording Screen...</span>
+                    <span>Recording...</span>
                 </div>
 
                 <div class="bg-gray-800/80 border border-gray-700/60 px-3.5 py-1 rounded-xl text-xs font-mono text-gray-200">
                     ⏱️ <span x-text="callDuration">00:00</span>
                 </div>
+
+                <!-- Chat Toggle -->
+                <button @click="showChat = !showChat" :class="showChat ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'" class="p-2 rounded-xl border border-gray-700/60 transition-colors relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center"></span>
+                </button>
 
                 <button wire:click="closeVideoCall" @click="endCall()" class="p-2 text-gray-400 hover:text-white rounded-xl hover:bg-gray-800 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -34,31 +40,78 @@
             </div>
         </div>
 
-        <!-- Main Video Viewport -->
-        <div class="flex-1 bg-black relative flex items-center justify-center overflow-hidden">
-            <!-- Remote / Main Video Stream -->
-            <video id="mainVideo" autoplay playsinline class="w-full h-full object-contain bg-gray-950"></video>
+        <!-- Body: Video + Chat Sidebar -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Main Video Viewport -->
+            <div class="flex-1 bg-black relative flex items-center justify-center overflow-hidden">
+                <!-- Remote / Main Video Stream -->
+                <video id="mainVideo" autoplay playsinline class="w-full h-full object-contain bg-gray-950"></video>
 
-            <!-- Video Off Placeholder -->
-            <div id="videoPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-gray-900 to-black z-10">
-                <div class="w-24 h-24 rounded-full bg-blue-600/20 border-2 border-blue-500/40 flex items-center justify-center mb-4 text-blue-400 animate-pulse">
-                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <!-- Video Off Placeholder -->
+                <div id="videoPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-gray-900 to-black z-10">
+                    <div class="w-24 h-24 rounded-full bg-blue-600/20 border-2 border-blue-500/40 flex items-center justify-center mb-4 text-blue-400 animate-pulse">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg text-white font-heading" x-text="partnerName">Waiting for participant...</h4>
+                    <p class="text-xs text-gray-400 max-w-sm mt-1">Video feed or screen share stream will appear automatically once connected.</p>
                 </div>
-                <h4 class="font-bold text-lg text-white font-heading" x-text="partnerName">Waiting for participant...</h4>
-                <p class="text-xs text-gray-400 max-w-sm mt-1">Video feed or screen share stream will appear automatically once connected.</p>
+
+                <!-- Picture-in-Picture Local Camera View -->
+                <div class="absolute bottom-6 right-6 w-48 h-36 bg-gray-900 border-2 border-white/20 rounded-2xl overflow-hidden shadow-2xl z-20 group">
+                    <video id="localVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+                    <div class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded font-medium">You (Local)</div>
+                </div>
             </div>
 
-            <!-- Picture-in-Picture Local Camera View -->
-            <div class="absolute bottom-6 right-6 w-48 h-36 bg-gray-900 border-2 border-white/20 rounded-2xl overflow-hidden shadow-2xl z-20 group">
-                <video id="localVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
-                <div class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded font-medium">
-                    You (Local)
+            <!-- Live Chat Sidebar -->
+            <div x-show="showChat" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-4"
+                 class="w-80 flex flex-col border-l border-gray-800 bg-gray-950 flex-shrink-0">
+                <!-- Chat Header -->
+                <div class="p-4 border-b border-gray-800 flex items-center justify-between flex-shrink-0">
+                    <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        Session Chat
+                    </h4>
+                    <span class="text-[10px] text-gray-500">Live • Encrypted</span>
+                </div>
+
+                <!-- Messages List -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-3" id="chatMessages" x-ref="chatBox">
+                    <template x-if="chatMessages.length === 0">
+                        <div class="text-center py-8 text-gray-600">
+                            <svg class="w-8 h-8 mx-auto mb-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <p class="text-xs">No messages yet. Say hello!</p>
+                        </div>
+                    </template>
+                    <template x-for="(msg, idx) in chatMessages" :key="idx">
+                        <div :class="msg.isMe ? 'items-end' : 'items-start'" class="flex flex-col">
+                            <div :class="msg.isMe ? 'flex-row-reverse' : 'flex-row'" class="flex items-end gap-2 max-w-full">
+                                <div :class="msg.isMe ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-800 text-gray-200 rounded-bl-none border border-gray-700/60'"
+                                     class="p-3 rounded-2xl text-xs max-w-[90%]">
+                                    <p class="font-semibold text-[10px] mb-1 opacity-70" x-text="msg.sender"></p>
+                                    <p class="whitespace-pre-line leading-relaxed break-words" x-text="msg.text"></p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-gray-600 mt-1 px-1" x-text="msg.time"></span>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-3 border-t border-gray-800 flex-shrink-0">
+                    <form @submit.prevent="sendChatMessage()" class="flex gap-2">
+                        <input type="text" x-model="chatInput" placeholder="Type a message..." 
+                               class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                        <button type="submit" :disabled="!chatInput.trim()" class="p-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white rounded-xl transition-colors flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
 
         <!-- Video Control Bar Footer -->
-        <div class="p-4 px-6 border-t border-gray-800/80 bg-gray-900/90 flex flex-wrap items-center justify-between gap-4 z-20">
+        <div class="p-4 px-6 border-t border-gray-800/80 bg-gray-900/90 flex flex-wrap items-center justify-between gap-4 z-20 flex-shrink-0">
             <!-- Audio / Video Controls -->
             <div class="flex items-center gap-3">
                 <!-- Toggle Mic -->
@@ -126,12 +179,17 @@ function videoCallApp() {
         recordedChunks: [],
         livekitRoom: null,
 
+        // Chat state
+        showChat: false,
+        chatInput: '',
+        chatMessages: [],
+        unreadCount: 0,
+        myName: '{{ trim((auth()->user()->first_name ?? "") . " " . (auth()->user()->last_name ?? "")) ?: (auth()->user()->name ?? "Me") }}',
+
         async initCall() {
             try {
-                // Get CSRF Token
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
-                // Fetch LiveKit / WebRTC Token from backend
                 const response = await fetch('/livekit/token', {
                     method: 'POST',
                     headers: {
@@ -150,9 +208,7 @@ function videoCallApp() {
                 try {
                     this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
                     const localVideo = document.getElementById('localVideo');
-                    if (localVideo) {
-                        localVideo.srcObject = this.localStream;
-                    }
+                    if (localVideo) localVideo.srcObject = this.localStream;
                     const mainVideo = document.getElementById('mainVideo');
                     const placeholder = document.getElementById('videoPlaceholder');
                     if (mainVideo) {
@@ -163,7 +219,7 @@ function videoCallApp() {
                     console.warn('Local media access denied or restricted:', e);
                 }
 
-                // Connect via official LiveKit JS Client SDK if available
+                // Connect via official LiveKit JS Client SDK
                 if (window.LivekitClient && data.token && data.ws_url) {
                     const { Room, RoomEvent } = window.LivekitClient;
                     this.livekitRoom = new Room();
@@ -173,11 +229,33 @@ function videoCallApp() {
                             const mainVideo = document.getElementById('mainVideo');
                             if (mainVideo) {
                                 track.attach(mainVideo);
-                                document.getElementById('videoPlaceholder').style.display = 'none';
+                                const ph = document.getElementById('videoPlaceholder');
+                                if (ph) ph.style.display = 'none';
                             }
                         } else if (track.kind === 'audio') {
                             const audioEl = track.attach();
                             document.body.appendChild(audioEl);
+                        }
+                    });
+
+                    // Listen for incoming data (chat messages)
+                    this.livekitRoom.on(RoomEvent.DataReceived, (payload, participant) => {
+                        try {
+                            const decoded = new TextDecoder().decode(payload);
+                            const msg = JSON.parse(decoded);
+                            if (msg.type === 'chat') {
+                                const now = new Date();
+                                this.chatMessages.push({
+                                    sender: msg.sender || (participant?.identity ?? 'Participant'),
+                                    text: msg.text,
+                                    time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                                    isMe: false
+                                });
+                                if (!this.showChat) this.unreadCount++;
+                                this.$nextTick(() => this.scrollChat());
+                            }
+                        } catch (e) {
+                            console.warn('Data channel parse error:', e);
                         }
                     });
 
@@ -188,10 +266,9 @@ function videoCallApp() {
                         await this.livekitRoom.localParticipant.enableCameraAndMicrophone();
                     }
                 } else {
-                    this.roomStatus = '🟢 Connected (WebRTC Session Room: ' + (data.room_name || 'Consultation') + ')';
+                    this.roomStatus = '🟢 Connected (WebRTC Session: ' + (data.room_name || 'Consultation') + ')';
                 }
 
-                // Start call timer
                 this.startTimer();
             } catch (err) {
                 console.error('Call initialization error:', err);
@@ -200,6 +277,44 @@ function videoCallApp() {
             }
         },
 
+        // ── Chat ──────────────────────────────────────────────────────────────
+        sendChatMessage() {
+            const text = this.chatInput.trim();
+            if (!text) return;
+
+            const now = new Date();
+            const msg = {
+                sender: this.myName,
+                text: text,
+                time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                isMe: true
+            };
+            this.chatMessages.push(msg);
+            this.chatInput = '';
+
+            // Publish over LiveKit data channel if connected
+            if (this.livekitRoom && this.livekitRoom.localParticipant) {
+                try {
+                    const payload = new TextEncoder().encode(JSON.stringify({
+                        type: 'chat',
+                        sender: this.myName,
+                        text: text
+                    }));
+                    this.livekitRoom.localParticipant.publishData(payload, { reliable: true });
+                } catch (e) {
+                    console.warn('LiveKit data publish error:', e);
+                }
+            }
+
+            this.$nextTick(() => this.scrollChat());
+        },
+
+        scrollChat() {
+            const box = document.getElementById('chatMessages');
+            if (box) box.scrollTop = box.scrollHeight;
+        },
+
+        // ── AV Controls ───────────────────────────────────────────────────────
         toggleMic() {
             if (this.localStream) {
                 const audioTrack = this.localStream.getAudioTracks()[0];
@@ -222,13 +337,9 @@ function videoCallApp() {
 
         async toggleScreenShare() {
             if (this.isScreenSharing) {
-                if (this.screenStream) {
-                    this.screenStream.getTracks().forEach(track => track.stop());
-                }
+                if (this.screenStream) this.screenStream.getTracks().forEach(t => t.stop());
                 const mainVideo = document.getElementById('mainVideo');
-                if (mainVideo && this.localStream) {
-                    mainVideo.srcObject = this.localStream;
-                }
+                if (mainVideo && this.localStream) mainVideo.srcObject = this.localStream;
                 this.isScreenSharing = false;
             } else {
                 try {
@@ -240,12 +351,9 @@ function videoCallApp() {
                         if (placeholder) placeholder.style.display = 'none';
                     }
                     this.isScreenSharing = true;
-
                     this.screenStream.getVideoTracks()[0].onended = () => {
                         this.isScreenSharing = false;
-                        if (mainVideo && this.localStream) {
-                            mainVideo.srcObject = this.localStream;
-                        }
+                        if (mainVideo && this.localStream) mainVideo.srcObject = this.localStream;
                     };
                 } catch (err) {
                     console.error('Screen sharing error:', err);
@@ -255,9 +363,7 @@ function videoCallApp() {
 
         async toggleRecord() {
             if (this.isRecording) {
-                if (this.mediaRecorder) {
-                    this.mediaRecorder.stop();
-                }
+                if (this.mediaRecorder) this.mediaRecorder.stop();
                 this.isRecording = false;
             } else {
                 try {
@@ -265,16 +371,11 @@ function videoCallApp() {
                     if (!recordStream) {
                         recordStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
                     }
-
                     this.recordedChunks = [];
                     this.mediaRecorder = new MediaRecorder(recordStream, { mimeType: 'video/webm;codecs=vp9' });
-
                     this.mediaRecorder.ondataavailable = (event) => {
-                        if (event.data.size > 0) {
-                            this.recordedChunks.push(event.data);
-                        }
+                        if (event.data.size > 0) this.recordedChunks.push(event.data);
                     };
-
                     this.mediaRecorder.onstop = () => {
                         const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
                         const url = URL.createObjectURL(blob);
@@ -284,12 +385,8 @@ function videoCallApp() {
                         a.download = `YONBUS_Consultation_Recording_${new Date().toISOString().slice(0,10)}.webm`;
                         document.body.appendChild(a);
                         a.click();
-                        setTimeout(() => {
-                            document.body.removeChild(a);
-                            window.URL.revokeObjectURL(url);
-                        }, 100);
+                        setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
                     };
-
                     this.mediaRecorder.start(1000);
                     this.isRecording = true;
                 } catch (err) {
@@ -310,8 +407,8 @@ function videoCallApp() {
         endCall() {
             if (this.timerInterval) clearInterval(this.timerInterval);
             if (this.livekitRoom) this.livekitRoom.disconnect();
-            if (this.localStream) this.localStream.getTracks().forEach(track => track.stop());
-            if (this.screenStream) this.screenStream.getTracks().forEach(track => track.stop());
+            if (this.localStream) this.localStream.getTracks().forEach(t => t.stop());
+            if (this.screenStream) this.screenStream.getTracks().forEach(t => t.stop());
             if (this.isRecording && this.mediaRecorder) this.mediaRecorder.stop();
         }
     }

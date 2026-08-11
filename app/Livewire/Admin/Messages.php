@@ -24,10 +24,14 @@ class Messages extends Component
 
     public function mount()
     {
-        // Select client with most recent message or first client
-        $recentMsg = Message::latest()->first();
+        $adminIds = $this->getAdminIds();
+
+        // Select client with most recent message
+        $recentMsg = Message::where(function ($q) use ($adminIds) {
+            $q->whereIn('sender_id', $adminIds)->orWhereIn('receiver_id', $adminIds);
+        })->latest()->first();
+
         if ($recentMsg) {
-            $adminIds = $this->getAdminIds();
             if (in_array($recentMsg->sender_id, $adminIds)) {
                 $this->selectedClientId = $recentMsg->receiver_id;
             } else {
@@ -36,8 +40,10 @@ class Messages extends Component
         }
 
         if (!$this->selectedClientId) {
-            $client = User::where('role', 'client')->first();
-            $this->selectedClientId = $client?->id;
+            $firstClientWithMsg = User::where('role', 'client')
+                ->whereHas('sentMessages')
+                ->first();
+            $this->selectedClientId = $firstClientWithMsg?->id;
         }
     }
 
@@ -76,7 +82,7 @@ class Messages extends Component
     {
         $adminIds = $this->getAdminIds();
 
-        // Get all clients who have messaged or registered
+        // Get clients who have actually sent or received messages with admins
         $clientsQuery = User::where('role', 'client');
 
         if ($this->searchClient) {
@@ -85,6 +91,15 @@ class Messages extends Component
                   ->orWhere('last_name', 'like', "%{$this->searchClient}%")
                   ->orWhere('email', 'like', "%{$this->searchClient}%")
                   ->orWhere('company_name', 'like', "%{$this->searchClient}%");
+            });
+        } else {
+            // Only show clients who have existing message history with admin team
+            $clientsQuery->where(function ($q) use ($adminIds) {
+                $q->whereHas('sentMessages', function ($sq) use ($adminIds) {
+                    $sq->whereIn('receiver_id', $adminIds);
+                })->orWhereHas('receivedMessages', function ($rq) use ($adminIds) {
+                    $rq->whereIn('sender_id', $adminIds);
+                });
             });
         }
 
@@ -103,7 +118,14 @@ class Messages extends Component
             $client->last_message = $lastMsg?->body;
             $client->last_message_time = $lastMsg?->created_at;
             return $client;
+        })->filter(function ($c) {
+            return !empty($this->searchClient) || $c->last_message !== null;
         })->sortByDesc('last_message_time');
+
+        // Fallback: If selected client is not set but clients exist, pick first client
+        if (!$this->selectedClientId && $clients->isNotEmpty()) {
+            $this->selectedClientId = $clients->first()->id;
+        }
 
         $messages = [];
         if ($this->selectedClientId) {
