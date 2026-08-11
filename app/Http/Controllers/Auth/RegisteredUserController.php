@@ -71,10 +71,17 @@ class RegisteredUserController extends Controller
             // Role may already be handled via attribute fallback
         }
 
-        $otp = random_int(100000, 999999);
-        session(['otp' => $otp]);
+        // Generate OTP and store in session (valid 10 min)
+        $otp = (string) random_int(100000, 999999);
+        session(['registration_otp' => $otp, 'otp_user_id' => $user->id]);
+        cache()->put('otp_' . $user->id, $otp, now()->addMinutes(10));
 
-        $user->notify(new WelcomeClientNotification($otp));
+        // Send welcome email synchronously (no queue needed)
+        try {
+            $user->notify(new WelcomeClientNotification($otp));
+        } catch (\Throwable $e) {
+            \Log::error('[YONBUS] Welcome email failed for user ' . $user->id . ': ' . $e->getMessage());
+        }
 
         event(new Registered($user));
 
