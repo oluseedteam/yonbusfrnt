@@ -36,4 +36,33 @@ class InvoiceManager extends Component
         ]);
         session()->flash('message', 'Payment recorded successfully!');
     }
+
+    public function downloadPdf($id)
+    {
+        $invoice = Invoice::where('id', $id)->where('client_id', auth()->id())->firstOrFail();
+        
+        $issued = \Carbon\Carbon::parse($invoice->issued_date)->format('M j, Y');
+        $due    = \Carbon\Carbon::parse($invoice->due_date)->format('M j, Y');
+
+        $html = "
+        <html>
+        <head><title>Invoice #{$invoice->invoice_number}</title></head>
+        <body style='font-family: sans-serif; padding: 40px;'>
+            <h2>YONBUS Tax & Accounting Services</h2>
+            <hr>
+            <h3>INVOICE: {$invoice->invoice_number}</h3>
+            <p><strong>Status:</strong> " . strtoupper($invoice->status) . "</p>
+            <p><strong>Issued Date:</strong> {$issued}</p>
+            <p><strong>Due Date:</strong> {$due}</p>
+            <p><strong>Amount:</strong> $" . number_format($invoice->total, 2) . "</p>
+            <hr>
+            <p>Thank you for choosing YONBUS Tax & Accounting Services.</p>
+        </body>
+        </html>
+        ";
+
+        return response()->streamDownload(function () use ($html) {
+            echo $html;
+        }, "Invoice-{$invoice->invoice_number}.html");
+    }
 }

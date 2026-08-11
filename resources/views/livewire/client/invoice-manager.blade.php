@@ -51,7 +51,9 @@
                                         Pay Now
                                     </button>
                                 @endif
-                                <span class="text-xs text-gray-400">PDF</span>
+                                <button wire:click="downloadPdf({{ $inv->id }})" class="text-[#005DFF] hover:underline font-semibold text-xs">
+                                    Download PDF
+                                </button>
                             </td>
                         </tr>
                     @empty
