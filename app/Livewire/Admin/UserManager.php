@@ -7,10 +7,11 @@ use App\Repositories\UserRepository;
 use App\Services\AuditService;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class UserManager extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $search = '';
     public $roleFilter = 'all';
@@ -24,6 +25,7 @@ class UserManager extends Component
     public $role = 'client';
     public $phone = '';
     public $password = '';
+    public $avatar = null;
 
     protected function repo(): UserRepository
     {
@@ -46,7 +48,7 @@ class UserManager extends Component
 
     public function openModal()
     {
-        $this->reset(['editId', 'first_name', 'last_name', 'email', 'role', 'phone', 'password']);
+        $this->reset(['editId', 'first_name', 'last_name', 'email', 'role', 'phone', 'password', 'avatar']);
         $this->showModal = true;
     }
 
@@ -59,6 +61,7 @@ class UserManager extends Component
         $this->email      = $user->email;
         $this->role       = $user->getRoleNames()->first() ?? 'client';
         $this->phone      = $user->phone;
+        $this->avatar     = null;
         $this->showModal  = true;
     }
 
@@ -70,6 +73,7 @@ class UserManager extends Component
             'email'      => 'required|email|unique:users,email' . ($this->editId ? ",{$this->editId}" : ''),
             'role'       => 'required|in:admin,subadmin,accountant,client',
             'phone'      => 'nullable|string|max:20',
+            'avatar'     => 'nullable|image|max:5120',
         ];
 
         if (!$this->editId) {
@@ -90,6 +94,10 @@ class UserManager extends Component
             $data['password'] = $this->password;
         }
 
+        if ($this->avatar) {
+            $data['avatar'] = $this->avatar->store('avatars', 'public');
+        }
+
         if ($this->editId) {
             $user = $this->repo()->update($this->editId, $data);
             AuditService::log('user.updated', "Updated user: {$user->name} ({$this->role})", 'User', $user->id);
@@ -99,6 +107,7 @@ class UserManager extends Component
         }
 
         $this->showModal = false;
+        $this->reset('avatar');
         session()->flash('message', 'User saved successfully.');
     }
 

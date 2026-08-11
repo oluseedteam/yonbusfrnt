@@ -145,6 +145,11 @@
                             @error('phone') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                         </div>
                     </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Profile Photo (Optional)</label>
+                        <input type="file" wire:model="avatar" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        @error('avatar') <span class="text-xs text-rose-500 block">{{ $message }}</span> @enderror
+                    </div>
                     @if (!$editId)
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>

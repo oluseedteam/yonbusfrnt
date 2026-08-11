@@ -34,6 +34,11 @@ class PublicController extends Controller
         return view('pages.services', compact('services'));
     }
 
+    public function team()
+    {
+        return view('pages.team');
+    }
+
     public function blog(Request $request)
     {
         $categories = BlogCategory::withCount('blogs')->get();
