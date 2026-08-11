@@ -54,7 +54,6 @@
                                 <div>
                                     <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 2px;">Email Addresses</div>
                                     <a href="mailto:info@yonbustax.com" style="color: #93c5fd; font-size: 0.88rem; display: block; text-decoration: none;">info@yonbustax.com</a>
-                                    <a href="mailto:yonbustaxservices@gmail.com" style="color: #93c5fd; font-size: 0.88rem; display: block; text-decoration: none;">yonbustaxservices@gmail.com</a>
                                 </div>
                             </div>
 
