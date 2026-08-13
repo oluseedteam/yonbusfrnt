@@ -11,6 +11,12 @@
         </button>
     </div>
 
+    @if(session()->has('message'))
+        <div class="mb-6 p-4 rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 text-xs font-semibold">
+            {{ session('message') }}
+        </div>
+    @endif
+
     <!-- Filter Bar -->
     <div class="card-box p-4 mb-6 flex items-center justify-between">
         <div class="flex items-center gap-2">

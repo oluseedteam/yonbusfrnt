@@ -35,7 +35,7 @@
                                 <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">📍</div>
                                 <div>
                                     <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 2px;">Office Address</div>
-                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">147 Rue duChatelet<br>Gatineau, Quebec J8M 2A3</div>
+                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">Gatineau, Quebec, Canada</div>
                                 </div>
                             </div>
 
@@ -43,9 +43,7 @@
                                 <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">📞</div>
                                 <div>
                                     <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 2px;">Phone Lines</div>
-                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">+1 (647) 723-0990</div>
-                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">+1 (437) 423-9911</div>
-                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">(438) 978-1349 / (438) 686-3599</div>
+                                    <div style="color: #bfdbfe; font-size: 0.88rem; line-height: 1.5;">+1 (438) 978-1349 / +1 (438) 686-3599</div>
                                 </div>
                             </div>
 
@@ -53,7 +51,7 @@
                                 <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">✉️</div>
                                 <div>
                                     <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 2px;">Email Addresses</div>
-                                    <a href="mailto:info@yonbustax.com" style="color: #93c5fd; font-size: 0.88rem; display: block; text-decoration: none;">info@yonbustax.com</a>
+                                    <a href="mailto:info@yonbustax.ca" style="color: #93c5fd; font-size: 0.88rem; display: block; text-decoration: none;">info@yonbustax.ca</a>
                                 </div>
                             </div>
 

@@ -6,7 +6,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Tax & Financial Insights</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">Canadian Tax Tips, Guides & Accounting News</h1>
-            <p class="text-blue-100 text-lg max-w-2xl mx-auto font-light">Expert articles written by certified CPAs to help your business minimize tax liability and maintain compliance.</p>
+            <p class="text-blue-100 text-lg max-w-2xl mx-auto font-light">Expert articles written by certified CPBs to help your business minimize tax liability and maintain compliance.</p>
         </div>
     </section>
 

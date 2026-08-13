@@ -11,9 +11,17 @@ class DocumentController extends Controller
 {
     public function download(Document $document)
     {
-        if ($document->user_id !== auth()->id() && !auth()->user()->isAdmin() && !auth()->user()->isAccountant()) {
+        $user = auth()->user();
+        if ($document->client_id !== $user->id && !$user->isAdmin() && !$user->isAccountant()) {
             abort(403);
         }
-        return Storage::download($document->path, $document->original_name);
+
+        if (Storage::disk('public')->exists($document->stored_name)) {
+            return Storage::disk('public')->download($document->stored_name, $document->original_name);
+        } elseif (Storage::exists($document->stored_name)) {
+            return Storage::download($document->stored_name, $document->original_name);
+        }
+
+        abort(404, 'File not found on server.');
     }
 }

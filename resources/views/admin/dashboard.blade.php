@@ -54,6 +54,42 @@
         </div>
     </div>
 
+    <!-- Quick Actions Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" data-aos="fade-up" data-aos-delay="150">
+        <a href="{{ route('admin.services') }}" class="card-box flex items-center gap-4 hover:border-[#005DFF] border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-[#005DFF] text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">💼</div>
+            <div>
+                <p class="text-xs font-bold text-gray-500 uppercase font-heading">Services & Pricing</p>
+                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Manage Services</p>
+                <p class="text-[11px] text-[#005DFF] font-medium">Add · Edit · Delete → Live on Website</p>
+            </div>
+        </a>
+        <a href="{{ route('admin.appointments') }}" class="card-box flex items-center gap-4 hover:border-emerald-500 border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">📅</div>
+            <div>
+                <p class="text-xs font-bold text-gray-500 uppercase font-heading">Booking Calendar</p>
+                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Appointments</p>
+                <p class="text-[11px] text-emerald-600 font-medium">Confirm · Reschedule · Cancel</p>
+            </div>
+        </a>
+        <a href="{{ route('admin.users') }}" class="card-box flex items-center gap-4 hover:border-purple-500 border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-purple-500 text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">👥</div>
+            <div>
+                <p class="text-xs font-bold text-gray-500 uppercase font-heading">Client Database</p>
+                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">User Management</p>
+                <p class="text-[11px] text-purple-600 font-medium">Add · Edit · Assign Roles</p>
+            </div>
+        </a>
+        <a href="{{ route('admin.invoices') }}" class="card-box flex items-center gap-4 hover:border-amber-500 border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">💵</div>
+            <div>
+                <p class="text-xs font-bold text-gray-500 uppercase font-heading">Billing</p>
+                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Invoices</p>
+                <p class="text-[11px] text-amber-600 font-medium">Issue · Track · Mark Paid</p>
+            </div>
+        </a>
+    </div>
+
     <!-- Chart.js Visualizations Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8" data-aos="fade-up" data-aos-delay="200">
         <!-- Monthly Revenue Chart -->

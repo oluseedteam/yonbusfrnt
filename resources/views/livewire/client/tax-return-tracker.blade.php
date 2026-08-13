@@ -20,7 +20,7 @@
                             <h3 class="text-lg font-extrabold text-gray-900 dark:text-white font-heading">{{ $tr->title }}</h3>
                             <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-[#005DFF]">{{ $tr->year }} Tax Year</span>
                         </div>
-                        <p class="text-xs text-gray-500 mt-1">Assigned CPA: {{ $tr->accountant?->name ?? 'YONBUS Tax Expert' }} • Due: {{ $tr->due_date?->format('M j, Y') ?? 'April 15, 2025' }}</p>
+                        <p class="text-xs text-gray-500 mt-1">Assigned CPB: {{ $tr->accountant?->name ?? 'YONBUS Tax Expert' }} • Due: {{ $tr->due_date?->format('M j, Y') ?? 'April 15, 2025' }}</p>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider {{ $tr->status_color }}">
@@ -32,7 +32,7 @@
                 <!-- Workflow Timeline -->
                 <div class="relative py-4">
                     <div class="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
-                        @foreach(['draft' => 'Draft Created', 'submitted' => 'Documents Submitted', 'reviewed' => 'CPA Review', 'processing' => 'IRS Processing', 'approved' => 'IRS Approved', 'completed' => 'Filing Completed'] as $key => $label)
+                        @foreach(['draft' => 'Draft Created', 'submitted' => 'Documents Submitted', 'reviewed' => 'CPB Review', 'processing' => 'IRS Processing', 'approved' => 'IRS Approved', 'completed' => 'Filing Completed'] as $key => $label)
                             @php
                                 $stepNum = $statusOrder[$key];
                                 $isDone = $stepNum <= $currentStep;

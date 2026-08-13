@@ -44,25 +44,29 @@ class AppointmentService
     {
         // 1. Check holiday
         if (Holiday::where('date', $date)->exists()) {
-            return [false, 'The selected date is a public holiday.'];
+            return [false, 'The selected date is a public holiday. Please choose another day.'];
         }
 
-        // 2. Check accountant availability
+        // 2. Check accountant availability — if NO slots are configured at all, allow (open-door policy)
         $dayOfWeek = strtolower(Carbon::parse($date)->format('l'));
-        $available = AvailabilitySlot::where('accountant_id', $accountantId)
-            ->where('day_of_week', $dayOfWeek)
-            ->where('is_available', true)
-            ->where('start_time', '<=', $time)
-            ->where('end_time', '>', $time)
-            ->exists();
+        $hasAnySlots = AvailabilitySlot::where('accountant_id', $accountantId)->exists();
 
-        if (!$available) {
-            return [false, 'The selected accountant is not available at this time.'];
+        if ($hasAnySlots) {
+            $available = AvailabilitySlot::where('accountant_id', $accountantId)
+                ->where('day_of_week', $dayOfWeek)
+                ->where('is_available', true)
+                ->where('start_time', '<=', $time)
+                ->where('end_time', '>', $time)
+                ->exists();
+
+            if (!$available) {
+                return [false, 'The selected time is outside this accountant\'s available hours. Please pick another slot.'];
+            }
         }
 
         // 3. Check double booking
         if ($this->repository->isSlotTaken($accountantId, $date, $time, $excludeId)) {
-            return [false, 'This time slot is already booked.'];
+            return [false, 'This time slot is already booked. Please choose a different time.'];
         }
 
         return [true, 'Available'];

@@ -10,6 +10,7 @@ class Messages extends Component
 {
     public $body = '';
     public $selectedClientId = null;
+    public $showVideoCallModal = false;
 
     public function mount()
     {
@@ -37,6 +38,16 @@ class Messages extends Component
 
         return view('livewire.accountant.messages', compact('clients', 'messages'))
             ->layout('layouts.accountant');
+    }
+
+    public function startVideoCall()
+    {
+        $this->showVideoCallModal = true;
+    }
+
+    public function closeVideoCall()
+    {
+        $this->showVideoCallModal = false;
     }
 
     public function send()

@@ -16,20 +16,21 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         $user = auth()->user();
+        $today = now()->toDateString();
 
         $stats = [
-            'tax_returns'       => TaxReturn::where('client_id', $user->id)->count(),
-            'tax_completed'     => TaxReturn::where('client_id', $user->id)->where('status', 'completed')->count(),
-            'appointments'      => Appointment::where('client_id', $user->id)->count(),
-            'appointments_upcoming' => Appointment::where('client_id', $user->id)->whereIn('status', ['pending', 'confirmed'])->where('date', '>=', now())->count(),
-            'documents'         => Document::where('client_id', $user->id)->count(),
-            'invoices'          => Invoice::where('client_id', $user->id)->count(),
-            'invoices_pending'  => Invoice::where('client_id', $user->id)->where('status', 'pending')->count(),
+            'tax_returns'           => TaxReturn::where('client_id', $user->id)->count(),
+            'tax_completed'         => TaxReturn::where('client_id', $user->id)->where('status', 'completed')->count(),
+            'appointments'          => Appointment::where('client_id', $user->id)->count(),
+            'appointments_upcoming' => Appointment::where('client_id', $user->id)->whereIn('status', ['pending', 'confirmed'])->where('date', '>=', $today)->count(),
+            'documents'             => Document::where('client_id', $user->id)->count(),
+            'invoices'              => Invoice::where('client_id', $user->id)->count(),
+            'invoices_pending'      => Invoice::where('client_id', $user->id)->where('status', 'pending')->count(),
         ];
 
         $upcomingAppointment = Appointment::where('client_id', $user->id)
             ->whereIn('status', ['confirmed', 'pending'])
-            ->where('date', '>=', now())
+            ->where('date', '>=', $today)
             ->with(['service', 'accountant'])
             ->orderBy('date')
             ->first();
@@ -39,12 +40,13 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        $recentInvoices = Invoice::where('client_id', $user->id)->latest()->take(3)->get();
-        $recentDocuments = Document::where('client_id', $user->id)->latest()->take(3)->get();
+        $recentInvoices  = Invoice::where('client_id', $user->id)->latest()->take(3)->get();
+        $recentDocuments = Document::where('client_id', $user->id)->latest()->take(5)->get();
+        $adminDocuments  = Document::where('client_id', $user->id)->where('uploaded_by', '!=', $user->id)->with('uploader')->latest()->take(5)->get();
 
         return view('client.dashboard', compact(
             'user', 'stats', 'upcomingAppointment',
-            'recentActivity', 'recentInvoices', 'recentDocuments'
+            'recentActivity', 'recentInvoices', 'recentDocuments', 'adminDocuments'
         ));
     }
 }

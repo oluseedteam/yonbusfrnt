@@ -70,7 +70,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">Preferred Accountant (Optional)</label>
                     <select wire:model.live="accountant_id" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:border-[#005DFF] focus:ring-[#005DFF] text-sm">
-                        <option value="">Any Available CPA Accountant</option>
+                        <option value="">Any Available CPB Accountant</option>
                         @foreach($accountants as $acc)
                             <option value="{{ $acc->id }}">{{ $acc->name }}</option>
                         @endforeach

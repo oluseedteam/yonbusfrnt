@@ -33,93 +33,52 @@
             </div>
 
             @php
-                $brochureServices = [
-                    [
-                        'icon' => '🧾',
-                        'title' => 'TAX SERVICES',
-                        'desc' => 'Tax planning, preparation and filing for individuals, businesses and corporate entities. We ensure maximum deduction optimization while maintaining 100% CRA compliance.',
-                        'features' => ['Personal T1 Income Tax Filing', 'Corporate T2 Tax Returns', 'GST/HST & PST Remittances', 'CRA Representation & Audit Support']
-                    ],
-                    [
-                        'icon' => '🧮',
-                        'title' => 'ACCOUNTING & BOOKKEEPING',
-                        'desc' => 'Accurate record keeping and financial reporting to keep your business on track. Receive reliable monthly financial statements to make informed operational decisions.',
-                        'features' => ['Full-Cycle Bookkeeping', 'Monthly Financial Statements', 'Bank & Credit Card Reconciliation', 'Accounts Payable & Receivable']
-                    ],
-                    [
-                        'icon' => '📊',
-                        'title' => 'PAYROLL SERVICES',
-                        'desc' => 'Efficient payroll processing to ensure your employees are paid accurately and on time. We handle calculations, direct deposits, pay stub generation, and CRA payroll deductions.',
-                        'features' => ['Automated Direct Deposits', 'Pay Stub Generation', 'T4 & T4A Annual Slips', 'Receiver General Payroll Deductions']
-                    ],
-                    [
-                        'icon' => '📋',
-                        'title' => 'BUSINESS ADVISORY',
-                        'desc' => 'Strategic financial advice and consulting to help your business grow and thrive. From cash flow forecasting to structuring, we guide you at every stage of growth.',
-                        'features' => ['Financial Growth Strategy', 'Cash Flow & Budgeting', 'New Business Registration & Setup', 'Financial Performance Analysis']
-                    ],
-                    [
-                        'icon' => '📁',
-                        'title' => 'COMPLIANCE SERVICES',
-                        'desc' => 'We help you stay compliant with local regulations, provincial tax requirements, and statutory obligations so your business operates without risk or penalties.',
-                        'features' => ['CRA Statutory Filings', 'Provincial Corporate Compliance', 'Annual Corporate Returns', 'Audit Preparedness & Review']
-                    ],
-                ];
+                $serviceIcons = ['🧾','🧮','📊','📋','📁','💼','📑','🏦','🧑‍💼','📈'];
+                $idx = 0;
             @endphp
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($brochureServices as $svc)
+                @forelse($services->where('is_active', true) as $service)
+                @php $icon = $serviceIcons[$idx % count($serviceIcons)]; $idx++; @endphp
                 <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.25s ease;"
                      onmouseenter="this.style.background='rgba(255,255,255,0.10)';this.style.borderColor='rgba(0,82,255,0.5)';this.style.boxShadow='0 16px 40px rgba(0,82,255,0.25)';this.style.transform='translateY(-4px)';"
                      onmouseleave="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.12)';this.style.boxShadow='none';this.style.transform='translateY(0)';">
                     <div>
                         <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,82,255,0.25);border:1px solid rgba(0,82,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;">
-                            {{ $svc['icon'] }}
+                            {{ $icon }}
                         </div>
-                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.2rem;margin-bottom:12px;">{{ $svc['title'] }}</h3>
-                        <p style="color:rgba(148,163,184,0.85);font-size:0.9rem;line-height:1.65;margin-bottom:20px;">{{ $svc['desc'] }}</p>
+                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.2rem;margin-bottom:12px;text-transform:uppercase;">{{ $service->name }}</h3>
+                        <p style="color:rgba(148,163,184,0.85);font-size:0.9rem;line-height:1.65;margin-bottom:16px;">{{ $service->description }}</p>
 
-                        <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;margin-top:16px;">
-                            <div style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Includes:</div>
-                            <ul style="display:flex;flex-direction:column;gap:8px;">
-                                @foreach($svc['features'] as $feat)
-                                <li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(203,213,225,0.9);">
-                                    <span style="color:#60a5fa;font-weight:bold;">✓</span> {{ $feat }}
-                                </li>
-                                @endforeach
-                            </ul>
+                        <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;margin-top:8px;">
+                            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                                <span style="color:#60a5fa;font-size:0.85rem;font-weight:700;">
+                                    💲{{ number_format($service->price, 2) }}
+                                </span>
+                                @if($service->duration)
+                                <span style="color:rgba(148,163,184,0.7);font-size:0.82rem;">
+                                    ⏱ {{ $service->duration }} mins
+                                </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
                     <div style="margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);">
-                        <a href="{{ route('book-appointment') }}" style="display:block;width:100%;text-align:center;background:#0052ff;color:#ffffff;font-weight:700;font-size:0.88rem;padding:12px 20px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(0,82,255,0.4);transition:all 0.2s;"
-                           onmouseenter="this.style.boxShadow='0 8px 24px rgba(0,82,255,0.6)';this.style.transform='translateY(-1px)';" onmouseleave="this.style.boxShadow='0 4px 14px rgba(0,82,255,0.4)';this.style.transform='translateY(0)';">
+                        <a href="{{ route('book-appointment') }}?service={{ $service->id }}"
+                           style="display:block;width:100%;text-align:center;background:#0052ff;color:#ffffff;font-weight:700;font-size:0.88rem;padding:12px 20px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(0,82,255,0.4);transition:all 0.2s;"
+                           onmouseenter="this.style.boxShadow='0 8px 24px rgba(0,82,255,0.6)';this.style.transform='translateY(-1px)';"
+                           onmouseleave="this.style.boxShadow='0 4px 14px rgba(0,82,255,0.4)';this.style.transform='translateY(0)';">
                             Book Consultation
                         </a>
                     </div>
                 </div>
-                @endforeach
-
-                {{-- Additional Services (if present from Database) --}}
-                @if(isset($services) && count($services) > 0)
-                    @foreach($services as $service)
-                    <div style="background: #ffffff; border: 1.5px solid #0052ff; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <div style="width: 52px; height: 52px; border-radius: 14px; background: #eff6ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;">
-                                💼
-                            </div>
-                            <h3 class="font-heading font-bold" style="color: #0a1a4a; font-size: 1.2rem; margin-bottom: 12px;">{{ $service->name }}</h3>
-                            <p style="color: #4b5563; font-size: 0.9rem; line-height: 1.65;">{{ $service->description }}</p>
-                        </div>
-                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
-                            <span style="font-weight: 800; color: #0a1a4a; font-size: 1.1rem;">${{ number_format($service->price, 2) }}</span>
-                            <a href="{{ route('book-appointment') }}?service={{ $service->id }}" style="background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; text-decoration: none;">
-                                Book Now
-                            </a>
-                        </div>
+                @empty
+                    <div class="col-span-3 text-center py-16" style="color:rgba(148,163,184,0.7);">
+                        <div style="font-size:3rem;margin-bottom:1rem;">📋</div>
+                        <p style="font-size:1rem;">Services are being configured. Please check back soon.</p>
                     </div>
-                    @endforeach
-                @endif
+                @endforelse
             </div>
 
         </div>

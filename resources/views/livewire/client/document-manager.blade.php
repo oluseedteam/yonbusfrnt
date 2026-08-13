@@ -3,9 +3,64 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">Document Vault</h1>
-            <p class="text-xs text-gray-500 mt-1">Upload and organize your tax records, receipts, and financial statements.</p>
+            <p class="text-xs text-gray-500 mt-1">Upload your tax records and download documents sent to you by the YONBUS team.</p>
         </div>
     </div>
+
+    <!-- Documents Received from Admin / YONBUS Team -->
+    @if(isset($adminDocuments) && count($adminDocuments) > 0)
+        <div class="card-box mb-8 border-2 border-blue-500/30 bg-blue-50/30 dark:bg-blue-950/20">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-[#005DFF] text-white flex items-center justify-center font-bold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading">Documents Sent to You by Admin</h3>
+                        <p class="text-[11px] text-gray-500">Official tax documents, reports, and files shared with you by YONBUS staff.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-blue-100/60 dark:bg-blue-900/40 text-blue-900 dark:text-blue-100 uppercase font-semibold">
+                        <tr>
+                            <th class="p-3">Document Name</th>
+                            <th class="p-3">Sent By</th>
+                            <th class="p-3">Size</th>
+                            <th class="p-3">Date Sent</th>
+                            <th class="p-3 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-blue-100 dark:divide-blue-900/40">
+                        @foreach($adminDocuments as $doc)
+                            <tr class="hover:bg-blue-100/40 dark:hover:bg-blue-900/20">
+                                <td class="p-3 flex items-center gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-[10px]">
+                                        {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
+                                    </div>
+                                    <span class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</span>
+                                </td>
+                                <td class="p-3 font-medium text-blue-700 dark:text-blue-300">
+                                    {{ $doc->uploader?->name ?? 'YONBUS Admin' }}
+                                </td>
+                                <td class="p-3 font-mono text-gray-500">{{ $doc->file_size_human }}</td>
+                                <td class="p-3 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
+                                <td class="p-3 text-right">
+                                    <a href="{{ route('documents.download', $doc) }}" 
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition-all">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        <span>Download File</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
 
     <!-- Upload Card & Drag-Drop UI -->
     <div class="card-box mb-8">
@@ -82,15 +137,19 @@
                                 </div>
                                 <div>
                                     <p class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</p>
-                                    @if($doc->notes)<span class="text-[11px] text-gray-400">{{ $doc->notes }}</span>@endif
+                                    @if($doc->uploaded_by != auth()->id())
+                                        <span class="text-[10px] bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">Sent by Admin</span>
+                                    @endif
                                 </div>
                             </td>
-                            <td class="p-3.5 uppercase font-semibold text-[10px] text-gray-500">{{ str_replace('_', ' ', $doc->type) }}</td>
-                            <td class="p-3.5 text-gray-500 font-mono">{{ $doc->formatted_size }}</td>
+                            <td class="p-3.5 uppercase font-semibold text-[10px] text-gray-500">{{ str_replace('_', ' ', $doc->file_type ?? 'document') }}</td>
+                            <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
                             <td class="p-3.5 text-right space-x-3">
                                 <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] hover:underline font-semibold">Download</a>
-                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Delete file?" class="text-red-500 hover:underline font-semibold">Delete</button>
+                                @if($doc->uploaded_by == auth()->id())
+                                    <button wire:click="delete({{ $doc->id }})" wire:confirm="Delete file?" class="text-red-500 hover:underline font-semibold">Delete</button>
+                                @endif
                             </td>
                         </tr>
                     @empty

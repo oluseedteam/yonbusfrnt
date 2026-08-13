@@ -12,7 +12,7 @@
             </span>
             <h1 class="text-3xl sm:text-5xl font-extrabold font-heading leading-tight">{{ $blog->title }}</h1>
             <div class="flex items-center space-x-4 text-xs text-blue-200">
-                <span>By {{ $blog->author->name ?? 'YONBUS CPA Advisor' }}</span>
+                <span>By {{ $blog->author->name ?? 'YONBUS CPB Advisor' }}</span>
                 <span>•</span>
                 <span>Published {{ $blog->published_at ? $blog->published_at->format('F d, Y') : 'Recently' }}</span>
             </div>
@@ -35,10 +35,10 @@
             <!-- CTA Box -->
             <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-10 space-y-4 text-center mt-12 shadow-2xl" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="text-2xl font-bold font-heading">Need Personalized Tax Advice for Your Business?</h3>
-                <p class="text-slate-300 text-sm max-w-lg mx-auto">Book a 1-on-1 consultation with our senior chartered accountants today.</p>
+                <p class="text-slate-300 text-sm max-w-lg mx-auto">Book a 1-on-1 consultation with our senior advisors today.</p>
                 <div>
                     <a href="{{ route('book-appointment') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold text-sm shadow-lg transition">
-                        Schedule CPA Consultation
+                        Schedule CPB Consultation
                     </a>
                 </div>
             </div>
