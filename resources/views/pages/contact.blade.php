@@ -59,7 +59,7 @@
                                 <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">🌐</div>
                                 <div>
                                     <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 2px;">Website</div>
-                                    <a href="https://www.yonbustax.com" target="_blank" style="color: #93c5fd; font-size: 0.88rem; text-decoration: none;">www.yonbustax.com</a>
+                                    <a href="https://www.yonbustax.ca" target="_blank" style="color: #93c5fd; font-size: 0.88rem; text-decoration: none;">www.yonbustax.ca</a>
                                 </div>
                             </div>
                         </div>

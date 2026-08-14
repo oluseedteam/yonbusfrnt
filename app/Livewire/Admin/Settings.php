@@ -15,8 +15,8 @@ class Settings extends Component
         $dbSettings = Setting::all()->keyBy('key')->map(fn($s) => $s->value)->toArray();
 
         $defaults = [
-            'company_name'  => 'YONBUS & Associates Accounting',
-            'company_email' => 'support@yonbus.com',
+            'company_name'  => 'YONBUS Tax & Accounting Services Inc.',
+            'company_email' => 'info@yonbustax.ca',
             'company_phone' => '+1 (555) 019-2831',
             'company_ein'   => '12-3456789',
             'tax_rate'      => '7.5',

@@ -110,7 +110,7 @@ class DatabaseSeeder extends Seeder
         // 5. Default Application Settings
         $settings = [
             ['key' => 'company_name',    'value' => 'YONBUS Tax & Accounting Services Inc.', 'group' => 'general'],
-            ['key' => 'company_email',   'value' => 'info@yonbus.com',                       'group' => 'general'],
+            ['key' => 'company_email',   'value' => 'info@yonbustax.ca',                     'group' => 'general'],
             ['key' => 'company_phone',   'value' => '+1 (800) 555-YONBUS',                  'group' => 'general'],
             ['key' => 'company_address', 'value' => '100 Financial Plaza, Suite 800, Toronto, ON M5H 2N2', 'group' => 'general'],
             ['key' => 'tax_rate',        'value' => '13.00',                                 'group' => 'financial'],

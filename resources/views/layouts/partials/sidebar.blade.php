@@ -57,7 +57,7 @@
                     <p class="text-[11px] text-gray-500 dark:text-gray-400">Online 24/7</p>
                 </div>
             </div>
-            <a href="mailto:support@yonbus.com" class="text-xs font-medium text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
+            <a href="mailto:support@yonbustax.ca" class="text-xs font-medium text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
                 Contact Support &rarr;
             </a>
         </div>

@@ -198,7 +198,7 @@
 
             <div class="form-group">
                 <label class="form-label" for="email">Admin Email Address</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-input" placeholder="admin@yonbustax.com" required>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-input" placeholder="admin@yonbustax.ca" required>
                 @error('email') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
