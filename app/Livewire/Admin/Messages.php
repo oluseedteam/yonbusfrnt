@@ -112,13 +112,11 @@ class Messages extends Component
             $client->last_message = $lastMsg?->body;
             $client->last_message_time = $lastMsg?->created_at;
             return $client;
-        })->filter(function ($c) {
-            return !empty($this->searchClient) || $c->last_message !== null || $c->unread_count > 0;
         })->sortByDesc(function ($c) {
-            return $c->last_message_time ? $c->last_message_time->timestamp : 0;
+            return $c->last_message_time ? $c->last_message_time->timestamp : -1;
         });
 
-        // Fallback: If selected client is not set but clients exist, pick first client with messages
+        // Fallback: If selected client is not set but clients exist, pick first client
         if (!$this->selectedClientId && $clients->isNotEmpty()) {
             $this->selectedClientId = $clients->first()->id;
         }

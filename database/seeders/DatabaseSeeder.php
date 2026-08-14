@@ -54,7 +54,60 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 4. Default Application Settings
+        // 4. Default System Services
+        $services = [
+            [
+                'name'        => 'Personal Income Tax Return (T1)',
+                'description' => 'Comprehensive individual tax preparation, credits optimization, and electronic filing with CRA.',
+                'price'       => 120.00,
+                'duration'    => 45,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'Corporate Tax Filing (T2)',
+                'description' => 'Full corporate tax return preparation, financial statement review, and strategic tax minimization.',
+                'price'       => 650.00,
+                'duration'    => 60,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'Monthly Bookkeeping & Reporting',
+                'description' => 'Accurate bank reconciliations, expense tracking, balance sheet, and monthly profit & loss reporting.',
+                'price'       => 250.00,
+                'duration'    => 60,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'Payroll Management & Remittances',
+                'description' => 'Full-service payroll processing, direct deposit setup, ROEs, T4/T4A summaries, and CRA remittances.',
+                'price'       => 180.00,
+                'duration'    => 45,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'CRA Tax Audit Defense & Review',
+                'description' => 'Expert representation during CRA reviews, audit inquiries, formal appeals, and dispute negotiations.',
+                'price'       => 350.00,
+                'duration'    => 90,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'Business Registration & Tax Planning',
+                'description' => 'Federal & provincial incorporation, GST/HST accounts, corporate structuring, and year-end planning.',
+                'price'       => 400.00,
+                'duration'    => 60,
+                'is_active'   => true,
+            ],
+        ];
+
+        foreach ($services as $srv) {
+            \App\Models\Service::firstOrCreate(
+                ['name' => $srv['name']],
+                $srv
+            );
+        }
+
+        // 5. Default Application Settings
         $settings = [
             ['key' => 'company_name',    'value' => 'YONBUS Tax & Accounting Services Inc.', 'group' => 'general'],
             ['key' => 'company_email',   'value' => 'info@yonbus.com',                       'group' => 'general'],

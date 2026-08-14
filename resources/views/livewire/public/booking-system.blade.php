@@ -114,13 +114,13 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">First Name *</label>
-                    <input type="text" wire:model.defer="first_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="John">
+                    <input type="text" wire:model="first_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="John">
                     @error('first_name') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Last Name *</label>
-                    <input type="text" wire:model.defer="last_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Doe">
+                    <input type="text" wire:model="last_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Doe">
                     @error('last_name') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -128,25 +128,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Email Address *</label>
-                    <input type="email" wire:model.defer="client_email" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="john@example.com">
+                    <input type="email" wire:model="client_email" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="john@example.com">
                     @error('client_email') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
-                    <input type="text" wire:model.defer="client_phone" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="+1 (555) 000-0000">
+                    <input type="text" wire:model="client_phone" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="+1 (555) 000-0000">
                     @error('client_phone') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Company Name (Optional)</label>
-                <input type="text" wire:model.defer="company_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Doe Enterprises">
+                <input type="text" wire:model="company_name" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Doe Enterprises">
             </div>
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Notes / Special Instructions</label>
-                <textarea wire:model.defer="notes" rows="3" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Please mention any specific tax slips or financial questions you have..."></textarea>
+                <textarea wire:model="notes" rows="3" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]" placeholder="Please mention any specific tax slips or financial questions you have..."></textarea>
             </div>
 
             <div class="pt-6 flex justify-between">

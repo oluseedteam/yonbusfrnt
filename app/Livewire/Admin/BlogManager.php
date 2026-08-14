@@ -4,13 +4,15 @@ namespace App\Livewire\Admin;
 
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
 class BlogManager extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $showModal = false;
     public $editingBlogId = null;
@@ -22,6 +24,7 @@ class BlogManager extends Component
     public $excerpt = '';
     public $content = '';
     public $featured_image = '';
+    public $imageFile = null;
     public $meta_title = '';
     public $meta_description = '';
     public $is_featured = false;
@@ -38,6 +41,7 @@ class BlogManager extends Component
         'blog_category_id' => 'required|exists:blog_categories,id',
         'title'            => 'required|string|max:255',
         'content'          => 'required|string',
+        'imageFile'        => 'nullable|image|max:5120',
     ];
 
     public function updatedTitle($value)
@@ -47,7 +51,7 @@ class BlogManager extends Component
 
     public function openCreateModal()
     {
-        $this->reset(['editingBlogId', 'title', 'slug', 'excerpt', 'content', 'featured_image', 'meta_title', 'meta_description', 'is_featured', 'is_published']);
+        $this->reset(['editingBlogId', 'title', 'slug', 'excerpt', 'content', 'featured_image', 'imageFile', 'meta_title', 'meta_description', 'is_featured', 'is_published']);
         $firstCat = BlogCategory::first();
         if (!$firstCat) {
             $firstCat = BlogCategory::create([
@@ -70,16 +74,24 @@ class BlogManager extends Component
         $this->excerpt = $blog->excerpt;
         $this->content = $blog->content;
         $this->featured_image = $blog->featured_image;
+        $this->imageFile = null;
         $this->meta_title = $blog->meta_title;
         $this->meta_description = $blog->meta_description;
-        $this->is_featured = $blog->is_featured;
-        $this->is_published = $blog->is_published;
+        $this->is_featured = (bool) $blog->is_featured;
+        $this->is_published = (bool) $blog->is_published;
         $this->showModal = true;
     }
 
     public function saveBlog()
     {
         $this->validate();
+
+        $featuredImageUrl = $this->featured_image;
+
+        if ($this->imageFile) {
+            $storedPath = $this->imageFile->store('blogs', 'public');
+            $featuredImageUrl = Storage::url($storedPath);
+        }
 
         $data = [
             'blog_category_id' => $this->blog_category_id,
@@ -88,7 +100,7 @@ class BlogManager extends Component
             'slug'             => $this->slug ?: Str::slug($this->title),
             'excerpt'          => $this->excerpt,
             'content'          => $this->content,
-            'featured_image'   => $this->featured_image,
+            'featured_image'   => $featuredImageUrl,
             'meta_title'       => $this->meta_title,
             'meta_description' => $this->meta_description,
             'is_featured'      => $this->is_featured,
@@ -105,6 +117,7 @@ class BlogManager extends Component
         }
 
         $this->showModal = false;
+        $this->reset(['imageFile']);
     }
 
     public $showDeleteModal = false;
