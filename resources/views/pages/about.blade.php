@@ -2,7 +2,7 @@
     <x-slot name="title">About Us | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     {{-- Header Banner --}}
-    <section style="background: linear-gradient(135deg, #020B24 0%, #002B8A 60%, #0052FF 100%); padding: 4.5rem 0; text-align: center; color: #ffffff;">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 4.5rem 0; text-align: center; color: #ffffff;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #93c5fd; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2);">
                 About Our Firm
@@ -138,26 +138,22 @@
     </section>
 
     {{-- Bottom CTA (Glassmorphism) --}}
-    <section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#010d24 0%,#020c22 50%,#010818 100%);padding:4.5rem 0;text-align:center;color:#ffffff;">
-        <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:280px;background:radial-gradient(ellipse,rgba(0,82,255,0.22) 0%,transparent 70%);pointer-events:none;"></div>
-        <div style="position:absolute;bottom:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,43,138,0.2) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+    <section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#002B8A 0%,#0045d8 50%,#0052FF 100%);padding:4.5rem 0;text-align:center;color:#ffffff;">
+        <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:280px;background:radial-gradient(ellipse,rgba(255,255,255,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
-            <span style="font-size:11px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.08em;background:rgba(0,82,255,0.2);border:1px solid rgba(0,82,255,0.35);padding:5px 14px;border-radius:999px;display:inline-block;margin-bottom:1rem;">Your Next Step</span>
+            <span style="font-size:11px;font-weight:800;color:#dbeafe;text-transform:uppercase;letter-spacing:0.08em;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:5px 14px;border-radius:999px;display:inline-block;margin-bottom:1rem;">Your Next Step</span>
             <h2 class="font-heading font-extrabold" style="font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:12px;">
                 Ready to Work With Us?
             </h2>
-            <p style="color:rgba(148,163,184,0.85);font-size:1rem;max-width:520px;margin:0 auto 1.75rem;line-height:1.7;">
+            <p style="color:#dbeafe;font-size:1rem;max-width:520px;margin:0 auto 1.75rem;line-height:1.7;">
                 Schedule a consultation today and discover how YONBUS can streamline your financial operations.
             </p>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                <a href="{{ route('book-appointment') }}" style="background:#0052ff;color:#ffffff;font-weight:700;font-size:0.95rem;padding:14px 30px;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(0,82,255,0.5);transition:all 0.2s;"
-                   onmouseenter="this.style.boxShadow='0 12px 32px rgba(0,82,255,0.7)';this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 8px 24px rgba(0,82,255,0.5)';this.style.transform='translateY(0)';">
-                    Book Consultation
-                </a>
-                <a href="{{ route('contact') }}" style="background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.25);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;transition:all 0.2s;"
-                   onmouseenter="this.style.background='rgba(255,255,255,0.15)';" onmouseleave="this.style.background='rgba(255,255,255,0.08)';">
-                    Contact Us
-                </a>
+                <a href="{{ route('book-appointment') }}" style="background:#ffffff;color:#0052ff;font-weight:700;font-size:0.95rem;padding:14px 30px;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.15);transition:all 0.2s;"
+                   onmouseenter="this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)';this.style.transform='translateY(0)';">Book Consultation</a>
+                <a href="{{ route('contact') }}" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.35);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;transition:all 0.2s;"
+                   onmouseenter="this.style.background='rgba(255,255,255,0.25)';" onmouseleave="this.style.background='rgba(255,255,255,0.15)';">Contact Us</a>
             </div>
         </div>
     </section>
