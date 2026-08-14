@@ -7,7 +7,7 @@
     <section class="relative overflow-hidden" style="min-height: 88vh; display: flex; align-items: center; background: #020B24;">
         {{-- Background Image with full vibrant clarity & directional overlay --}}
         <div class="absolute inset-0" style="z-index: 0;">
-            <img src="{{ asset('images/accounting-hero-bg.jpg') }}"
+            <img src="{{ asset('images/accounting-hero-bg.jpg') }}?v={{ file_exists(public_path('images/accounting-hero-bg.jpg')) ? filemtime(public_path('images/accounting-hero-bg.jpg')) : time() }}"
                  alt="YONBUS Office"
                  style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.95;">
             <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(2,11,36,0.94) 0%, rgba(2,11,36,0.80) 38%, rgba(2,11,36,0.32) 72%, rgba(2,11,36,0.55) 100%);"></div>
