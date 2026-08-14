@@ -106,6 +106,40 @@ class PublicController extends Controller
         return view('pages.book-appointment');
     }
 
+    public function careers()
+    {
+        return view('pages.careers');
+    }
+
+    public function submitCareer(Request $request)
+    {
+        $validated = $request->validate([
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255',
+            'phone'      => 'nullable|string|max:50',
+            'position'   => 'required|string|max:255',
+            'experience' => 'required|string|max:100',
+            'message'    => 'required|string|max:3000',
+            'resume'     => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+        ]);
+
+        $resumePath = null;
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('career-applications', 'public');
+        }
+
+        CommunicationLog::create([
+            'name'    => $validated['name'],
+            'email'   => $validated['email'],
+            'phone'   => $validated['phone'] ?? null,
+            'subject' => 'Career Application: ' . $validated['position'] . ' (' . $validated['experience'] . ')',
+            'message' => $validated['message'] . ($resumePath ? "\n\n[Resume: " . $resumePath . "]" : ''),
+            'channel' => 'career_application',
+        ]);
+
+        return back()->with('success', 'Thank you for applying! Our HR team will review your application and be in touch within 5 business days.');
+    }
+
     public function privacy()
     {
         return view('pages.privacy');

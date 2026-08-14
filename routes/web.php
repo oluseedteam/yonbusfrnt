@@ -17,6 +17,8 @@ Route::get('/blog', [PublicController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [PublicController::class, 'blogPost'])->name('blog.show');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 Route::post('/contact', [PublicController::class, 'submitContact'])->middleware('throttle:10,1')->name('contact.submit');
+Route::get('/careers', [PublicController::class, 'careers'])->name('careers');
+Route::post('/careers', [PublicController::class, 'submitCareer'])->middleware('throttle:5,1')->name('careers.submit');
 Route::get('/book-appointment', [PublicController::class, 'bookAppointment'])->name('book-appointment');
 Route::get('/privacy-policy', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PublicController::class, 'terms'])->name('terms');
