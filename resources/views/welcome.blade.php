@@ -2,100 +2,39 @@
     <x-slot name="title">YONBUS Tax & Accounting Services Inc. — Your Partner in Financial Clarity & Growth</x-slot>
 
     {{-- ============================================================
-         HERO — Bright & Welcoming Corporate Daylight Look
+         HERO — Exact match to screenshot with modern office background
          ============================================================ --}}
-    <section class="relative overflow-hidden" style="min-height: 88vh; display: flex; align-items: center; background: #e8f1fd;">
-        {{-- Background Image with bright directional overlay --}}
+    <section class="relative overflow-hidden" style="min-height: 90vh; display: flex; align-items: center; background: #020B24;">
+        {{-- Background Image with daylight office view & left dark navy gradient overlay --}}
         <div class="absolute inset-0" style="z-index: 0;">
             <img src="{{ asset('images/accounting-hero-bg.jpg') }}?v={{ file_exists(public_path('images/accounting-hero-bg.jpg')) ? filemtime(public_path('images/accounting-hero-bg.jpg')) : time() }}"
-                 alt="YONBUS Office"
-                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.82;">
-            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(235,244,255,0.72) 0%, rgba(235,244,255,0.60) 42%, rgba(235,244,255,0.25) 75%, rgba(235,244,255,0.40) 100%);"></div>
+                 alt="YONBUS Corporate Office"
+                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.95;">
+            <div class="absolute inset-0" style="background: linear-gradient(95deg, rgba(2,11,36,0.96) 0%, rgba(2,11,36,0.88) 36%, rgba(2,11,36,0.45) 68%, rgba(2,11,36,0.20) 100%);"></div>
         </div>
 
-        <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32" style="z-index: 1;">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28" style="z-index: 1;">
+            <div class="max-w-2xl" style="display: flex; flex-direction: column; gap: 1.75rem;" data-aos="fade-right" data-aos-duration="800">
 
-                {{-- LEFT: Headline & CTAs --}}
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;" data-aos="fade-right" data-aos-duration="800">
-
-                    {{-- Badge --}}
-                    <div class="inline-flex items-center gap-2 animate-glow" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #0052ff; padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: fit-content; box-shadow: 0 2px 8px rgba(0,82,255,0.08);">
-                        <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                        Trusted by 5,000+ Canadian Businesses
-                    </div>
-
-                    {{-- Main Headline --}}
-                    <h1 class="font-heading font-extrabold" style="color: #0a1a4a; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em;">
-                        YONBUS Tax &amp;<br>
-                        Accounting <span style="color: #0052ff;">Services Inc.</span>
-                    </h1>
-
-                    {{-- Subheadline --}}
-                    <p style="color: #475569; font-size: 1.05rem; line-height: 1.75; max-width: 520px;">
-                        A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
-                    </p>
-
-                    {{-- Slogan box --}}
-                    <div style="border-left: 4px solid #0052ff; background: #ffffff; border-radius: 0 14px 14px 0; padding: 14px 18px; border-top: 1.5px solid #e0e7ff; border-right: 1.5px solid #e0e7ff; border-bottom: 1.5px solid #e0e7ff; box-shadow: 0 4px 16px rgba(0,82,255,0.06);" class="hover-lift">
-                        <p style="color: #002B8A; font-size: 0.92rem; font-style: italic; font-weight: 600;">
-                            "Your Partner in Financial Clarity and Growth"
-                        </p>
-                    </div>
-
-                    {{-- CTA Buttons --}}
-                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-top: 0.25rem;">
-                        <a href="{{ route('register') }}"
-                           class="hover-lift hover-glow-blue"
-                           style="display: inline-flex; align-items: center; gap: 8px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,82,255,0.3); text-decoration: none;">
-                            Get Started Free
-                            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </a>
-                        <a href="{{ route('book-appointment') }}"
-                           class="hover-lift"
-                           style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #cbd5e1; color: #0a1a4a; font-weight: 600; font-size: 0.95rem; padding: 14px 26px; border-radius: 12px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            Book Consultation
-                        </a>
-                    </div>
-
-                    {{-- Social Proof --}}
-                    <div style="display: flex; align-items: center; gap: 1rem; padding-top: 0.5rem; border-top: 1px solid #e2e8f0;">
-                        <div style="display: flex; margin-right: 4px;">
-                            @foreach(['photo-1534528741775-53994a69daeb','photo-1507003211169-0a1dd7228f2d','photo-1500648767791-00dcc994a43e','photo-1573496359142-b8d87734a5a2'] as $p)
-                            <img src="https://images.unsplash.com/{{ $p }}?auto=format&fit=crop&w=80&q=80"
-                                 style="width:34px;height:34px;border-radius:999px;object-fit:cover;margin-left:-8px;border:2px solid #ffffff;box-shadow:0 2px 6px rgba(0,0,0,0.1);">
-                            @endforeach
-                        </div>
-                        <div>
-                            <div style="display:flex;gap:2px;color:#f59e0b;">
-                                @for($i=0;$i<5;$i++)<svg style="width:14px;height:14px;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>@endfor
-                            </div>
-                            <div style="font-size:0.8rem;font-weight:700;color:#0a1a4a;margin-top:2px;">4.9/5 <span style="color:#64748b;font-weight:400;">from 500+ reviews</span></div>
-                        </div>
-                    </div>
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2" style="background: rgba(14, 45, 110, 0.55); border: 1.5px solid rgba(59, 130, 246, 0.45); color: #93c5fd; padding: 7px 18px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; width: fit-content; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+                    <svg style="width: 16px; height: 16px; color: #60a5fa; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <span>TRUSTED BY 5,000+ CANADIAN BUSINESSES</span>
                 </div>
 
-                {{-- RIGHT: 4 KPI Cards (desktop only) with Glassmorphism --}}
-                <div class="hidden lg:grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;" data-aos="fade-left" data-aos-duration="800">
-                    @foreach([
-                        ['bg'=>'rgba(255,255,255,0.92)','bc'=>'#e0e7ff','ic'=>'#dcfce7','icc'=>'#059669','path'=>'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6','label'=>'Tax Savings','value'=>'$125,430','sub'=>'▲ 12.5% this quarter','sc'=>'#059669'],
-                        ['bg'=>'rgba(255,255,255,0.92)','bc'=>'#e0e7ff','ic'=>'#eff6ff','icc'=>'#0052ff','path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','label'=>'CRA Tax Return','value'=>'✓ 2024 Filed','sub'=>'Successfully verified','sc'=>'#059669'],
-                        ['bg'=>'rgba(255,255,255,0.92)','bc'=>'#e0e7ff','ic'=>'#fef3c7','icc'=>'#d97706','path'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','label'=>'Next Appointment','value'=>'Aug 12, 2026','sub'=>'10:00 AM · Confirmed','sc'=>'#64748b'],
-                        ['bg'=>'rgba(255,255,255,0.92)','bc'=>'#e0e7ff','ic'=>'#eff6ff','icc'=>'#0052ff','path'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','label'=>'Active Clients','value'=>'5,000+','sub'=>'Across Canada','sc'=>'#0052ff'],
-                    ] as $card)
-                    <div class="hover-lift hover-glow-blue" style="background:{{ $card['bg'] }};backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid {{ $card['bc'] }};border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 24px rgba(0,82,255,0.06);">
-                        <div style="width:44px;height:44px;border-radius:12px;background:{{ $card['ic'] }};display:flex;align-items:center;justify-content:center;">
-                            <svg style="width:22px;height:22px;color:{{ $card['icc'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['path'] }}"/></svg>
-                        </div>
-                        <div>
-                            <div style="font-size:11px;color:#64748b;font-weight:600;">{{ $card['label'] }}</div>
-                            <div style="font-size:1.15rem;font-weight:800;color:#0a1a4a;margin-top:2px;">{{ $card['value'] }}</div>
-                            <div style="font-size:11px;color:{{ $card['sc'] }};margin-top:2px;font-weight:600;">{{ $card['sub'] }}</div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
+                {{-- Main Headline --}}
+                <h1 class="font-heading font-extrabold text-white" style="font-size: clamp(2.8rem, 5.6vw, 4.4rem); line-height: 1.12; letter-spacing: -0.025em; margin: 0;">
+                    YONBUS Tax &amp;<br>
+                    Accounting <span style="color: #4da6ff;">Services</span><br>
+                    <span style="color: #4da6ff;">Inc.</span>
+                </h1>
+
+                {{-- Subheadline --}}
+                <p style="color: rgba(226, 232, 240, 0.92); font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.7; max-width: 540px; font-weight: 400; margin: 0;">
+                    A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
+                </p>
 
             </div>
         </div>

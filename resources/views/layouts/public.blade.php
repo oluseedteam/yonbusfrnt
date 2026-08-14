@@ -40,15 +40,15 @@
 
                 <!-- Brand: Logo + Name -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 py-2 group flex-shrink-0">
-                    <img src="{{ asset('images/logo.png') }}" alt="YONBUS Logo" class="w-auto object-contain transition-transform group-hover:scale-105" style="height: 40px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="YONBUS Logo" class="w-auto object-contain transition-transform group-hover:scale-105" style="height: 42px;">
                     <div class="leading-tight">
-                        <div class="font-extrabold font-heading" style="color: #0a1a4a; font-size: 15px; line-height: 1.2;">YONBUS</div>
-                        <div class="font-medium" style="color: #0052ff; font-size: 10px; line-height: 1.2; letter-spacing: 0.03em;">TAX & ACCOUNTING SERVICES INC.</div>
+                        <div class="font-extrabold font-heading" style="color: #0a1a4a; font-size: 16px; line-height: 1.15; letter-spacing: -0.01em;">YONBUS</div>
+                        <div class="font-semibold" style="color: #0052ff; font-size: 9px; line-height: 1.2; letter-spacing: 0.04em;">TAX &amp; ACCOUNTING SERVICES INC.</div>
                     </div>
                 </a>
 
                 <!-- Navigation Links (Desktop) -->
-                <nav class="hidden md:flex items-center" style="gap: 1.75rem;">
+                <nav class="hidden md:flex items-center" style="gap: 2rem;">
                     @php
                         $navLinks = [
                             ['route' => 'home',     'label' => 'Home'],
@@ -62,14 +62,14 @@
                     @foreach($navLinks as $link)
                         @if(request()->routeIs($link['route']))
                             <a href="{{ route($link['route']) }}"
-                               class="text-sm font-semibold"
-                               style="color: #0052ff; border-bottom: 2px solid #0052ff; padding-bottom: 3px;">
+                               class="text-sm font-bold transition-all"
+                               style="color: #0052ff; border-bottom: 2.5px solid #0052ff; padding-bottom: 4px;">
                                 {{ $link['label'] }}
                             </a>
                         @else
                             <a href="{{ route($link['route']) }}"
                                class="text-sm font-medium transition-colors"
-                               style="color: #374151;"
+                               style="color: #374151; padding-bottom: 4px;"
                                onmouseenter="this.style.color='#0052ff'"
                                onmouseleave="this.style.color='#374151'">
                                 {{ $link['label'] }}
@@ -79,17 +79,16 @@
                 </nav>
 
                 <!-- Header CTA Actions -->
-                <div class="hidden md:flex items-center" style="gap: 0.6rem;">
+                <div class="hidden md:flex items-center" style="gap: 1.25rem;">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium px-3 py-2" style="color: #374151;">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #374151;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#374151'">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium px-3 py-2" style="color: #374151;">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #374151;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#374151'">Login</a>
                     @endauth
 
-
                     <a href="{{ route('register') }}"
-                       class="inline-flex items-center justify-center px-5 py-2 text-sm font-semibold rounded-lg transition-all transform hover:-translate-y-0.5"
-                       style="background: #0052ff; color: #ffffff; box-shadow: 0 4px 12px rgba(0,82,255,0.25);">
+                       class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
+                       style="background: #0052ff; color: #ffffff; padding: 10px 22px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,82,255,0.3);">
                         Get Started
                     </a>
                 </div>
