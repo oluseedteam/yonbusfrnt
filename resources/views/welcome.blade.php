@@ -4,51 +4,51 @@
     {{-- ============================================================
          HERO — Office background with vibrant deep blue to blue gradient overlay (No Black)
          ============================================================ --}}
-    <section class="relative overflow-hidden" style="min-height: 90vh; display: flex; align-items: center; background: #002B8A;">
-        {{-- Background Image with daylight office view & vibrant deepblue to blue gradient overlay --}}
-        <div class="absolute inset-0" style="z-index: 0;">
+    <section class="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center" style="background: #031538;">
+        {{-- Background Image with Daylight Visibility & Deep Blue Directional Fade --}}
+        <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/accounting-hero-bg.jpg') }}?v={{ file_exists(public_path('images/accounting-hero-bg.jpg')) ? filemtime(public_path('images/accounting-hero-bg.jpg')) : time() }}"
                  alt="YONBUS Corporate Office"
-                 style="width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 1;">
-            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(0, 43, 138, 0.92) 0%, rgba(0, 69, 216, 0.78) 40%, rgba(0, 82, 255, 0.40) 72%, rgba(0, 163, 255, 0.18) 100%);"></div>
+                 class="w-full h-full object-cover object-center">
+
+            {{-- Deep Blue directional fade: Rich deep blue on left for text readability, clear/transparent on right so image is completely visible --}}
+            <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(3, 21, 56, 0.94) 0%, rgba(3, 21, 56, 0.85) 34%, rgba(3, 21, 56, 0.48) 58%, rgba(3, 21, 56, 0.08) 80%, transparent 95%);"></div>
         </div>
 
         <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 z-10">
             <div class="max-w-2xl flex flex-col gap-5 sm:gap-6 md:gap-7" data-aos="fade-right" data-aos-duration="800">
 
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2" style="background: rgba(255, 255, 255, 0.16); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #ffffff; padding: 7px 18px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; width: fit-content; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
-                    <svg style="width: 16px; height: 16px; color: #93c5fd; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div style="width: fit-content; display: inline-flex; align-items: center; gap: 7px; background: #0D3E85; border: 1.2px solid #2563EB; color: #BFDBFE; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 16px; border-radius: 999px; box-shadow: 0 2px 10px rgba(13,62,133,0.35);">
+                    <svg style="width: 14px; height: 14px; color: #60A5FA; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                     <span>TRUSTED BY 5,000+ CANADIAN BUSINESSES</span>
                 </div>
 
                 {{-- Main Headline --}}
-                <h1 class="font-heading font-extrabold text-white" style="font-size: clamp(2.8rem, 5.6vw, 4.4rem); line-height: 1.12; letter-spacing: -0.025em; margin: 0;">
+                <h1 class="font-heading font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] leading-[1.15] md:leading-[1.12] m-0" style="letter-spacing: -0.02em;">
                     YONBUS Tax &amp;<br>
-                    Accounting <span style="color: #60a5fa;">Services</span><br>
-                    <span style="color: #60a5fa;">Inc.</span>
+                    Accounting <span style="color: #4AA1FF;">Services</span><br>
+                    <span style="color: #4AA1FF;">Inc.</span>
                 </h1>
 
                 {{-- Subheadline --}}
-                <p style="color: #e0f2fe; font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.7; max-width: 540px; font-weight: 400; margin: 0;">
+                <p class="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl font-normal m-0">
                     A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
                 </p>
 
                 {{-- Mission Quote --}}
-                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(0, 43, 138, 0.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-left: 3px solid #60a5fa; border: 1px solid rgba(255,255,255,0.18); border-radius: 0 12px 12px 0; padding: 14px 18px; max-width: 500px;">
-                    <p style="color: #dbeafe; font-size: 0.95rem; font-style: italic; line-height: 1.6; margin: 0;">
+                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(3, 27, 78, 0.65); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-left: 3.5px solid #4AA1FF; border: 1px solid rgba(255,255,255,0.15); border-radius: 0 12px 12px 0; padding: 14px 18px; max-width: 500px;">
+                    <p style="color: #E2E8F0; font-size: 0.95rem; font-style: italic; line-height: 1.6; margin: 0;">
                         "Your Partner in Financial Clarity and Growth"
                     </p>
                 </div>
 
-                {{-- CTA Buttons (Stack on mobile, row on tablet/desktop) --}}
+                {{-- CTA Buttons --}}
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto pt-1">
                     <a href="{{ route('register') }}"
-                       style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #002B8A 0%, #0052FF 100%); color: #ffffff; font-weight: 700; font-size: 1rem; padding: 15px 30px; border-radius: 12px; text-decoration: none; box-shadow: 0 8px 24px rgba(0,82,255,0.45); transition: all 0.2s;"
-                       onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(0,82,255,0.55)';"
-                       onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0,82,255,0.45)';">
+                       class="btn-primary w-full sm:w-auto text-center justify-center text-sm sm:text-base py-3.5 px-6 sm:px-8 font-bold shadow-lg transition-all hover:scale-[1.02]">
                         Get Started Free
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -56,23 +56,22 @@
                     </a>
 
                     <a href="{{ route('book-appointment') }}"
-                       style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.35); color: #ffffff; font-weight: 600; font-size: 1rem; padding: 15px 26px; border-radius: 12px; text-decoration: none; transition: all 0.2s;"
-                       onmouseenter="this.style.background='rgba(255,255,255,0.24)'; this.style.borderColor='rgba(255,255,255,0.55)';"
-                       onmouseleave="this.style.background='rgba(255,255,255,0.14)'; this.style.borderColor='rgba(255,255,255,0.35)';">
-                        <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-white font-bold text-sm sm:text-base py-3.5 px-5 sm:px-6 rounded-xl transition-all hover:scale-[1.02]"
+                       style="background: rgba(3, 27, 78, 0.55); border: 1.5px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                         Book Consultation
                     </a>
                 </div>
 
-                {{-- Social Proof --}}
-                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center;">
-                        <div style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:#60a5fa;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">JD</div>
-                        <div style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:#818cf8;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;margin-left:-8px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">SM</div>
-                        <div style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:#a78bfa;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;margin-left:-8px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">AK</div>
-                        <div style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:#38bdf8;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;margin-left:-8px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">LO</div>
+                {{-- Social Proof with real photos --}}
+                <div class="flex items-center gap-3 sm:gap-4 flex-wrap pt-1">
+                    <div class="flex items-center">
+                        <img src="{{ asset('images/avatars/avatar-1.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover shadow-md">
+                        <img src="{{ asset('images/avatars/avatar-2.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
+                        <img src="{{ asset('images/avatars/avatar-3.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
+                        <img src="{{ asset('images/avatars/avatar-4.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
                     </div>
                     <div>
                         <div class="flex gap-0.5 mb-0.5">
@@ -80,7 +79,7 @@
                             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                             @endfor
                         </div>
-                        <p style="color: #dbeafe; font-size: 0.8rem; margin: 0; font-weight: 500;">4.9/5 from 500+ reviews</p>
+                        <p class="text-slate-200 text-xs sm:text-sm font-medium m-0">4.9/5 from 500+ reviews</p>
                     </div>
                 </div>
 
