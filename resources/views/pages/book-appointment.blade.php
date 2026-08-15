@@ -2,7 +2,7 @@
     <x-slot name="title">Book Online Appointment | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Banner -->
-    <section class="bg-gradient-to-r from-[#031B4E] via-[#031B4E] to-[#005DFF] text-white py-16">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Online Scheduling</span>
             <h1 class="text-3xl sm:text-4xl font-extrabold font-heading">Schedule Your Tax & Accounting Consultation</h1>

@@ -2,7 +2,7 @@
     <x-slot name="title">Tax Tips & Accounting Blog | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Header Banner -->
-    <section class="bg-gradient-to-r from-[#031B4E] via-[#031B4E] to-[#005DFF] text-white py-20" data-aos="fade-down">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 5rem 0;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Tax & Financial Insights</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">Canadian Tax Tips, Guides & Accounting News</h1>
@@ -25,7 +25,7 @@
                             <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>{{ $cat->name }} ({{ $cat->blogs_count }})</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm hover:bg-[#031B4E] transition shrink-0">Filter</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm hover:bg-[#002B8A] transition shrink-0">Filter</button>
                 </div>
             </form>
 
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="px-6 pb-6 pt-2">
-                            <a href="{{ route('blog.show', $b->slug) }}" class="text-xs font-bold text-[#005DFF] group-hover:text-[#031B4E] inline-flex items-center">
+                            <a href="{{ route('blog.show', $b->slug) }}" class="text-xs font-bold text-[#005DFF] group-hover:text-[#002B8A] inline-flex items-center">
                                 Read Full Guide →
                             </a>
                         </div>

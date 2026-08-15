@@ -5,14 +5,8 @@
 @endphp
 
 <a href="{{ route($route) }}"
-   style="{{ $active
-       ? 'display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #063B8F 0%, #005DFF 100%); color: #FFFFFF; box-shadow: 0 4px 14px rgba(0,93,255,0.28); transition: all 0.2s;'
-       : 'display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 500; text-decoration: none; color: rgba(203,213,225,0.85); transition: all 0.2s;' }}"
-   @if(!$active)
-   onmouseenter="this.style.background='rgba(255,255,255,0.08)'; this.style.color='#FFFFFF';"
-   onmouseleave="this.style.background='transparent'; this.style.color='rgba(203,213,225,0.85)';"
-   @endif>
-
+   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {{ $active ? 'bg-[#005DFF] text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white' }}">
+    
     @if($icon === 'squares')
         <svg style="width:18px;height:18px;flex-shrink:0;opacity:{{ $active ? '1' : '0.75' }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
     @elseif($icon === 'calendar')

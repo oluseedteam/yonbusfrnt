@@ -177,7 +177,7 @@
                     labels: {!! json_encode($serviceChart['labels']) !!},
                     datasets: [{
                         data: {!! json_encode($serviceChart['data']) !!},
-                        backgroundColor: ['#005DFF', '#005DFF', '#38BDF8', '#818CF8', '#A7F3D0']
+                        backgroundColor: ['#005DFF', '#00A3FF', '#38BDF8', '#818CF8', '#A7F3D0']
                     }]
                 },
                 options: {

@@ -14,12 +14,12 @@
         
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at top, #031B4E 0%, #031B4E 100%);
+            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #031B4E;
+            color: #f8fafc;
         }
 
         .admin-auth-container {
@@ -94,13 +94,13 @@
             font-family: 'Outfit', sans-serif;
             font-size: 26px;
             font-weight: 800;
-            color: #031B4E;
+            color: #ffffff;
             margin-bottom: 6px;
             letter-spacing: -0.4px;
         }
         .card-sub {
             font-size: 13px;
-            color: #64748b;
+            color: #94a3b8;
             margin-bottom: 24px;
         }
 
@@ -171,7 +171,7 @@
             padding: 14px 16px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #031B4E;
+            color: #ffffff;
             background: rgba(15, 23, 42, 0.6);
             border: 1.5px solid rgba(148, 163, 184, 0.2);
             border-radius: 14px;
@@ -198,8 +198,8 @@
         .btn-admin-submit {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #005DFF 0%, #031B4E 100%);
-            color: #031B4E;
+            background: linear-gradient(135deg, #005DFF 0%, #002B8A 100%);
+            color: #ffffff;
             font-size: 15px;
             font-weight: 800;
             font-family: 'Inter', sans-serif;
@@ -217,7 +217,7 @@
         .btn-admin-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(0, 93, 255, 0.5);
-            background: linear-gradient(135deg, #005DFF 0%, #005DFF 100%);
+            background: linear-gradient(135deg, #00A3FF 0%, #005DFF 100%);
         }
 
         .admin-footer {

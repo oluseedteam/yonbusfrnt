@@ -40,7 +40,7 @@
                             @endphp
 
                             <div class="flex flex-col items-center">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs mb-2 transition-all {{ $isCurrent ? 'bg-[#005DFF] text-white ring-4 ring-blue-500/20 shadow-md scale-110' : ($isDone ? 'bg-[#005DFF] text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400') }}">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs mb-2 transition-all {{ $isCurrent ? 'bg-[#005DFF] text-white ring-4 ring-blue-500/20 shadow-md scale-110' : ($isDone ? 'bg-emerald-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400') }}">
                                     @if($isDone && !$isCurrent)
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     @else

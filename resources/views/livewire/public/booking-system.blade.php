@@ -42,7 +42,7 @@
                             <div>
                                 <div class="font-bold text-slate-900 dark:text-white text-base font-heading">{{ $s->name }}</div>
                                 <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{{ $s->description }}</div>
-
+                                <div class="mt-2 text-xs font-semibold text-[#005DFF]">${{ number_format($s->price, 2) }} • {{ $s->duration }} mins</div>
                             </div>
                         </div>
                     </label>
@@ -55,7 +55,7 @@
             @error('service_id') <span class="text-xs text-rose-500 font-semibold block">{{ $message }}</span> @enderror
 
             <div class="pt-6 flex justify-end">
-                <button type="button" wire:click="nextStep" class="px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#031B4E] text-white font-bold text-sm shadow-lg transition">
+                <button type="button" wire:click="nextStep" class="px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold text-sm shadow-lg transition">
                     Continue to Date & Time →
                 </button>
             </div>
@@ -100,7 +100,7 @@
                 <button type="button" wire:click="previousStep" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 transition">
                     ← Back
                 </button>
-                <button type="button" wire:click="nextStep" class="px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#031B4E] text-white font-bold text-sm shadow-lg transition">
+                <button type="button" wire:click="nextStep" class="px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold text-sm shadow-lg transition">
                     Continue to Your Details →
                 </button>
             </div>
@@ -153,7 +153,7 @@
                 <button type="button" wire:click="previousStep" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 transition">
                     ← Back
                 </button>
-                <button type="submit" class="px-10 py-4 rounded-xl bg-gradient-to-r from-[#005DFF] to-[#005DFF] hover:from-[#031B4E] hover:to-[#005DFF] text-white font-bold text-base shadow-xl transition transform hover:-translate-y-0.5">
+                <button type="submit" class="px-10 py-4 rounded-xl bg-gradient-to-r from-[#005DFF] to-[#00A3FF] hover:from-[#002B8A] hover:to-[#005DFF] text-white font-bold text-base shadow-xl transition transform hover:-translate-y-0.5">
                     Confirm Appointment Booking ✓
                 </button>
             </div>
@@ -181,7 +181,7 @@
             </div>
 
             <div class="pt-4 flex justify-center space-x-4">
-                <a href="{{ route('login') }}" class="px-6 py-3 rounded-xl bg-[#005DFF] text-white font-bold text-sm shadow-md hover:bg-[#031B4E] transition">
+                <a href="{{ route('login') }}" class="px-6 py-3 rounded-xl bg-[#005DFF] text-white font-bold text-sm shadow-md hover:bg-[#002B8A] transition">
                     Login to Client Portal
                 </a>
                 <a href="{{ route('home') }}" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 transition">

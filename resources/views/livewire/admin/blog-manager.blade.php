@@ -8,7 +8,7 @@
             <button wire:click="$set('showCategoryModal', true)" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-sm rounded-xl transition">
                 + New Category
             </button>
-            <button wire:click="openCreateModal" class="px-5 py-2.5 bg-[#005DFF] hover:bg-[#031B4E] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center gap-1.5">
+            <button wire:click="openCreateModal" class="px-5 py-2.5 bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center gap-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 Create Blog Article
             </button>
@@ -171,7 +171,7 @@
 
                 <div class="pt-4 flex justify-end space-x-3 border-t border-slate-100 dark:border-slate-700">
                     <button wire:click="$set('showModal', false)" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700">Cancel</button>
-                    <button wire:click="saveBlog" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm hover:bg-[#031B4E] shadow-md transition">Save Article</button>
+                    <button wire:click="saveBlog" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm hover:bg-[#002B8A] shadow-md transition">Save Article</button>
                 </div>
             </div>
         </div>

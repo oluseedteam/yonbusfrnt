@@ -15,37 +15,25 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    navy: '#031B4E',      // Deep Navy
-                    dark: '#063B8F',      // Dark Blue
-                    blue: '#005DFF',      // Primary Blue
-                    bright: '#1683FF',    // Bright Blue
-                    light: '#93C5FD',     // Light Blue for charts
-                    lighter: '#DBEAFE',   // Very Light Blue for charts
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#005DFF', // Primary Blue
+                    600: '#0052e0',
+                    700: '#002B8A', // Dark Blue
+                    800: '#001e66',
+                    900: '#001242',
+                },
+                accent: {
+                    500: '#00A3FF', // Secondary Blue
                 },
                 surface: {
-                    white: '#FFFFFF',
-                    primary: '#F8FAFC',
-                    card: '#F8FBFF',
-                    light: '#F5F9FF',
-                    subtle: '#EFF6FF',
-                    soft: '#E8F1FF',
-                },
-                text: {
-                    heading: '#031B4E',
-                    body: '#475569',
-                    secondary: '#64748B',
-                    muted: '#94A3B8',
-                    link: '#005DFF',
-                },
-                border: {
-                    subtle: '#E2E8F0',
-                    blue: '#005DFF',
-                    dark: '#063B8F',
-                },
-                system: {
-                    success: '#16A34A',
-                    warning: '#F59E0B',
-                    error: '#DC2626',
+                    light: '#F8FAFC',
+                    dark: '#0B0F19',
+                    card: '#FFFFFF',
+                    'card-dark': '#111827',
                 }
             },
             backgroundImage: {
@@ -61,10 +49,9 @@ export default {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
             boxShadow: {
-                'soft': '0 4px 20px -2px rgba(3, 27, 78, 0.05), 0 2px 6px -1px rgba(3, 27, 78, 0.02)',
-                'soft-hover': '0 12px 32px -4px rgba(0, 93, 255, 0.12), 0 4px 12px -2px rgba(3, 27, 78, 0.04)',
-                'card': '0 2px 12px 0 rgba(3, 27, 78, 0.04)',
-                'blue-glow': '0 0 25px rgba(0, 93, 255, 0.18)',
+                'soft': '0 10px 30px -5px rgba(0, 93, 255, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03)',
+                'soft-hover': '0 20px 40px -15px rgba(0, 93, 255, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.05)',
+                'card': '0 4px 20px 0 rgba(0, 0, 0, 0.04)',
             },
             borderRadius: {
                 'card': '16px',

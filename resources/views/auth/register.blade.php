@@ -20,7 +20,7 @@
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #031B4E;
+            color: #1e293b;
         }
 
         .auth-wrapper {
@@ -138,25 +138,25 @@
         }
 
         .card-eyebrow { font-size: 12px; font-weight: 700; color: #005DFF; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
-        .card-title { font-size: 24px; font-weight: 800; color: #031B4E; margin-bottom: 6px; letter-spacing: -0.4px; }
+        .card-title { font-size: 24px; font-weight: 800; color: #0B1F4B; margin-bottom: 6px; letter-spacing: -0.4px; }
         .card-sub { font-size: 13px; color: #64748B; margin-bottom: 24px; }
 
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; color: #031B4E; margin-bottom: 5px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: #1E293B; margin-bottom: 5px; }
         .form-input {
             width: 100%;
             padding: 12px 15px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #031B4E;
-            background: #FFFFFF;
+            color: #0B1F4B;
+            background: #F8FAFC;
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .form-input::placeholder { color: #64748b; }
+        .form-input::placeholder { color: #94A3B8; }
         .form-input:focus { border-color: #005DFF; box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1); background: #fff; }
         .form-input.is-error { border-color: #ef4444; }
         .form-error { font-size: 12px; color: #ef4444; margin-top: 4px; }
@@ -164,7 +164,7 @@
         .pw-wrap { position: relative; }
         .pw-toggle {
             position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; cursor: pointer; color: #64748b;
+            background: none; border: none; cursor: pointer; color: #94A3B8;
             display: flex; align-items: center; padding: 4px;
         }
         .pw-toggle:hover { color: #005DFF; }
@@ -176,18 +176,18 @@
         .pw-bar.fair { background: #fb923c; }
         .pw-bar.good { background: #facc15; }
         .pw-bar.strong { background: #4ade80; }
-        .pw-strength-label { font-size: 11px; color: #64748b; }
+        .pw-strength-label { font-size: 11px; color: #94A3B8; }
 
         .terms-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; margin-top: 4px; }
         .terms-row input[type="checkbox"] { width: 17px; height: 17px; margin-top: 2px; accent-color: #005DFF; flex-shrink: 0; cursor: pointer; }
-        .terms-row label { font-size: 13px; color: #031B4E; line-height: 1.5; cursor: pointer; }
+        .terms-row label { font-size: 13px; color: #475569; line-height: 1.5; cursor: pointer; }
         .terms-row label a { color: #005DFF; font-weight: 600; text-decoration: none; }
         .terms-row label a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #031B4E 0%, #005DFF 100%);
+            background: linear-gradient(135deg, #002B8A 0%, #005DFF 100%);
             color: #fff;
             font-size: 15px;
             font-weight: 700;
@@ -203,7 +203,7 @@
 
         .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
         .divider-line { flex: 1; height: 1px; background: #E2EAF4; }
-        .divider-text { font-size: 12px; color: #64748b; font-weight: 500; white-space: nowrap; }
+        .divider-text { font-size: 12px; color: #94A3B8; font-weight: 500; white-space: nowrap; }
 
         .social-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .btn-social {
@@ -213,11 +213,11 @@
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
             font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif;
-            color: #031B4E;
+            color: #334155;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .btn-social:hover { background: #FFFFFF; border-color: #005DFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .btn-social:hover { background: #F8FAFC; border-color: #005DFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
 
         .auth-footer { text-align: center; font-size: 14px; color: #64748B; }
         .auth-footer a { color: #005DFF; font-weight: 700; text-decoration: none; }

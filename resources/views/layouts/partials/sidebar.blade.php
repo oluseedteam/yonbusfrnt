@@ -54,19 +54,20 @@
         </nav>
     </div>
 
-    <!-- Bottom: Support & User Info -->
-    <div style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
-        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 14px 16px;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #063B8F 0%, #005DFF 100%); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; color: #FFFFFF; flex-shrink: 0;">Y</div>
+    <!-- Bottom Widget & Support -->
+    <div class="p-4 border-t border-gray-100 dark:border-gray-800/60 space-y-3">
+        <div class="p-3.5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border border-blue-100 dark:border-blue-900/50">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-xs">
+                    Y
+                </div>
                 <div>
                     <h5 style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin: 0;">YONBUS Support</h5>
                     <p style="font-size: 11px; color: rgba(147,197,253,0.8); margin: 0;">Online 24/7</p>
                 </div>
             </div>
-            <a href="mailto:support@yonbustax.ca" style="font-size: 12px; font-weight: 600; color: #93C5FD; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;"
-               onmouseenter="this.style.color='#FFFFFF'" onmouseleave="this.style.color='#93C5FD'">
-                Contact Support →
+            <a href="mailto:support@yonbustax.ca" class="text-xs font-medium text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
+                Contact Support &rarr;
             </a>
         </div>
     </div>

@@ -1,131 +1,118 @@
 <x-public-layout>
     <x-slot name="title">Our Leadership Team | YONBUS Tax & Accounting Services Inc.</x-slot>
 
-    {{-- ── HERO ────────────────────────────────────────── --}}
-    <section class="relative py-20 sm:py-28 overflow-hidden" style="background: linear-gradient(135deg,#031B4E 0%,#031B4E 55%,#005DFF 100%);">
-        <div style="position:absolute;inset:0;background:url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.04\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    {{-- Hero Banner Section (Deep Blue to Blue Gradient) --}}
+    <section class="relative py-16 sm:py-24 overflow-hidden" style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%)">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#CBD5E1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:6px 20px;border-radius:999px;margin-bottom:1.25rem;">
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest text-white bg-white/20 border border-white/30 backdrop-blur-md mb-4">
                 Leadership &amp; Partners
             </span>
-            <h1 class="font-heading font-extrabold text-white" style="font-size:clamp(2.2rem,5vw,3.5rem);letter-spacing:-0.025em;line-height:1.12;margin-bottom:1rem;">
-                Meet Our Expert <span style="color:#93c5fd;">Accounting Team</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white font-heading tracking-tight mb-4">
+                Meet Our Expert Accounting Team
             </h1>
-            <p style="color:#CBD5E1;font-size:1.1rem;max-width:620px;margin:0 auto;line-height:1.7;font-weight:400;">
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-blue-100 font-medium leading-relaxed">
                 Certified Professional Bookkeepers and seasoned tax specialists dedicated to maximizing your growth, ensuring strict compliance, and delivering financial clarity across Canada.
             </p>
         </div>
     </section>
 
-    {{-- ── TEAM MEMBERS ────────────────────────────────── --}}
-    <section style="background:#ffffff;padding:5rem 0;border-top:4px solid #005DFF;">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    {{-- Team Members Section (Clean White) --}}
+    <section class="py-16 sm:py-24" style="background: #ffffff;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
 
-            {{-- 1. Olubukunola Eniola --}}
-            <div style="background:#ffffff;border:2px solid #CBD5E1;border-radius:24px;padding:clamp(1.5rem,3vw,2.5rem);box-shadow:0 8px 40px rgba(37,99,235,0.10);transition:all 0.3s;"
-                 onmouseenter="this.style.borderColor='#005DFF';this.style.boxShadow='0 12px 48px rgba(37,99,235,0.18)';"
-                 onmouseleave="this.style.borderColor='#CBD5E1';this.style.boxShadow='0 8px 40px rgba(37,99,235,0.10)';">
+            {{-- 1. Olubukunola Eniola (Founder & Partner) --}}
+            <div style="background: #f8faff; border: 1.5px solid #dbeafe; border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: 0 8px 32px rgba(0,82,255,0.06);">
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
-                    {{-- Photo --}}
-                    <div class="w-full sm:w-72 lg:w-80 flex-shrink-0">
-                        <div style="position:relative;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(37,99,235,0.2);border:3px solid #CBD5E1;">
-                            <img src="{{ asset('images/team/olubukunola-eniola.jpg') }}"
-                                 alt="Olubukunola Eniola - Founder & Partner"
+                    {{-- Image Container --}}
+                    <div class="w-full sm:w-80 lg:w-96 flex-shrink-0">
+                        <div class="relative overflow-hidden rounded-2xl shadow-md border border-[#dbeafe] bg-white">
+                            <img src="{{ asset('images/team/olubukunola-eniola.jpg') }}" 
+                                 alt="Olubukunola Eniola - Founder & Partner" 
                                  class="w-full h-auto object-cover aspect-[4/5] block">
-                            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(30,58,138,0.85),transparent);padding:20px 16px 16px;">
-                                <div style="color:#ffffff;font-weight:800;font-size:1rem;font-family:'Poppins',sans-serif;">Olubukunola Eniola</div>
-                                <div style="color:#CBD5E1;font-size:0.78rem;font-weight:600;">Founder &amp; Partner</div>
-                            </div>
                         </div>
                     </div>
 
-                    {{-- Content --}}
+                    {{-- Content Container --}}
                     <div class="flex-1 space-y-5 text-left w-full">
                         <div>
-                            <div style="display:inline-flex;align-items:center;gap:8px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#005DFF;font-size:11px;font-weight:800;padding:6px 14px;border-radius:10px;margin-bottom:0.75rem;">
-                                <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                                Certified Professional Bookkeeper (CPB)
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#eff6ff] text-[#0052ff] border border-[#bfdbfe] text-xs font-bold rounded-lg mb-3">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                <span>Certified Professional Bookkeeper (CPB)</span>
                             </div>
-                            <h2 class="font-heading font-extrabold" style="font-size:clamp(1.6rem,3vw,2.2rem);color:#031B4E;line-height:1.2;">
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
                                 Olubukunola Eniola
                             </h2>
-                            <p style="color:#005DFF;font-size:0.9rem;font-weight:700;margin-top:4px;">
+                            <p class="text-sm font-semibold text-[#0052ff] mt-1">
                                 Founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
                             </p>
                         </div>
 
-                        <div style="color:#374151;font-size:0.9rem;line-height:1.75;display:flex;flex-direction:column;gap:12px;">
+                        <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong style="color:#031B4E;">Olubukunola Eniola</strong> is the Founder and Partner at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
+                                <strong class="text-[#0a1a4a]">Olubukunola Eniola</strong> is the Founder and Partner at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
                             </p>
                             <p>
-                                She is a Certified Professional Bookkeeper (CPB) with a Bachelor's degree in Banking and Finance and a Diploma in Accounting from Mohawk College, Ontario. She is also a trained tax professional serving clients in Quebec and other provinces.
+                                She is a Certified Professional Bookkeeper (CPB) with a Bachelor’s degree in Banking and Finance and a Diploma in Accounting from Mohawk College, Ontario. She is also a trained tax professional serving clients in Quebec and other provinces.
                             </p>
                             <p>
                                 Olubukunola is committed to providing accurate, timely, and personalized financial services, helping clients stay compliant and make informed financial decisions.
                             </p>
                         </div>
 
-                        <div style="padding-top:16px;border-top:2px solid #F1F5F9;display:flex;flex-wrap:wrap;gap:8px;">
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🎓 B.Sc Banking &amp; Finance</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🏛️ Mohawk College Alumni</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">💼 Tax &amp; Payroll Specialist</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🇨🇦 Quebec &amp; Nationwide Practice</span>
+                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Banking &amp; Finance</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">💼 Tax &amp; Payroll Specialist</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🇨🇦 Quebec &amp; Nationwide Practice</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- 2. Adeshola Eniola --}}
-            <div style="background:#ffffff;border:2px solid #CBD5E1;border-radius:24px;padding:clamp(1.5rem,3vw,2.5rem);box-shadow:0 8px 40px rgba(37,99,235,0.10);transition:all 0.3s;"
-                 onmouseenter="this.style.borderColor='#005DFF';this.style.boxShadow='0 12px 48px rgba(37,99,235,0.18)';"
-                 onmouseleave="this.style.borderColor='#CBD5E1';this.style.boxShadow='0 8px 40px rgba(37,99,235,0.10)';">
+            {{-- 2. Adeshola Eniola (Co-founder & Partner) --}}
+            <div style="background: #f8faff; border: 1.5px solid #dbeafe; border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: 0 8px 32px rgba(0,82,255,0.06);">
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
-                    {{-- Photo --}}
-                    <div class="w-full sm:w-72 lg:w-80 flex-shrink-0">
-                        <div style="position:relative;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(37,99,235,0.2);border:3px solid #CBD5E1;">
-                            <img src="{{ asset('images/team/adeshola-eniola.jpg') }}"
-                                 alt="Adeshola Eniola - Co-founder & Partner"
+                    {{-- Image Container --}}
+                    <div class="w-full sm:w-80 lg:w-96 flex-shrink-0">
+                        <div class="relative overflow-hidden rounded-2xl shadow-md border border-[#dbeafe] bg-white">
+                            <img src="{{ asset('images/team/adeshola-eniola.jpg') }}" 
+                                 alt="Adeshola Eniola - Co-founder & Partner" 
                                  class="w-full h-auto object-cover aspect-[4/5] block">
-                            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(30,58,138,0.85),transparent);padding:20px 16px 16px;">
-                                <div style="color:#ffffff;font-weight:800;font-size:1rem;font-family:'Poppins',sans-serif;">Adeshola Eniola</div>
-                                <div style="color:#CBD5E1;font-size:0.78rem;font-weight:600;">Co-founder &amp; Partner</div>
-                            </div>
                         </div>
                     </div>
 
-                    {{-- Content --}}
+                    {{-- Content Container --}}
                     <div class="flex-1 space-y-5 text-left w-full">
                         <div>
-                            <div style="display:inline-flex;align-items:center;gap:8px;background:#ECFDF5;border:1.5px solid #6EE7B7;color:#059669;font-size:11px;font-weight:800;padding:6px 14px;border-radius:10px;margin-bottom:0.75rem;">
-                                <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                                Certified Professional Bookkeeper (CPB)
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#eff6ff] text-[#0052ff] border border-[#bfdbfe] text-xs font-bold rounded-lg mb-3">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                <span>Certified Professional Bookkeeper (CPB)</span>
                             </div>
-                            <h2 class="font-heading font-extrabold" style="font-size:clamp(1.6rem,3vw,2.2rem);color:#031B4E;line-height:1.2;">
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
                                 Adeshola Eniola
                             </h2>
-                            <p style="color:#005DFF;font-size:0.9rem;font-weight:700;margin-top:4px;">
+                            <p class="text-sm font-semibold text-[#0052ff] mt-1">
                                 Co-founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
                             </p>
                         </div>
 
-                        <div style="color:#374151;font-size:0.9rem;line-height:1.75;display:flex;flex-direction:column;gap:12px;">
+                        <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong style="color:#031B4E;">Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional auditing experience to the firm.
+                                <strong class="text-[#0a1a4a]">Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional auditing experience to the firm.
                             </p>
                             <p>
-                                He is a Certified Professional Bookkeeper (CPB), with a Bachelor's degree in Accounting and a Diploma in Accounting from Mohawk College, Ontario. He is also a trained tax professional serving clients in Quebec and other provinces.
+                                He is a Certified Professional Bookkeeper (CPB), with a Bachelor’s degree in Accounting and a Diploma in Accounting from Mohawk College, Ontario. He is also a trained tax professional serving clients in Quebec and other provinces.
                             </p>
                             <p>
-                                With his strong background in auditing, accounting, and financial reporting, Adeshola specializes in helping individuals and businesses navigate complex accounting and bookkeeping issues. He is committed to providing accurate, practical, and reliable solutions.
+                                With his strong background in auditing, accounting, and financial reporting, Adeshola specializes in helping individuals and businesses navigate complex accounting and bookkeeping issues. He is committed to providing accurate, practical, and reliable solutions that help clients maintain organized financial records and make informed business decisions.
                             </p>
                         </div>
 
-                        <div style="padding-top:16px;border-top:2px solid #F1F5F9;display:flex;flex-wrap:wrap;gap:8px;">
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🎓 B.Sc Accounting</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🏛️ Mohawk College Alumni</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">📊 Senior Auditing Specialist</span>
-                            <span style="padding:6px 14px;background:#F1F5F9;border:1.5px solid #CBD5E1;color:#031B4E;font-size:12px;font-weight:700;border-radius:10px;">🔍 Financial Reporting Expert</span>
+                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Accounting</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">📊 Senior Auditing Specialist</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🔍 Financial Reporting Expert</span>
                         </div>
                     </div>
                 </div>
@@ -134,36 +121,43 @@
         </div>
     </section>
 
-    {{-- ── WHY TRUST US ─────────────────────────────────── --}}
-    <section style="background:#F1F5F9;padding:5rem 0;border-top:1px solid #CBD5E1;">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span style="display:inline-block;background:#CBD5E1;border:1.5px solid #CBD5E1;color:#031B4E;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:6px 20px;border-radius:999px;margin-bottom:1rem;">Our Standards</span>
-            <h3 class="font-heading font-extrabold" style="font-size:clamp(1.6rem,3vw,2.2rem);color:#031B4E;margin-bottom:2.5rem;">Why Clients Trust Our Firm</h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                @foreach([
-                    ['icon'=>'🛡️','title'=>'100% Tax Compliance','desc'=>'Rigorous adherence to tax and reporting regulations across all provinces.'],
-                    ['icon'=>'🎯','title'=>'Audit Expertise','desc'=>'Backed by over a decade of professional auditing experience.'],
-                    ['icon'=>'🇨🇦','title'=>'Cross-Province Practice','desc'=>'Certified and experienced serving Quebec, Ontario & all provinces.'],
-                    ['icon'=>'🤝','title'=>'Personalized Advisory','desc'=>'Tailored financial solutions for individuals and corporate entities.'],
-                ] as $v)
-                <div style="background:#ffffff;border:2px solid #CBD5E1;border-radius:20px;padding:28px 20px;box-shadow:0 4px 20px rgba(37,99,235,0.08);transition:all 0.3s;"
-                     onmouseenter="this.style.borderColor='#005DFF';this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(37,99,235,0.18)';"
-                     onmouseleave="this.style.borderColor='#CBD5E1';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(37,99,235,0.08)';">
-                    <div style="width:52px;height:52px;background:#F1F5F9;border:2px solid #CBD5E1;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 14px;">{{ $v['icon'] }}</div>
-                    <h4 class="font-heading font-bold" style="color:#031B4E;font-size:0.95rem;margin-bottom:8px;">{{ $v['title'] }}</h4>
-                    <p style="color:#64748b;font-size:0.83rem;line-height:1.6;">{{ $v['desc'] }}</p>
+    {{-- Value Proposition Banner (Deep Blue to Blue Gradient) --}}
+    <section class="py-16" style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            <h3 class="text-2xl font-bold font-heading text-white">Why Clients Trust Our Firm</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
+                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🛡️</div>
+                    <h4 class="font-bold text-sm font-heading text-white">100% Tax Compliance</h4>
+                    <p class="text-xs text-blue-100 leading-relaxed">Rigorous adherence to tax and reporting regulations.</p>
                 </div>
-                @endforeach
+
+                <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
+                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🎯</div>
+                    <h4 class="font-bold text-sm font-heading text-white">Audit Expertise</h4>
+                    <p class="text-xs text-blue-100 leading-relaxed">Backed by over a decade of professional auditing experience.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
+                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🇨🇦</div>
+                    <h4 class="font-bold text-sm font-heading text-white">Cross-Province Practice</h4>
+                    <p class="text-xs text-blue-100 leading-relaxed">Certified and experienced serving Quebec, Ontario &amp; all provinces.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
+                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🤝</div>
+                    <h4 class="font-bold text-sm font-heading text-white">Personalized Advisory</h4>
+                    <p class="text-xs text-blue-100 leading-relaxed">Tailored financial solutions for individuals and corporate entities.</p>
+                </div>
             </div>
 
-            <a href="{{ route('book-appointment') }}" style="display:inline-flex;align-items:center;gap:10px;background:#005DFF;color:#ffffff;font-weight:700;font-size:0.95rem;padding:15px 32px;border-radius:14px;text-decoration:none;box-shadow:0 8px 24px rgba(37,99,235,0.35);transition:all 0.2s;"
-               onmouseenter="this.style.background='#031B4E';this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(37,99,235,0.45)';"
-               onmouseleave="this.style.background='#005DFF';this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(37,99,235,0.35)';">
-                Schedule Consultation With Our Partners
-                <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
+            <div class="pt-6">
+                <a href="{{ route('book-appointment') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#002B8A] font-bold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                    <span>Schedule Consultation With Our Partners</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
         </div>
     </section>
-
 </x-public-layout>

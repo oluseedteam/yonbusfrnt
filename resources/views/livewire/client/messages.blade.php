@@ -48,11 +48,11 @@
             <div class="flex items-center gap-3">
                 @php $activeAdmin = $admins->firstWhere('id', $selectedAdminId); @endphp
                 <div class="relative">
-                    <img src="{{ $activeAdmin?->avatar_url ?? 'https://ui-avatars.com/api/?name=Admin+Support&background=2563EB&color=fff' }}" class="w-9 h-9 rounded-xl object-cover">
-                    <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#005DFF] border-2 border-white dark:border-gray-900 rounded-full"></span>
+                    <img src="{{ $activeAdmin?->avatar_url ?? 'https://ui-avatars.com/api/?name=Admin+Support&background=005DFF&color=fff' }}" class="w-9 h-9 rounded-xl object-cover">
+                    <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-gray-900 rounded-full"></span>
                 </div>
                 <div>
-                   <h3 class="font-bold text-sm text-gray-900 dark:text-white font-heading">
+                    <h3 class="font-bold text-sm text-gray-900 dark:text-white font-heading">
                         {{ $activeAdmin?->name ?? 'YONBUS Admin Support' }}
                     </h3>
                     <p class="text-[10px] text-[#005DFF] dark:text-[#005DFF] font-semibold flex items-center gap-1">

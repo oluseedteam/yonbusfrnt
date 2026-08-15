@@ -2,7 +2,7 @@
     <x-slot name="title">{{ $blog->title }} | YONBUS Blog</x-slot>
 
     <!-- Header -->
-    <section class="bg-gradient-to-r from-[#031B4E] via-[#031B4E] to-[#005DFF] text-white py-16" data-aos="fade-down">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;" data-aos="fade-down">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <a href="{{ route('blog') }}" class="text-xs font-bold uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center">
                 ← Back to All Articles
@@ -37,7 +37,7 @@
                 <h3 class="text-2xl font-bold font-heading">Need Personalized Tax Advice for Your Business?</h3>
                 <p class="text-slate-300 text-sm max-w-lg mx-auto">Book a 1-on-1 consultation with our senior advisors today.</p>
                 <div>
-                    <a href="{{ route('book-appointment') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#031B4E] text-white font-bold text-sm shadow-lg transition">
+                    <a href="{{ route('book-appointment') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#005DFF] hover:bg-[#002B8A] text-white font-bold text-sm shadow-lg transition">
                         Schedule CPB Consultation
                     </a>
                 </div>
