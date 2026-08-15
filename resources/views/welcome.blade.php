@@ -4,15 +4,15 @@
     {{-- ============================================================
          HERO — Office background with vibrant deep blue to blue gradient overlay (No Black)
          ============================================================ --}}
-    <section class="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center" style="background: #031538;">
-        {{-- Background Image with Daylight Visibility & Deep Blue Directional Fade --}}
+    <section class="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center" style="background: #021a4e;">
+        {{-- Background Image with Daylight Visibility & Balanced Blue Directional Fade --}}
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/accounting-hero-bg.jpg') }}?v={{ file_exists(public_path('images/accounting-hero-bg.jpg')) ? filemtime(public_path('images/accounting-hero-bg.jpg')) : time() }}"
                  alt="YONBUS Corporate Office"
                  class="w-full h-full object-cover object-center">
 
-            {{-- Deep Blue directional fade: Rich deep blue on left for text readability, clear/transparent on right so image is completely visible --}}
-            <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(3, 21, 56, 0.94) 0%, rgba(3, 21, 56, 0.85) 34%, rgba(3, 21, 56, 0.48) 58%, rgba(3, 21, 56, 0.08) 80%, transparent 95%);"></div>
+            {{-- Balanced Rich Blue Overlay (Not too dark, not too light) --}}
+            <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(2, 26, 78, 0.82) 0%, rgba(3, 38, 108, 0.68) 35%, rgba(0, 52, 140, 0.45) 60%, rgba(0, 60, 160, 0.25) 80%, rgba(2, 28, 80, 0.15) 100%);"></div>
         </div>
 
         <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 z-10">
@@ -27,14 +27,14 @@
                 </div>
 
                 {{-- Main Headline --}}
-                <h1 class="font-heading font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] leading-[1.15] md:leading-[1.12] m-0" style="letter-spacing: -0.02em;">
+                <h1 class="font-heading font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] leading-[1.15] md:leading-[1.12] m-0" style="letter-spacing: -0.02em; text-shadow: 0 3px 12px rgba(2, 18, 55, 0.45);">
                     YONBUS Tax &amp;<br>
                     Accounting <span style="color: #4AA1FF;">Services</span><br>
                     <span style="color: #4AA1FF;">Inc.</span>
                 </h1>
 
                 {{-- Subheadline --}}
-                <p class="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl font-normal m-0">
+                <p class="text-white text-sm sm:text-base md:text-lg leading-relaxed max-w-xl font-medium m-0" style="text-shadow: 0 2px 8px rgba(2, 18, 55, 0.4);">
                     A trusted partner delivering reliable, efficient, and compliant tax and accounting solutions to individuals, businesses, and organizations across Canada.
                 </p>
 

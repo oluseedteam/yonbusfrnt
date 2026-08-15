@@ -4,11 +4,11 @@
     {{-- Header Banner --}}
     <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 5rem 0;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Join Our Team</span>
-            <h1 class="font-heading font-extrabold text-4xl sm:text-5xl">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block;">Join Our Team</span>
+            <h1 class="font-heading font-extrabold text-4xl sm:text-5xl" style="color: #ffffff;">
                 Build Your Career at YONBUS
             </h1>
-            <p class="text-blue-100 text-lg max-w-2xl mx-auto font-light">
+            <p style="color: #dbeafe; font-size: 1.15rem; max-width: 650px; margin: 0 auto; font-weight: 400; line-height: 1.6;">
                 We're always looking for talented, driven professionals to join our growing accounting and tax team. Apply below and let's shape Canada's financial future together.
             </p>
         </div>

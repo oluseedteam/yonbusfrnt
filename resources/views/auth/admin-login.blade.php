@@ -14,12 +14,16 @@
         
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+            background: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 93, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 43, 138, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(248, 250, 252, 0.8) 0px, transparent 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #f8fafc;
+            color: #1e293b;
         }
 
         .admin-auth-container {
@@ -40,12 +44,11 @@
         }
 
         .admin-card {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.25);
-            backdrop-filter: blur(24px);
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
             border-radius: 28px;
             padding: 40px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 93, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 43, 138, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
             position: relative;
             overflow: hidden;
             animation: adminCardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -56,7 +59,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #005DFF, #38bdf8, #f59e0b, #005DFF);
+            background: linear-gradient(90deg, #005DFF, #00A3FF, #002B8A);
         }
 
         .brand-header {
@@ -68,10 +71,7 @@
             height: auto;
             object-fit: contain;
             margin-bottom: 16px;
-            filter: drop-shadow(0 4px 12px rgba(0, 93, 255, 0.3));
-            background: rgba(255, 255, 255, 0.95);
-            padding: 8px 16px;
-            border-radius: 14px;
+            display: inline-block;
         }
 
         .security-badge {
@@ -79,12 +79,12 @@
             align-items: center;
             gap: 6px;
             padding: 6px 14px;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(0, 93, 255, 0.08);
+            border: 1px solid rgba(0, 93, 255, 0.2);
             border-radius: 30px;
             font-size: 11px;
             font-weight: 700;
-            color: #fbbf24;
+            color: #005DFF;
             letter-spacing: 0.8px;
             text-transform: uppercase;
             margin-bottom: 12px;
@@ -94,20 +94,20 @@
             font-family: 'Outfit', sans-serif;
             font-size: 26px;
             font-weight: 800;
-            color: #ffffff;
+            color: #0B1F4B;
             margin-bottom: 6px;
             letter-spacing: -0.4px;
         }
         .card-sub {
             font-size: 13px;
-            color: #94a3b8;
+            color: #64748b;
             margin-bottom: 24px;
         }
 
         /* Default Credentials Box */
         .cred-box {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px dashed rgba(56, 189, 248, 0.4);
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 24px;
@@ -121,12 +121,12 @@
             justify-content: space-between;
             font-size: 12px;
             font-weight: 700;
-            color: #38bdf8;
+            color: #005DFF;
         }
         .cred-items {
             font-family: monospace;
             font-size: 13px;
-            color: #cbd5e1;
+            color: #334155;
             display: flex;
             flex-direction: column;
             gap: 4px;
@@ -134,10 +134,10 @@
         .btn-autofill {
             width: 100%;
             padding: 8px 12px;
-            background: rgba(56, 189, 248, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
             border-radius: 10px;
-            color: #38bdf8;
+            color: #005DFF;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
@@ -149,65 +149,65 @@
             margin-top: 4px;
         }
         .btn-autofill:hover {
-            background: rgba(56, 189, 248, 0.25);
-            border-color: #38bdf8;
-            color: #fff;
+            background: #dbeafe;
+            border-color: #005DFF;
+            color: #002B8A;
         }
 
         .status-alert {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
             border-radius: 12px;
             padding: 12px 16px;
             font-size: 13px;
-            color: #fca5a5;
+            color: #b91c1c;
             margin-bottom: 20px;
         }
 
         .form-group { margin-bottom: 20px; text-align: left; }
-        .form-label { display: block; font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-input {
             width: 100%;
             padding: 14px 16px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #ffffff;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1.5px solid rgba(148, 163, 184, 0.2);
+            color: #0f172a;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
             border-radius: 14px;
             outline: none;
             transition: all 0.2s;
         }
-        .form-input::placeholder { color: #64748b; }
+        .form-input::placeholder { color: #94a3b8; }
         .form-input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
-            background: rgba(15, 23, 42, 0.9);
+            border-color: #005DFF;
+            box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1);
+            background: #ffffff;
         }
         .form-input.is-error { border-color: #ef4444; }
-        .form-error { font-size: 12px; color: #f87171; margin-top: 5px; }
+        .form-error { font-size: 12px; color: #ef4444; margin-top: 5px; }
 
         .pw-wrap { position: relative; }
         .pw-toggle {
             position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; cursor: pointer; color: #64748b;
+            background: none; border: none; cursor: pointer; color: #94a3b8;
             display: flex; align-items: center; padding: 4px;
         }
-        .pw-toggle:hover { color: #38bdf8; }
+        .pw-toggle:hover { color: #005DFF; }
 
         .btn-admin-submit {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #005DFF 0%, #002B8A 100%);
+            background: linear-gradient(135deg, #002B8A 0%, #005DFF 100%);
             color: #ffffff;
             font-size: 15px;
             font-weight: 800;
             font-family: 'Inter', sans-serif;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: none;
             border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 8px 24px rgba(0, 93, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 93, 255, 0.35);
             margin-top: 8px;
             display: flex;
             align-items: center;
@@ -216,8 +216,8 @@
         }
         .btn-admin-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 93, 255, 0.5);
-            background: linear-gradient(135deg, #00A3FF 0%, #005DFF 100%);
+            box-shadow: 0 12px 30px rgba(0, 93, 255, 0.45);
+            background: linear-gradient(135deg, #001f66 0%, #0045d8 100%);
         }
 
         .admin-footer {
@@ -227,7 +227,7 @@
             color: #64748b;
         }
         .admin-footer a {
-            color: #38bdf8;
+            color: #005DFF;
             font-weight: 600;
             text-decoration: none;
         }

@@ -2,15 +2,15 @@
     <x-slot name="title">Contact Us | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     {{-- Header Banner --}}
-    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 4.5rem 0; text-align: center; color: #ffffff;">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 4.5rem 0; text-align: center; color: #ffffff;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #93c5fd; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2);">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block;">
                 Get In Touch
             </span>
             <h1 class="font-heading font-extrabold" style="font-size: clamp(2.2rem, 5vw, 3.4rem); margin-top: 1rem; color: #ffffff;">
                 We're Here to Help Your Business Succeed
             </h1>
-            <p style="color: #bfdbfe; font-size: 1.1rem; max-width: 600px; margin: 0.5rem auto 0; font-weight: 400;">
+            <p style="color: #dbeafe; font-size: 1.15rem; max-width: 650px; margin: 0.5rem auto 0; font-weight: 400; line-height: 1.6;">
                 Reach out to our Gatineau office or submit your inquiry online. Serving individuals and businesses across Canada.
             </p>
         </div>

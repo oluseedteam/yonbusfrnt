@@ -4,14 +4,14 @@
     <!-- Header -->
     <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;" data-aos="fade-down">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-            <a href="{{ route('blog') }}" class="text-xs font-bold uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center">
+            <a href="{{ route('blog') }}" class="text-xs font-bold uppercase tracking-wider hover:underline inline-flex items-center" style="color: #dbeafe;">
                 ← Back to All Articles
             </a>
-            <span class="block text-xs font-bold uppercase tracking-widest text-blue-300 bg-white/10 px-3 py-1 rounded-full w-max border border-white/20">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block;">
                 {{ $blog->category->name }}
             </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold font-heading leading-tight">{{ $blog->title }}</h1>
-            <div class="flex items-center space-x-4 text-xs text-blue-200">
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl leading-tight" style="color: #ffffff;">{{ $blog->title }}</h1>
+            <div class="flex items-center space-x-4 text-xs" style="color: #bfdbfe;">
                 <span>By {{ $blog->author->name ?? 'YONBUS CPB Advisor' }}</span>
                 <span>•</span>
                 <span>Published {{ $blog->published_at ? $blog->published_at->format('F d, Y') : 'Recently' }}</span>

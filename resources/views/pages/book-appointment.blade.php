@@ -4,9 +4,9 @@
     <!-- Banner -->
     <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-            <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Online Scheduling</span>
-            <h1 class="text-3xl sm:text-4xl font-extrabold font-heading">Schedule Your Tax & Accounting Consultation</h1>
-            <p class="text-blue-100 text-sm max-w-xl mx-auto">Select your service, choose an available time slot, and lock in your session with our certified CPBs.</p>
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block;">Online Scheduling</span>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl" style="color: #ffffff;">Schedule Your Tax &amp; Accounting Consultation</h1>
+            <p style="color: #dbeafe; font-size: 0.95rem; max-width: 36rem; margin: 0 auto;">Select your service, choose an available time slot, and lock in your session with our certified CPBs.</p>
         </div>
     </section>
 

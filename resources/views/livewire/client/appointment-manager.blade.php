@@ -12,7 +12,7 @@
     </div>
 
     @if(session()->has('message'))
-        <div class="mb-6 p-4 rounded-xl bg-[#005DFF] text-[#005DFF] dark:bg-[#005DFF]/50 dark:text-[#005DFF] text-xs font-semibold">
+        <div class="mb-6 p-4 rounded-xl bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold shadow-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -58,7 +58,7 @@
                             </td>
                             <td class="p-3.5">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider 
-                                    {{ $appt->status === 'confirmed' ? 'bg-[#005DFF] text-[#005DFF] dark:bg-[#005DFF] dark:text-[#005DFF]' : '' }}
+                                    {{ $appt->status === 'confirmed' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' : '' }}
                                     {{ $appt->status === 'pending' ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300' : '' }}
                                     {{ $appt->status === 'completed' ? 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400' : '' }}
                                     {{ $appt->status === 'cancelled' ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300' : '' }}">
@@ -109,7 +109,7 @@
                         <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
                             <option value="">-- Select a Service --</option>
                             @foreach($services as $s)
-                                <option value="{{ $s->id }}">{{ $s->name }} (${{ number_format($s->price, 2) }})</option>
+                                <option value="{{ $s->id }}">{{ $s->name }}</option>
                             @endforeach
                         </select>
                         @error('service_id') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror

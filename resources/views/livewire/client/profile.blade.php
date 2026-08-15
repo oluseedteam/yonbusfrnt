@@ -5,8 +5,8 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-6 p-4 bg-[#005DFF] dark:bg-[#005DFF]/40 border border-[#005DFF] dark:border-[#005DFF] text-[#005DFF] dark:text-[#005DFF] font-bold text-xs rounded-2xl flex items-center">
-            <svg class="w-5 h-5 mr-2 text-[#005DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 font-semibold text-xs rounded-2xl flex items-center shadow-sm">
+            <svg class="w-5 h-5 mr-2 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             {{ session('message') }}
         </div>
     @endif

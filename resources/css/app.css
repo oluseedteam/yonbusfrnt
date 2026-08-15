@@ -13,6 +13,17 @@
         font-family: 'Outfit', 'Poppins', sans-serif;
         color: #031B4E;
     }
+    .text-white,
+    .text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6,
+    .text-white .font-heading,
+    h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white,
+    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+    [style*="color: #ffffff"] h1, [style*="color: #ffffff"] h2, [style*="color: #ffffff"] h3, [style*="color: #ffffff"] .font-heading,
+    [style*="color:#ffffff"] h1, [style*="color:#ffffff"] h2, [style*="color:#ffffff"] h3, [style*="color:#ffffff"] .font-heading,
+    [style*="color: #fff"] h1, [style*="color: #fff"] h2, [style*="color: #fff"] h3, [style*="color: #fff"] .font-heading,
+    [style*="color:#fff"] h1, [style*="color:#fff"] h2, [style*="color:#fff"] h3, [style*="color:#fff"] .font-heading {
+        color: #ffffff !important;
+    }
 }
 
 .btn-primary {
@@ -24,7 +35,7 @@
 }
 
 .card-box {
-    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800/60 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800/60 rounded-3xl p-6 shadow-sm transition-all duration-300;
 }
 
 .glass-card {

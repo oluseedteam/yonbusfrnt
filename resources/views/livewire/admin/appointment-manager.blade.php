@@ -16,7 +16,7 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-4 p-4 bg-[#005DFF]/10 border border-[#005DFF]/20 text-[#005DFF] dark:text-[#005DFF] rounded-lg text-sm">
+        <div class="mb-4 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-lg text-sm font-semibold shadow-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -57,10 +57,10 @@
                             <td class="px-6 py-4">
                                 <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full 
                                     {{ $appt->status === 'pending' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' : '' }}
-                                    {{ $appt->status === 'confirmed' ? 'bg-[#005DFF]/10 text-[#005DFF] dark:text-[#005DFF]' : '' }}
+                                    {{ $appt->status === 'confirmed' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' : '' }}
                                     {{ $appt->status === 'completed' ? 'bg-slate-500/10 text-slate-600 dark:text-slate-400' : '' }}
                                     {{ $appt->status === 'cancelled' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : '' }}
-                                    {{ $appt->status === 'rescheduled' ? 'bg-[#063B8F]/10 text-[#005DFF] dark:text-[#005DFF]' : '' }}">
+                                    {{ $appt->status === 'rescheduled' ? 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300' : '' }}">
                                     {{ ucfirst($appt->status) }}
                                 </span>
                             </td>

@@ -3,8 +3,8 @@
 
     <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-extrabold font-heading">Terms & Conditions</h1>
-            <p class="text-blue-100 text-sm">Last Updated: July 2026</p>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl" style="color: #ffffff;">Terms &amp; Conditions</h1>
+            <p style="color: #dbeafe; font-size: 0.875rem;">Last Updated: July 2026</p>
         </div>
     </section>
 

@@ -42,7 +42,6 @@
                             <div>
                                 <div class="font-bold text-slate-900 dark:text-white text-base font-heading">{{ $s->name }}</div>
                                 <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{{ $s->description }}</div>
-                                <div class="mt-2 text-xs font-semibold text-[#005DFF]">${{ number_format($s->price, 2) }} • {{ $s->duration }} mins</div>
                             </div>
                         </div>
                     </label>
@@ -162,7 +161,7 @@
     <!-- Step 4: Booking Confirmation -->
     @elseif($step === 4 && $bookingSuccess)
         <div class="text-center py-8 space-y-6">
-            <div class="w-20 h-20 bg-[#005DFF] text-[#005DFF] rounded-full flex items-center justify-center mx-auto text-3xl font-extrabold shadow-lg">
+            <div class="w-20 h-20 bg-[#005DFF] text-white rounded-full flex items-center justify-center mx-auto text-3xl font-extrabold shadow-lg">
                 ✓
             </div>
             <h2 class="text-3xl font-extrabold font-heading text-slate-900 dark:text-white">Appointment Booked Successfully!</h2>

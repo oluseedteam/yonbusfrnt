@@ -16,7 +16,7 @@
     </div>
 
     @if(session()->has('message'))
-        <div class="p-4 bg-[#005DFF] dark:bg-[#005DFF]/40 border border-[#005DFF] dark:border-[#005DFF] text-[#005DFF] dark:text-[#005DFF] rounded-xl text-sm font-semibold">
+        <div class="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-xl text-sm font-semibold shadow-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -64,7 +64,7 @@
                         </td>
                         <td class="py-4 px-4">
                             @if($b->is_published)
-                                <span class="px-2 py-0.5 bg-[#005DFF] dark:bg-[#005DFF]/40 text-[#005DFF] dark:text-[#005DFF] font-bold text-[11px] rounded">Published</span>
+                                <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] rounded">Published</span>
                             @else
                                 <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold text-[11px] rounded">Draft</span>
                             @endif

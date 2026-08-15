@@ -34,6 +34,23 @@ class ActivityLog extends Model
         });
     }
 
+    /**
+     * Helper to quickly log an activity.
+     */
+    public static function log(string $action, ?string $description = null, ?Model $model = null, ?int $userId = null): self
+    {
+        return static::create([
+            'user_id'     => $userId ?? auth()->id(),
+            'action'      => $action,
+            'description' => $description,
+            'model_type'  => $model ? get_class($model) : null,
+            'record_id'   => $model?->id ?? null,
+            'ip_address'  => request()?->ip(),
+            'user_agent'  => request()?->userAgent(),
+            'created_at'  => now(),
+        ]);
+    }
+
     // ── Relationships ──────────────────────────────────────────────
     public function user()
     {

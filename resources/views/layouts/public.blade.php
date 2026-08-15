@@ -52,10 +52,10 @@
                     @php
                         $navLinks = [
                             ['route' => 'home',     'label' => 'Home'],
-                            ['route' => 'services', 'label' => 'Services'],
                             ['route' => 'about',    'label' => 'About Us'],
-                            ['route' => 'careers',  'label' => 'Careers'],
+                            ['route' => 'services', 'label' => 'Services'],
                             ['route' => 'team',     'label' => 'Team'],
+                            ['route' => 'careers',  'label' => 'Careers'],
                             ['route' => 'blog',     'label' => 'Blog'],
                             ['route' => 'contact',  'label' => 'Contact'],
                         ];

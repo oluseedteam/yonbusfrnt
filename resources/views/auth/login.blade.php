@@ -14,8 +14,11 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, rgba(10, 22, 50, 0.85) 0%, rgba(15, 23, 42, 0.92) 100%),
-                        url('/images/auth-bg.png') center / cover no-repeat fixed;
+            background: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 93, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 43, 138, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(248, 250, 252, 0.8) 0px, transparent 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,17 +47,15 @@
             }
         }
 
-        /* ── LEFT PANEL (Glassmorphism) ── */
+        /* ── LEFT PANEL (Branded Card) ── */
         .left-panel {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: linear-gradient(145deg, #002B8A 0%, #0045D8 50%, #005DFF 100%);
+            border: 1px solid rgba(0, 93, 255, 0.25);
             border-radius: 28px;
             padding: 44px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 45px rgba(0, 43, 138, 0.16), 0 4px 12px rgba(0, 0, 0, 0.04);
             animation: cardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 

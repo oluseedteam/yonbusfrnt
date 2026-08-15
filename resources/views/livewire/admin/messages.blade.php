@@ -1,23 +1,23 @@
-<div class="h-[calc(100vh-160px)] flex flex-col md:flex-row gap-6" wire:poll.5s>
+<div class="h-[calc(100vh-140px)] flex flex-col md:flex-row gap-6" wire:poll.5s>
     <!-- Client Inbox Sidebar -->
-    <div class="w-full md:w-80 card-box p-4 flex flex-col justify-between flex-shrink-0">
+    <div class="w-full md:w-80 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-5 shadow-sm flex flex-col justify-between flex-shrink-0">
         <div class="flex flex-col h-full">
-            <div class="flex items-center justify-between mb-3">
-                <h3 class="font-bold text-sm text-gray-900 dark:text-white font-heading">Client Inquiries</h3>
-                <span class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-full">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white font-heading">Client Inquiries</h3>
+                <span class="text-[11px] font-semibold text-[#005DFF] dark:text-blue-400 bg-blue-50 dark:bg-blue-950 px-2.5 py-1 rounded-full">
                     {{ $clients->sum('unread_count') }} Unread
                 </span>
             </div>
 
             <!-- Client Search -->
-            <div class="mb-3">
-                <input type="text" wire:model.live.debounce.300ms="searchClient" placeholder="Search clients..." class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-1.5 text-xs text-gray-900 dark:text-white focus:ring-blue-500">
+            <div class="mb-4">
+                <input type="text" wire:model.live.debounce.300ms="searchClient" placeholder="Search clients..." class="w-full bg-[#f8fafc] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2 text-xs text-gray-900 dark:text-white focus:ring-[#005DFF] focus:border-[#005DFF]">
             </div>
 
             <div class="space-y-1.5 overflow-y-auto flex-1 pr-1">
                 @forelse($clients as $client)
                     <button wire:click="selectClient({{ $client->id }})" 
-                            class="w-full text-left p-3 rounded-xl flex items-center gap-3 transition-all relative {{ $selectedClientId == $client->id ? 'bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 shadow-sm' : 'hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent' }}">
+                            class="w-full text-left p-3 rounded-2xl flex items-center gap-3 transition-all relative {{ $selectedClientId == $client->id ? 'bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 shadow-sm' : 'hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent' }}">
                         <img src="{{ $client->avatar_url }}" class="w-10 h-10 rounded-xl object-cover flex-shrink-0">
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center justify-between">
@@ -31,14 +31,14 @@
                             </p>
                         </div>
                         @if($client->unread_count > 0)
-                            <span class="w-5 h-5 bg-blue-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <span class="w-5 h-5 bg-[#005DFF] text-white rounded-full text-[10px] font-bold flex items-center justify-center flex-shrink-0 shadow-sm">
                                 {{ $client->unread_count }}
                             </span>
                         @endif
                     </button>
                 @empty
-                    <div class="p-4 text-center text-xs text-gray-400">
-                        No active client message threads found. Search for a client above to initiate a chat.
+                    <div class="p-8 text-center text-xs text-slate-400">
+                        No active client message threads found.<br>Search for a client above to initiate a chat.
                     </div>
                 @endforelse
             </div>
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Chat Stream -->
-    <div class="flex-1 card-box p-0 flex flex-col h-full overflow-hidden">
+    <div class="flex-1 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-0 flex flex-col h-full overflow-hidden shadow-sm">
         @php $activeClient = $clients->firstWhere('id', $selectedClientId); @endphp
         
         <!-- Chat Header -->
@@ -101,12 +101,12 @@
                     <span class="text-[10px] text-gray-400 mt-1 px-1">{{ $msg->created_at->format('g:i A') }}</span>
                 </div>
             @empty
-                <div class="text-center py-16 px-4">
-                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                <div class="text-center py-28 px-4 my-auto">
+                    <div class="w-14 h-14 bg-[#eff6ff] dark:bg-blue-950/60 text-[#005DFF] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                     </div>
-                    <h4 class="font-bold text-sm text-gray-800 dark:text-gray-200">No Messages Selected</h4>
-                    <p class="text-xs text-gray-400 max-w-sm mx-auto mt-1">Select a client from the sidebar to view their message thread and reply.</p>
+                    <h4 class="font-bold text-base text-slate-900 dark:text-white font-heading">No Messages Selected</h4>
+                    <p class="text-xs text-slate-400 max-w-sm mx-auto mt-1.5 leading-relaxed">Select a client from the sidebar to view their message thread and reply.</p>
                 </div>
             @endforelse
         </div>

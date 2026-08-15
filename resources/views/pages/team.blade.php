@@ -2,15 +2,15 @@
     <x-slot name="title">Our Leadership Team | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     {{-- Hero Banner Section (Deep Blue to Blue Gradient) --}}
-    <section class="relative py-16 sm:py-24 overflow-hidden" style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%)">
+    <section class="relative py-16 sm:py-24 overflow-hidden" style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest text-white bg-white/20 border border-white/30 backdrop-blur-md mb-4">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block; margin-bottom: 1rem;">
                 Leadership &amp; Partners
             </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white font-heading tracking-tight mb-4">
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight mb-4" style="color: #ffffff;">
                 Meet Our Expert Accounting Team
             </h1>
-            <p class="max-w-2xl mx-auto text-base sm:text-lg text-blue-100 font-medium leading-relaxed">
+            <p class="max-w-2xl mx-auto text-base sm:text-lg font-medium leading-relaxed" style="color: #dbeafe;">
                 Certified Professional Bookkeepers and seasoned tax specialists dedicated to maximizing your growth, ensuring strict compliance, and delivering financial clarity across Canada.
             </p>
         </div>

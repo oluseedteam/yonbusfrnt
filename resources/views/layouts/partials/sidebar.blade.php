@@ -1,25 +1,16 @@
 @props(['role' => 'client'])
 
-<aside style="width: 260px; background: #031B4E; display: flex; flex-direction: column; justify-content: space-between; height: 100vh; position: sticky; top: 0; z-index: 30; overflow-y: auto; transition: all 0.3s; flex-shrink: 0;">
+<aside class="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col justify-between h-screen sticky top-0 z-30 overflow-y-auto transition-colors flex-shrink-0">
     <div>
         <!-- Logo -->
-        <div style="height: 72px; display: flex; align-items: center; padding: 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-                <x-application-logo style="height: 42px; width: auto; object-fit: contain; background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 10px;" />
+        <div class="h-24 flex items-center justify-center p-4 border-b border-gray-100 dark:border-gray-800/80">
+            <a href="{{ route('dashboard') }}" class="flex items-center justify-center">
+                <img src="{{ asset('images/logo.png') }}" alt="YONBUS Logo" class="h-16 w-auto object-contain transition-transform hover:scale-105">
             </a>
         </div>
 
-        <!-- Role label -->
-        <div style="padding: 1rem 1.5rem 0.5rem;">
-            <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(147,197,253,0.7);">
-                @if($role === 'client') Client Portal
-                @elseif($role === 'accountant') Accountant Portal
-                @else Admin Portal @endif
-            </span>
-        </div>
-
         <!-- Navigation Links -->
-        <nav style="padding: 0.5rem 0.75rem; display: flex; flex-direction: column; gap: 2px;">
+        <nav class="p-3 flex flex-col gap-1.5">
             @if($role === 'client')
                 <x-nav-item route="client.dashboard" icon="squares" label="Dashboard" />
                 <x-nav-item route="client.appointments" icon="calendar" label="Appointments" />
@@ -55,18 +46,18 @@
     </div>
 
     <!-- Bottom Widget & Support -->
-    <div class="p-4 border-t border-gray-100 dark:border-gray-800/60 space-y-3">
-        <div class="p-3.5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border border-blue-100 dark:border-blue-900/50">
-            <div class="flex items-center gap-3 mb-2">
-                <div class="w-8 h-8 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-xs">
+    <div class="p-4 border-t border-gray-100 dark:border-gray-800/60">
+        <div class="p-3.5 rounded-2xl bg-[#f0f6ff] dark:bg-blue-950/40 border border-[#dbeafe] dark:border-blue-900/50">
+            <div class="flex items-center gap-3 mb-1.5">
+                <div class="w-8 h-8 rounded-xl bg-[#005DFF] text-white flex items-center justify-center font-bold text-xs shadow-sm">
                     Y
                 </div>
                 <div>
-                    <h5 style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin: 0;">YONBUS Support</h5>
-                    <p style="font-size: 11px; color: rgba(147,197,253,0.8); margin: 0;">Online 24/7</p>
+                    <h5 class="text-xs font-bold text-slate-900 dark:text-white m-0">YONBUS Support</h5>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 m-0">Online 24/7</p>
                 </div>
             </div>
-            <a href="mailto:support@yonbustax.ca" class="text-xs font-medium text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
+            <a href="mailto:support@yonbustax.ca" class="text-xs font-semibold text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
                 Contact Support &rarr;
             </a>
         </div>
