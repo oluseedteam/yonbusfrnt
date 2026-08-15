@@ -70,6 +70,9 @@
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                 <span>Email Olubukunola</span>
                             </a>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Banking &amp; Finance</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">💼 Tax &amp; Payroll Specialist</span>
                             <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg inline-flex items-center gap-1.5">
                                 <x-flag-ca class="w-4 h-3" />
                                 <span>Quebec &amp; Nationwide Practice</span>

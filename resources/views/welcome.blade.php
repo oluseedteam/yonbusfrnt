@@ -90,19 +90,19 @@
     {{-- ============================================================
          STATS BAR (Deep Blue to Blue Gradient)
          ============================================================ --}}
-    <section style="position: relative; overflow: hidden; background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 3.5rem 0;" data-aos="fade-up" data-aos-duration="600">
+    <section style="position: relative; overflow: hidden; background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 3rem 0;" data-aos="fade-up" data-aos-duration="600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
                 @foreach([
                     ['num'=>'5,000+','label'=>'Satisfied Clients','icon'=>'👥'],
                     ['num'=>'10+','label'=>'Years of Expertise','icon'=>'🏆'],
                     ['num'=>'98%','label'=>'Compliance Rate','icon'=>'✅'],
                     ['num'=>'4.9★','label'=>'Client Rating','icon'=>'⭐'],
                 ] as $s)
-                <div class="hover-scale" style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.22);border-radius:16px;padding:22px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);">
-                    <div style="font-size:1.4rem;margin-bottom:6px;">{{ $s['icon'] }}</div>
-                    <div class="font-heading font-extrabold" style="font-size:1.8rem;color:#ffffff;">{{ $s['num'] }}</div>
-                    <div style="font-size:0.82rem;color:#dbeafe;margin-top:4px;font-weight:600;">{{ $s['label'] }}</div>
+                <div class="space-y-1">
+                    <div style="font-size:1.5rem;margin-bottom:6px;">{{ $s['icon'] }}</div>
+                    <div class="font-heading font-extrabold tracking-tight" style="font-size:clamp(1.75rem, 3.2vw, 2.35rem);color:#ffffff;line-height:1.1;">{{ $s['num'] }}</div>
+                    <div style="font-size:0.88rem;color:#dbeafe;margin-top:4px;font-weight:600;">{{ $s['label'] }}</div>
                 </div>
                 @endforeach
             </div>
