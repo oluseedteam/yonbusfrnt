@@ -1,7 +1,7 @@
 <x-public-layout>
     <x-slot name="title">Privacy Policy | YONBUS Tax & Accounting Services Inc.</x-slot>
 
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-16">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
             <h1 class="text-3xl sm:text-4xl font-extrabold font-heading">Privacy Policy</h1>
             <p class="text-blue-100 text-sm">Last Updated: July 2026</p>

@@ -2,7 +2,7 @@
     <x-slot name="title">{{ $blog->title }} | YONBUS Blog</x-slot>
 
     <!-- Header -->
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-16" data-aos="fade-down">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 4.5rem 0;" data-aos="fade-down">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <a href="{{ route('blog') }}" class="text-xs font-bold uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center">
                 ← Back to All Articles

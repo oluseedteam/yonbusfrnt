@@ -2,7 +2,7 @@
     <x-slot name="title">Tax Tips & Accounting Blog | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     <!-- Header Banner -->
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20" data-aos="fade-down">
+    <section style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff; padding: 5rem 0;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Tax & Financial Insights</span>
             <h1 class="text-4xl sm:text-5xl font-extrabold font-heading">Canadian Tax Tips, Guides & Accounting News</h1>
