@@ -20,7 +20,7 @@
         <div class="card-box">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase font-heading">Total Clients</span>
-                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] flex items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
             </div>
@@ -68,7 +68,7 @@
         <div class="card-box">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-bold text-base text-gray-900 dark:text-white font-heading">Upcoming Client Meetings</h3>
-                <a href="{{ route('accountant.appointments') }}" class="text-xs font-semibold text-[#005DFF] hover:underline">View All</a>
+                <a href="{{ route('accountant.appointments') }}" class="text-xs font-semibold text-[#2563EB] hover:underline">View All</a>
             </div>
             <div class="space-y-3">
                 @forelse($upcomingAppointments as $appt)
@@ -94,7 +94,7 @@
         <div class="card-box">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-bold text-base text-gray-900 dark:text-white font-heading">Tax Returns Needing Action</h3>
-                <a href="{{ route('accountant.tax-returns') }}" class="text-xs font-semibold text-[#005DFF] hover:underline">View All</a>
+                <a href="{{ route('accountant.tax-returns') }}" class="text-xs font-semibold text-[#2563EB] hover:underline">View All</a>
             </div>
             <div class="space-y-3">
                 @forelse($pendingTaxReturns as $tr)

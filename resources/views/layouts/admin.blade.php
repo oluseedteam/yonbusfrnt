@@ -42,8 +42,8 @@
             <footer class="border-t border-gray-100 dark:border-gray-800/60 py-6 px-8 text-center sm:text-left text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>&copy; {{ date('Y') }} YONBUS Tax & Accounting Services Inc. — System Administration</p>
                 <div class="flex items-center gap-4">
-                    <a href="#" class="hover:text-[#005DFF]">Audit Logs</a>
-                    <a href="#" class="hover:text-[#005DFF]">System Health</a>
+                    <a href="#" class="hover:text-[#2563EB]">Audit Logs</a>
+                    <a href="#" class="hover:text-[#2563EB]">System Health</a>
                 </div>
             </footer>
         </div>

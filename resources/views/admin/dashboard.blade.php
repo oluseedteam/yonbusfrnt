@@ -20,7 +20,7 @@
         <div class="card-box">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase font-heading">Total Bookings</span>
-                <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold">📅</div>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center font-bold">📅</div>
             </div>
             <div class="text-3xl font-extrabold text-gray-900 dark:text-white font-heading mt-2">{{ $stats['total_bookings'] }}</div>
             <div class="text-xs text-slate-500 mt-1">Confirmed: {{ $stats['upcoming_appointments'] }} | Completed: {{ $stats['completed_appointments'] }}</div>
@@ -56,12 +56,12 @@
 
     <!-- Quick Actions Row -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" data-aos="fade-up" data-aos-delay="150">
-        <a href="{{ route('admin.services') }}" class="card-box flex items-center gap-4 hover:border-[#005DFF] border-2 border-transparent transition-all group">
-            <div class="w-12 h-12 rounded-xl bg-[#005DFF] text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">💼</div>
+        <a href="{{ route('admin.services') }}" class="card-box flex items-center gap-4 hover:border-[#2563EB] border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">💼</div>
             <div>
                 <p class="text-xs font-bold text-gray-500 uppercase font-heading">Services & Pricing</p>
                 <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Manage Services</p>
-                <p class="text-[11px] text-[#005DFF] font-medium">Add · Edit · Delete → Live on Website</p>
+                <p class="text-[11px] text-[#2563EB] font-medium">Add · Edit · Delete → Live on Website</p>
             </div>
         </a>
         <a href="{{ route('admin.appointments') }}" class="card-box flex items-center gap-4 hover:border-emerald-500 border-2 border-transparent transition-all group">
@@ -113,7 +113,7 @@
     <div class="card-box mb-8" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-base text-gray-900 dark:text-white font-heading">Recent System Activity Audit</h3>
-            <a href="{{ route('admin.activity-logs') }}" class="text-xs font-semibold text-[#005DFF] hover:underline">View All Logs</a>
+            <a href="{{ route('admin.activity-logs') }}" class="text-xs font-semibold text-[#2563EB] hover:underline">View All Logs</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
@@ -130,7 +130,7 @@
                     @foreach($recentLogs as $log)
                         <tr>
                             <td class="p-3 font-medium text-gray-900 dark:text-white">{{ $log->user?->name ?? 'System' }}</td>
-                            <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-blue-50 text-[#005DFF] font-medium text-[11px]">{{ $log->action }}</span></td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] font-medium text-[11px]">{{ $log->action }}</span></td>
                             <td class="p-3 text-gray-600 dark:text-gray-400">{{ $log->description }}</td>
                             <td class="p-3 text-gray-400 font-mono text-[11px]">{{ $log->ip_address }}</td>
                             <td class="p-3 text-gray-400">{{ $log->created_at->diffForHumans() }}</td>
@@ -154,7 +154,7 @@
                     datasets: [{
                         label: 'Revenue ($)',
                         data: {!! json_encode($revenueChart['data']) !!},
-                        backgroundColor: '#005DFF',
+                        backgroundColor: '#2563EB',
                         borderRadius: 8,
                     }]
                 },
@@ -163,7 +163,7 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: '#F1F5F9' } },
+                        y: { beginAtZero: true, grid: { color: '#EFF6FF' } },
                         x: { grid: { display: false } }
                     }
                 }
@@ -177,7 +177,7 @@
                     labels: {!! json_encode($serviceChart['labels']) !!},
                     datasets: [{
                         data: {!! json_encode($serviceChart['data']) !!},
-                        backgroundColor: ['#005DFF', '#00A3FF', '#38BDF8', '#818CF8', '#A7F3D0']
+                        backgroundColor: ['#2563EB', '#2563EB', '#38BDF8', '#818CF8', '#A7F3D0']
                     }]
                 },
                 options: {

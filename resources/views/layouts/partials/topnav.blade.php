@@ -8,7 +8,7 @@
 
         <div class="relative w-full">
             <input type="text" placeholder="Search anything (documents, appointments, invoices...)" 
-                   class="w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/60 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#005DFF] focus:border-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400">
+                   class="w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/60 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400">
             <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
@@ -31,18 +31,18 @@
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" class="p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 relative transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#005DFF] ring-2 ring-white dark:ring-gray-900"></span>
+                <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#2563EB] ring-2 ring-white dark:ring-gray-900"></span>
             </button>
 
             <!-- Dropdown -->
             <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-3 w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-4 z-50">
                 <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-3 mb-3">
                     <h4 class="font-semibold text-sm font-heading">Notifications</h4>
-                    <span class="text-xs bg-blue-50 text-[#005DFF] px-2 py-0.5 rounded-full font-medium">3 New</span>
+                    <span class="text-xs bg-blue-50 text-[#2563EB] px-2 py-0.5 rounded-full font-medium">3 New</span>
                 </div>
                 <div class="space-y-3 text-xs">
                     <div class="p-2.5 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 flex items-start gap-2.5">
-                        <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center flex-shrink-0">
+                        <div class="w-7 h-7 rounded-lg bg-[#2563EB] text-white flex items-center justify-center flex-shrink-0">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <div>
@@ -68,7 +68,7 @@
         <!-- User Profile Dropdown -->
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" class="flex items-center gap-3 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left">
-                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-9 h-9 rounded-xl object-cover ring-2 ring-[#005DFF]/30">
+                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-9 h-9 rounded-xl object-cover ring-2 ring-[#2563EB]/30">
                 <div class="hidden sm:block">
                     <span class="text-xs font-semibold text-gray-900 dark:text-white font-heading block leading-tight">{{ auth()->user()->name }}</span>
                     <span class="text-[10px] text-gray-500 capitalize block">{{ auth()->user()->role }}</span>

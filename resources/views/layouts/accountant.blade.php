@@ -42,8 +42,8 @@
             <footer class="border-t border-gray-100 dark:border-gray-800/60 py-6 px-8 text-center sm:text-left text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>&copy; {{ date('Y') }} YONBUS Tax & Accounting Services Inc. — Accountant Portal</p>
                 <div class="flex items-center gap-4">
-                    <a href="#" class="hover:text-[#005DFF]">Help Center</a>
-                    <a href="#" class="hover:text-[#005DFF]">Client Guidelines</a>
+                    <a href="#" class="hover:text-[#2563EB]">Help Center</a>
+                    <a href="#" class="hover:text-[#2563EB]">Client Guidelines</a>
                 </div>
             </footer>
         </div>
