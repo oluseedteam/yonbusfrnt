@@ -42,9 +42,9 @@
             <footer class="border-t border-gray-100 dark:border-gray-800/60 py-6 px-8 text-center sm:text-left text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>&copy; {{ date('Y') }} YONBUS Tax & Accounting Services Inc. All rights reserved.</p>
                 <div class="flex items-center gap-4">
-                    <a href="#" class="hover:text-[#2563EB]">Privacy Policy</a>
-                    <a href="#" class="hover:text-[#2563EB]">Terms of Service</a>
-                    <a href="#" class="hover:text-[#2563EB]">Support Center</a>
+                    <a href="#" class="hover:text-[#005DFF]">Privacy Policy</a>
+                    <a href="#" class="hover:text-[#005DFF]">Terms of Service</a>
+                    <a href="#" class="hover:text-[#005DFF]">Support Center</a>
                 </div>
             </footer>
         </div>

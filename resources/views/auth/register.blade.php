@@ -20,7 +20,7 @@
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #1E3A8A;
+            color: #031B4E;
         }
 
         .auth-wrapper {
@@ -137,19 +137,19 @@
             animation: cardEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .card-eyebrow { font-size: 12px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
-        .card-title { font-size: 24px; font-weight: 800; color: #1E3A8A; margin-bottom: 6px; letter-spacing: -0.4px; }
+        .card-eyebrow { font-size: 12px; font-weight: 700; color: #005DFF; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
+        .card-title { font-size: 24px; font-weight: 800; color: #031B4E; margin-bottom: 6px; letter-spacing: -0.4px; }
         .card-sub { font-size: 13px; color: #64748B; margin-bottom: 24px; }
 
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; color: #1E3A8A; margin-bottom: 5px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: #031B4E; margin-bottom: 5px; }
         .form-input {
             width: 100%;
             padding: 12px 15px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #1E3A8A;
+            color: #031B4E;
             background: #FFFFFF;
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
@@ -157,7 +157,7 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .form-input::placeholder { color: #64748b; }
-        .form-input:focus { border-color: #2563EB; box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1); background: #fff; }
+        .form-input:focus { border-color: #005DFF; box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1); background: #fff; }
         .form-input.is-error { border-color: #ef4444; }
         .form-error { font-size: 12px; color: #ef4444; margin-top: 4px; }
 
@@ -167,7 +167,7 @@
             background: none; border: none; cursor: pointer; color: #64748b;
             display: flex; align-items: center; padding: 4px;
         }
-        .pw-toggle:hover { color: #2563EB; }
+        .pw-toggle:hover { color: #005DFF; }
 
         .pw-strength { margin-top: 6px; }
         .pw-strength-bars { display: flex; gap: 4px; margin-bottom: 4px; }
@@ -179,15 +179,15 @@
         .pw-strength-label { font-size: 11px; color: #64748b; }
 
         .terms-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; margin-top: 4px; }
-        .terms-row input[type="checkbox"] { width: 17px; height: 17px; margin-top: 2px; accent-color: #2563EB; flex-shrink: 0; cursor: pointer; }
-        .terms-row label { font-size: 13px; color: #1E40AF; line-height: 1.5; cursor: pointer; }
-        .terms-row label a { color: #2563EB; font-weight: 600; text-decoration: none; }
+        .terms-row input[type="checkbox"] { width: 17px; height: 17px; margin-top: 2px; accent-color: #005DFF; flex-shrink: 0; cursor: pointer; }
+        .terms-row label { font-size: 13px; color: #031B4E; line-height: 1.5; cursor: pointer; }
+        .terms-row label a { color: #005DFF; font-weight: 600; text-decoration: none; }
         .terms-row label a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #031B4E 0%, #005DFF 100%);
             color: #fff;
             font-size: 15px;
             font-weight: 700;
@@ -213,14 +213,14 @@
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
             font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif;
-            color: #1E40AF;
+            color: #031B4E;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .btn-social:hover { background: #FFFFFF; border-color: #2563EB; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .btn-social:hover { background: #FFFFFF; border-color: #005DFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
 
         .auth-footer { text-align: center; font-size: 14px; color: #64748B; }
-        .auth-footer a { color: #2563EB; font-weight: 700; text-decoration: none; }
+        .auth-footer a { color: #005DFF; font-weight: 700; text-decoration: none; }
         .auth-footer a:hover { text-decoration: underline; }
 
         /* ── RESPONSIVE ── */
@@ -405,7 +405,7 @@
         const input = document.getElementById(id);
         const isText = input.type === 'text';
         input.type = isText ? 'password' : 'text';
-        btn.style.color = isText ? '' : '#2563EB';
+        btn.style.color = isText ? '' : '#005DFF';
     }
 
     function checkStrength(val) {

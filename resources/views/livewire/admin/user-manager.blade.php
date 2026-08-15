@@ -11,7 +11,7 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm">
+        <div class="mb-4 p-4 bg-[#005DFF]/10 border border-[#005DFF]/20 text-[#005DFF] dark:text-[#005DFF] rounded-lg text-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -59,17 +59,17 @@
                             <td class="px-6 py-4">
                                 @php $roleName = $user->getRoleNames()->first() ?? 'client'; @endphp
                                 <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full 
-                                    {{ $roleName === 'admin' || $roleName === 'super-admin' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400' : '' }}
+                                    {{ $roleName === 'admin' || $roleName === 'super-admin' ? 'bg-[#063B8F]/10 text-[#005DFF] dark:text-[#005DFF]' : '' }}
                                     {{ $roleName === 'subadmin' ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : '' }}
                                     {{ $roleName === 'accountant' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' : '' }}
-                                    {{ $roleName === 'client' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : '' }}">
+                                    {{ $roleName === 'client' ? 'bg-[#005DFF]/10 text-[#005DFF] dark:text-[#005DFF]' : '' }}">
                                     {{ ucfirst($roleName) }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-slate-500 dark:text-slate-400">{{ $user->phone ?? '—' }}</td>
                             <td class="px-6 py-4">
-                                <button wire:click="toggleStatus({{ $user->id }})" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition {{ $user->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20' }}">
-                                    <span class="w-1.5 h-1.5 rounded-full {{ $user->is_active ? 'bg-emerald-500' : 'bg-rose-500' }}"></span>
+                                <button wire:click="toggleStatus({{ $user->id }})" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition {{ $user->is_active ? 'bg-[#005DFF]/10 text-[#005DFF] dark:text-[#005DFF] hover:bg-[#005DFF]/20' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $user->is_active ? 'bg-[#005DFF]' : 'bg-rose-500' }}"></span>
                                     {{ $user->is_active ? 'Active' : 'Inactive' }}
                                 </button>
                             </td>

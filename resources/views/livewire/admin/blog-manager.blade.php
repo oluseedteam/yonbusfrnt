@@ -8,7 +8,7 @@
             <button wire:click="$set('showCategoryModal', true)" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-sm rounded-xl transition">
                 + New Category
             </button>
-            <button wire:click="openCreateModal" class="px-5 py-2.5 bg-[#2563EB] hover:bg-[#1E3A8A] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center gap-1.5">
+            <button wire:click="openCreateModal" class="px-5 py-2.5 bg-[#005DFF] hover:bg-[#031B4E] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center gap-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 Create Blog Article
             </button>
@@ -16,14 +16,14 @@
     </div>
 
     @if(session()->has('message'))
-        <div class="p-4 bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-xl text-sm font-semibold">
+        <div class="p-4 bg-[#005DFF] dark:bg-[#005DFF]/40 border border-[#005DFF] dark:border-[#005DFF] text-[#005DFF] dark:text-[#005DFF] rounded-xl text-sm font-semibold">
             {{ session('message') }}
         </div>
     @endif
 
     <!-- Search Bar -->
     <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
-        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search blog title..." class="w-full sm:w-80 rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search blog title..." class="w-full sm:w-80 rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
         <div class="text-xs text-slate-500 dark:text-slate-400">Total Categories: {{ count($categories) }}</div>
     </div>
 
@@ -50,7 +50,7 @@
                                 @endif
                                 <div>
                                     <div class="font-medium text-slate-900 dark:text-white">{{ $b->title }}</div>
-                                    <span class="text-[11px] font-bold text-[#2563EB] bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">{{ $b->category?->name ?? 'General' }}</span>
+                                    <span class="text-[11px] font-bold text-[#005DFF] bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">{{ $b->category?->name ?? 'General' }}</span>
                                 </div>
                             </div>
                         </td>
@@ -64,14 +64,14 @@
                         </td>
                         <td class="py-4 px-4">
                             @if($b->is_published)
-                                <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 font-bold text-[11px] rounded">Published</span>
+                                <span class="px-2 py-0.5 bg-[#005DFF] dark:bg-[#005DFF]/40 text-[#005DFF] dark:text-[#005DFF] font-bold text-[11px] rounded">Published</span>
                             @else
                                 <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold text-[11px] rounded">Draft</span>
                             @endif
                         </td>
                         <td class="py-4 px-4 text-xs text-slate-500 dark:text-slate-400">{{ $b->created_at->format('M d, Y') }}</td>
                         <td class="py-4 px-4 text-right space-x-2">
-                            <button wire:click="editBlog({{ $b->id }})" class="text-[#2563EB] hover:underline font-semibold text-xs">Edit</button>
+                            <button wire:click="editBlog({{ $b->id }})" class="text-[#005DFF] hover:underline font-semibold text-xs">Edit</button>
                             <button wire:click="confirmDeleteBlog({{ $b->id }})" class="text-rose-600 hover:underline font-semibold text-xs">Delete</button>
                         </td>
                     </tr>
@@ -103,12 +103,12 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Title *</label>
-                        <input type="text" wire:model.live="title" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                        <input type="text" wire:model.live="title" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
                         @error('title') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Category *</label>
-                        <select wire:model="blog_category_id" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                        <select wire:model="blog_category_id" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
                             @foreach($categories as $c)
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                             @endforeach
@@ -143,35 +143,35 @@
 
                     <div>
                         <label class="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">Or Paste Image URL (Optional)</label>
-                        <input type="text" wire:model="featured_image" placeholder="https://images.unsplash.com/..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-[#2563EB]">
+                        <input type="text" wire:model="featured_image" placeholder="https://images.unsplash.com/..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-[#005DFF]">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Excerpt</label>
-                    <textarea wire:model="excerpt" rows="2" placeholder="Brief summary of the article..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]"></textarea>
+                    <textarea wire:model="excerpt" rows="2" placeholder="Brief summary of the article..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]"></textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Full Content *</label>
-                    <textarea wire:model="content" rows="6" placeholder="Write your full article content here..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]"></textarea>
+                    <textarea wire:model="content" rows="6" placeholder="Write your full article content here..." class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]"></textarea>
                     @error('content') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="flex items-center space-x-6 pt-2">
                     <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
-                        <input type="checkbox" wire:model="is_featured" class="rounded text-[#2563EB]">
+                        <input type="checkbox" wire:model="is_featured" class="rounded text-[#005DFF]">
                         <span>Feature on Homepage</span>
                     </label>
                     <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
-                        <input type="checkbox" wire:model="is_published" class="rounded text-[#2563EB]">
+                        <input type="checkbox" wire:model="is_published" class="rounded text-[#005DFF]">
                         <span>Publish Immediately</span>
                     </label>
                 </div>
 
                 <div class="pt-4 flex justify-end space-x-3 border-t border-slate-100 dark:border-slate-700">
                     <button wire:click="$set('showModal', false)" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700">Cancel</button>
-                    <button wire:click="saveBlog" class="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white font-bold text-sm hover:bg-[#1E3A8A] shadow-md transition">Save Article</button>
+                    <button wire:click="saveBlog" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm hover:bg-[#031B4E] shadow-md transition">Save Article</button>
                 </div>
             </div>
         </div>
@@ -184,16 +184,16 @@
                 <h3 class="text-xl font-bold font-heading text-slate-900 dark:text-white">Add Blog Category</h3>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Category Name *</label>
-                    <input type="text" wire:model="newCategoryName" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                    <input type="text" wire:model="newCategoryName" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
                     @error('newCategoryName') <span class="text-xs text-rose-500 font-semibold mt-1 block">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Description</label>
-                    <textarea wire:model="newCategoryDescription" rows="3" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]"></textarea>
+                    <textarea wire:model="newCategoryDescription" rows="3" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]"></textarea>
                 </div>
                 <div class="pt-4 flex justify-end space-x-3 border-t border-slate-100 dark:border-slate-700">
                     <button wire:click="$set('showCategoryModal', false)" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-sm">Cancel</button>
-                    <button wire:click="saveCategory" class="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white font-bold text-sm">Add Category</button>
+                    <button wire:click="saveCategory" class="px-6 py-2.5 rounded-xl bg-[#005DFF] text-white font-bold text-sm">Add Category</button>
                 </div>
             </div>
         </div>

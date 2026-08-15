@@ -15,7 +15,7 @@
                             class="w-full text-left p-3 rounded-xl flex items-center gap-3 transition-all {{ $selectedAdminId == $admin->id ? 'bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 shadow-sm' : 'hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent' }}">
                         <div class="relative">
                             <img src="{{ $admin->avatar_url }}" class="w-10 h-10 rounded-xl object-cover">
-                            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-gray-900 rounded-full"></span>
+                            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#005DFF] border-2 border-white dark:border-gray-900 rounded-full"></span>
                         </div>
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center justify-between">
@@ -49,14 +49,14 @@
                 @php $activeAdmin = $admins->firstWhere('id', $selectedAdminId); @endphp
                 <div class="relative">
                     <img src="{{ $activeAdmin?->avatar_url ?? 'https://ui-avatars.com/api/?name=Admin+Support&background=2563EB&color=fff' }}" class="w-9 h-9 rounded-xl object-cover">
-                    <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-gray-900 rounded-full"></span>
+                    <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#005DFF] border-2 border-white dark:border-gray-900 rounded-full"></span>
                 </div>
                 <div>
                    <h3 class="font-bold text-sm text-gray-900 dark:text-white font-heading">
                         {{ $activeAdmin?->name ?? 'YONBUS Admin Support' }}
                     </h3>
-                    <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <p class="text-[10px] text-[#005DFF] dark:text-[#005DFF] font-semibold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-[#005DFF] rounded-full animate-pulse"></span>
                         Active Support • Direct Admin Line
                     </p>
                 </div>
@@ -64,7 +64,7 @@
 
             <!-- Action Controls: Encrypted badge & Video Call Button -->
             <div class="flex items-center gap-2">
-                <span class="hidden sm:inline-flex text-[10px] bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-semibold px-2.5 py-1 rounded-full items-center gap-1">
+                <span class="hidden sm:inline-flex text-[10px] bg-[#005DFF] text-[#005DFF] dark:bg-[#005DFF] dark:text-[#005DFF] font-semibold px-2.5 py-1 rounded-full items-center gap-1">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     256-Bit Encrypted
                 </span>
@@ -85,7 +85,7 @@
                 <div class="flex flex-col {{ $isMe ? 'items-end' : 'items-start' }}">
                     <div class="flex items-end gap-2 max-w-lg {{ $isMe ? 'flex-row-reverse' : 'flex-row' }}">
                         <img src="{{ $msg->sender?->avatar_url }}" class="w-7 h-7 rounded-lg object-cover">
-                        <div class="p-3.5 rounded-2xl text-xs {{ $isMe ? 'bg-[#2563EB] text-white rounded-br-none shadow-md shadow-blue-500/10' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-none border border-gray-200/60 dark:border-gray-700/60' }}">
+                        <div class="p-3.5 rounded-2xl text-xs {{ $isMe ? 'bg-[#005DFF] text-white rounded-br-none shadow-md shadow-blue-500/10' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-none border border-gray-200/60 dark:border-gray-700/60' }}">
                             <p class="whitespace-pre-line leading-relaxed">{{ $msg->body }}</p>
                             @if($msg->attachment)
                                 <div class="mt-2 pt-2 border-t {{ $isMe ? 'border-blue-400/40' : 'border-gray-200 dark:border-gray-700' }} flex items-center gap-2 font-medium">
@@ -121,7 +121,7 @@
                     You have not booked an appointment yet. To start messaging our admin team, please schedule your consultation appointment first.
                 </p>
                 <div class="pt-1">
-                    <a href="{{ route('client.appointments') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+                    <a href="{{ route('client.appointments') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         <span>Book Appointment First</span>
                     </a>
@@ -129,7 +129,7 @@
             </div>
         @else
             <form wire:submit.prevent="send" class="p-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 bg-white dark:bg-gray-900">
-                <input type="text" wire:model="body" placeholder="Type your message to YONBUS Admin..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#2563EB] focus:border-[#2563EB]">
+                <input type="text" wire:model="body" placeholder="Type your message to YONBUS Admin..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#005DFF] focus:border-[#005DFF]">
                 <button type="submit" class="btn-primary text-xs py-2.5 px-5 flex items-center gap-1.5">
                     <span>Send</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>

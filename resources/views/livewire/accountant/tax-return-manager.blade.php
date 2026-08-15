@@ -26,7 +26,7 @@
                                 <img src="{{ $tr->client?->avatar_url }}" class="w-7 h-7 rounded-lg object-cover">
                                 <span class="font-medium text-gray-800 dark:text-gray-200">{{ $tr->client?->name }}</span>
                             </td>
-                            <td class="p-3.5 font-bold text-[#2563EB]">{{ $tr->year }}</td>
+                            <td class="p-3.5 font-bold text-[#005DFF]">{{ $tr->year }}</td>
                             <td class="p-3.5">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider {{ $tr->status_color }}">
                                     {{ str_replace('_', ' ', $tr->status) }}

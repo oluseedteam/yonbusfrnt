@@ -17,7 +17,7 @@
                 <div class="space-y-4 text-xs mt-4">
                     <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/40">
                         <span class="text-gray-500 font-semibold block">Total Managed Clients</span>
-                        <span class="text-2xl font-extrabold text-[#2563EB] font-heading">{{ $clientCount }}</span>
+                        <span class="text-2xl font-extrabold text-[#005DFF] font-heading">{{ $clientCount }}</span>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     datasets: [{
                         label: 'Revenue ($)',
                         data: @json($revenueData),
-                        borderColor: '#2563EB',
+                        borderColor: '#005DFF',
                         backgroundColor: 'rgba(0, 93, 255, 0.1)',
                         fill: true,
                         tension: 0.4

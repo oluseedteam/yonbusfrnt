@@ -27,7 +27,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans antialiased bg-[#FFFFFF] dark:bg-[#1E3A8A] text-gray-900 dark:text-gray-100 min-h-screen animate-page-entry">
+<body class="font-sans antialiased" style="background: #F8FAFC; color: #475569; min-height: 100vh;">
     {{ $slot }}
 
     <!-- AOS Script -->

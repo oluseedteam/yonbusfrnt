@@ -14,12 +14,12 @@
         
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at top, #1E40AF 0%, #1E3A8A 100%);
+            background: radial-gradient(circle at top, #031B4E 0%, #031B4E 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #1E3A8A;
+            color: #031B4E;
         }
 
         .admin-auth-container {
@@ -56,7 +56,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #2563EB, #38bdf8, #f59e0b, #2563EB);
+            background: linear-gradient(90deg, #005DFF, #38bdf8, #f59e0b, #005DFF);
         }
 
         .brand-header {
@@ -94,7 +94,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 26px;
             font-weight: 800;
-            color: #1E3A8A;
+            color: #031B4E;
             margin-bottom: 6px;
             letter-spacing: -0.4px;
         }
@@ -171,7 +171,7 @@
             padding: 14px 16px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #1E3A8A;
+            color: #031B4E;
             background: rgba(15, 23, 42, 0.6);
             border: 1.5px solid rgba(148, 163, 184, 0.2);
             border-radius: 14px;
@@ -198,8 +198,8 @@
         .btn-admin-submit {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #2563EB 0%, #1E3A8A 100%);
-            color: #1E3A8A;
+            background: linear-gradient(135deg, #005DFF 0%, #031B4E 100%);
+            color: #031B4E;
             font-size: 15px;
             font-weight: 800;
             font-family: 'Inter', sans-serif;
@@ -217,7 +217,7 @@
         .btn-admin-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(0, 93, 255, 0.5);
-            background: linear-gradient(135deg, #2563EB 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #005DFF 0%, #005DFF 100%);
         }
 
         .admin-footer {

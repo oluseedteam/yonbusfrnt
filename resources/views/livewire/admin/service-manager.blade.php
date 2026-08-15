@@ -11,7 +11,7 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm">
+        <div class="mb-4 p-4 bg-[#005DFF]/10 border border-[#005DFF]/20 text-[#005DFF] dark:text-[#005DFF] rounded-lg text-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -37,7 +37,7 @@
                             <td class="px-6 py-4 text-slate-600 dark:text-slate-400 text-xs">{{ $s->duration }} mins</td>
                             <td class="px-6 py-4 font-extrabold text-blue-600 dark:text-blue-400">${{ number_format($s->price, 2) }}</td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $s->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-slate-500/10 text-slate-600 dark:text-slate-400' }}">
+                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $s->is_active ? 'bg-[#005DFF]/10 text-[#005DFF] dark:text-[#005DFF]' : 'bg-slate-500/10 text-slate-600 dark:text-slate-400' }}">
                                     {{ $s->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>

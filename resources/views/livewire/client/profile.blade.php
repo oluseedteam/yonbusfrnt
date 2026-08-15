@@ -5,8 +5,8 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-bold text-xs rounded-2xl flex items-center">
-            <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <div class="mb-6 p-4 bg-[#005DFF] dark:bg-[#005DFF]/40 border border-[#005DFF] dark:border-[#005DFF] text-[#005DFF] dark:text-[#005DFF] font-bold text-xs rounded-2xl flex items-center">
+            <svg class="w-5 h-5 mr-2 text-[#005DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             {{ session('message') }}
         </div>
     @endif
@@ -19,9 +19,9 @@
                 <div class="flex items-center gap-5">
                     <div class="relative flex-shrink-0">
                         @if ($avatar)
-                            <img src="{{ $avatar->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#2563EB]/20 shadow-md">
+                            <img src="{{ $avatar->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#005DFF]/20 shadow-md">
                         @else
-                            <img src="{{ auth()->user()->avatar_url }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#2563EB]/20 shadow-md">
+                            <img src="{{ auth()->user()->avatar_url }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#005DFF]/20 shadow-md">
                         @endif
                         <div wire:loading wire:target="avatar" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs rounded-2xl flex items-center justify-center text-white text-[10px] font-bold">
                             Uploading...
@@ -30,7 +30,7 @@
                     
                     <div class="space-y-2">
                         <div class="flex items-center gap-3">
-                            <label class="px-4 py-2 bg-[#2563EB] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-sm cursor-pointer transition inline-flex items-center gap-1.5">
+                            <label class="px-4 py-2 bg-[#005DFF] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-sm cursor-pointer transition inline-flex items-center gap-1.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                                 <span>Choose Image</span>
                                 <input type="file" wire:model="avatar" accept="image/*" class="hidden">

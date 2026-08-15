@@ -18,7 +18,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="card-box">
             <span class="text-xs text-gray-500 font-semibold uppercase">Paid Invoices</span>
-            <p class="text-2xl font-extrabold text-emerald-600 font-heading mt-1">{{ $paid }}</p>
+            <p class="text-2xl font-extrabold text-[#005DFF] font-heading mt-1">{{ $paid }}</p>
         </div>
         <div class="card-box">
             <span class="text-xs text-gray-500 font-semibold uppercase">Pending Invoices</span>
@@ -44,7 +44,7 @@
                     datasets: [{
                         label: 'Amount Paid ($)',
                         data: @json($revenueData),
-                        backgroundColor: '#2563EB',
+                        backgroundColor: '#005DFF',
                         borderRadius: 8,
                     }]
                 },

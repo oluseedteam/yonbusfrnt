@@ -36,7 +36,7 @@
                             </td>
                             <td class="p-3.5 text-gray-600 dark:text-gray-400">{{ $c->phone ?? 'N/A' }}</td>
                             <td class="p-3.5 font-bold text-blue-600">{{ $c->appointments_count }}</td>
-                            <td class="p-3.5 font-bold text-purple-600">{{ $c->tax_returns_count }}</td>
+                            <td class="p-3.5 font-bold text-[#005DFF]">{{ $c->tax_returns_count }}</td>
                             <td class="p-3.5 font-bold text-amber-600">{{ $c->invoices_count }}</td>
                         </tr>
                     @empty

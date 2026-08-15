@@ -12,7 +12,7 @@
     </div>
 
     @if(session()->has('message'))
-        <div class="mb-6 p-4 rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 text-xs font-semibold">
+        <div class="mb-6 p-4 rounded-xl bg-[#005DFF] text-[#005DFF] dark:bg-[#005DFF]/50 dark:text-[#005DFF] text-xs font-semibold">
             {{ session('message') }}
         </div>
     @endif
@@ -23,7 +23,7 @@
             <span class="text-xs font-semibold text-gray-500 uppercase font-heading">Filter:</span>
             @foreach(['all' => 'All', 'pending' => 'Pending', 'confirmed' => 'Confirmed', 'completed' => 'Completed', 'cancelled' => 'Cancelled'] as $key => $label)
                 <button wire:click="$set('filter', '{{ $key }}')" 
-                        class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all {{ $filter === $key ? 'bg-[#2563EB] text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200' }}">
+                        class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all {{ $filter === $key ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200' }}">
                     {{ $label }}
                 </button>
             @endforeach
@@ -58,7 +58,7 @@
                             </td>
                             <td class="p-3.5">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider 
-                                    {{ $appt->status === 'confirmed' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' : '' }}
+                                    {{ $appt->status === 'confirmed' ? 'bg-[#005DFF] text-[#005DFF] dark:bg-[#005DFF] dark:text-[#005DFF]' : '' }}
                                     {{ $appt->status === 'pending' ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300' : '' }}
                                     {{ $appt->status === 'completed' ? 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400' : '' }}
                                     {{ $appt->status === 'cancelled' ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300' : '' }}">
@@ -79,7 +79,7 @@
                             </td>
                             <td class="p-3.5 text-right space-x-2">
                                 @if(in_array($appt->status, ['pending', 'confirmed']))
-                                    <button wire:click="edit({{ $appt->id }})" class="text-[#2563EB] hover:underline font-semibold">Reschedule</button>
+                                    <button wire:click="edit({{ $appt->id }})" class="text-[#005DFF] hover:underline font-semibold">Reschedule</button>
                                     <button wire:click="cancel({{ $appt->id }})" wire:confirm="Are you sure you want to cancel this appointment?" class="text-red-500 hover:underline font-semibold">Cancel</button>
                                 @endif
                             </td>
@@ -106,7 +106,7 @@
                 <form wire:submit.prevent="save" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select Service</label>
-                        <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#2563EB]">
+                        <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
                             <option value="">-- Select a Service --</option>
                             @foreach($services as $s)
                                 <option value="{{ $s->id }}">{{ $s->name }} (${{ number_format($s->price, 2) }})</option>
@@ -118,19 +118,19 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Date</label>
-                            <input type="date" wire:model="date" min="{{ date('Y-m-d') }}" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#2563EB]">
+                            <input type="date" wire:model="date" min="{{ date('Y-m-d') }}" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
                             @error('date') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Time</label>
-                            <input type="time" wire:model="time" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#2563EB]">
+                            <input type="time" wire:model="time" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
                             @error('time') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Notes / Consultation Topics</label>
-                        <textarea wire:model="notes" rows="3" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#2563EB]" placeholder="Describe what you would like to discuss with the YONBUS team..."></textarea>
+                        <textarea wire:model="notes" rows="3" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]" placeholder="Describe what you would like to discuss with the YONBUS team..."></textarea>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">

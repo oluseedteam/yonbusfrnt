@@ -7,7 +7,7 @@
         <!-- Call Top Navigation Header -->
         <div class="p-4 px-6 border-b border-gray-800/80 flex items-center justify-between bg-gray-900/90 z-20 flex-shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
+                <div class="w-3 h-3 bg-[#005DFF] rounded-full animate-ping"></div>
                 <div>
                     <h3 class="font-bold text-sm text-white font-heading flex items-center gap-2">
                         YONBUS Encrypted Live Session
@@ -140,7 +140,7 @@
             <!-- Screen Share & Recording Actions -->
             <div class="flex items-center gap-3">
                 <!-- Screen Share Button -->
-                <button @click="toggleScreenShare()" :class="isScreenSharing ? 'bg-emerald-600 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'" class="px-4 py-3 rounded-2xl transition-all flex items-center gap-2 text-xs font-bold shadow-lg shadow-blue-500/10">
+                <button @click="toggleScreenShare()" :class="isScreenSharing ? 'bg-[#005DFF] text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'" class="px-4 py-3 rounded-2xl transition-all flex items-center gap-2 text-xs font-bold shadow-lg shadow-blue-500/10">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     <span x-text="isScreenSharing ? 'Sharing Screen' : 'Share Screen'"></span>
                 </button>

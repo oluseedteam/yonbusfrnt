@@ -13,7 +13,7 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm">
+        <div class="mb-4 p-4 bg-[#005DFF]/10 border border-[#005DFF]/20 text-[#005DFF] dark:text-[#005DFF] rounded-lg text-sm">
             {{ session('message') }}
         </div>
     @endif
@@ -40,7 +40,7 @@
                             <td class="px-6 py-4 text-slate-600 dark:text-slate-400 text-xs">{{ $inv->due_date?->format('M d, Y') ?? 'N/A' }}</td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full 
-                                    {{ $inv->status === 'paid' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : '' }}
+                                    {{ $inv->status === 'paid' ? 'bg-[#005DFF]/10 text-[#005DFF] dark:text-[#005DFF]' : '' }}
                                     {{ $inv->status === 'pending' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' : '' }}
                                     {{ $inv->status === 'cancelled' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : '' }}">
                                     {{ ucfirst($inv->status) }}
@@ -48,7 +48,7 @@
                             </td>
                             <td class="px-6 py-4 text-right space-x-2">
                                 @if($inv->status === 'pending')
-                                    <button wire:click="markAsPaid({{ $inv->id }})" class="text-emerald-600 dark:text-emerald-400 hover:underline font-medium text-xs">Mark Paid</button>
+                                    <button wire:click="markAsPaid({{ $inv->id }})" class="text-[#005DFF] dark:text-[#005DFF] hover:underline font-medium text-xs">Mark Paid</button>
                                     <button wire:click="cancelInvoice({{ $inv->id }})" class="text-rose-600 dark:text-rose-400 hover:underline font-medium text-xs">Cancel</button>
                                 @endif
                             </td>

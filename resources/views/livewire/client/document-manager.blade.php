@@ -12,7 +12,7 @@
         <div class="card-box mb-8 border-2 border-blue-500/30 bg-blue-50/30 dark:bg-blue-950/20">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-[#2563EB] text-white flex items-center justify-center font-bold">
+                    <div class="w-8 h-8 rounded-xl bg-[#005DFF] text-white flex items-center justify-center font-bold">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     </div>
                     <div>
@@ -37,7 +37,7 @@
                         @foreach($adminDocuments as $doc)
                             <tr class="hover:bg-blue-100/40 dark:hover:bg-blue-900/20">
                                 <td class="p-3 flex items-center gap-3">
-                                    <div class="w-7 h-7 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-bold text-[10px]">
+                                    <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-[10px]">
                                         {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
                                     </div>
                                     <span class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</span>
@@ -49,7 +49,7 @@
                                 <td class="p-3 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
                                 <td class="p-3 text-right">
                                     <a href="{{ route('documents.download', $doc) }}" 
-                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#2563EB] hover:bg-blue-700 shadow-sm transition-all">
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition-all">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                         <span>Download File</span>
                                     </a>
@@ -66,9 +66,9 @@
     <div class="card-box mb-8">
         <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document</h3>
         <form wire:submit.prevent="upload" class="space-y-4">
-            <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#2563EB] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20">
+            <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20">
                 <input type="file" wire:model="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] flex items-center justify-center mb-3">
+                <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 </div>
                 <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading">
@@ -76,7 +76,7 @@
                 </p>
                 <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, DOCX, XLSX (max 20MB)</p>
                 @if($file)
-                    <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-950 text-[#2563EB] text-xs font-medium rounded-lg">
+                    <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-950 text-[#005DFF] text-xs font-medium rounded-lg">
                         <span>Selected: {{ $file->getClientOriginalName() }}</span>
                     </div>
                 @endif
@@ -132,7 +132,7 @@
                     @forelse($documents as $doc)
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
                             <td class="p-3.5 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center font-bold text-[10px]">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-[10px]">
                                     {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
                                 </div>
                                 <div>
@@ -146,7 +146,7 @@
                             <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
                             <td class="p-3.5 text-right space-x-3">
-                                <a href="{{ route('documents.download', $doc) }}" class="text-[#2563EB] hover:underline font-semibold">Download</a>
+                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] hover:underline font-semibold">Download</a>
                                 @if($doc->uploaded_by == auth()->id())
                                     <button wire:click="delete({{ $doc->id }})" wire:confirm="Delete file?" class="text-red-500 hover:underline font-semibold">Delete</button>
                                 @endif

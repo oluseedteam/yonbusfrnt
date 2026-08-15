@@ -29,7 +29,7 @@
         h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen" style="background: #ffffff; color: #1E40AF;">
+<body class="antialiased flex flex-col min-h-screen" style="background: #FFFFFF; color: #475569;">
 
 
 
@@ -42,8 +42,8 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-3 py-2 group flex-shrink-0">
                     <img src="{{ asset('images/logo.png') }}" alt="YONBUS Logo" class="w-auto object-contain transition-transform group-hover:scale-105" style="height: 44px;">
                     <div class="leading-tight">
-                        <div class="font-extrabold font-heading" style="color: #1E3A8A; font-size: 17px; line-height: 1.15; letter-spacing: -0.01em;">YONBUS</div>
-                        <div class="font-bold" style="color: #2563EB; font-size: 9px; line-height: 1.2; letter-spacing: 0.05em;">TAX &amp; ACCOUNTING SERVICES INC.</div>
+                        <div class="font-extrabold font-heading" style="color: #031B4E; font-size: 17px; line-height: 1.15; letter-spacing: -0.01em;">YONBUS</div>
+                        <div class="font-bold" style="color: #005DFF; font-size: 9px; line-height: 1.2; letter-spacing: 0.05em;">TAX &amp; ACCOUNTING SERVICES INC.</div>
                     </div>
                 </a>
 
@@ -63,16 +63,16 @@
                     @foreach($navLinks as $link)
                         @if(request()->routeIs($link['route']))
                             <a href="{{ route($link['route']) }}"
-                               class="text-sm font-extrabold transition-all"
-                               style="color: #2563EB; border-bottom: 2.5px solid #2563EB; padding-bottom: 4px;">
+                               class="text-sm font-bold transition-all"
+                               style="color: #005DFF; border-bottom: 2.5px solid #005DFF; padding-bottom: 4px;">
                                 {{ $link['label'] }}
                             </a>
                         @else
                             <a href="{{ route($link['route']) }}"
-                               class="text-sm font-semibold transition-colors"
-                               style="color: #475569; padding-bottom: 4px;"
-                               onmouseenter="this.style.color='#2563EB'"
-                               onmouseleave="this.style.color='#475569'">
+                               class="text-sm font-medium transition-colors"
+                               style="color: #031B4E; padding-bottom: 4px;"
+                               onmouseenter="this.style.color='#005DFF'"
+                               onmouseleave="this.style.color='#031B4E'">
                                 {{ $link['label'] }}
                             </a>
                         @endif
@@ -80,23 +80,26 @@
                 </nav>
 
                 <!-- Header CTA Actions -->
-                <div class="hidden md:flex items-center" style="gap: 1.25rem;">
+                <div class="hidden md:flex items-center" style="gap: 1.5rem;">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-bold px-2 py-1.5 transition-colors" style="color: #1E3A8A;" onmouseenter="this.style.color='#2563EB'" onmouseleave="this.style.color='#1E3A8A'">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-sm font-semibold px-2 py-1.5 transition-colors" style="color: #031B4E;" onmouseenter="this.style.color='#005DFF'" onmouseleave="this.style.color='#031B4E'">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-bold px-2 py-1.5 transition-colors" style="color: #1E3A8A;" onmouseenter="this.style.color='#2563EB'" onmouseleave="this.style.color='#1E3A8A'">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm font-semibold px-2 py-1.5 transition-colors" style="color: #031B4E;" onmouseenter="this.style.color='#005DFF'" onmouseleave="this.style.color='#031B4E'">Login</a>
                     @endauth
 
                     <a href="{{ route('register') }}"
-                       class="inline-flex items-center justify-center text-sm font-bold transition-all transform hover:-translate-y-0.5"
-                       style="background: #2563EB; color: #ffffff; padding: 10px 22px; border-radius: 10px; box-shadow: 0 4px 14px rgba(37,99,235,0.35);">
+                       class="inline-flex items-center justify-center text-sm font-bold transition-all"
+                       style="background: #005DFF; color: #FFFFFF; padding: 10px 24px; border-radius: 10px; box-shadow: 0 4px 14px rgba(0,93,255,0.25); transition: all 0.25s;"
+                       onmouseenter="this.style.background='#0048C7'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 18px rgba(0,93,255,0.35)';"
+                       onmouseleave="this.style.background='#005DFF'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(0,93,255,0.25)';"
+                       >
                         Get Started
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center md:hidden">
-                    <button @click="open = !open" class="p-2 rounded-lg" style="color: #1E3A8A;">
+                    <button @click="open = !open" class="p-2 rounded-lg" style="color: #031B4E;">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -106,19 +109,19 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden px-4 pt-2 pb-5 space-y-1 bg-white border-t border-blue-100 shadow-lg">
+        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden px-4 pt-2 pb-5 space-y-1 bg-white border-t shadow-lg" style="border-color: #E2E8F0;">
             @foreach($navLinks as $link)
                 @if(request()->routeIs($link['route']))
-                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-bold rounded-lg" style="color: #2563EB; background: #EFF6FF;">{{ $link['label'] }}</a>
+                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-bold rounded-xl" style="color: #005DFF; background: #EFF6FF;">{{ $link['label'] }}</a>
                 @else
-                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-semibold rounded-lg" style="color: #475569;">{{ $link['label'] }}</a>
+                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-medium rounded-xl" style="color: #031B4E;">{{ $link['label'] }}</a>
                 @endif
             @endforeach
 
-            <div class="pt-3 flex flex-col space-y-2" style="border-top: 1px solid #EFF6FF; margin-top: 0.5rem;">
-                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-bold rounded-lg" style="color: #1E3A8A; border: 1.5px solid #DBEAFE; background: #EFF6FF;">Login</a>
+            <div class="pt-3 flex flex-col space-y-2" style="border-top: 1px solid #E2E8F0; margin-top: 0.5rem;">
+                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-bold rounded-xl" style="color: #031B4E; border: 1.5px solid #E2E8F0; background: #F5F9FF;">Login</a>
 
-                <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-bold rounded-lg" style="background: #2563EB; color: #ffffff;">Get Started</a>
+                <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-bold rounded-xl" style="background: linear-gradient(135deg, #031B4E 0%, #005DFF 100%); color: #FFFFFF;">Get Started</a>
             </div>
         </div>
     </header>
@@ -129,7 +132,7 @@
     </main>
 
     <!-- Footer -->
-    <footer style="position: relative; overflow: hidden; background: linear-gradient(160deg, #1E3A8A 0%, #1E3A8A 50%, #1E3A8A 100%); border-top: 1px solid rgba(255,255,255,0.08);">
+    <footer style="position: relative; overflow: hidden; background: #031B4E; border-top: 1px solid rgba(255,255,255,0.06);">
 
         <!-- Glassmorphism background orbs -->
         <div style="position: absolute; top: -80px; left: -80px; width: 340px; height: 340px; background: radial-gradient(circle, rgba(0,82,255,0.18) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
@@ -148,7 +151,7 @@
                             <x-application-logo style="height: 48px; width: auto; object-fit: contain; background: rgba(255,255,255,0.92); padding: 8px 12px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,82,255,0.2);" />
                         </a>
                         <div style="display: inline-flex; align-items: center;">
-                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="height: 48px; width: auto; object-fit: contain; background: #ffffff; padding: 4px 8px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,82,255,0.2);" />
+                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="height: 48px; width: auto; object-fit: contain; background: #FFFFFF; padding: 4px 8px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,82,255,0.2);" />
                         </div>
                     </div>
 
@@ -158,7 +161,7 @@
 
                     <!-- Tagline badge -->
                     <div>
-                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #93c5fd; background: rgba(0,82,255,0.18); border: 1px solid rgba(0,82,255,0.3); padding: 5px 12px; border-radius: 999px; display: inline-block;">
+                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #93C5FD; background: rgba(0, 93, 255, 0.15); border: 1px solid rgba(0, 93, 255, 0.25); padding: 5px 12px; border-radius: 999px; display: inline-block;">
                             Financial Clarity &amp; Growth
                         </span>
                     </div>
@@ -170,7 +173,7 @@
 
                             <!-- Facebook -->
                             <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener" title="Facebook on @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #ffffff;"
+                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #FFFFFF;"
                                onmouseenter="this.style.background='rgba(24,119,242,0.3)'; this.style.borderColor='rgba(24,119,242,0.5)'; this.style.transform='translateY(-2px)';"
                                onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
                                >
@@ -179,7 +182,7 @@
 
                             <!-- Instagram -->
                             <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener" title="Instagram @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #ffffff;"
+                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #FFFFFF;"
                                onmouseenter="this.style.background='rgba(214,36,159,0.3)'; this.style.borderColor='rgba(214,36,159,0.5)'; this.style.transform='translateY(-2px)';"
                                onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
                                >
@@ -188,7 +191,7 @@
 
                             <!-- TikTok -->
                             <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener" title="TikTok @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #ffffff;"
+                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #FFFFFF;"
                                onmouseenter="this.style.background='rgba(255,255,255,0.18)'; this.style.borderColor='rgba(255,255,255,0.4)'; this.style.transform='translateY(-2px)';"
                                onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
                                >
@@ -197,7 +200,7 @@
 
                             <!-- X / Twitter -->
                             <a href="https://x.com/yonbustax" target="_blank" rel="noopener" title="X (Twitter) @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #ffffff;"
+                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #FFFFFF;"
                                onmouseenter="this.style.background='rgba(255,255,255,0.18)'; this.style.borderColor='rgba(255,255,255,0.4)'; this.style.transform='translateY(-2px)';"
                                onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
                                >
@@ -206,7 +209,7 @@
 
                             <!-- LinkedIn -->
                             <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener" title="LinkedIn @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #ffffff;"
+                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s; color: #FFFFFF;"
                                onmouseenter="this.style.background='rgba(0,119,181,0.3)'; this.style.borderColor='rgba(0,119,181,0.5)'; this.style.transform='translateY(-2px)';"
                                onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
                                >
@@ -219,8 +222,8 @@
 
                 <!-- Col 2: Services -->
                 <div>
-                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #ffffff; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
-                        <span style="width: 18px; height: 2px; background: #2563EB; display: inline-block; border-radius: 2px;"></span>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #FFFFFF; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 18px; height: 2px; background: #005DFF; display: inline-block; border-radius: 2px;"></span>
                         Our Services
                     </h4>
                     <ul style="display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; margin: 0;">
@@ -234,7 +237,7 @@
                         <li>
                             <a href="{{ route('services') }}"
                                style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.2s;"
-                               onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';">
+                               onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                                 {{ $svc }}
                             </a>
@@ -245,26 +248,26 @@
 
                 <!-- Col 3: Quick Links -->
                 <div>
-                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #ffffff; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
-                        <span style="width: 18px; height: 2px; background: #2563EB; display: inline-block; border-radius: 2px;"></span>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #FFFFFF; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 18px; height: 2px; background: #005DFF; display: inline-block; border-radius: 2px;"></span>
                         Quick Links
                     </h4>
                     <ul style="display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; margin: 0;">
-                        <li><a href="{{ route('home') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Home</a></li>
-                        <li><a href="{{ route('about') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>About Our Firm</a></li>
-                        <li><a href="{{ route('team') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Our Leadership Team</a></li>
-                        <li><a href="{{ route('services') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Our Services</a></li>
-                        <li><a href="{{ route('blog') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Tax Tips &amp; News</a></li>
-                        <li><a href="{{ route('book-appointment') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Book Consultation</a></li>
-                        <li><a href="{{ route('contact') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Contact Us</a></li>
-                        <li><a href="{{ route('login') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Client Portal Login</a></li>
+                        <li><a href="{{ route('home') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Home</a></li>
+                        <li><a href="{{ route('about') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>About Our Firm</a></li>
+                        <li><a href="{{ route('team') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Our Leadership Team</a></li>
+                        <li><a href="{{ route('services') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Our Services</a></li>
+                        <li><a href="{{ route('blog') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Tax Tips &amp; News</a></li>
+                        <li><a href="{{ route('book-appointment') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Book Consultation</a></li>
+                        <li><a href="{{ route('contact') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Contact Us</a></li>
+                        <li><a href="{{ route('login') }}" style="font-size: 0.85rem; color: rgba(148,163,184,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(148,163,184,0.85)';"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,82,255,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Client Portal Login</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 4: Contact -->
                 <div>
-                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #ffffff; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
-                        <span style="width: 18px; height: 2px; background: #2563EB; display: inline-block; border-radius: 2px;"></span>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #FFFFFF; font-size: 0.9rem; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 18px; height: 2px; background: #005DFF; display: inline-block; border-radius: 2px;"></span>
                         Get In Touch
                     </h4>
                     <div style="display: flex; flex-direction: column; gap: 14px;">
@@ -293,7 +296,7 @@
                                 <svg width="14" height="14" fill="none" stroke="#60a5fa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
                             <div style="font-size: 0.82rem; line-height: 1.8;">
-                                <a href="mailto:info@yonbustax.ca" style="color: #93c5fd; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#93c5fd';">info@yonbustax.ca</a>
+                                <a href="mailto:info@yonbustax.ca" style="color: #1683FF; text-decoration: none;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='#1683FF';">info@yonbustax.ca</a>
                             </div>
                         </div>
 
@@ -311,11 +314,11 @@
                         &copy; {{ date('Y') }} YONBUS Tax &amp; Accounting Services Inc. All rights reserved. 🇨🇦 Serving Canada.
                     </p>
                     <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
-                        <a href="{{ route('privacy') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Privacy Policy</a>
+                        <a href="{{ route('privacy') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Privacy Policy</a>
                         <span style="width: 3px; height: 3px; background: rgba(100,116,139,0.5); border-radius: 50%; display: inline-block;"></span>
-                        <a href="{{ route('terms') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Terms of Service</a>
+                        <a href="{{ route('terms') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Terms of Service</a>
                         <span style="width: 3px; height: 3px; background: rgba(100,116,139,0.5); border-radius: 50%; display: inline-block;"></span>
-                        <a href="{{ route('contact') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Contact</a>
+                        <a href="{{ route('contact') }}" style="font-size: 0.75rem; color: rgba(100,116,139,0.85); text-decoration: none;" onmouseenter="this.style.color='#FFFFFF';" onmouseleave="this.style.color='rgba(100,116,139,0.85)';">Contact</a>
                     </div>
                 </div>
             </div>
@@ -355,7 +358,7 @@
         #wa-btn {
             width: 60px;
             height: 60px;
-            background: #2563EB;
+            background: #005DFF;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -379,8 +382,8 @@
             70%       { transform: translateY(-10px); }
         }
         #wa-tooltip {
-            background: #1E40AF;
-            color: #ffffff;
+            background: #031B4E;
+            color: #FFFFFF;
             font-size: 0.78rem;
             font-weight: 600;
             padding: 6px 13px;
@@ -400,7 +403,7 @@
     <div id="wa-widget">
         <div id="wa-tooltip">Chat with us on WhatsApp</div>
         <a id="wa-btn" href="https://wa.me/qr/2DFIGSSY2BQON1" target="_blank" rel="noopener" title="Chat on WhatsApp" aria-label="Contact us on WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#ffffff">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#FFFFFF">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
         </a>
