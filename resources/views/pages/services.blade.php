@@ -2,91 +2,138 @@
     <x-slot name="title">Services | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     {{-- Header Banner --}}
-    <section class="bg-gradient-to-r from-slate-900 via-[#002B8A] to-[#005DFF] text-white py-20" data-aos="fade-down">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">Our Practice Areas</span>
-            <h1 class="font-heading font-extrabold text-4xl sm:text-5xl">
+    <section style="background: linear-gradient(135deg, #020B24 0%, #002B8A 60%, #0052FF 100%); padding: 4.5rem 0; text-align: center; color: #ffffff;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #93c5fd; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2);">
+                Our Practice Areas
+            </span>
+            <h1 class="font-heading font-extrabold" style="font-size: clamp(2.2rem, 5vw, 3.4rem); margin-top: 1rem; color: #ffffff;">
                 Our Services
             </h1>
-            <p class="text-blue-100 text-lg max-w-2xl mx-auto font-light">
-                Comprehensive Tax, Bookkeeping, Payroll &amp; Advisory Solutions Across Canada
+            <p style="color: #bfdbfe; font-size: 1.1rem; max-width: 600px; margin: 0.5rem auto 0; font-weight: 400;">
+                Comprehensive Tax, Bookkeeping, Payroll & Advisory Solutions Across Canada
             </p>
         </div>
     </section>
 
     {{-- Services List Section --}}
-    <section style="position:relative;overflow:hidden;background:#020B24;padding:5rem 0;border-top:1px solid rgba(255,255,255,0.06);">
-        <div style="position:absolute;top:-80px;left:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(0,82,255,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-        <div style="position:absolute;bottom:-60px;right:-40px;width:260px;height:260px;background:radial-gradient(circle,rgba(0,82,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
+    <section style="background: #ffffff; padding: 5rem 0;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center" style="margin-bottom: 3.5rem;">
-                <span style="font-size: 11px; font-weight: 800; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(0,82,255,0.18); padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(59,130,246,0.35); display: inline-block;">WHAT WE DO</span>
-                <h2 class="font-heading font-extrabold" style="color: #ffffff; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 10px;">
+                <span style="font-size: 11px; font-weight: 800; color: #0052ff; text-transform: uppercase; letter-spacing: 0.08em;">WHAT WE DO</span>
+                <h2 class="font-heading font-extrabold" style="color: #0a1a4a; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 6px;">
                     Tailored Financial Solutions for Your Success
                 </h2>
-                <p style="color: #94a3b8; font-size: 1rem; margin-top: 10px; max-width: 580px; margin-left: auto; margin-right: auto; line-height: 1.65;">
+                <p style="color: #4b5563; font-size: 1rem; margin-top: 10px; max-width: 580px; margin-left: auto; margin-right: auto;">
                     We combine professional expertise with modern tools to take the complexity out of tax and accounting.
                 </p>
             </div>
 
             @php
-                $serviceIcons = ['🧾','🧮','📊','📋','📁','💼','📑','🏦','🧑‍💼','📈'];
-                $idx = 0;
+                $brochureServices = [
+                    [
+                        'icon' => '🧾',
+                        'title' => 'TAX SERVICES',
+                        'desc' => 'Tax planning, preparation and filing for individuals, businesses and corporate entities. We ensure maximum deduction optimization while maintaining 100% CRA compliance.',
+                        'features' => ['Personal T1 Income Tax Filing', 'Corporate T2 Tax Returns', 'GST/HST & PST Remittances', 'CRA Representation & Audit Support']
+                    ],
+                    [
+                        'icon' => '🧮',
+                        'title' => 'ACCOUNTING & BOOKKEEPING',
+                        'desc' => 'Accurate record keeping and financial reporting to keep your business on track. Receive reliable monthly financial statements to make informed operational decisions.',
+                        'features' => ['Full-Cycle Bookkeeping', 'Monthly Financial Statements', 'Bank & Credit Card Reconciliation', 'Accounts Payable & Receivable']
+                    ],
+                    [
+                        'icon' => '📊',
+                        'title' => 'PAYROLL SERVICES',
+                        'desc' => 'Efficient payroll processing to ensure your employees are paid accurately and on time. We handle calculations, direct deposits, pay stub generation, and CRA payroll deductions.',
+                        'features' => ['Automated Direct Deposits', 'Pay Stub Generation', 'T4 & T4A Annual Slips', 'Receiver General Payroll Deductions']
+                    ],
+                    [
+                        'icon' => '📋',
+                        'title' => 'BUSINESS ADVISORY',
+                        'desc' => 'Strategic financial advice and consulting to help your business grow and thrive. From cash flow forecasting to structuring, we guide you at every stage of growth.',
+                        'features' => ['Financial Growth Strategy', 'Cash Flow & Budgeting', 'New Business Registration & Setup', 'Financial Performance Analysis']
+                    ],
+                    [
+                        'icon' => '📁',
+                        'title' => 'COMPLIANCE SERVICES',
+                        'desc' => 'We help you stay compliant with local regulations, provincial tax requirements, and statutory obligations so your business operates without risk or penalties.',
+                        'features' => ['CRA Statutory Filings', 'Provincial Corporate Compliance', 'Annual Corporate Returns', 'Audit Preparedness & Review']
+                    ],
+                ];
             @endphp
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($services->where('is_active', true) as $service)
-                @php $icon = $serviceIcons[$idx % count($serviceIcons)]; $idx++; @endphp
-                <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(0,0,0,0.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all 0.25s ease;"
-                     onmouseenter="this.style.borderColor='#0052ff';this.style.boxShadow='0 16px 36px rgba(0,82,255,0.25)';this.style.transform='translateY(-4px)';"
-                     onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.25)';this.style.transform='translateY(0)';">
+                @foreach($brochureServices as $svc)
+                <div style="background: #f8faff; border: 1.5px solid #e0e7ff; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;"
+                     onmouseenter="this.style.borderColor='#0052ff'; this.style.boxShadow='0 10px 30px rgba(0,82,255,0.12)'; this.style.transform='translateY(-4px)';"
+                     onmouseleave="this.style.borderColor='#e0e7ff'; this.style.boxShadow='none'; this.style.transform='translateY(0)';">
                     <div>
-                        <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,82,255,0.15);border:1px solid rgba(0,82,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;">
-                            {{ $icon }}
+                        <div style="width: 52px; height: 52px; border-radius: 14px; background: #eff6ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;">
+                            {{ $svc['icon'] }}
                         </div>
-                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.02em;">{{ $service->name }}</h3>
-                        <p style="color:#94a3b8;font-size:0.9rem;line-height:1.65;margin-bottom:16px;">{{ $service->description }}</p>
+                        <h3 class="font-heading font-bold" style="color: #0a1a4a; font-size: 1.2rem; margin-bottom: 12px;">{{ $svc['title'] }}</h3>
+                        <p style="color: #4b5563; font-size: 0.9rem; line-height: 1.65; margin-bottom: 20px;">{{ $svc['desc'] }}</p>
+
+                        <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 16px;">
+                            <div style="font-size: 11px; font-weight: 800; color: #0052ff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Includes:</div>
+                            <ul style="display: flex; flex-direction: column; gap: 8px;">
+                                @foreach($svc['features'] as $feat)
+                                <li style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #374151;">
+                                    <span style="color: #0052ff; font-weight: bold;">✓</span> {{ $feat }}
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
 
-                    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
-                        <a href="{{ route('book-appointment') }}?service={{ $service->id }}"
-                           style="display:block;width:100%;text-align:center;background:#0052ff;color:#ffffff;font-weight:700;font-size:0.88rem;padding:12px 20px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(0,82,255,0.4);transition:all 0.2s;"
-                           onmouseenter="this.style.background='#0045d8';this.style.boxShadow='0 8px 24px rgba(0,82,255,0.55)';this.style.transform='translateY(-1px)';"
-                           onmouseleave="this.style.background='#0052ff';this.style.boxShadow='0 4px 14px rgba(0,82,255,0.4)';this.style.transform='translateY(0)';">
+                    <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+                        <a href="{{ route('book-appointment') }}" style="display: block; width: 100%; text-align: center; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.88rem; padding: 12px 20px; border-radius: 12px; text-decoration: none;">
                             Book Consultation
                         </a>
                     </div>
                 </div>
-                @empty
-                    <div class="col-span-3 text-center py-16 rounded-2xl border border-white/10" style="background:rgba(255,255,255,0.03);color:#94a3b8;">
-                        <div style="font-size:3rem;margin-bottom:1rem;">📋</div>
-                        <p style="font-size:1rem;font-weight:500;">Services are being configured. Please check back soon.</p>
+                @endforeach
+
+                {{-- Additional Services (if present from Database) --}}
+                @if(isset($services) && count($services) > 0)
+                    @foreach($services as $service)
+                    <div style="background: #ffffff; border: 1.5px solid #0052ff; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="width: 52px; height: 52px; border-radius: 14px; background: #eff6ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;">
+                                💼
+                            </div>
+                            <h3 class="font-heading font-bold" style="color: #0a1a4a; font-size: 1.2rem; margin-bottom: 12px;">{{ $service->name }}</h3>
+                            <p style="color: #4b5563; font-size: 0.9rem; line-height: 1.65;">{{ $service->description }}</p>
+                        </div>
+                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-weight: 800; color: #0a1a4a; font-size: 1.1rem;">${{ number_format($service->price, 2) }}</span>
+                            <a href="{{ route('book-appointment') }}?service={{ $service->id }}" style="background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; text-decoration: none;">
+                                Book Now
+                            </a>
+                        </div>
                     </div>
-                @endforelse
+                    @endforeach
+                @endif
             </div>
 
         </div>
     </section>
 
-    {{-- Bottom Banner (Glassmorphism & Royal Blue) --}}
-    <section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#002B8A 0%,#0045d8 50%,#0052FF 100%);padding:4.5rem 0;text-align:center;color:#ffffff;">
-        <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:280px;background:radial-gradient(ellipse,rgba(255,255,255,0.15) 0%,transparent 70%);pointer-events:none;"></div>
-        <div style="position:absolute;bottom:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
-            <span style="font-size:11px;font-weight:800;color:#dbeafe;text-transform:uppercase;letter-spacing:0.08em;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:5px 14px;border-radius:999px;display:inline-block;margin-bottom:1rem;">Tailored For You</span>
-            <h2 class="font-heading font-extrabold" style="font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:12px;color:#ffffff;">Need Custom Tax or Advisory Services?</h2>
-            <p style="color:#dbeafe;font-size:1rem;max-width:520px;margin:0 auto 1.75rem;line-height:1.7;">
+    {{-- Bottom Banner --}}
+    <section style="background: #0052ff; padding: 4rem 0; text-align: center; color: #ffffff;">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <h2 class="font-heading font-extrabold" style="font-size: clamp(1.8rem, 4vw, 2.4rem);">
+                Need Custom Tax or Advisory Services?
+            </h2>
+            <p style="color: #bfdbfe; font-size: 1rem; max-width: 520px; margin: 0 auto 1.5rem;">
                 Get in touch with our Gatineau accounting team for a personalized quote tailored to your business structure.
             </p>
-            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                <a href="{{ route('contact') }}" style="background:#ffffff;color:#0052ff;font-weight:700;font-size:0.95rem;padding:14px 30px;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.15);transition:all 0.2s;"
-                   onmouseenter="this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)';this.style.transform='translateY(0)';">
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ route('contact') }}" style="background: #ffffff; color: #0052ff; font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
                     Contact Our Office
-                </a>
-                <a href="{{ route('book-appointment') }}" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.3);color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 26px;border-radius:12px;text-decoration:none;transition:all 0.2s;"
-                   onmouseenter="this.style.background='rgba(255,255,255,0.22)';" onmouseleave="this.style.background='rgba(255,255,255,0.12)';">
-                    Book Consultation
                 </a>
             </div>
         </div>

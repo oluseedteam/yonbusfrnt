@@ -33,8 +33,8 @@
 
 
 
-    <!-- Top Header Navigation (Dark Theme) -->
-    <header class="sticky top-0 z-50" style="background: #020B24; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 20px rgba(0,0,0,0.35);" x-data="{ open: false }">
+    <!-- Top Header Navigation (White Theme) -->
+    <header class="sticky top-0 z-50" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 6px rgba(0,0,0,0.07);" x-data="{ open: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between" style="height: 72px;">
 
@@ -42,18 +42,18 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-3 py-2 group flex-shrink-0">
                     <img src="{{ asset('images/logo.png') }}" alt="YONBUS Logo" class="w-auto object-contain transition-transform group-hover:scale-105" style="height: 42px;">
                     <div class="leading-tight">
-                        <div class="font-extrabold font-heading" style="color: #ffffff; font-size: 16px; line-height: 1.15; letter-spacing: -0.01em;">YONBUS</div>
-                        <div class="font-semibold" style="color: #4da6ff; font-size: 9px; line-height: 1.2; letter-spacing: 0.04em;">TAX &amp; ACCOUNTING SERVICES INC.</div>
+                        <div class="font-extrabold font-heading" style="color: #0a1a4a; font-size: 16px; line-height: 1.15; letter-spacing: -0.01em;">YONBUS</div>
+                        <div class="font-semibold" style="color: #0052ff; font-size: 9px; line-height: 1.2; letter-spacing: 0.04em;">TAX &amp; ACCOUNTING SERVICES INC.</div>
                     </div>
                 </a>
 
                 <!-- Navigation Links (Desktop) -->
-                <nav class="hidden md:flex items-center" style="gap: 2rem;">
+                <nav class="hidden md:flex items-center" style="gap: 1.75rem;">
                     @php
                         $navLinks = [
                             ['route' => 'home',     'label' => 'Home'],
-                            ['route' => 'about',    'label' => 'About Us'],
                             ['route' => 'services', 'label' => 'Services'],
+                            ['route' => 'about',    'label' => 'About Us'],
                             ['route' => 'careers',  'label' => 'Careers'],
                             ['route' => 'team',     'label' => 'Team'],
                             ['route' => 'blog',     'label' => 'Blog'],
@@ -64,15 +64,15 @@
                         @if(request()->routeIs($link['route']))
                             <a href="{{ route($link['route']) }}"
                                class="text-sm font-bold transition-all"
-                               style="color: #4da6ff; border-bottom: 2.5px solid #0052ff; padding-bottom: 4px;">
+                               style="color: #0052ff; border-bottom: 2.5px solid #0052ff; padding-bottom: 4px;">
                                 {{ $link['label'] }}
                             </a>
                         @else
                             <a href="{{ route($link['route']) }}"
                                class="text-sm font-medium transition-colors"
-                               style="color: rgba(226, 232, 240, 0.85); padding-bottom: 4px;"
-                               onmouseenter="this.style.color='#ffffff'"
-                               onmouseleave="this.style.color='rgba(226, 232, 240, 0.85)'">
+                               style="color: #4b5563; padding-bottom: 4px;"
+                               onmouseenter="this.style.color='#0052ff'"
+                               onmouseleave="this.style.color='#4b5563'">
                                 {{ $link['label'] }}
                             </a>
                         @endif
@@ -80,23 +80,29 @@
                 </nav>
 
                 <!-- Header CTA Actions -->
-                <div class="hidden md:flex items-center" style="gap: 1.25rem;">
+                <div class="hidden md:flex items-center" style="gap: 1rem;">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: rgba(226, 232, 240, 0.9);" onmouseenter="this.style.color='#ffffff'" onmouseleave="this.style.color='rgba(226, 232, 240, 0.9)'">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: rgba(226, 232, 240, 0.9);" onmouseenter="this.style.color='#ffffff'" onmouseleave="this.style.color='rgba(226, 232, 240, 0.9)'">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Login</a>
                     @endauth
+
+                    <a href="{{ route('book-appointment') }}"
+                       class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
+                       style="background: #eff6ff; color: #0052ff; border: 1.5px solid #bfdbfe; padding: 8px 18px; border-radius: 8px;">
+                        Book Consultation
+                    </a>
 
                     <a href="{{ route('register') }}"
                        class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
-                       style="background: #0052ff; color: #ffffff; padding: 10px 22px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,82,255,0.4);">
+                       style="background: #0052ff; color: #ffffff; padding: 9px 20px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,82,255,0.35);">
                         Get Started
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center md:hidden">
-                    <button @click="open = !open" class="p-2 rounded-lg" style="color: #ffffff;">
+                    <button @click="open = !open" class="p-2 rounded-lg" style="color: #0a1a4a;">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -106,18 +112,18 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden px-4 pt-2 pb-5 space-y-1" style="background: #020B24; border-top: 1px solid rgba(255,255,255,0.08);">
+        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden px-4 pt-2 pb-5 space-y-1" style="background: #ffffff; border-top: 1px solid #e2e8f0;">
             @foreach($navLinks as $link)
                 @if(request()->routeIs($link['route']))
-                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-semibold rounded-lg" style="color: #4da6ff; background: rgba(0,82,255,0.15);">{{ $link['label'] }}</a>
+                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-semibold rounded-lg" style="color: #0052ff; background: #eff6ff;">{{ $link['label'] }}</a>
                 @else
-                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-medium rounded-lg" style="color: rgba(226,232,240,0.85);">{{ $link['label'] }}</a>
+                    <a href="{{ route($link['route']) }}" class="block px-3 py-2.5 text-base font-medium rounded-lg" style="color: #4b5563;">{{ $link['label'] }}</a>
                 @endif
             @endforeach
 
-            <div class="pt-3 flex flex-col space-y-2" style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 0.5rem;">
-                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #ffffff; border: 1px solid rgba(255,255,255,0.15);">Login</a>
-
+            <div class="pt-3 flex flex-col space-y-2" style="border-top: 1px solid #e2e8f0; margin-top: 0.5rem;">
+                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #0a1a4a; border: 1px solid #d1d5db;">Login</a>
+                <a href="{{ route('book-appointment') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #eff6ff; color: #0052ff; border: 1px solid #bfdbfe;">Book Consultation</a>
                 <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #0052ff; color: #ffffff;">Get Started</a>
             </div>
         </div>
