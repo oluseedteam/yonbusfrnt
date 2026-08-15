@@ -14,9 +14,11 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable, HasRoles, HasApiTokens;
 
     protected $fillable = [
+        'name',
         'first_name',
         'last_name',
         'email',
+        'email_verified_at',
         'password',
         'phone',
         'role',
@@ -24,6 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'tax_identification_number',
         'address',
         'avatar',
+        'google_id',
+        'google_avatar',
         'is_active',
         'notification_email',
         'notification_database',
@@ -45,10 +49,17 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    // ── Accessors ──────────────────────────────────────────────────
+    // ── Accessors & Mutators ──────────────────────────────────────────
     public function getNameAttribute(): string
     {
         return trim("{$this->first_name} {$this->last_name}");
+    }
+
+    public function setNameAttribute($value): void
+    {
+        $parts = explode(' ', trim($value ?? ''), 2);
+        $this->attributes['first_name'] = $parts[0] ?? '';
+        $this->attributes['last_name']  = $parts[1] ?? '';
     }
 
     public function getRoleAttribute(): string

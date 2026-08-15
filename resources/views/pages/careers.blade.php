@@ -63,8 +63,9 @@
                             </div>
                         </div>
 
-                        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px; font-size: 0.82rem; color: #bfdbfe;">
-                            🇨🇦 Equal opportunity employer — all backgrounds welcome
+                        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px; font-size: 0.82rem; color: #bfdbfe; display: flex; align-items: center; gap: 8px;">
+                            <x-flag-ca class="w-5 h-3.5 rounded-xs shadow-xs" />
+                            <span>Equal opportunity employer — all backgrounds welcome</span>
                         </div>
                     </div>
 

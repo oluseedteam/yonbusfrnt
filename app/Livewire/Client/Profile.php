@@ -12,8 +12,8 @@ class Profile extends Component
 {
     use WithFileUploads;
 
-    public $name, $email, $phone, $company_name, $tax_identification_number, $address;
-    public $avatar;
+    public $name = '', $email = '', $phone = '', $company_name = '', $tax_identification_number = '', $address = '';
+    public $avatar = null;
 
     public function mount()
     {
@@ -28,7 +28,9 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.client.profile')->layout('layouts.client');
+        return view('livewire.client.profile', [
+            'avatar' => $this->avatar,
+        ])->layout('layouts.client');
     }
 
     public function save()
@@ -44,8 +46,11 @@ class Profile extends Component
         ]);
 
         $user = auth()->user();
+        $parts = explode(' ', trim($this->name), 2);
+        
         $updateData = [
-            'name'                      => $this->name,
+            'first_name'                => $parts[0] ?? '',
+            'last_name'                 => $parts[1] ?? '',
             'email'                     => $this->email,
             'phone'                     => $this->phone,
             'company_name'              => $this->company_name,

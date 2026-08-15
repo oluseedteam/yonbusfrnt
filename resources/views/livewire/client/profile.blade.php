@@ -18,7 +18,7 @@
                 <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-3 font-heading">Profile Picture</label>
                 <div class="flex items-center gap-5">
                     <div class="relative flex-shrink-0">
-                        @if ($avatar)
+                        @if (!empty($avatar))
                             <img src="{{ $avatar->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#005DFF]/20 shadow-md">
                         @else
                             <img src="{{ auth()->user()->avatar_url }}" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-[#005DFF]/20 shadow-md">

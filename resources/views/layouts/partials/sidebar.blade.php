@@ -40,6 +40,7 @@
                 <x-nav-item route="admin.blogs" icon="document-text" label="Blog System" />
                 <x-nav-item route="admin.reports" icon="chart" label="Reporting System" />
                 <x-nav-item route="admin.activity-logs" icon="shield" label="Activity Logs" />
+                <x-nav-item route="admin.profile" icon="user" label="Admin Profile" />
                 <x-nav-item route="admin.settings" icon="cog" label="System Settings" />
             @endif
         </nav>

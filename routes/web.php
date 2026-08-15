@@ -86,6 +86,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:ad
     Route::get('/blogs', \App\Livewire\Admin\BlogManager::class)->name('blogs');
     Route::get('/reports', \App\Livewire\Admin\ReportManager::class)->name('reports');
     Route::get('/activity-logs', \App\Livewire\Admin\ActivityLogs::class)->name('activity-logs');
+    Route::get('/profile', \App\Livewire\Admin\Profile::class)->name('profile');
     Route::get('/settings', \App\Livewire\Admin\Settings::class)->name('settings');
 });
 

@@ -305,8 +305,10 @@
             <!-- Bottom bar -->
             <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; text-align: center;">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-4">
-                    <p style="font-size: 0.78rem; color: #64748B;">
-                        &copy; {{ date('Y') }} YONBUS Tax &amp; Accounting Services Inc. All rights reserved. 🇨🇦 Serving Canada.
+                    <p style="font-size: 0.78rem; color: #64748B; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                        <span>&copy; {{ date('Y') }} YONBUS Tax &amp; Accounting Services Inc. All rights reserved.</span>
+                        <x-flag-ca class="w-4 h-2.5 rounded-2xs inline-block" />
+                        <span>Serving Canada.</span>
                     </p>
                     <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
                         <a href="{{ route('privacy') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Privacy Policy</a>

@@ -42,9 +42,15 @@
                             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
                                 Olubukunola Eniola
                             </h2>
-                            <p class="text-sm font-semibold text-[#0052ff] mt-1">
-                                Founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
-                            </p>
+                            <div class="flex flex-wrap items-center gap-3 mt-1.5">
+                                <p class="text-sm font-semibold text-[#0052ff] m-0">
+                                    Founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
+                                </p>
+                                <a href="mailto:olubukunola@yonbustax.ca" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0052ff] bg-[#f0f6ff] hover:bg-[#e0edff] px-2.5 py-1 rounded-md border border-[#bfdbfe] transition">
+                                    <svg class="w-3.5 h-3.5 text-[#0052ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                    <span>olubukunola@yonbustax.ca</span>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
@@ -59,11 +65,15 @@
                             </p>
                         </div>
 
-                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Banking &amp; Finance</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">💼 Tax &amp; Payroll Specialist</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🇨🇦 Quebec &amp; Nationwide Practice</span>
+                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2 items-center">
+                            <a href="mailto:olubukunola@yonbustax.ca" class="px-3 py-1.5 bg-[#0052ff] hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition inline-flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <span>Email Olubukunola</span>
+                            </a>
+                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg inline-flex items-center gap-1.5">
+                                <x-flag-ca class="w-4 h-3" />
+                                <span>Quebec &amp; Nationwide Practice</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -91,9 +101,15 @@
                             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
                                 Adeshola Eniola
                             </h2>
-                            <p class="text-sm font-semibold text-[#0052ff] mt-1">
-                                Co-founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
-                            </p>
+                            <div class="flex flex-wrap items-center gap-3 mt-1.5">
+                                <p class="text-sm font-semibold text-[#0052ff] m-0">
+                                    Co-founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
+                                </p>
+                                <a href="mailto:adeshola.eniola@yonbustax.ca" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0052ff] bg-[#f0f6ff] hover:bg-[#e0edff] px-2.5 py-1 rounded-md border border-[#bfdbfe] transition">
+                                    <svg class="w-3.5 h-3.5 text-[#0052ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                    <span>adeshola.eniola@yonbustax.ca</span>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
@@ -108,7 +124,11 @@
                             </p>
                         </div>
 
-                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2">
+                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2 items-center">
+                            <a href="mailto:adeshola.eniola@yonbustax.ca" class="px-3 py-1.5 bg-[#0052ff] hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition inline-flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <span>Email Adeshola</span>
+                            </a>
                             <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Accounting</span>
                             <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
                             <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">📊 Senior Auditing Specialist</span>
@@ -140,7 +160,9 @@
                 </div>
 
                 <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
-                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🇨🇦</div>
+                    <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">
+                        <x-flag-ca class="w-7 h-5 rounded-xs" />
+                    </div>
                     <h4 class="font-bold text-sm font-heading text-white">Cross-Province Practice</h4>
                     <p class="text-xs text-blue-100 leading-relaxed">Certified and experienced serving Quebec, Ontario &amp; all provinces.</p>
                 </div>
