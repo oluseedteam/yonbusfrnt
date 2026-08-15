@@ -12,7 +12,7 @@
             <span class="text-xs font-semibold text-gray-500 uppercase font-heading">Status:</span>
             @foreach(['all' => 'All', 'pending' => 'Pending', 'paid' => 'Paid', 'overdue' => 'Overdue'] as $key => $label)
                 <button wire:click="$set('filter', '{{ $key }}')" 
-                        class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all {{ $filter === $key ? 'bg-[#2563EB] text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
+                        class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all {{ $filter === $key ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
                     {{ $label }}
                 </button>
             @endforeach
@@ -51,7 +51,7 @@
                                         Pay Now
                                     </button>
                                 @endif
-                                <button wire:click="downloadPdf({{ $inv->id }})" class="text-[#2563EB] hover:underline font-semibold text-xs">
+                                <button wire:click="downloadPdf({{ $inv->id }})" class="text-[#005DFF] hover:underline font-semibold text-xs">
                                     Download PDF
                                 </button>
                             </td>

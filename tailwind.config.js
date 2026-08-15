@@ -15,25 +15,25 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    50:  '#EFF6FF',  // Very light blue (badge bg)
-                    100: '#DBEAFE',  // Soft blue (borders)
-                    200: '#BFDBFE',  // Medium-light blue
-                    300: '#93C5FD',  // Sky blue
-                    400: '#3B82F6',  // Bright blue accent
-                    500: '#2563EB',  // Primary Blue (buttons, active)
-                    600: '#1D4ED8',  // Hover blue
-                    700: '#1E40AF',  // Deep blue accent (minimal use: only key headers)
-                    800: '#1E3A8A',  // Deep blue (hero section, sidebar top strip only)
-                    900: '#1E3070',  // Darkest — used very sparingly
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#005DFF', // Primary Blue
+                    600: '#0052e0',
+                    700: '#002B8A', // Dark Blue
+                    800: '#001e66',
+                    900: '#001242',
                 },
                 accent: {
-                    500: '#2563EB',
+                    500: '#00A3FF', // Secondary Blue
                 },
                 surface: {
-                    light:      '#FFFFFF',    // Pure white page background
-                    dark:       '#1E3A8A',    // Deep blue (sparingly — nav header strip)
-                    card:       '#FFFFFF',    // Pure white cards
-                    'card-dark':'#1E40AF',    // Dark mode cards
+                    light: '#F8FAFC',
+                    dark: '#0B0F19',
+                    card: '#FFFFFF',
+                    'card-dark': '#111827',
                 }
             },
             fontFamily: {
@@ -41,9 +41,9 @@ export default {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
             boxShadow: {
-                'soft':       '0 10px 30px -5px rgba(37, 99, 235, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04)',
-                'soft-hover': '0 20px 40px -15px rgba(37, 99, 235, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.05)',
-                'card':       '0 4px 20px 0 rgba(37, 99, 235, 0.07)',
+                'soft': '0 10px 30px -5px rgba(0, 93, 255, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03)',
+                'soft-hover': '0 20px 40px -15px rgba(0, 93, 255, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.05)',
+                'card': '0 4px 20px 0 rgba(0, 0, 0, 0.04)',
             },
             borderRadius: {
                 '2xl': '1rem',

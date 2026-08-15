@@ -41,7 +41,7 @@
                     @forelse($documents as $doc)
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
                             <td class="p-3.5 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center font-bold text-[10px]">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-[10px]">
                                     {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
                                 </div>
                                 <span class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</span>
@@ -57,7 +57,7 @@
                             <td class="p-3.5 font-mono text-gray-500">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
                             <td class="p-3.5 text-right">
-                                <a href="{{ route('documents.download', $doc) }}" class="text-[#2563EB] font-semibold hover:underline">Download File</a>
+                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] font-semibold hover:underline">Download File</a>
                             </td>
                         </tr>
                     @empty

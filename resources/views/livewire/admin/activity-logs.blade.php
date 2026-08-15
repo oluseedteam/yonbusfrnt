@@ -40,7 +40,7 @@
                     @forelse($logs as $log)
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
                             <td class="p-3.5 font-bold text-gray-900 dark:text-white font-heading">{{ $log->user?->name ?? 'System Event' }}</td>
-                            <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] font-semibold text-[10px]">{{ $log->action }}</span></td>
+                            <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#005DFF] font-semibold text-[10px]">{{ $log->action }}</span></td>
                             <td class="p-3.5 text-gray-600 dark:text-gray-400 max-w-md">{!! e($log->description) !!}</td>
                             <td class="p-3.5 font-mono text-[11px] text-gray-400">{{ $log->ip_address }}</td>
                             <td class="p-3.5 text-gray-500">{{ $log->created_at->format('M j, Y H:i:s') }}</td>

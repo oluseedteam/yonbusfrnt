@@ -43,7 +43,7 @@
 
         <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-2">
             <div class="text-xs font-bold text-slate-500 uppercase">Completed Filings</div>
-            <div class="text-3xl font-extrabold text-[#2563EB] font-heading">{{ number_format($summary['completed_appointments'] ?? 0) }}</div>
+            <div class="text-3xl font-extrabold text-[#005DFF] font-heading">{{ number_format($summary['completed_appointments'] ?? 0) }}</div>
             <div class="text-xs text-slate-500 font-medium">Verified Tax Consultations</div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Report Module Type</label>
-                <select wire:model.live="reportType" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                <select wire:model.live="reportType" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
                     <option value="booking">Booking & Appointment Reports</option>
                     <option value="revenue">Revenue & Invoice Reports</option>
                     <option value="service">Service Popularity Reports</option>
@@ -65,12 +65,12 @@
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Date From</label>
-                <input type="date" wire:model.live="dateFrom" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                <input type="date" wire:model.live="dateFrom" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
             </div>
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Date To</label>
-                <input type="date" wire:model.live="dateTo" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#2563EB]">
+                <input type="date" wire:model.live="dateTo" class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-[#005DFF]">
             </div>
         </div>
     </div>
@@ -92,11 +92,11 @@
                 @forelse($recentReports as $rep)
                     <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/50">
                         <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">{{ $rep->title }}</td>
-                        <td class="py-3 px-4 text-xs"><span class="px-2 py-0.5 bg-blue-50 text-[#2563EB] font-bold rounded uppercase">{{ $rep->type }}</span></td>
+                        <td class="py-3 px-4 text-xs"><span class="px-2 py-0.5 bg-blue-50 text-[#005DFF] font-bold rounded uppercase">{{ $rep->type }}</span></td>
                         <td class="py-3 px-4 text-xs text-slate-600 dark:text-slate-400">{{ $rep->generator->name ?? 'Admin' }}</td>
                         <td class="py-3 px-4 text-xs text-slate-500">{{ $rep->created_at->format('M d, Y H:i') }}</td>
                         <td class="py-3 px-4 text-right">
-                            <button wire:click="exportCsv" class="text-[#2563EB] font-bold text-xs hover:underline">Download File</button>
+                            <button wire:click="exportCsv" class="text-[#005DFF] font-bold text-xs hover:underline">Download File</button>
                         </td>
                     </tr>
                 @empty

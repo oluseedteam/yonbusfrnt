@@ -20,7 +20,7 @@
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #1E3A8A;
+            color: #1e293b;
         }
 
         .auth-wrapper {
@@ -110,7 +110,7 @@
         .illus-chart-label { font-size: 11px; color: rgba(255, 255, 255, 0.55); margin-bottom: 8px; }
         .chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 44px; }
         .bar { flex: 1; border-radius: 4px 4px 0 0; background: rgba(255, 255, 255, 0.2); }
-        .bar.active { background: linear-gradient(180deg, #2563EB, #2563EB); }
+        .bar.active { background: linear-gradient(180deg, #00A3FF, #005DFF); }
 
         .panel-headline { font-size: 28px; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 12px; letter-spacing: -0.4px; }
         .panel-sub { font-size: 14px; color: rgba(255, 255, 255, 0.75); line-height: 1.6; margin-bottom: 24px; }
@@ -138,38 +138,38 @@
             animation: cardEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .card-eyebrow { font-size: 12px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
-        .card-title { font-size: 26px; font-weight: 800; color: #1E3A8A; margin-bottom: 6px; letter-spacing: -0.4px; }
+        .card-eyebrow { font-size: 12px; font-weight: 700; color: #005DFF; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
+        .card-title { font-size: 26px; font-weight: 800; color: #0B1F4B; margin-bottom: 6px; letter-spacing: -0.4px; }
         .card-sub { font-size: 14px; color: #64748B; margin-bottom: 24px; }
 
         .status-alert { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 12px 16px; font-size: 13px; color: #166534; margin-bottom: 20px; }
 
         .form-group { margin-bottom: 18px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; color: #1E3A8A; margin-bottom: 6px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: #1E293B; margin-bottom: 6px; }
         .form-input {
             width: 100%;
             padding: 13px 16px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #1E3A8A;
-            background: #FFFFFF;
+            color: #0B1F4B;
+            background: #F8FAFC;
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .form-input::placeholder { color: #64748b; }
-        .form-input:focus { border-color: #2563EB; box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1); background: #fff; }
+        .form-input::placeholder { color: #94A3B8; }
+        .form-input:focus { border-color: #005DFF; box-shadow: 0 0 0 4px rgba(0, 93, 255, 0.1); background: #fff; }
         .form-input.is-error { border-color: #ef4444; }
         .form-error { font-size: 12px; color: #ef4444; margin-top: 5px; }
 
         .pw-wrap { position: relative; }
         .pw-toggle {
             position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; cursor: pointer; color: #64748b;
+            background: none; border: none; cursor: pointer; color: #94A3B8;
             display: flex; align-items: center; padding: 4px;
         }
-        .pw-toggle:hover { color: #2563EB; }
+        .pw-toggle:hover { color: #005DFF; }
 
         .form-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px; }
         .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -178,16 +178,16 @@
             border: 1.5px solid #CBD5E1;
             border-radius: 5px;
             cursor: pointer;
-            accent-color: #2563EB;
+            accent-color: #005DFF;
         }
-        .checkbox-label span { font-size: 13px; color: #1E40AF; font-weight: 500; }
-        .link-forgot { font-size: 13px; font-weight: 600; color: #2563EB; text-decoration: none; }
-        .link-forgot:hover { color: #1E3A8A; text-decoration: underline; }
+        .checkbox-label span { font-size: 13px; color: #475569; font-weight: 500; }
+        .link-forgot { font-size: 13px; font-weight: 600; color: #005DFF; text-decoration: none; }
+        .link-forgot:hover { color: #002B8A; text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #002B8A 0%, #005DFF 100%);
             color: #fff;
             font-size: 15px;
             font-weight: 700;
@@ -203,7 +203,7 @@
 
         .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
         .divider-line { flex: 1; height: 1px; background: #E2EAF4; }
-        .divider-text { font-size: 12px; color: #64748b; font-weight: 500; white-space: nowrap; }
+        .divider-text { font-size: 12px; color: #94A3B8; font-weight: 500; white-space: nowrap; }
 
         .social-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
         .btn-social {
@@ -213,14 +213,14 @@
             border: 1.5px solid #D1DCF0;
             border-radius: 12px;
             font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif;
-            color: #1E40AF;
+            color: #334155;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .btn-social:hover { background: #FFFFFF; border-color: #2563EB; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .btn-social:hover { background: #F8FAFC; border-color: #005DFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
 
         .auth-footer { text-align: center; font-size: 14px; color: #64748B; }
-        .auth-footer a { color: #2563EB; font-weight: 700; text-decoration: none; }
+        .auth-footer a { color: #005DFF; font-weight: 700; text-decoration: none; }
         .auth-footer a:hover { text-decoration: underline; }
 
         /* ── RESPONSIVE ── */
@@ -388,7 +388,7 @@
         const input = document.getElementById(id);
         const isText = input.type === 'text';
         input.type = isText ? 'password' : 'text';
-        btn.style.color = isText ? '' : '#2563EB';
+        btn.style.color = isText ? '' : '#005DFF';
     }
 </script>
 </body>

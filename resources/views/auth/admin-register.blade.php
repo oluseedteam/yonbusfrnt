@@ -14,12 +14,12 @@
         
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at top, #1E40AF 0%, #1E3A8A 100%);
+            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 32px 20px;
-            color: #1E3A8A;
+            color: #f8fafc;
         }
 
         .admin-auth-container {
@@ -44,7 +44,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #2563EB, #38bdf8, #f59e0b, #2563EB);
+            background: linear-gradient(90deg, #005DFF, #38bdf8, #f59e0b, #005DFF);
         }
 
         .brand-header {
@@ -81,12 +81,12 @@
             font-family: 'Outfit', sans-serif;
             font-size: 26px;
             font-weight: 800;
-            color: #1E3A8A;
+            color: #ffffff;
             margin-bottom: 6px;
         }
         .card-sub {
             font-size: 13px;
-            color: #64748b;
+            color: #94a3b8;
             margin-bottom: 20px;
         }
 
@@ -108,7 +108,7 @@
             padding: 12px 14px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            color: #1E3A8A;
+            color: #ffffff;
             background: rgba(15, 23, 42, 0.6);
             border: 1.5px solid rgba(148, 163, 184, 0.2);
             border-radius: 12px;
@@ -125,8 +125,8 @@
         .btn-admin-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #2563EB 0%, #1E3A8A 100%);
-            color: #1E3A8A;
+            background: linear-gradient(135deg, #005DFF 0%, #002B8A 100%);
+            color: #ffffff;
             font-size: 15px;
             font-weight: 800;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -143,7 +143,7 @@
         .btn-admin-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(0, 93, 255, 0.5);
-            background: linear-gradient(135deg, #2563EB 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #00A3FF 0%, #005DFF 100%);
         }
 
         .admin-footer {

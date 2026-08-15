@@ -49,7 +49,7 @@
     <div class="p-4 border-t border-gray-100 dark:border-gray-800/60 space-y-3">
         <div class="p-3.5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border border-blue-100 dark:border-blue-900/50">
             <div class="flex items-center gap-3 mb-2">
-                <div class="w-8 h-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-bold text-xs">
+                <div class="w-8 h-8 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-xs">
                     Y
                 </div>
                 <div>
@@ -57,7 +57,7 @@
                     <p class="text-[11px] text-gray-500 dark:text-gray-400">Online 24/7</p>
                 </div>
             </div>
-            <a href="mailto:support@yonbustax.ca" class="text-xs font-medium text-[#2563EB] hover:underline flex items-center gap-1 mt-1">
+            <a href="mailto:support@yonbustax.ca" class="text-xs font-medium text-[#005DFF] hover:underline flex items-center gap-1 mt-1">
                 Contact Support &rarr;
             </a>
         </div>

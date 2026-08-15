@@ -7,68 +7,82 @@
 @layer base {
     body {
         font-family: 'Inter', sans-serif;
-        /* Light mode: pure white bg. Dark mode: deep blue bg */
-        @apply bg-white dark:bg-[#1E3A8A] text-gray-800 dark:text-gray-100 antialiased transition-colors duration-200;
+        @apply bg-[#F8FAFC] dark:bg-[#0B0F19] text-gray-800 dark:text-gray-200 antialiased transition-colors duration-200;
     }
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Poppins', sans-serif;
     }
 }
 
-/* ──────────────────────────────────────────────
-   BUTTONS
-────────────────────────────────────────────── */
 .btn-primary {
-    @apply bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
+    @apply bg-gradient-to-r from-[#005DFF] to-[#00A3FF] hover:from-[#0052e0] hover:to-[#008fe6] text-white font-medium px-5 py-2.5 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
 }
 
 .btn-secondary {
-    @apply bg-white dark:bg-[#1E40AF] text-[#2563EB] dark:text-blue-200 border border-[#BFDBFE] dark:border-blue-600 hover:bg-[#EFF6FF] dark:hover:bg-[#1D4ED8] font-semibold px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
+    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm;
 }
 
-/* ──────────────────────────────────────────────
-   CARDS — white dominant, light blue border
-────────────────────────────────────────────── */
 .card-box {
-    @apply bg-white dark:bg-[#1E40AF]/60 border border-[#DBEAFE] dark:border-blue-700/40 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800/60 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
 }
 
 .glass-card {
-    @apply bg-white/95 dark:bg-[#1E3A8A]/80 backdrop-blur-md border border-[#BFDBFE]/60 dark:border-blue-600/40 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-800/40 rounded-2xl p-6 shadow-soft transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
 }
 
-/* ──────────────────────────────────────────────
-   PAGE ANIMATIONS
-────────────────────────────────────────────── */
+/* Page Entrance & Motion Animations */
 @keyframes pageFadeIn {
-    0%   { opacity: 0; transform: translateY(16px) scale(0.99); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+    0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes slideInRight {
-    0%   { opacity: 0; transform: translateX(20px); }
-    100% { opacity: 1; transform: translateX(0); }
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes floatSlow {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50%       { transform: translateY(-8px) rotate(0.5deg); }
+    50% { transform: translateY(-8px) rotate(0.5deg); }
 }
 
 @keyframes pulseGlow {
     0%, 100% { opacity: 0.4; transform: scale(1); }
-    50%       { opacity: 0.85; transform: scale(1.05); }
+    50% { opacity: 0.85; transform: scale(1.05); }
 }
 
 @keyframes shimmer {
-    0%   { background-position: -200% 0; }
+    0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
 
-.animate-page-entry   { animation: pageFadeIn    0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-slide-right  { animation: slideInRight  0.4s  cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-float        { animation: floatSlow     5s    ease-in-out infinite; }
-.animate-glow         { animation: pulseGlow     4s    ease-in-out infinite; }
+.animate-page-entry {
+    animation: pageFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+    animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
+}
 
 .animate-shimmer-btn {
     background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
@@ -76,24 +90,34 @@
     animation: shimmer 3s infinite;
 }
 
-/* ──────────────────────────────────────────────
-   MICRO-INTERACTIONS
-────────────────────────────────────────────── */
-.hover-lift       { @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl; }
-.hover-scale      { @apply transition-transform duration-300 hover:scale-[1.02]; }
+/* Motion & Micro-Interactions */
+.hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
+}
+
+.hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+}
 
 .hover-glow-blue {
-    @apply transition-all duration-300 hover:shadow-[0_0_25px_rgba(37,99,235,0.25)] hover:border-blue-400/50;
+    @apply transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,93,255,0.35)] hover:border-blue-500/50;
 }
 
 .hover-glow-emerald {
     @apply transition-all duration-300 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:border-emerald-500/50;
 }
 
-/* ──────────────────────────────────────────────
-   CUSTOM SCROLLBAR
-────────────────────────────────────────────── */
-::-webkit-scrollbar         { width: 6px; height: 6px; }
-::-webkit-scrollbar-track   { background: transparent; }
-::-webkit-scrollbar-thumb   { @apply bg-[#BFDBFE] dark:bg-blue-600 rounded-full; }
-::-webkit-scrollbar-thumb:hover { @apply bg-[#2563EB] dark:bg-blue-400; }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
+}

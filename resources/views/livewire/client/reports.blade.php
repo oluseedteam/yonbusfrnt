@@ -44,7 +44,7 @@
                     datasets: [{
                         label: 'Amount Paid ($)',
                         data: @json($revenueData),
-                        backgroundColor: '#2563EB',
+                        backgroundColor: '#005DFF',
                         borderRadius: 8,
                     }]
                 },

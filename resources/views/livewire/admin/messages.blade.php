@@ -86,7 +86,7 @@
                 <div class="flex flex-col {{ $isMe ? 'items-end' : 'items-start' }}">
                     <div class="flex items-end gap-2 max-w-lg {{ $isMe ? 'flex-row-reverse' : 'flex-row' }}">
                         <img src="{{ $msg->sender?->avatar_url }}" class="w-7 h-7 rounded-lg object-cover">
-                        <div class="p-3.5 rounded-2xl text-xs {{ $isMe ? 'bg-[#2563EB] text-white rounded-br-none shadow-md shadow-blue-500/10' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-none border border-gray-200/60 dark:border-gray-700/60' }}">
+                        <div class="p-3.5 rounded-2xl text-xs {{ $isMe ? 'bg-[#005DFF] text-white rounded-br-none shadow-md shadow-blue-500/10' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-none border border-gray-200/60 dark:border-gray-700/60' }}">
                             <p class="whitespace-pre-line leading-relaxed">{{ $msg->body }}</p>
                             @if($msg->attachment)
                                 <div class="mt-2 pt-2 border-t {{ $isMe ? 'border-blue-400/40' : 'border-gray-200 dark:border-gray-700' }} flex items-center gap-2 font-medium">
@@ -114,7 +114,7 @@
         <!-- Input Form -->
         @if($activeClient)
             <form wire:submit.prevent="send" class="p-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 bg-white dark:bg-gray-900">
-                <input type="text" wire:model="body" placeholder="Type a reply to {{ $activeClient->first_name }}..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#2563EB] focus:border-[#2563EB]">
+                <input type="text" wire:model="body" placeholder="Type a reply to {{ $activeClient->first_name }}..." class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-xs focus:ring-[#005DFF] focus:border-[#005DFF]">
                 <button type="submit" class="btn-primary text-xs py-2.5 px-5 flex items-center gap-1.5">
                     <span>Reply</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
