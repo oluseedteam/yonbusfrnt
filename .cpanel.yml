@@ -11,6 +11,9 @@ deployment:
     - /bin/rm -rf $DEPLOYPATH/storage/framework/views/*
     - /bin/rm -rf $DEPLOYPATH/storage/framework/cache/data/*
 
+    # ── Install composer dependencies ─────────────────────────────
+    - cd $DEPLOYPATH && composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+
     # ── Run artisan post-deploy commands ───────────────────────────
     - cd $DEPLOYPATH && php artisan optimize:clear
     - cd $DEPLOYPATH && php artisan migrate --force
