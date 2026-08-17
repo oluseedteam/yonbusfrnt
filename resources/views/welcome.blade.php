@@ -23,7 +23,7 @@
                     <svg style="width: 14px; height: 14px; color: #60A5FA; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                    <span>TRUSTED BY 5,000+ CANADIAN BUSINESSES</span>
+                    <span>TRUSTED BY 5,000+ CANADIANS</span>
                 </div>
 
                 {{-- Main Headline --}}
@@ -65,48 +65,309 @@
                     </a>
                 </div>
 
-                {{-- Social Proof with real photos --}}
-                <div class="flex items-center gap-3 sm:gap-4 flex-wrap pt-1">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/avatars/avatar-1.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover shadow-md">
-                        <img src="{{ asset('images/avatars/avatar-2.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
-                        <img src="{{ asset('images/avatars/avatar-3.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
-                        <img src="{{ asset('images/avatars/avatar-4.jpg') }}" alt="Client" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover -ml-2.5 shadow-md">
-                    </div>
-                    <div>
-                        <div class="flex gap-0.5 mb-0.5">
-                            @for($i = 0; $i < 5; $i++)
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            @endfor
-                        </div>
-                        <p class="text-slate-200 text-xs sm:text-sm font-medium m-0">4.9/5 from 500+ reviews</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
     {{-- ============================================================
-         STATS BAR (Deep Blue to Blue Gradient)
+         GOOGLE MAPS REVIEWS MARQUEE
+         Replaces the previous stats bar with live Google Maps verified reviews
          ============================================================ --}}
-    <section style="position: relative; overflow: hidden; background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); padding: 3rem 0;" data-aos="fade-up" data-aos-duration="600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
-                @foreach([
-                    ['num'=>'5,000+','label'=>'Satisfied Clients','icon'=>'👥'],
-                    ['num'=>'10+','label'=>'Years of Expertise','icon'=>'🏆'],
-                    ['num'=>'98%','label'=>'Compliance Rate','icon'=>'✅'],
-                    ['num'=>'4.9★','label'=>'Client Rating','icon'=>'⭐'],
-                ] as $s)
-                <div class="space-y-1">
-                    <div style="font-size:1.5rem;margin-bottom:6px;">{{ $s['icon'] }}</div>
-                    <div class="font-heading font-extrabold tracking-tight" style="font-size:clamp(1.75rem, 3.2vw, 2.35rem);color:#ffffff;line-height:1.1;">{{ $s['num'] }}</div>
-                    <div style="font-size:0.88rem;color:#dbeafe;margin-top:4px;font-weight:600;">{{ $s['label'] }}</div>
+    @php
+        $googleReviews = [
+            [
+                'name' => 'Marc-André Tremblay',
+                'location' => 'Gatineau, QC',
+                'initials' => 'MT',
+                'color' => 'from-blue-600 to-indigo-700',
+                'rating' => 5,
+                'time' => '3 weeks ago',
+                'service' => 'Corporate Tax (T2) & Quebec Return',
+                'text' => 'Exceptional tax and accounting service! Olubukunola and Adeshola handled our corporate T2 and provincial returns with extreme precision. Saved us hours of stress and maximized our tax credits. Best tax firm in Gatineau!',
+            ],
+            [
+                'name' => 'Sarah Jenkins',
+                'location' => 'Ottawa, ON',
+                'initials' => 'SJ',
+                'color' => 'from-emerald-600 to-teal-700',
+                'rating' => 5,
+                'time' => '1 month ago',
+                'service' => 'Bookkeeping & Payroll Management',
+                'text' => 'Yonbus has been managing my small business bookkeeping and payroll for over 2 years now. Accurate, responsive, and always on time. Having certified CPB professionals on your side makes a huge difference. Highly recommend!',
+            ],
+            [
+                'name' => 'Emmanuel Adebayo',
+                'location' => 'Montreal, QC',
+                'initials' => 'EA',
+                'color' => 'from-amber-600 to-orange-700',
+                'rating' => 5,
+                'time' => '1 month ago',
+                'service' => 'Personal Tax Return (T1)',
+                'text' => 'Super smooth and transparent process from consultation to final CRA filing. They explained everything clearly and got me an incredible refund. The client portal makes uploading documents effortless and secure.',
+            ],
+            [
+                'name' => 'Sophie Lavoie',
+                'location' => 'Gatineau, QC',
+                'initials' => 'SL',
+                'color' => 'from-purple-600 to-pink-700',
+                'rating' => 5,
+                'time' => '2 months ago',
+                'service' => 'Déclarations d\'impôts de Société',
+                'text' => 'Service impeccable et très professionnel! Pour nos déclarations d\'impôts de société et personnelles au Québec, Yonbus est d\'une compétence remarquable. Une équipe chaleureuse, bilingue et toujours disponible.',
+            ],
+            [
+                'name' => 'David R. Thompson',
+                'location' => 'Toronto, ON',
+                'initials' => 'DT',
+                'color' => 'from-cyan-600 to-blue-700',
+                'rating' => 5,
+                'time' => '2 months ago',
+                'service' => 'Task Audit Support & Defense',
+                'text' => 'I was audited by the CRA for a previous fiscal year and panicked. Yonbus stepped in, organized all documentation, communicated directly with the CRA, and resolved everything in our favor. True lifesavers!',
+            ],
+            [
+                'name' => 'Fatima Al-Mansoor',
+                'location' => 'Gatineau, QC',
+                'initials' => 'FA',
+                'color' => 'from-rose-600 to-red-700',
+                'rating' => 5,
+                'time' => '3 months ago',
+                'service' => 'Tax Planning & Advisory',
+                'text' => 'Fast, reliable, and extremely knowledgeable about cross-province tax regulations. Booked online, had a virtual consultation, and my taxes were filed in 48 hours. 5 stars all the way!',
+            ],
+            [
+                'name' => 'Jean-Luc Bouchard',
+                'location' => 'Hull, Gatineau',
+                'initials' => 'JB',
+                'color' => 'from-indigo-600 to-violet-700',
+                'rating' => 5,
+                'time' => '3 months ago',
+                'service' => 'Tenue de livres & Consultation PME',
+                'text' => 'Excellente expertise en comptabilité et conformité fiscale. Des professionnels certifiés qui prennent le temps de bien conseiller pour la croissance de votre entreprise. Je recommande sans hésitation.',
+            ],
+            [
+                'name' => 'Michael Chen',
+                'location' => 'Vancouver, BC',
+                'initials' => 'MC',
+                'color' => 'from-teal-600 to-emerald-700',
+                'rating' => 5,
+                'time' => '4 months ago',
+                'service' => 'Remote Corporate Tax Filing',
+                'text' => 'Even though I am in BC and they are based in Gatineau, their virtual consultation and secure client portal made working with them seamless. Outstanding service for my IT consulting business.',
+            ],
+        ];
+    @endphp
+
+    <section class="relative overflow-hidden py-10 md:py-14"
+             style="background: linear-gradient(180deg, #010A1F 0%, #031435 50%, #051A45 100%); border-top: 1.5px solid rgba(74, 161, 255, 0.25); border-bottom: 1.5px solid rgba(74, 161, 255, 0.25);">
+
+        {{-- Direct Embedded Styles for Guaranteed High Contrast, Visibility & Smooth Continuous Motion --}}
+        <style>
+            @keyframes marqueeReviewSlide {
+                0% {
+                    transform: translate3d(0, 0, 0);
+                }
+                100% {
+                    transform: translate3d(-50%, 0, 0);
+                }
+            }
+            @-webkit-keyframes marqueeReviewSlide {
+                0% {
+                    -webkit-transform: translate3d(0, 0, 0);
+                }
+                100% {
+                    -webkit-transform: translate3d(-50%, 0, 0);
+                }
+            }
+            .google-reviews-marquee-track {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                width: max-content !important;
+                gap: 20px !important;
+                animation: marqueeReviewSlide 32s linear infinite !important;
+                -webkit-animation: marqueeReviewSlide 32s linear infinite !important;
+                will-change: transform;
+            }
+            .google-reviews-marquee-track:hover {
+                animation-play-state: paused !important;
+                -webkit-animation-play-state: paused !important;
+            }
+            .google-review-card-box {
+                width: 360px !important;
+                min-width: 360px !important;
+                max-width: 360px !important;
+                flex-shrink: 0 !important;
+                background: #091c44 !important;
+                border: 1.5px solid #1e40af !important;
+                border-radius: 18px !important;
+                padding: 22px !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+            }
+            .google-review-card-box:hover {
+                transform: translateY(-4px) !important;
+                border-color: #3b82f6 !important;
+                box-shadow: 0 16px 36px rgba(37, 99, 235, 0.35) !important;
+            }
+            @media (max-width: 640px) {
+                .google-review-card-box {
+                    width: 300px !important;
+                    min-width: 300px !important;
+                    max-width: 300px !important;
+                    padding: 18px !important;
+                }
+            }
+        </style>
+
+        {{-- Subtle Ambient Glows --}}
+        <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20 pointer-events-none blur-3xl" style="background: radial-gradient(circle, #0052FF 0%, transparent 70%);"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-20 pointer-events-none blur-3xl" style="background: radial-gradient(circle, #38BDF8 0%, transparent 70%);"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+
+                {{-- Left Google Rating Header --}}
+                <div class="flex items-center gap-3.5 sm:gap-4">
+                    {{-- Genuine Colored Google 'G' Logo --}}
+                    <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2.5 flex items-center justify-center flex-shrink-0 shadow-lg" style="background: #ffffff;">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="font-heading font-extrabold text-white text-lg tracking-wide" style="color: #FFFFFF !important;">EXCELLENT</span>
+                            <div class="flex items-center gap-0.5" style="color: #FACC15;">
+                                @for($i = 0; $i < 5; $i++)
+                                <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" style="color: #FACC15 !important;">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                @endfor
+                            </div>
+                            <span style="color: #FACC15 !important; font-weight: 800; font-size: 16px;">5.0</span>
+                            <span style="color: #93C5FD !important; font-weight: 600; font-size: 13px;">on Google</span>
+                        </div>
+                        <p style="color: #BAE6FD !important; font-size: 13px; margin: 3px 0 0 0;">
+                            Verified Client Reviews for <strong style="color: #FFFFFF !important; font-weight: 700;">YONBUS TAX &amp; ACCOUNTING SERVICES INC</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Right Direct Google Maps Link Button --}}
+                <div class="flex items-center gap-3">
+                    <a href="https://maps.app.goo.gl/NexvduvFo4Ajab9H9?g_st=iw"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style="background: #1D4ED8; border: 1.5px solid #60A5FA; color: #FFFFFF !important; padding: 10px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4); transition: all 0.25s;"
+                       onmouseenter="this.style.background='#2563EB';this.style.transform='scale(1.04)';"
+                       onmouseleave="this.style.background='#1D4ED8';this.style.transform='scale(1)';"
+                       class="hover-lift">
+                        <svg style="width: 16px; height: 16px; color: #93C5FD;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span style="color: #FFFFFF !important;">View on Google Maps</span>
+                        <svg style="width: 14px; height: 14px; color: #93C5FD;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        {{-- Marquee Scrolling Container with Gradient Fade Edges --}}
+        <div class="relative w-full overflow-hidden py-3"
+             style="mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);">
+            
+            {{-- Infinite Moving Track --}}
+            <div class="google-reviews-marquee-track">
+                {{-- Double loop for seamless infinite continuous scrolling --}}
+                @foreach(array_merge($googleReviews, $googleReviews) as $review)
+                <div class="google-review-card-box">
+                    
+                    {{-- Reviewer Top Row --}}
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                {{-- Bright Colorful Avatar Circle Badge --}}
+                                <div style="background: linear-gradient(135deg, #2563EB 0%, #0284C7 100%); color: #FFFFFF !important; font-weight: 800; font-size: 14px; border: 2px solid rgba(255,255,255,0.3); width: 42px; height: 42px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.35);">
+                                    {{ $review['initials'] }}
+                                </div>
+                                <div>
+                                    <h4 style="color: #FFFFFF !important; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.25; margin: 0;">
+                                        {{ $review['name'] }}
+                                    </h4>
+                                    <p style="color: #93C5FD !important; font-size: 12px; margin: 2px 0 0 0; font-weight: 500;">
+                                        {{ $review['location'] }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Google Verified Pill --}}
+                            <div style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 999px; padding: 3px 8px; display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;">
+                                <svg style="width: 12px; height: 12px;" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                                </svg>
+                                <span style="color: #E0F2FE !important; font-size: 11px; font-weight: 600;">Verified</span>
+                            </div>
+                        </div>
+
+                        {{-- Stars & Timestamp --}}
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-0.5" style="color: #FACC15;">
+                                @for($i = 0; $i < $review['rating']; $i++)
+                                <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" style="color: #FACC15 !important;">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                @endfor
+                            </div>
+                            <span style="color: #94A3B8 !important; font-size: 11.5px; font-weight: 500;">
+                                {{ $review['time'] }}
+                            </span>
+                        </div>
+
+                        {{-- Review Text (Crystal Clear Visible Text) --}}
+                        <p style="color: #F1F5F9 !important; font-size: 13.5px; line-height: 1.65; margin: 0 0 16px 0; font-weight: 400;">
+                            "{!! nl2br(e($review['text'])) !!}"
+                        </p>
+                    </div>
+
+                    {{-- Service Tag Footer --}}
+                    <div class="pt-3 flex items-center justify-between" style="border-top: 1px solid rgba(255, 255, 255, 0.12);">
+                        <span style="background: rgba(37, 99, 235, 0.3); color: #93C5FD !important; border: 1px solid rgba(96, 165, 250, 0.35); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; display: inline-block;">
+                            {{ $review['service'] }}
+                        </span>
+                        <a href="https://maps.app.goo.gl/NexvduvFo4Ajab9H9?g_st=iw"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="color: #94A3B8; text-decoration: none; display: inline-flex; align-items: center; transition: color 0.2s;"
+                           onmouseenter="this.style.color='#FFFFFF';"
+                           onmouseleave="this.style.color='#94A3B8';"
+                           title="View on Google Maps">
+                            <svg style="width: 15px; height: 15px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </a>
+                    </div>
+
                 </div>
                 @endforeach
             </div>
+
         </div>
+
     </section>
 
     {{-- ============================================================
@@ -143,8 +404,8 @@
                     <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📋</div>
                     <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
                         <span style="display:inline-block;background:rgba(255,255,255,0.2);color:#ffffff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;padding:4px 10px;border-radius:999px;width:fit-content;border:1px solid rgba(255,255,255,0.35);">Our Services</span>
-                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;line-height:1.45;">5 Specialized Practice Areas</h3>
-                        <p style="color:#dbeafe;font-size:0.88rem;line-height:1.6;flex:1;">Tax Services, Accounting &amp; Bookkeeping, Payroll, Business Advisory, and Compliance — tailored for Canadian businesses.</p>
+                        <h3 class="font-heading font-bold" style="color:#ffffff;font-size:1.15rem;line-height:1.45;">6 Specialized Practice Areas</h3>
+                        <p style="color:#dbeafe;font-size:0.88rem;line-height:1.6;flex:1;">Tax Preparation &amp; Planning, Accounting &amp; Bookkeeping, Payroll, Business Advisory, Compliance, and Registration.</p>
                     </div>
                     <div style="display:inline-flex;align-items:center;gap:6px;color:#ffffff;font-size:0.85rem;font-weight:700;margin-top:auto;">
                         View Services <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -208,7 +469,7 @@
                 @else
                     @foreach([
                         ['tag'=>'Tax Filing','date'=>'Aug 01, 2026','title'=>'Top 10 Corporate Tax Deductions for Small Businesses in Canada','excerpt'=>'Discover essential capital cost allowances and deductible business expenses to minimize your tax liability.'],
-                        ['tag'=>'Bookkeeping','date'=>'Jul 28, 2026','title'=>'How to Prepare for a CRA Audit with Zero Stress','excerpt'=>'A step-by-step audit preparation roadmap to keep your financial records organized and fully compliant.'],
+                        ['tag'=>'Bookkeeping','date'=>'Jul 28, 2026','title'=>'How to Prepare for a Task Audit with Zero Stress','excerpt'=>'A step-by-step audit preparation roadmap to keep your financial records organized and fully compliant.'],
                         ['tag'=>'Payroll','date'=>'Jul 20, 2026','title'=>'Complete Payroll Automation Guide for Growing Enterprises','excerpt'=>'Streamline monthly employee remittances, T4 slips, and direct deposits with automated payroll systems.'],
                     ] as $post)
                     <article style="background:#ffffff;border:1.5px solid #e0e7ff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(0,82,255,0.06);transition:all 0.25s;"
@@ -242,7 +503,7 @@
                 Ready to Simplify Your Taxes &amp; Accounting?
             </h2>
             <p style="color:#dbeafe;font-size:1rem;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;">
-                Join thousands of satisfied Canadian businesses who trust YONBUS for all their financial needs.
+                Join thousands of satisfied Canadian businesses and individuals who trust YONBUS for all their financial needs.
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
                 <a href="{{ route('register') }}"

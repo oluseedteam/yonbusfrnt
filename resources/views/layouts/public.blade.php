@@ -80,7 +80,9 @@
                 </nav>
 
                 <!-- Header CTA Actions -->
-                <div class="hidden md:flex items-center" style="gap: 1.25rem;">
+                <div class="hidden md:flex items-center" style="gap: 1rem;">
+                    <x-language-switcher />
+
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Dashboard</a>
                     @else
@@ -116,6 +118,9 @@
             @endforeach
 
             <div class="pt-3 flex flex-col space-y-2" style="border-top: 1px solid #e2e8f0; margin-top: 0.5rem;">
+                <div class="flex justify-center py-1">
+                    <x-language-switcher />
+                </div>
                 <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #0a1a4a; border: 1px solid #d1d5db;">Login</a>
                 <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #005DFF; color: #ffffff;">Get Started</a>
             </div>
@@ -142,12 +147,9 @@
                 <!-- Col 1: Brand -->
                 <div class="lg:col-span-1" style="display: flex; flex-direction: column; gap: 1.25rem;">
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <a href="{{ route('home') }}" style="display: inline-flex; align-items: center; text-decoration: none;">
-                            <x-application-logo style="height: 48px; width: auto; object-fit: contain; background: #ffffff; padding: 8px 12px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+                        <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.04)';" onmouseleave="this.style.transform='scale(1)';">
+                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="height: 115px; max-height: 120px; width: auto; max-width: 240px; object-fit: contain; background: #ffffff; padding: 10px 18px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.3);" />
                         </a>
-                        <div style="display: inline-flex; align-items: center;">
-                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="height: 48px; width: auto; object-fit: contain; background: #ffffff; padding: 4px 8px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
-                        </div>
                     </div>
 
                     <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.7; max-width: 260px;">
@@ -223,11 +225,12 @@
                     </h4>
                     <ul style="display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; margin: 0;">
                         @foreach([
-                            'Tax Planning & Preparation',
+                            'Tax Preparation & Planning',
                             'Accounting & Bookkeeping',
                             'Payroll Services',
-                            'Business Advisory',
+                            'Business Consulting & Advisory',
                             'Compliance Services',
+                            'Business Registration'
                         ] as $svc)
                         <li>
                             <a href="{{ route('services') }}"
@@ -311,6 +314,7 @@
                         <span>Serving Canada.</span>
                     </p>
                     <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+                        <x-language-switcher />
                         <a href="{{ route('privacy') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Privacy Policy</a>
                         <span style="width: 3px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-block;"></span>
                         <a href="{{ route('terms') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Terms of Service</a>
@@ -405,5 +409,8 @@
             </svg>
         </a>
     </div>
+
+    <!-- Google Translate Seamless Engine -->
+    <x-google-translate-scripts />
 </body>
 </html>

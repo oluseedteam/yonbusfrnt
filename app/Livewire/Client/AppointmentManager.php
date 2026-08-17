@@ -47,7 +47,7 @@ class AppointmentManager extends Component
                 Service::create(['name' => 'Personal Tax Preparation (T1)', 'description' => 'Comprehensive personal income tax return filing.', 'price' => 150.00, 'duration' => 45, 'is_active' => true]);
                 Service::create(['name' => 'Corporate Tax Filing (T2)', 'description' => 'Corporate tax return and business financial statements.', 'price' => 500.00, 'duration' => 60, 'is_active' => true]);
                 Service::create(['name' => 'Bookkeeping & Accounting Consultation', 'description' => 'Monthly bookkeeping and advisory session.', 'price' => 100.00, 'duration' => 30, 'is_active' => true]);
-                Service::create(['name' => 'CRA Audit & HST/GST Consultation', 'description' => 'CRA review representation and sales tax support.', 'price' => 200.00, 'duration' => 60, 'is_active' => true]);
+                Service::create(['name' => 'Task Audit & HST/GST Consultation', 'description' => 'Task review representation and sales tax support.', 'price' => 200.00, 'duration' => 60, 'is_active' => true]);
                 $services = Service::where('is_active', true)->get();
             }
         }

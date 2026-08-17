@@ -241,6 +241,10 @@
 </head>
 <body>
 
+    <div style="position: fixed; top: 20px; right: 24px; z-index: 999;">
+        <x-language-switcher />
+    </div>
+
 <div class="auth-wrapper">
     <!-- LEFT PANEL -->
     <div class="left-panel">
@@ -376,7 +380,7 @@
 
             <div class="terms-row">
                 <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                <label for="terms">I agree to the <a href="{{ route('terms') }}" target="_blank">Terms of Service</a> and <a href="{{ route('privacy') }}" target="_blank">Privacy Policy</a></label>
             </div>
 
             <button type="submit" class="btn-submit">Create Account →</button>
@@ -428,5 +432,7 @@
         label.textContent = labels[score];
     }
 </script>
+    <!-- Google Translate Seamless Engine -->
+    <x-google-translate-scripts />
 </body>
 </html>

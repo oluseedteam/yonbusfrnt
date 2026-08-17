@@ -241,7 +241,11 @@
 </head>
 <body>
 
-<div class="auth-wrapper">
+    <div style="position: fixed; top: 20px; right: 24px; z-index: 999;">
+        <x-language-switcher />
+    </div>
+
+    <div class="auth-wrapper">
     <!-- LEFT PANEL (Glassmorphism over Image BG) -->
     <div class="left-panel">
         <div class="panel-logo-wrap">
@@ -392,5 +396,7 @@
         btn.style.color = isText ? '' : '#005DFF';
     }
 </script>
+    <!-- Google Translate Seamless Engine -->
+    <x-google-translate-scripts />
 </body>
 </html>

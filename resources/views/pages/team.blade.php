@@ -64,20 +64,6 @@
                                 Olubukunola is committed to providing accurate, timely, and personalized financial services, helping clients stay compliant and make informed financial decisions.
                             </p>
                         </div>
-
-                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2 items-center">
-                            <a href="mailto:olubukunola@yonbustax.ca" class="px-3 py-1.5 bg-[#0052ff] hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition inline-flex items-center gap-1.5 shadow-sm">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                <span>Email Olubukunola</span>
-                            </a>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Banking &amp; Finance</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">💼 Tax &amp; Payroll Specialist</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg inline-flex items-center gap-1.5">
-                                <x-flag-ca class="w-4 h-3" />
-                                <span>Quebec &amp; Nationwide Practice</span>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -126,17 +112,6 @@
                                 With his strong background in auditing, accounting, and financial reporting, Adeshola specializes in helping individuals and businesses navigate complex accounting and bookkeeping issues. He is committed to providing accurate, practical, and reliable solutions that help clients maintain organized financial records and make informed business decisions.
                             </p>
                         </div>
-
-                        <div class="pt-4 border-t border-[#e2e8f0] flex flex-wrap gap-2 items-center">
-                            <a href="mailto:adeshola.eniola@yonbustax.ca" class="px-3 py-1.5 bg-[#0052ff] hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition inline-flex items-center gap-1.5 shadow-sm">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                <span>Email Adeshola</span>
-                            </a>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🎓 B.Sc Accounting</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🏛️ Mohawk College Alumni</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">📊 Senior Auditing Specialist</span>
-                            <span class="px-3 py-1.5 bg-[#eff6ff] border border-[#bfdbfe] text-[#0052ff] text-xs font-semibold rounded-lg">🔍 Financial Reporting Expert</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -158,7 +133,7 @@
 
                 <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
                     <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🎯</div>
-                    <h4 class="font-bold text-sm font-heading text-white">Audit Expertise</h4>
+                    <h4 class="font-bold text-sm font-heading text-white">Accounting / Book Keeping Expert</h4>
                     <p class="text-xs text-blue-100 leading-relaxed">Backed by over a decade of professional auditing experience.</p>
                 </div>
 
@@ -167,7 +142,7 @@
                         <x-flag-ca class="w-7 h-5 rounded-xs" />
                     </div>
                     <h4 class="font-bold text-sm font-heading text-white">Cross-Province Practice</h4>
-                    <p class="text-xs text-blue-100 leading-relaxed">Certified and experienced serving Quebec, Ontario &amp; all provinces.</p>
+                    <p class="text-xs text-blue-100 leading-relaxed">Certified and experienced serving Quebec and all provinces.</p>
                 </div>
 
                 <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">

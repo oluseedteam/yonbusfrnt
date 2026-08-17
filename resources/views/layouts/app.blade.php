@@ -41,5 +41,8 @@
     </script>
 
     @livewireScripts
+
+    <!-- Google Translate Seamless Engine -->
+    <x-google-translate-scripts />
 </body>
 </html>

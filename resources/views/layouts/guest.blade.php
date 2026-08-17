@@ -19,7 +19,11 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased bg-[#F8FAFC]">
+    <body class="font-sans text-gray-900 antialiased bg-[#F8FAFC] relative">
+        <div class="absolute top-4 right-4 z-20">
+            <x-language-switcher />
+        </div>
+
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#F8FAFC] animate-page-entry">
             <div>
                 <a href="/">
@@ -31,5 +35,8 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <!-- Google Translate Seamless Engine -->
+        <x-google-translate-scripts />
     </body>
 </html>

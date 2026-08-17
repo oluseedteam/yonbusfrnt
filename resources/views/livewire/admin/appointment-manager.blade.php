@@ -85,7 +85,7 @@
                                 @endif
                                 @if(in_array($appt->status, ['pending', 'confirmed']))
                                     <button wire:click="complete({{ $appt->id }})" class="text-blue-600 dark:text-blue-400 hover:underline font-medium text-xs">Complete</button>
-                                    <button wire:click="cancel({{ $appt->id }})" class="text-rose-600 dark:text-rose-400 hover:underline font-medium text-xs">Cancel</button>
+                                    <button wire:click="cancel({{ $appt->id }})" wire:confirm="Are you sure you want to cancel this appointment?" class="text-rose-600 dark:text-rose-400 hover:underline font-medium text-xs">Cancel</button>
                                 @endif
                                 @if($appt->status === 'confirmed')
                                     <button wire:click="openSchedule({{ $appt->id }})" class="text-slate-500 hover:underline font-medium text-xs">Reschedule</button>

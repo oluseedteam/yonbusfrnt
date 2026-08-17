@@ -1,0 +1,160 @@
+{{-- Google Website Translation Engine & Cookie Controller --}}
+<div id="google_translate_element" style="display: none !important;"></div>
+
+<style>
+    /* Clean Seamless Styling - Hide Google Translate Top Bar & Tooltips */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-banner-frame,
+    iframe.goog-te-banner-frame,
+    .goog-te-gadget-icon,
+    .goog-te-gadget-simple,
+    #goog-gt-tt,
+    .goog-te-balloon-frame,
+    .goog-tooltip,
+    .goog-tooltip:hover {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    body {
+        top: 0px !important;
+        position: static !important;
+    }
+    .goog-text-highlight {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    #google_translate_element {
+        display: none !important;
+    }
+    font[style] {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    .notranslate {
+        translate: no;
+    }
+</style>
+
+<script type="text/javascript">
+    // 1. Pre-init: Sync language preference cookie before engine loads
+    (function() {
+        try {
+            var saved = localStorage.getItem('yonbus_lang');
+            if (saved === 'fr') {
+                var d = window.location.hostname;
+                document.cookie = 'googtrans=/en/fr; path=/;';
+                document.cookie = 'googtrans=/en/fr; path=/; domain=' + d + ';';
+                var parts = d.split('.');
+                if (parts.length > 1) {
+                    var rootD = '.' + parts.slice(-2).join('.');
+                    document.cookie = 'googtrans=/en/fr; path=/; domain=' + rootD + ';';
+                }
+            }
+        } catch(e) {}
+    })();
+
+    // 2. Google Translate Element Init Callback
+    function googleTranslateElementInit() {
+        try {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr',
+                autoDisplay: false,
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        } catch(e) {
+            console.warn('Google Translate initialization:', e);
+        }
+    }
+
+    // 3. Helper functions for cookie manipulation
+    function setYonbusCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        var d = window.location.hostname;
+        document.cookie = name + "=" + (value || "") + expires + "; path=/;";
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; domain=" + d + ";";
+        var parts = d.split('.');
+        if (parts.length > 1) {
+            var rootD = '.' + parts.slice(-2).join('.');
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; domain=" + rootD + ";";
+        }
+    }
+
+    function deleteYonbusCookie(name) {
+        var d = window.location.hostname;
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + d + ';';
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + d + ';';
+        var parts = d.split('.');
+        if (parts.length > 1) {
+            var rootD = '.' + parts.slice(-2).join('.');
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + rootD + ';';
+        }
+    }
+
+    // 4. Global Language Switch Function
+    window.switchYonbusLanguage = function(targetLang) {
+        var current = localStorage.getItem('yonbus_lang') || 'en';
+        localStorage.setItem('yonbus_lang', targetLang);
+
+        if (targetLang === 'fr') {
+            setYonbusCookie('googtrans', '/en/fr', 365);
+        } else {
+            setYonbusCookie('googtrans', '/en/en', 365);
+            deleteYonbusCookie('googtrans');
+        }
+
+        // Update all switcher buttons in the DOM
+        updateSwitcherUI(targetLang);
+
+        // Dispatch select event to Google Translate combo box if present
+        var combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+            combo.value = targetLang;
+            combo.dispatchEvent(new Event('change'));
+        } else {
+            window.location.reload();
+        }
+    };
+
+    function updateSwitcherUI(lang) {
+        document.querySelectorAll('.yonbus-lang-btn').forEach(function(btn) {
+            var btnLang = btn.getAttribute('data-lang');
+            if (btnLang === lang) {
+                btn.classList.add('bg-[#0052FF]', 'text-white', 'shadow-sm');
+                btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'text-slate-400');
+            } else {
+                btn.classList.remove('bg-[#0052FF]', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-600', 'dark:text-slate-300');
+            }
+        });
+    }
+
+    // 5. DOM Ready UI State Synchronizer
+    document.addEventListener('DOMContentLoaded', function() {
+        var current = localStorage.getItem('yonbus_lang') || (document.cookie.indexOf('/en/fr') !== -1 ? 'fr' : 'en');
+        updateSwitcherUI(current);
+
+        // Fallback check after Google Translate script loads
+        var attempts = 0;
+        var checkCombo = setInterval(function() {
+            attempts++;
+            var combo = document.querySelector('.goog-te-combo');
+            if (combo) {
+                clearInterval(checkCombo);
+                if (current === 'fr' && combo.value !== 'fr') {
+                    combo.value = 'fr';
+                    combo.dispatchEvent(new Event('change'));
+                }
+            }
+            if (attempts > 30) clearInterval(checkCombo);
+        }, 200);
+    });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

@@ -131,6 +131,26 @@
     gap: 6px;
 }
 
+/* Google Reviews Infinite Marquee */
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee-slow {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 45s linear infinite;
+}
+
+.animate-marquee-slow:hover {
+    animation-play-state: paused;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
@@ -145,3 +165,4 @@
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-400 dark:bg-gray-600;
 }
+

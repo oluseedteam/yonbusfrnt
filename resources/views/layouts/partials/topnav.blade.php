@@ -17,6 +17,9 @@
 
     <!-- Right Controls -->
     <div class="flex items-center gap-3">
+        <!-- Language Switcher (EN / FR) -->
+        <x-language-switcher />
+
         <!-- Dark Mode Toggle -->
         <button @click="darkMode = !darkMode" class="w-10 h-10 rounded-2xl border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
             <template x-if="!darkMode">

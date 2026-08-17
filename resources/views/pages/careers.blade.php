@@ -68,27 +68,6 @@
                             <span>Equal opportunity employer — all backgrounds welcome</span>
                         </div>
                     </div>
-
-                    {{-- Open Positions --}}
-                    <div style="background: #ffffff; border: 1.5px solid #e0e7ff; border-radius: 20px; padding: 24px;">
-                        <h3 class="font-heading font-bold" style="color: #0a1a4a; font-size: 1.1rem; margin-bottom: 16px;">Current Openings</h3>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            @foreach([
-                                ['title' => 'Tax Associate', 'type' => 'Full-Time', 'badge' => '#dcfce7', 'text' => '#166534'],
-                                ['title' => 'Bookkeeper / Accountant', 'type' => 'Full-Time', 'badge' => '#dcfce7', 'text' => '#166534'],
-                                ['title' => 'Payroll Administrator', 'type' => 'Full-Time', 'badge' => '#dcfce7', 'text' => '#166534'],
-                                ['title' => 'Administrative Assistant', 'type' => 'Part-Time', 'badge' => '#fef9c3', 'text' => '#854d0e'],
-                            ] as $pos)
-                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #f8faff; border: 1px solid #e0e7ff; border-radius: 12px;">
-                                <div>
-                                    <div style="font-weight: 700; color: #0a1a4a; font-size: 0.9rem;">{{ $pos['title'] }}</div>
-                                </div>
-                                <span style="font-size: 10px; font-weight: 800; background: {{ $pos['badge'] }}; color: {{ $pos['text'] }}; padding: 4px 10px; border-radius: 999px;">{{ $pos['type'] }}</span>
-                            </div>
-                            @endforeach
-                        </div>
-                        <p style="color: #6b7280; font-size: 0.8rem; margin-top: 12px;">Don't see a fit? Send a general application — we review all submissions.</p>
-                    </div>
                 </div>
 
                 {{-- RIGHT: Application Form --}}
@@ -162,8 +141,6 @@
                                 onmouseenter="this.style.background='#003fd6';" onmouseleave="this.style.background='#0052ff';">
                             Submit Application
                         </button>
-
-                        <p style="color: #9ca3af; font-size: 0.8rem; text-align: center;">We review all applications and will reach out within 5 business days.</p>
                     </form>
                 </div>
 

@@ -77,6 +77,9 @@
                 </div>
                 <h3 class="font-bold text-sm text-gray-900 dark:text-white font-heading">No Tax Returns Found</h3>
                 <p class="text-xs text-gray-500 mt-1">Book an appointment with our team to initiate your tax filing.</p>
+                <div class="mt-4">
+                    <a href="{{ route('client.appointments') }}" class="btn-primary inline-flex text-xs">Book Consultation &rarr;</a>
+                </div>
             </div>
         @endforelse
     </div>

@@ -151,22 +151,26 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Your Name *</label>
-                                <input type="text" name="name" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="John Doe">
+                                <input type="text" name="name" value="{{ old('name') }}" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="John Doe">
+                                @error('name')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                             </div>
                             <div>
                                 <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Email Address *</label>
-                                <input type="email" name="email" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="john@example.com">
+                                <input type="email" name="email" value="{{ old('email') }}" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="john@example.com">
+                                @error('email')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Phone Number</label>
-                                <input type="text" name="phone" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="+1 (555) 000-0000">
+                                <input type="text" name="phone" value="{{ old('phone') }}" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="+1 (555) 000-0000">
+                                @error('phone')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                             </div>
                             <div>
                                 <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Subject *</label>
-                                <input type="text" name="subject" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="Tax Filing Inquiry">
+                                <input type="text" name="subject" value="{{ old('subject') }}" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="Tax Filing Inquiry">
+                                @error('subject')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                             </div>
                         </div>
 
@@ -174,21 +178,24 @@
                             <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Service Interested In</label>
                             <select name="service" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #374151;">
                                 <option value="">Select a service...</option>
-                                <option>Tax Services</option>
-                                <option>Accounting & Bookkeeping</option>
-                                <option>Payroll Services</option>
-                                <option>Business Advisory</option>
-                                <option>Compliance Services</option>
-                                <option>Other</option>
+                                <option value="Tax Services" {{ old('service') == 'Tax Services' ? 'selected' : '' }}>Tax Services</option>
+                                <option value="Accounting & Bookkeeping" {{ old('service') == 'Accounting & Bookkeeping' ? 'selected' : '' }}>Accounting & Bookkeeping</option>
+                                <option value="Payroll Services" {{ old('service') == 'Payroll Services' ? 'selected' : '' }}>Payroll Services</option>
+                                <option value="Business Advisory" {{ old('service') == 'Business Advisory' ? 'selected' : '' }}>Business Advisory</option>
+                                <option value="Compliance Services" {{ old('service') == 'Compliance Services' ? 'selected' : '' }}>Compliance Services</option>
+                                <option value="Other" {{ old('service') == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
+                            @error('service')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                         </div>
 
                         <div>
                             <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #374151; margin-bottom: 6px;">Message *</label>
-                            <textarea name="message" rows="5" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="How can our accounting team assist you?"></textarea>
+                            <textarea name="message" rows="5" required style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 0.9rem; color: #1e293b;" placeholder="How can our accounting team assist you?">{{ old('message') }}</textarea>
+                            @error('message')<p style="color:#dc2626;font-size:0.8rem;margin-top:4px;">{{ $message }}</p>@enderror
                         </div>
 
-                        <button type="submit" style="width: 100%; padding: 14px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(0,82,255,0.3);">
+                        <button type="submit" style="width: 100%; padding: 14px; background: #0052ff; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(0,82,255,0.3); transition: all 0.2s;"
+                                onmouseenter="this.style.background='#003fd6';" onmouseleave="this.style.background='#0052ff';">
                             Submit Inquiry
                         </button>
                     </form>
