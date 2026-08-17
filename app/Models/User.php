@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'phone',
         'role',
+        'assigned_admin_id',
         'company_name',
         'tax_identification_number',
         'address',
@@ -110,6 +111,21 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     // ── Relationships ───────────────────────────────────────────────
+    public function assignedAdmin()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
+    }
+
+    public function consultant()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
+    }
+
+    public function managedClients()
+    {
+        return $this->hasMany(User::class, 'assigned_admin_id');
+    }
+
     public function clientProfile()
     {
         return $this->hasOne(Client::class);

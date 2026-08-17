@@ -20,23 +20,8 @@ class DatabaseSeeder extends Seeder
         // 1. Run Spatie Permission Setup
         $this->command->call('permission:setup');
 
-        // 2. Primary System Administrator Account (user: admin@admin.com / pass: admin)
-        $admin = User::updateOrCreate(
-            ['email' => 'admin@admin.com'],
-            [
-                'first_name'         => 'System',
-                'last_name'          => 'Administrator',
-                'password'           => Hash::make('admin'),
-                'role'               => 'admin',
-                'phone'              => '+1 (800) 555-YONBUS',
-                'email_verified_at'  => now(),
-                'is_active'          => true,
-                'notification_email' => true,
-                'notification_database' => true,
-            ]
-        );
-
-        $admin->safeAssignRole('admin');
+        // 2. Partner Admin Accounts (Olubukunola Eniola & Adeshola Eniola)
+        $this->call(AdminAccountsSeeder::class);
 
         // 3. System Blog Categories
         $categories = [

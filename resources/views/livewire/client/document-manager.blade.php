@@ -87,12 +87,13 @@
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Document Category</label>
                     <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                        <option value="w2">W-2 Form</option>
-                        <option value="1099">1099 Tax Form</option>
-                        <option value="receipt">Business Receipt / Expense</option>
-                        <option value="bank_statement">Bank Statement</option>
-                        <option value="tax_return">Prior Tax Return</option>
-                        <option value="other">Other Supporting Document</option>
+                        <option value="t4_t5">T4 / T5 / T3 Canadian Tax Slips</option>
+                        <option value="cra_notice">CRA Notice of Assessment / Reassessment</option>
+                        <option value="receipt">Business Receipts &amp; Expenses (T2125)</option>
+                        <option value="bank_statement">Bank &amp; Credit Card Statements</option>
+                        <option value="corporate_docs">Corporate Financials (T2 / GST/HST)</option>
+                        <option value="tax_return">Prior Year Tax Return</option>
+                        <option value="other">Other Supporting Tax Document</option>
                     </select>
                 </div>
                 <div>

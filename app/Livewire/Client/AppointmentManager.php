@@ -18,17 +18,35 @@ class AppointmentManager extends Component
     public $activeRoomName = null;
     public $editId = null;
     public $service_id = '';
+    public $accountant_id = '';
     public $date = '';
     public $time = '';
     public $notes = '';
     public $filter = 'all';
+    public $errorMessage = '';
+
+    protected function appointmentService(): \App\Services\AppointmentService
+    {
+        return app(\App\Services\AppointmentService::class);
+    }
 
     protected $rules = [
-        'service_id' => 'required|exists:services,id',
-        'date'       => 'required|date|after_or_equal:today',
-        'time'       => 'required',
-        'notes'      => 'nullable|string|max:500',
+        'service_id'    => 'required|exists:services,id',
+        'accountant_id' => 'nullable|exists:users,id',
+        'date'          => 'required|date|after_or_equal:today',
+        'time'          => 'required',
+        'notes'         => 'nullable|string|max:500',
     ];
+
+    public function selectTimeSlot(string $timeVal, bool $isAvailable)
+    {
+        if (!$isAvailable) {
+            $this->errorMessage = 'This time slot is already booked. Please choose another time.';
+            return;
+        }
+        $this->errorMessage = '';
+        $this->time = $timeVal;
+    }
 
     public function render()
     {
@@ -43,24 +61,32 @@ class AppointmentManager extends Component
         $services = Service::where('is_active', true)->get();
         if ($services->isEmpty()) {
             $services = Service::all();
-            if ($services->isEmpty()) {
-                Service::create(['name' => 'Personal Tax Preparation (T1)', 'description' => 'Comprehensive personal income tax return filing.', 'price' => 150.00, 'duration' => 45, 'is_active' => true]);
-                Service::create(['name' => 'Corporate Tax Filing (T2)', 'description' => 'Corporate tax return and business financial statements.', 'price' => 500.00, 'duration' => 60, 'is_active' => true]);
-                Service::create(['name' => 'Bookkeeping & Accounting Consultation', 'description' => 'Monthly bookkeeping and advisory session.', 'price' => 100.00, 'duration' => 30, 'is_active' => true]);
-                Service::create(['name' => 'Task Audit & HST/GST Consultation', 'description' => 'Task review representation and sales tax support.', 'price' => 200.00, 'duration' => 60, 'is_active' => true]);
-                $services = Service::where('is_active', true)->get();
-            }
         }
 
-        return view('livewire.client.appointment-manager', compact('appointments', 'services'))
+        $consultants = \App\Models\User::whereIn('role', ['admin', 'superadmin', 'accountant'])
+            ->orWhere('email', 'like', '%@yonbustax.ca')
+            ->get();
+
+        // Calculate available time slots for the modal date & consultant
+        $timeSlots = [];
+        if ($this->date) {
+            $timeSlots = $this->appointmentService()->getAvailableSlots(
+                $this->accountant_id ? (int)$this->accountant_id : (auth()->user()->assigned_admin_id ?? null),
+                $this->date,
+                45
+            );
+        }
+
+        return view('livewire.client.appointment-manager', compact('appointments', 'services', 'consultants', 'timeSlots'))
             ->layout('layouts.client');
     }
 
     public function openModal()
     {
-        $this->reset(['editId', 'service_id', 'date', 'time', 'notes']);
-        $this->date = date('Y-m-d');
-        $this->time = '10:00';
+        $this->reset(['editId', 'service_id', 'date', 'time', 'notes', 'errorMessage']);
+        $this->accountant_id = auth()->user()->assigned_admin_id ?? '';
+        $this->date = now()->addDays(1)->format('Y-m-d');
+        $this->time = '09:00:00';
         $this->showModal = true;
     }
 
@@ -69,9 +95,11 @@ class AppointmentManager extends Component
         $appt = Appointment::where('id', $id)->where('client_id', auth()->id())->firstOrFail();
         $this->editId = $appt->id;
         $this->service_id = $appt->service_id;
+        $this->accountant_id = $appt->accountant_id;
         $this->date = Carbon::parse($appt->date)->format('Y-m-d');
-        $this->time = $appt->time;
+        $this->time = strlen($appt->time) === 5 ? $appt->time . ':00' : $appt->time;
         $this->notes = $appt->notes;
+        $this->errorMessage = '';
         $this->showModal = true;
     }
 
@@ -93,34 +121,54 @@ class AppointmentManager extends Component
 
     public function save()
     {
+        $this->errorMessage = '';
         $this->validate();
+
+        $accountantId = $this->accountant_id ?: (auth()->user()->assigned_admin_id ?: null);
+
+        // Validate time slot availability
+        [$isValid, $msg] = $this->appointmentService()->validateSlot(
+            $accountantId ? (int)$accountantId : null,
+            $this->date,
+            $this->time,
+            45,
+            $this->editId
+        );
+
+        if (!$isValid) {
+            $this->errorMessage = $msg;
+            return;
+        }
 
         if ($this->editId) {
             $appt = Appointment::where('id', $this->editId)->where('client_id', auth()->id())->firstOrFail();
             $appt->update([
-                'service_id' => $this->service_id,
-                'date'       => $this->date,
-                'time'       => $this->time,
-                'notes'      => $this->notes,
-                'status'     => 'rescheduled',
+                'service_id'    => $this->service_id,
+                'accountant_id' => $accountantId,
+                'date'          => $this->date,
+                'time'          => $this->time,
+                'notes'         => $this->notes,
+                'status'        => 'rescheduled',
             ]);
             ActivityLog::log('appointment.rescheduled', 'Appointment rescheduled.', $appt);
             session()->flash('message', 'Appointment rescheduled successfully.');
         } else {
             $appt = Appointment::create([
-                'client_id'  => auth()->id(),
-                'service_id' => $this->service_id,
-                'date'       => $this->date,
-                'time'       => $this->time,
-                'notes'      => $this->notes,
-                'status'     => 'pending',
+                'client_id'     => auth()->id(),
+                'accountant_id' => $accountantId,
+                'service_id'    => $this->service_id,
+                'date'          => $this->date,
+                'time'          => $this->time,
+                'duration'      => 45,
+                'notes'         => $this->notes,
+                'status'        => 'pending',
             ]);
             ActivityLog::log('appointment.created', 'Appointment booked successfully.', $appt);
-            session()->flash('message', 'Appointment booked successfully! Our team will confirm your consultation.');
+            session()->flash('message', 'Appointment booked successfully! Your dedicated consultant has received the schedule.');
         }
 
         $this->showModal = false;
-        $this->reset(['editId', 'service_id', 'date', 'time', 'notes']);
+        $this->reset(['editId', 'service_id', 'date', 'time', 'notes', 'errorMessage']);
     }
 
     public function cancel($id)

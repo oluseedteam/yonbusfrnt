@@ -1,21 +1,45 @@
 <div>
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-            <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">System Activity & Audit Logs</h1>
-            <p class="text-xs text-gray-500 mt-1">Full audit trail of user actions, logins, status updates, and administrative changes.</p>
+            <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">System Activity &amp; Audit Logs</h1>
+            <p class="text-xs text-gray-500 mt-1">Full audit trail of user actions, logins, status updates, client assignments, and administrative changes.</p>
         </div>
         <div class="flex items-center gap-3 flex-wrap">
-            <input type="text" wire:model.live="search" placeholder="Search logs..." class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-4 text-xs w-48">
-            <select wire:model.live="filterAction" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                <option value="">All Actions</option>
+            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search logs or user..." class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-4 text-xs w-48 focus:ring-2 focus:ring-[#005DFF] outline-none">
+            <select wire:model.live="adminFilter" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-[#005DFF] outline-none font-semibold">
+                <option value="">All Admins &amp; Users</option>
+                @foreach($adminUsers as $admin)
+                    <option value="{{ $admin->id }}">{{ $admin->name }} ({{ ucfirst($admin->role) }})</option>
+                @endforeach
+            </select>
+            <select wire:model.live="filterAction" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-[#005DFF] outline-none">
+                <option value="">All Event Actions</option>
                 @foreach($actionTypes as $action)
                     <option value="{{ $action }}">{{ $action }}</option>
                 @endforeach
             </select>
-            <button wire:click="clearOldLogs" wire:confirm="Clear all log entries older than 90 days?" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow transition">
+            <button wire:click="clearOldLogs" wire:confirm="Clear all log entries older than 90 days?" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow transition cursor-pointer">
                 🗑️ Clear Old Logs (90d+)
             </button>
         </div>
+    </div>
+
+    <!-- Quick Admin Audit Pill Tabs -->
+    <div class="flex items-center gap-2 mb-6 overflow-x-auto pb-1 text-xs">
+        <span class="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5 flex-shrink-0">
+            <span>🛡️</span> Partner Audit Trail:
+        </span>
+        <button type="button" wire:click="$set('adminFilter', '')"
+                class="px-3.5 py-1.5 rounded-xl font-bold transition {{ empty($adminFilter) ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200' }}">
+            All Staff &amp; System Events
+        </button>
+        @foreach($adminUsers->whereIn('email', ['olubukunola@yonbustax.ca', 'adeshola.eniola@yonbustax.ca', 'adeshola@yonbustax.ca']) as $partner)
+            <button type="button" wire:click="$set('adminFilter', '{{ $partner->id }}')"
+                    class="px-3.5 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 {{ (string)$adminFilter === (string)$partner->id ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
+                <img src="{{ $partner->avatar_url }}" class="w-4 h-4 rounded-full object-cover">
+                <span>{{ $partner->name }}'s Activity Logs</span>
+            </button>
+        @endforeach
     </div>
 
     @if (session()->has('message'))

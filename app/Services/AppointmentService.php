@@ -40,33 +40,47 @@ class AppointmentService
     /**
      * Validate a booking slot against all business rules.
      */
-    public function validateSlot(int $accountantId, string $date, string $time, ?int $excludeId = null): array
+    public function validateSlot(?int $accountantId, string $date, string $time, ?int $duration = 45, ?int $excludeId = null): array
     {
-        // 1. Check holiday
+        $carbonDate = Carbon::parse($date);
+
+        // 1. Check past date
+        if ($carbonDate->isPast() && !$carbonDate->isToday()) {
+            return [false, 'The selected date is in the past. Please choose today or a future date.'];
+        }
+
+        // 2. Check Sunday closed
+        if ($carbonDate->isSunday()) {
+            return [false, 'Our consultation offices are closed on Sundays. Please choose Monday to Saturday.'];
+        }
+
+        // 3. Check holiday
         if (Holiday::where('date', $date)->exists()) {
             return [false, 'The selected date is a public holiday. Please choose another day.'];
         }
 
-        // 2. Check accountant availability — if NO slots are configured at all, allow (open-door policy)
-        $dayOfWeek = strtolower(Carbon::parse($date)->format('l'));
-        $hasAnySlots = AvailabilitySlot::where('accountant_id', $accountantId)->exists();
+        // 4. Check accountant availability if custom slot configured
+        if ($accountantId) {
+            $dayOfWeek = strtolower($carbonDate->format('l'));
+            $hasAnySlots = AvailabilitySlot::where('accountant_id', $accountantId)->exists();
 
-        if ($hasAnySlots) {
-            $available = AvailabilitySlot::where('accountant_id', $accountantId)
-                ->where('day_of_week', $dayOfWeek)
-                ->where('is_available', true)
-                ->where('start_time', '<=', $time)
-                ->where('end_time', '>', $time)
-                ->exists();
+            if ($hasAnySlots) {
+                $available = AvailabilitySlot::where('accountant_id', $accountantId)
+                    ->where('day_of_week', $dayOfWeek)
+                    ->where('is_available', true)
+                    ->where('start_time', '<=', $time)
+                    ->where('end_time', '>', $time)
+                    ->exists();
 
-            if (!$available) {
-                return [false, 'The selected time is outside this accountant\'s available hours. Please pick another slot.'];
+                if (!$available) {
+                    return [false, 'The selected time is outside this consultant\'s working hours. Please choose another slot.'];
+                }
             }
         }
 
-        // 3. Check double booking
-        if ($this->repository->isSlotTaken($accountantId, $date, $time, $excludeId)) {
-            return [false, 'This time slot is already booked. Please choose a different time.'];
+        // 5. Check double booking and time range overlap
+        if ($this->repository->isSlotTaken($accountantId, $date, $time, $duration, $excludeId)) {
+            return [false, 'This time slot is already booked and unavailable. Please choose an available time.'];
         }
 
         return [true, 'Available'];
@@ -96,11 +110,11 @@ class AppointmentService
         return $appointment;
     }
 
-    public function reschedule(int $id, string $date, string $time): array
+    public function reschedule(int $id, string $date, string $time, ?int $duration = 45): array
     {
         $appointment = $this->repository->find($id);
         [$isValid, $message] = $this->validateSlot(
-            $appointment->accountant_id, $date, $time, $id
+            $appointment->accountant_id, $date, $time, $duration, $id
         );
 
         if (!$isValid) {
@@ -117,39 +131,54 @@ class AppointmentService
     }
 
     /**
-     * Get available time slots for an accountant on a given date.
+     * Get all time slots with active availability/booked status for a date and consultant.
      */
-    public function getAvailableSlots(int $accountantId, string $date): array
+    public function getAvailableSlots(?int $accountantId, string $date, int $durationMinutes = 45): array
     {
-        if (Holiday::where('date', $date)->exists()) {
+        $carbonDate = Carbon::parse($date);
+
+        if ($carbonDate->isSunday() || Holiday::where('date', $date)->exists()) {
             return [];
         }
 
-        $dayOfWeek = strtolower(Carbon::parse($date)->format('l'));
-        $slot = AvailabilitySlot::where('accountant_id', $accountantId)
-            ->where('day_of_week', $dayOfWeek)
-            ->where('is_available', true)
-            ->first();
+        $standardTimes = [
+            '09:00:00' => '09:00 AM',
+            '09:45:00' => '09:45 AM',
+            '10:30:00' => '10:30 AM',
+            '11:15:00' => '11:15 AM',
+            '12:00:00' => '12:00 PM',
+            '13:00:00' => '01:00 PM',
+            '13:45:00' => '01:45 PM',
+            '14:30:00' => '02:30 PM',
+            '15:15:00' => '03:15 PM',
+            '16:00:00' => '04:00 PM',
+            '16:45:00' => '04:45 PM',
+        ];
 
-        if (!$slot) return [];
-
-        $bookedTimes = Appointment::where('accountant_id', $accountantId)
-            ->where('date', $date)
-            ->whereNotIn('status', ['cancelled'])
-            ->pluck('time')
-            ->map(fn($t) => substr($t, 0, 5))
-            ->toArray();
+        // If Saturday, shorter hours
+        if ($carbonDate->isSaturday()) {
+            $standardTimes = [
+                '10:00:00' => '10:00 AM',
+                '11:00:00' => '11:00 AM',
+                '12:00:00' => '12:00 PM',
+                '13:00:00' => '01:00 PM',
+                '14:00:00' => '02:00 PM',
+            ];
+        }
 
         $slots = [];
-        $current = Carbon::parse($slot->start_time);
-        $end     = Carbon::parse($slot->end_time);
 
-        while ($current < $end) {
-            $timeStr = $current->format('H:i');
-            if (!in_array($timeStr, $bookedTimes)) {
-                $slots[] = $timeStr;
-            }
-            $current->addMinutes(30);
+        foreach ($standardTimes as $timeVal => $label) {
+            $isTaken = $this->repository->isSlotTaken($accountantId, $date, $timeVal, $durationMinutes);
+
+            $slots[] = [
+                'time'         => $timeVal,
+                'time_short'   => substr($timeVal, 0, 5),
+                'formatted'    => $label,
+                'is_available' => !$isTaken,
+                'status'       => $isTaken ? 'booked' : 'available',
+                'reason'       => $isTaken ? 'Already Booked' : 'Available',
+            ];
         }
 
         return $slots;

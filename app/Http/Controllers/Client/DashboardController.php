@@ -44,8 +44,11 @@ class DashboardController extends Controller
         $recentDocuments = Document::where('client_id', $user->id)->latest()->take(5)->get();
         $adminDocuments  = Document::where('client_id', $user->id)->where('uploaded_by', '!=', $user->id)->with('uploader')->latest()->take(5)->get();
 
+        $user = auth()->user()->load(['assignedAdmin.accountantProfile', 'clientProfile']);
+        $consultant = $user->assignedAdmin ?? \App\Models\User::where('email', 'olubukunola@yonbustax.ca')->first();
+
         return view('client.dashboard', compact(
-            'user', 'stats', 'upcomingAppointment',
+            'user', 'consultant', 'stats', 'upcomingAppointment',
             'recentActivity', 'recentInvoices', 'recentDocuments', 'adminDocuments'
         ));
     }

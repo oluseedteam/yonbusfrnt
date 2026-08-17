@@ -97,45 +97,102 @@
 
     <!-- Booking Modal -->
     @if($showModal)
-        <div class="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-gray-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-800">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white font-heading mb-4">
-                    {{ $editId ? 'Reschedule Appointment' : 'Book Consultation Appointment' }}
-                </h3>
+        <div class="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+            <div class="bg-white dark:bg-gray-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 dark:border-gray-800 my-8">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-[#005DFF] bg-blue-50 dark:bg-blue-950/60 px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-900/40">
+                            Schedule Meeting
+                        </span>
+                        <h3 class="text-lg font-extrabold text-gray-900 dark:text-white font-heading mt-1">
+                            {{ $editId ? 'Reschedule Consultation' : 'Book Consultation Appointment' }}
+                        </h3>
+                    </div>
+                    <button wire:click="$set('showModal', false)" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 flex items-center justify-center cursor-pointer">
+                        ✕
+                    </button>
+                </div>
+
+                @if($errorMessage)
+                    <div class="mb-4 p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-semibold">
+                        {{ $errorMessage }}
+                    </div>
+                @endif
 
                 <form wire:submit.prevent="save" class="space-y-4">
+                    {{-- Service Selection --}}
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select Service</label>
-                        <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
+                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Select Practice Service *</label>
+                        <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-3 text-xs focus:ring-[#005DFF] outline-none">
                             <option value="">-- Select a Service --</option>
                             @foreach($services as $s)
-                                <option value="{{ $s->id }}">{{ $s->name }}</option>
+                                <option value="{{ $s->id }}">{{ $s->name }} ({{ $s->duration ?? 45 }} mins)</option>
                             @endforeach
                         </select>
-                        @error('service_id') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
+                        @error('service_id') <span class="text-rose-500 text-[11px] block mt-1">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                    {{-- Consultant & Date Selection --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Date</label>
-                            <input type="date" wire:model="date" min="{{ date('Y-m-d') }}" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
-                            @error('date') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
+                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Dedicated Consultant</label>
+                            <select wire:model.live="accountant_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-3 text-xs focus:ring-[#005DFF] outline-none">
+                                <option value="">Any Available Practice Partner</option>
+                                @foreach($consultants as $c)
+                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Time</label>
-                            <input type="time" wire:model="time" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]">
-                            @error('time') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
+                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Appointment Date *</label>
+                            <input type="date" wire:model.live="date" min="{{ date('Y-m-d') }}" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-3 text-xs focus:ring-[#005DFF] outline-none font-semibold">
+                            @error('date') <span class="text-rose-500 text-[11px] block mt-1">{{ $message }}</span> @enderror
                         </div>
+                    </div>
+
+                    {{-- Time Slot Selection with Availability/Booked Status --}}
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300">
+                                Available Time Slots *
+                            </label>
+                            <div class="flex items-center gap-2 text-[10px] font-semibold">
+                                <span class="text-emerald-600 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Available</span>
+                                <span class="text-slate-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Booked</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto p-1">
+                            @forelse($timeSlots as $slot)
+                                @if($slot['is_available'])
+                                    <button type="button"
+                                            wire:click="selectTimeSlot('{{ $slot['time'] }}', true)"
+                                            class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center {{ $time === $slot['time'] || $time === $slot['time_short'] ? 'bg-[#005DFF] text-white border-[#005DFF] shadow-sm font-bold' : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-[#005DFF]' }}">
+                                        <span class="text-xs font-bold">{{ $slot['formatted'] }}</span>
+                                    </button>
+                                @else
+                                    <div class="p-2 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-100/60 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 text-center cursor-not-allowed opacity-50 flex flex-col items-center justify-center">
+                                        <span class="text-xs font-medium line-through">{{ $slot['formatted'] }}</span>
+                                        <span class="text-[9px] text-rose-500 font-bold">Booked</span>
+                                    </div>
+                                @endif
+                            @empty
+                                <div class="col-span-full py-4 text-center text-slate-400 text-xs">
+                                    No slots available on this date.
+                                </div>
+                            @endforelse
+                        </div>
+                        @error('time') <span class="text-rose-500 text-[11px] block mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Notes / Consultation Topics</label>
-                        <textarea wire:model="notes" rows="3" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF]" placeholder="Describe what you would like to discuss with the YONBUS team..."></textarea>
+                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Notes / Agenda Topics</label>
+                        <textarea wire:model="notes" rows="2" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-[#005DFF] outline-none" placeholder="Provide any preliminary details or tax documents you plan to discuss..."></textarea>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">
                         <button type="button" wire:click="$set('showModal', false)" class="btn-secondary text-xs">Cancel</button>
-                        <button type="submit" class="btn-primary text-xs">Confirm Booking</button>
+                        <button type="submit" class="btn-primary text-xs">Confirm Consultation</button>
                     </div>
                 </form>
             </div>

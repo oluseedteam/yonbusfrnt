@@ -10,9 +10,13 @@ class UserRepository implements RepositoryInterface
 {
     public function all(array $filters = [])
     {
-        $query = User::query();
+        $query = User::query()->with(['roles', 'assignedAdmin', 'clientProfile']);
+
         if (!empty($filters['role'])) {
             $query->roleSafe($filters['role']);
+        }
+        if (!empty($filters['assigned_admin_id'])) {
+            $query->where('assigned_admin_id', $filters['assigned_admin_id']);
         }
         if (!empty($filters['search'])) {
             $query->where(function ($q) use ($filters) {
@@ -29,7 +33,7 @@ class UserRepository implements RepositoryInterface
 
     public function find(int $id)
     {
-        return User::with(['roles', 'clientProfile', 'accountantProfile'])->findOrFail($id);
+        return User::with(['roles', 'assignedAdmin', 'clientProfile', 'accountantProfile'])->findOrFail($id);
     }
 
     public function create(array $data)
@@ -45,6 +49,23 @@ class UserRepository implements RepositoryInterface
         
         $user = User::create($data);
         $user->safeAssignRole($role);
+
+        if ($role === 'client') {
+            \App\Models\Client::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'assigned_admin_id' => $data['assigned_admin_id'] ?? null,
+                    'client_number'     => 'CL-' . strtoupper(\Illuminate\Support\Str::random(6)),
+                    'company_name'      => $data['company_name'] ?? null,
+                    'tax_number'        => $data['tax_number'] ?? null,
+                    'address'           => $data['address'] ?? null,
+                    'city'              => $data['city'] ?? null,
+                    'province'          => $data['province'] ?? null,
+                    'postal_code'       => $data['postal_code'] ?? null,
+                ]
+            );
+        }
+
         return $user;
     }
 
@@ -68,7 +89,23 @@ class UserRepository implements RepositoryInterface
         }
         
         $user->update($data);
-        return $user->fresh(['roles']);
+
+        if ($user->isClient()) {
+            \App\Models\Client::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'assigned_admin_id' => $data['assigned_admin_id'] ?? $user->assigned_admin_id,
+                    'company_name'      => $data['company_name'] ?? $user->clientProfile?->company_name,
+                    'tax_number'        => $data['tax_number'] ?? $user->clientProfile?->tax_number,
+                    'address'           => $data['address'] ?? $user->clientProfile?->address,
+                    'city'              => $data['city'] ?? $user->clientProfile?->city,
+                    'province'          => $data['province'] ?? $user->clientProfile?->province,
+                    'postal_code'       => $data['postal_code'] ?? $user->clientProfile?->postal_code,
+                ]
+            );
+        }
+
+        return $user->fresh(['roles', 'assignedAdmin', 'clientProfile']);
     }
 
     public function delete(int $id)

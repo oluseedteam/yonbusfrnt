@@ -40,11 +40,21 @@ class BookingSystem extends Component
             $this->service_id = request()->get('service');
         }
 
-        // Auto select first available accountant if any
-        $accountant = User::roleSafe('accountant')->first();
-        if ($accountant) {
-            $this->accountant_id = $accountant->id;
+        // Auto select first partner or consultant
+        $consultant = User::where('email', 'olubukunola@yonbustax.ca')->first() ?? User::roleSafe('accountant')->first();
+        if ($consultant) {
+            $this->accountant_id = $consultant->id;
         }
+    }
+
+    public function selectTimeSlot(string $time, bool $isAvailable)
+    {
+        if (!$isAvailable) {
+            $this->errorMessage = 'This time slot is already booked and unavailable. Please select another slot.';
+            return;
+        }
+        $this->errorMessage = '';
+        $this->appointment_time = $time;
     }
 
     public function nextStep()
@@ -60,6 +70,19 @@ class BookingSystem extends Component
                 'appointment_date' => 'required|date|after_or_equal:today',
                 'appointment_time' => 'required',
             ]);
+
+            // Validate slot is actually available
+            [$isValid, $msg] = $this->appointmentService()->validateSlot(
+                $this->accountant_id ? (int)$this->accountant_id : null,
+                $this->appointment_date,
+                $this->appointment_time,
+                45
+            );
+
+            if (!$isValid) {
+                $this->errorMessage = $msg;
+                return;
+            }
         }
         $this->step++;
     }
@@ -85,24 +108,47 @@ class BookingSystem extends Component
             'client_phone'     => 'required|string|max:50',
         ]);
 
+        // Validate slot again
+        [$isValid, $msg] = $this->appointmentService()->validateSlot(
+            $this->accountant_id ? (int)$this->accountant_id : null,
+            $this->appointment_date,
+            $this->appointment_time,
+            45
+        );
+
+        if (!$isValid) {
+            $this->errorMessage = $msg;
+            $this->step = 2;
+            return;
+        }
+
         // 1. Find or create client user
         $user = User::where('email', $this->client_email)->first();
         if (!$user) {
             $user = User::create([
-                'first_name' => $this->first_name,
-                'last_name'  => $this->last_name,
-                'email'      => $this->client_email,
-                'password'   => \Hash::make(\Str::random(12)),
-                'phone'      => $this->client_phone,
-                'is_active'  => true,
+                'first_name'        => $this->first_name,
+                'last_name'         => $this->last_name,
+                'email'             => $this->client_email,
+                'password'          => \Hash::make(\Str::random(12)),
+                'phone'             => $this->client_phone,
+                'assigned_admin_id' => $this->accountant_id ?: null,
+                'is_active'         => true,
+                'email_verified_at' => now(),
             ]);
             $user->safeAssignRole('client');
+
+            \App\Models\Client::create([
+                'user_id'           => $user->id,
+                'assigned_admin_id' => $this->accountant_id ?: null,
+                'phone'             => $this->client_phone,
+                'company_name'      => $this->company_name,
+            ]);
         }
 
         // 2. Resolve assigned accountant
         $accountantId = $this->accountant_id;
         if (!$accountantId) {
-            $firstAccountant = User::roleSafe('accountant')->first();
+            $firstAccountant = User::whereIn('role', ['admin', 'accountant'])->first();
             $accountantId = $firstAccountant ? $firstAccountant->id : 1;
         }
 
@@ -113,6 +159,7 @@ class BookingSystem extends Component
             'service_id'    => $this->service_id,
             'date'          => $this->appointment_date,
             'time'          => $this->appointment_time,
+            'duration'      => 45,
             'status'        => 'pending',
             'notes'         => $this->notes,
         ];
@@ -121,6 +168,7 @@ class BookingSystem extends Component
 
         if (!$result['success']) {
             $this->errorMessage = $result['message'];
+            $this->step = 2;
             return;
         }
 
@@ -132,28 +180,18 @@ class BookingSystem extends Component
     public function render()
     {
         $services    = Service::where('is_active', true)->get();
-        $accountants = User::roleSafe('accountant')->get();
+        $accountants = User::whereIn('role', ['admin', 'superadmin', 'accountant'])
+            ->orWhere('email', 'like', '%@yonbustax.ca')
+            ->get();
 
-        // Calculate available time slots
+        // Calculate available and booked time slots
         $timeSlots = [];
-        if ($this->accountant_id && $this->appointment_date) {
-            $slots = $this->appointmentService()->getAvailableSlots((int)$this->accountant_id, $this->appointment_date);
-            foreach ($slots as $slot) {
-                $timeSlots[$slot . ':00'] = date('g:i A', strtotime($slot));
-            }
-        }
-
-        // Fallback default slots if no specific availability slot configured yet
-        if (empty($timeSlots)) {
-            $timeSlots = [
-                '09:00:00' => '09:00 AM',
-                '10:00:00' => '10:00 AM',
-                '11:00:00' => '11:00 AM',
-                '13:00:00' => '01:00 PM',
-                '14:00:00' => '02:00 PM',
-                '15:00:00' => '03:00 PM',
-                '16:00:00' => '04:00 PM',
-            ];
+        if ($this->appointment_date) {
+            $timeSlots = $this->appointmentService()->getAvailableSlots(
+                $this->accountant_id ? (int)$this->accountant_id : null,
+                $this->appointment_date,
+                45
+            );
         }
 
         return view('livewire.public.booking-system', [

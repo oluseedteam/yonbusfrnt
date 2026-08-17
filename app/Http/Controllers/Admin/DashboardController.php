@@ -8,6 +8,8 @@ use App\Models\Appointment;
 use App\Models\TaxReturn;
 use App\Models\Invoice;
 use App\Models\ActivityLog;
+use App\Models\CommunicationLog;
+use App\Models\Document;
 use App\Services\ReportService;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,11 @@ class DashboardController extends Controller
             'pending_returns'       => TaxReturn::whereNotIn('status', ['completed'])->count(),
             'active_appointments'   => Appointment::whereIn('status', ['confirmed', 'pending'])->count(),
             'pending_invoices'      => Invoice::where('status', 'pending')->count(),
+            'total_contacts'        => CommunicationLog::where('channel', 'contact_form')->count(),
+            'total_careers'         => CommunicationLog::where('channel', 'career_application')->count(),
+            'unread_inquiries'      => CommunicationLog::where('is_read', false)->count(),
+            'total_documents'       => Document::count(),
+            'client_documents'      => Document::whereColumn('uploaded_by', 'client_id')->count(),
         ];
 
         // Real Database Monthly Revenue Chart Data
@@ -42,12 +49,16 @@ class DashboardController extends Controller
             'data'   => !empty($serviceData)   ? $serviceData   : [0],
         ];
 
-        $recentUsers        = User::with('roles')->latest()->take(5)->get();
-        $recentAppointments = Appointment::with(['client', 'accountant', 'service'])->latest()->take(5)->get();
-        $recentLogs         = ActivityLog::with('user')->latest()->take(10)->get();
+        $recentUsers             = User::with('roles')->latest()->take(5)->get();
+        $recentAppointments      = Appointment::with(['client', 'accountant', 'service'])->latest()->take(5)->get();
+        $recentLogs              = ActivityLog::with('user')->latest()->take(10)->get();
+        $recentContactInquiries  = CommunicationLog::where('channel', 'contact_form')->latest()->take(5)->get();
+        $recentCareerApps        = CommunicationLog::where('channel', 'career_application')->latest()->take(5)->get();
+        $recentDocuments         = Document::with(['client', 'uploader'])->latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
-            'stats', 'revenueChart', 'serviceChart', 'recentUsers', 'recentAppointments', 'recentLogs'
+            'stats', 'revenueChart', 'serviceChart', 'recentUsers', 'recentAppointments', 'recentLogs',
+            'recentContactInquiries', 'recentCareerApps', 'recentDocuments'
         ));
     }
 }

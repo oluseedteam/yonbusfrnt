@@ -1,12 +1,35 @@
 <x-client-layout>
-    <!-- Welcome Header -->
-    <div class="mb-8">
-        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white font-heading">
-            Welcome back, {{ explode(' ', $user->name)[0] }}! 👋
-        </h1>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Here's what's happening with your tax & accounting account today.
-        </p>
+    <!-- Welcome Header with Dedicated Consultant Card -->
+    <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white font-heading">
+                Welcome back, {{ explode(' ', $user->name)[0] }}! 👋
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                Here's what's happening with your tax &amp; accounting account today.
+            </p>
+        </div>
+
+        @if($consultant)
+            <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-blue-200 dark:border-blue-900/60 shadow-sm flex items-center gap-4 flex-shrink-0">
+                <img src="{{ $consultant->avatar_url }}" alt="{{ $consultant->name }}" class="w-14 h-14 rounded-2xl object-cover border-2 border-[#005DFF] shadow-sm flex-shrink-0">
+                <div>
+                    <div class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#005DFF]">
+                        <span>🛡️</span> Your Dedicated Consultant
+                    </div>
+                    <h3 class="text-sm font-extrabold text-slate-900 dark:text-white font-heading mt-0.5">{{ $consultant->name }}</h3>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">{{ $consultant->accountantProfile?->title ?? 'Practice Partner • CPB' }}</p>
+                    <div class="flex items-center gap-3 mt-1.5 text-xs">
+                        <a href="mailto:{{ $consultant->email }}" class="text-[#005DFF] hover:underline font-bold text-[11px] flex items-center gap-1">
+                            <span>✉️</span> {{ $consultant->email }}
+                        </a>
+                        <a href="{{ route('client.messages') }}" class="px-2.5 py-1 rounded-lg bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-[10px] transition">
+                            💬 Message
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 
     <!-- 4 Summary Cards -->
@@ -223,7 +246,88 @@
                         <a href="{{ route('client.appointments') }}" class="btn-primary inline-flex text-xs">Book Appointment</a>
                     </div>
                 @endif
+    <!-- Recent Client & Practice Documents Section -->
+    <div class="card-box mb-8">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-base">
+                    📁
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-base text-slate-900 dark:text-white font-heading">
+                        Your Recent Documents &amp; Files
+                    </h3>
+                    <p class="text-[11px] text-slate-500">Tax slips, notice of assessment, receipts, and files shared with YONBUS</p>
+                </div>
             </div>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('client.documents') }}" class="btn-primary text-xs py-1.5 px-3">
+                    + Upload New File
+                </a>
+                <a href="{{ route('client.documents') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                    View Vault ({{ $stats['documents'] }}) →
+                </a>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-semibold text-[11px]">
+                    <tr>
+                        <th class="p-3">Document Name</th>
+                        <th class="p-3">Source / Uploader</th>
+                        <th class="p-3">File Size</th>
+                        <th class="p-3">Date</th>
+                        <th class="p-3 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    @forelse($recentDocuments as $doc)
+                        @php
+                            $isSelf = $doc->uploaded_by == auth()->id();
+                            $ext = strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION));
+                        @endphp
+                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
+                            <td class="p-3 flex items-center gap-2.5">
+                                <div class="w-7 h-7 rounded-lg bg-blue-50 text-[#005DFF] font-bold text-[10px] flex items-center justify-center border border-blue-200">
+                                    {{ $ext ?: 'DOC' }}
+                                </div>
+                                <div>
+                                    <span class="font-bold text-slate-900 dark:text-white">{{ $doc->original_name }}</span>
+                                    <div class="text-[10px] text-slate-400 font-mono">{{ $doc->file_type ?? 'document' }}</div>
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                @if($isSelf)
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                                        Uploaded by You
+                                    </span>
+                                @else
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+                                        Sent by {{ $doc->uploader?->name ?? 'YONBUS Team' }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="p-3 font-mono text-slate-500 text-[11px]">{{ $doc->file_size_human }}</td>
+                            <td class="p-3 text-slate-500 text-[11px]">{{ $doc->created_at->format('M j, Y') }}</td>
+                            <td class="p-3 text-right">
+                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1">
+                                    <span>📥</span> Download
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="p-6 text-center text-slate-400 text-xs">
+                                <p class="mb-2">No documents in your vault yet.</p>
+                                <a href="{{ route('client.documents') }}" class="text-[#005DFF] font-bold hover:underline">
+                                    Click here to upload your tax slips, receipts, or CRA documents.
+                                </a>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 

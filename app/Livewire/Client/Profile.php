@@ -13,6 +13,7 @@ class Profile extends Component
     use WithFileUploads;
 
     public $name = '', $email = '', $phone = '', $company_name = '', $tax_identification_number = '', $address = '';
+    public $assigned_admin_id = null;
     public $avatar = null;
 
     public function mount()
@@ -24,12 +25,18 @@ class Profile extends Component
         $this->company_name = $user->company_name;
         $this->tax_identification_number = $user->tax_identification_number;
         $this->address = $user->address;
+        $this->assigned_admin_id = $user->assigned_admin_id;
     }
 
     public function render()
     {
+        $consultants = \App\Models\User::whereIn('role', ['admin', 'superadmin'])
+            ->orWhere('email', 'like', '%@yonbustax.ca')
+            ->get();
+
         return view('livewire.client.profile', [
             'avatar' => $this->avatar,
+            'consultants' => $consultants,
         ])->layout('layouts.client');
     }
 
@@ -38,6 +45,7 @@ class Profile extends Component
         $this->validate([
             'name'                       => 'required|string|max:255',
             'email'                      => 'required|email|unique:users,email,' . auth()->id(),
+            'assigned_admin_id'          => 'nullable|exists:users,id',
             'phone'                      => 'nullable|string|max:20',
             'company_name'               => 'nullable|string|max:255',
             'tax_identification_number'  => 'nullable|string|max:50',
@@ -52,6 +60,7 @@ class Profile extends Component
             'first_name'                => $parts[0] ?? '',
             'last_name'                 => $parts[1] ?? '',
             'email'                     => $this->email,
+            'assigned_admin_id'         => $this->assigned_admin_id,
             'phone'                     => $this->phone,
             'company_name'              => $this->company_name,
             'tax_identification_number' => $this->tax_identification_number,
@@ -67,6 +76,12 @@ class Profile extends Component
         }
 
         $user->update($updateData);
+
+        \App\Models\Client::updateOrCreate(
+            ['user_id' => $user->id],
+            ['assigned_admin_id' => $this->assigned_admin_id]
+        );
+
         $this->reset('avatar');
 
         ActivityLog::log('profile.updated', 'Profile updated successfully.');

@@ -84,13 +84,44 @@
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-3">Available Time Slots</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    @foreach($timeSlots as $val => $label)
-                        <button type="button" wire:click="$set('appointment_time', '{{ $val }}')" class="py-3 px-4 rounded-xl border text-sm font-semibold transition {{ $appointment_time === $val ? 'bg-[#005DFF] text-white border-[#005DFF] shadow-md' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300' }}">
-                            {{ $label }}
-                        </button>
-                    @endforeach
+                <div class="flex items-center justify-between mb-3">
+                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300">
+                        Select Consultation Time Slot
+                    </label>
+                    <div class="flex items-center gap-3 text-xs">
+                        <span class="flex items-center gap-1 text-emerald-600 font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Available
+                        </span>
+                        <span class="flex items-center gap-1 text-slate-400 font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> Booked / Unavailable
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    @forelse($timeSlots as $slot)
+                        @if($slot['is_available'])
+                            <button type="button"
+                                    wire:click="selectTimeSlot('{{ $slot['time'] }}', true)"
+                                    class="py-3 px-3.5 rounded-2xl border text-center transition flex flex-col items-center justify-center gap-1 {{ $appointment_time === $slot['time'] ? 'bg-[#005DFF] text-white border-[#005DFF] shadow-lg shadow-blue-500/20 ring-2 ring-[#005DFF]/30' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-[#005DFF] hover:shadow-sm' }}">
+                                <span class="text-sm font-bold">{{ $slot['formatted'] }}</span>
+                                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full {{ $appointment_time === $slot['time'] ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300' }}">
+                                    Available
+                                </span>
+                            </button>
+                        @else
+                            <div class="py-3 px-3.5 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-400 dark:text-slate-500 flex flex-col items-center justify-center gap-1 cursor-not-allowed opacity-60">
+                                <span class="text-sm font-semibold line-through">{{ $slot['formatted'] }}</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400">
+                                    🔒 Booked
+                                </span>
+                            </div>
+                        @endif
+                    @empty
+                        <div class="col-span-full py-6 text-center text-slate-400 text-xs">
+                            No consultation slots available on this date. Please select another business day.
+                        </div>
+                    @endforelse
                 </div>
                 @error('appointment_time') <span class="text-xs text-rose-500 font-semibold mt-2 block">{{ $message }}</span> @enderror
             </div>

@@ -73,9 +73,26 @@
                 </div>
             </div>
 
+            {{-- Dedicated Consultant Assignment --}}
+            <div class="p-4 bg-blue-50/50 dark:bg-blue-950/20 rounded-2xl border border-blue-100 dark:border-blue-900/40">
+                <label class="block text-xs font-bold uppercase text-[#005DFF] mb-2 font-heading">Your Dedicated Consultant / Practice Partner</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    @foreach($consultants as $c)
+                        <label class="p-3 rounded-xl border {{ (string)$assigned_admin_id === (string)$c->id ? 'border-[#005DFF] bg-white dark:bg-slate-800 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50' }} flex items-center gap-3 cursor-pointer transition">
+                            <input type="radio" wire:model="assigned_admin_id" value="{{ $c->id }}" class="accent-[#005DFF]">
+                            <img src="{{ $c->avatar_url }}" alt="{{ $c->name }}" class="w-10 h-10 rounded-full object-cover border border-blue-200">
+                            <div>
+                                <div class="font-bold text-xs text-slate-900 dark:text-white">{{ $c->name }}</div>
+                                <div class="text-[10px] text-slate-500">{{ $c->email }}</div>
+                            </div>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tax Identification Number (TIN / EIN / SSN)</label>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tax Identification Number (TIN / SIN / BN)</label>
                     <input type="text" wire:model="tax_identification_number" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs font-mono">
                 </div>
                 <div>

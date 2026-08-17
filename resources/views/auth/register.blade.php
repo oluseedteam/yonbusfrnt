@@ -335,11 +335,38 @@
                 @error('email')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 
+            {{-- Consultant / Partner Choice --}}
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span>Choose Your Dedicated Consultant *</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #005DFF;">Direct Partner Representation</span>
+                </label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+                    <!-- Option 1: Olubukunola Eniola -->
+                    <label id="card-olubukunola" class="consultant-card" style="border: 2px solid #005DFF; background: #F0F6FF; border-radius: 16px; padding: 14px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0, 93, 255, 0.08);">
+                        <input type="radio" name="assigned_consultant" value="olubukunola" checked style="position: absolute; top: 10px; right: 10px; accent-color: #005DFF; cursor: pointer;" onchange="updateConsultantCardSelection()">
+                        <img src="/images/team/olubukunola-eniola.jpg" alt="Olubukunola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #005DFF; margin-bottom: 8px;">
+                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">Olubukunola Eniola</span>
+                        <span style="font-size: 10px; font-weight: 700; color: #005DFF; margin-top: 3px;">Founder &amp; Partner • CPB</span>
+                        <span style="font-size: 10px; color: #64748B; margin-top: 2px; line-height: 1.3;">Tax Preparation &amp; Payroll Specialist</span>
+                    </label>
+
+                    <!-- Option 2: Adeshola Eniola -->
+                    <label id="card-adeshola" class="consultant-card" style="border: 1.5px solid #D1DCF0; background: #FAFCFF; border-radius: 16px; padding: 14px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s;">
+                        <input type="radio" name="assigned_consultant" value="adeshola" style="position: absolute; top: 10px; right: 10px; accent-color: #005DFF; cursor: pointer;" onchange="updateConsultantCardSelection()">
+                        <img src="/images/team/adeshola-eniola.jpg" alt="Adeshola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #CBD5E1; margin-bottom: 8px;">
+                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">Adeshola Eniola</span>
+                        <span style="font-size: 10px; font-weight: 700; color: #005DFF; margin-top: 3px;">Co-founder &amp; Partner • CPB</span>
+                        <span style="font-size: 10px; color: #64748B; margin-top: 2px; line-height: 1.3;">Audit Defense &amp; Corporate Tax Specialist</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="form-label" for="phone">Phone Number</label>
                 <input id="phone" type="tel" name="phone" value="{{ old('phone') }}"
                     class="form-input"
-                    placeholder="+234 800 000 0000" autocomplete="tel">
+                    placeholder="+1 (438) 000-0000" autocomplete="tel">
             </div>
 
             <div class="form-group">
@@ -430,6 +457,29 @@
             if (i < score) el.classList.add(levels[score]);
         });
         label.textContent = labels[score];
+    }
+    function updateConsultantCardSelection() {
+        const oRadio = document.querySelector('input[name="assigned_consultant"][value="olubukunola"]');
+        const cardO = document.getElementById('card-olubukunola');
+        const cardA = document.getElementById('card-adeshola');
+
+        if (oRadio && oRadio.checked) {
+            cardO.style.border = '2px solid #005DFF';
+            cardO.style.background = '#F0F6FF';
+            cardO.style.boxShadow = '0 4px 12px rgba(0, 93, 255, 0.08)';
+
+            cardA.style.border = '1.5px solid #D1DCF0';
+            cardA.style.background = '#FAFCFF';
+            cardA.style.boxShadow = 'none';
+        } else {
+            cardA.style.border = '2px solid #005DFF';
+            cardA.style.background = '#F0F6FF';
+            cardA.style.boxShadow = '0 4px 12px rgba(0, 93, 255, 0.08)';
+
+            cardO.style.border = '1.5px solid #D1DCF0';
+            cardO.style.background = '#FAFCFF';
+            cardO.style.boxShadow = 'none';
+        }
     }
 </script>
     <!-- Google Translate Seamless Engine -->

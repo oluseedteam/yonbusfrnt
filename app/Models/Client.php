@@ -12,6 +12,7 @@ class Client extends Model
 
     protected $fillable = [
         'user_id',
+        'assigned_admin_id',
         'client_number',
         'company_name',
         'tax_number',
@@ -26,6 +27,16 @@ class Client extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function assignedAdmin()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
+    }
+
+    public function consultant()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
     }
 
     public function appointments()

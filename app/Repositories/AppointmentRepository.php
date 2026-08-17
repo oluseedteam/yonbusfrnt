@@ -61,18 +61,43 @@ class AppointmentRepository implements RepositoryInterface
         return $this->all($filters)->paginate($perPage);
     }
 
-    public function isSlotTaken(int $accountantId, string $date, string $time, ?int $excludeId = null): bool
+    public function isSlotTaken(?int $accountantId, string $date, string $time, ?int $duration = 45, ?int $excludeId = null): bool
     {
-        $query = Appointment::where('accountant_id', $accountantId)
-            ->where('date', $date)
-            ->where('time', $time)
+        $timeNorm = strlen($time) === 5 ? $time . ':00' : $time;
+        $dateStr = \Illuminate\Support\Carbon::parse($date)->format('Y-m-d');
+        
+        $slotStart = \Illuminate\Support\Carbon::parse("$dateStr $timeNorm");
+        $slotDuration = $duration ?: 45;
+        $slotEnd = (clone $slotStart)->addMinutes($slotDuration);
+
+        $query = Appointment::whereDate('date', $dateStr)
             ->whereNotIn('status', ['cancelled']);
+
+        if ($accountantId) {
+            $query->where('accountant_id', $accountantId);
+        }
 
         if ($excludeId) {
             $query->where('id', '!=', $excludeId);
         }
 
-        return $query->exists();
+        $existingAppointments = $query->get();
+
+        foreach ($existingAppointments as $appt) {
+            $appTime = strlen($appt->time) === 5 ? $appt->time . ':00' : $appt->time;
+            $appDate = $appt->date instanceof \DateTimeInterface ? $appt->date->format('Y-m-d') : substr((string)$appt->date, 0, 10);
+            
+            $apptStart = \Illuminate\Support\Carbon::parse("$appDate $appTime");
+            $apptDuration = $appt->duration ?: 45;
+            $apptEnd = (clone $apptStart)->addMinutes($apptDuration);
+
+            // Check if intervals overlap: [slotStart, slotEnd) overlaps [apptStart, apptEnd)
+            if ($slotStart < $apptEnd && $slotEnd > $apptStart) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function generateNumber(): string

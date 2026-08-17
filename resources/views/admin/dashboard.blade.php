@@ -109,6 +109,206 @@
         </div>
     </div>
 
+    <!-- Inbound Career & Contact Inquiries Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" data-aos="fade-up" data-aos-delay="250">
+        <!-- Career Applications Card -->
+        <div class="card-box flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center font-bold text-base">
+                            💼
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-base text-slate-900 dark:text-white font-heading">
+                                Career &amp; Job Applications
+                            </h3>
+                            <p class="text-[11px] text-slate-500">Applicant resumes &amp; candidate statements</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('admin.inquiries') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                        View All ({{ $stats['total_careers'] }}) →
+                    </a>
+                </div>
+
+                <div class="space-y-3">
+                    @forelse($recentCareerApps as $career)
+                        @php
+                            $hasResume = preg_match('/\[Resume:\s*([^\]]+)\]/', $career->message, $matches);
+                            $resumePath = $hasResume ? trim($matches[1]) : null;
+                            $cleanMsg = preg_replace('/\[Resume:\s*[^\]]+\]/', '', $career->message);
+                        @endphp
+                        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-slate-900 dark:text-white text-sm">{{ $career->name ?? 'Candidate' }}</span>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300">
+                                        {{ $career->subject ?: 'Job Application' }}
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                    {{ $career->email }} • {{ $career->phone ?? 'No phone' }}
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1 line-clamp-1 text-[11px]">{{ $cleanMsg }}</p>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                @if($resumePath)
+                                    <a href="{{ asset('storage/' . $resumePath) }}" target="_blank" download class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 font-bold text-[11px] transition inline-flex items-center gap-1">
+                                        <span>📥</span> Resume
+                                    </a>
+                                @endif
+                                <a href="mailto:{{ $career->email }}?subject=Regarding your application at YONBUS" class="px-3 py-1.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-[11px] shadow-sm transition">
+                                    Reply
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="py-8 text-center text-slate-400 text-xs">
+                            No job applications submitted yet.
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-right">
+                <a href="{{ route('admin.inquiries') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                    Manage Inquiries &amp; Career Submissions &rarr;
+                </a>
+            </div>
+        </div>
+
+        <!-- Contact Messages Card -->
+        <div class="card-box flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center font-bold text-base">
+                            💬
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-base text-slate-900 dark:text-white font-heading">
+                                Contact Form Inquiries
+                            </h3>
+                            <p class="text-[11px] text-slate-500">Website leads &amp; client contact requests</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('admin.inquiries') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                        View All ({{ $stats['total_contacts'] }}) →
+                    </a>
+                </div>
+
+                <div class="space-y-3">
+                    @forelse($recentContactInquiries as $contact)
+                        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-slate-900 dark:text-white text-sm">{{ $contact->name ?? 'Visitor' }}</span>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                                        {{ $contact->subject ?: 'Inquiry' }}
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                    {{ $contact->email }} • {{ $contact->phone ?? 'No phone' }} • {{ $contact->created_at->diffForHumans() }}
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1 line-clamp-1 text-[11px]">{{ $contact->message }}</p>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <a href="mailto:{{ $contact->email }}?subject=Re: {{ urlencode($contact->subject ?? 'YONBUS Inquiry') }}" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shadow-sm transition">
+                                    ✉️ Reply
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="py-8 text-center text-slate-400 text-xs">
+                            No contact inquiries submitted yet.
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-right">
+                <a href="{{ route('admin.inquiries') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                    View All Contact Form Submissions &rarr;
+                </a>
+            </div>
+        </div>
+    <!-- Recent Client Document Uploads Section -->
+    <div class="card-box mb-8" data-aos="fade-up" data-aos-delay="280">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-base">
+                    📁
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-base text-slate-900 dark:text-white font-heading">
+                        Recent Client Document Uploads
+                    </h3>
+                    <p class="text-[11px] text-slate-500">Tax slips, financial statements, and client files uploaded to vault</p>
+                </div>
+            </div>
+            <a href="{{ route('admin.documents') }}" class="text-xs font-bold text-[#005DFF] hover:underline">
+                View All Documents ({{ $stats['total_documents'] }}) →
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-semibold text-[11px]">
+                    <tr>
+                        <th class="p-3">File Name</th>
+                        <th class="p-3">Client Name</th>
+                        <th class="p-3">Uploaded By</th>
+                        <th class="p-3">File Size</th>
+                        <th class="p-3">Upload Time</th>
+                        <th class="p-3 text-right">Download</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    @forelse($recentDocuments as $doc)
+                        @php
+                            $isClient = $doc->uploaded_by == $doc->client_id;
+                            $ext = strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION));
+                        @endphp
+                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
+                            <td class="p-3 flex items-center gap-2.5">
+                                <div class="w-7 h-7 rounded-lg bg-blue-50 text-[#005DFF] font-bold text-[10px] flex items-center justify-center border border-blue-200">
+                                    {{ $ext ?: 'DOC' }}
+                                </div>
+                                <span class="font-bold text-slate-900 dark:text-white">{{ $doc->original_name }}</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="font-semibold text-slate-900 dark:text-slate-200">{{ $doc->client?->name ?? 'Unknown Client' }}</span>
+                                <div class="text-[10px] text-slate-400">{{ $doc->client?->email }}</div>
+                            </td>
+                            <td class="p-3">
+                                @if($isClient)
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                                        Client Upload
+                                    </span>
+                                @else
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300">
+                                        {{ $doc->uploader?->name ?? 'Admin Staff' }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="p-3 font-mono text-slate-500 text-[11px]">{{ $doc->file_size_human }}</td>
+                            <td class="p-3 text-slate-500 text-[11px]">{{ $doc->created_at->diffForHumans() }}</td>
+                            <td class="p-3 text-right">
+                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1">
+                                    <span>📥</span> Download
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
+                                No documents uploaded yet.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- System Activity Log Table -->
     <div class="card-box mb-8" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center justify-between mb-4">
