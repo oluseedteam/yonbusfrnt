@@ -86,7 +86,7 @@
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Client Login</a>
                     @endauth
 
                     <a href="{{ route('register') }}"
@@ -121,7 +121,7 @@
                 <div class="flex justify-center py-1">
                     <x-language-switcher />
                 </div>
-                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #0a1a4a; border: 1px solid #d1d5db;">Login</a>
+                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #0a1a4a; border: 1px solid #d1d5db;">Client Login</a>
                 <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #005DFF; color: #ffffff;">Get Started</a>
             </div>
         </div>
