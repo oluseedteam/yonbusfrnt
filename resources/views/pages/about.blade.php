@@ -198,16 +198,9 @@
                         </div>
 
                         {{-- Review Text --}}
-                        <p style="color: #F1F5F9 !important; font-size: 13.5px; line-height: 1.65; margin: 0 0 16px 0; font-weight: 400;">
+                        <p style="color: #F1F5F9 !important; font-size: 13.5px; line-height: 1.65; margin: 0; font-weight: 400;">
                             "{!! nl2br(e($review['text'])) !!}"
                         </p>
-                    </div>
-
-                    {{-- Service Tag Footer --}}
-                    <div class="pt-3 flex items-center justify-between" style="border-top: 1px solid rgba(255, 255, 255, 0.12);">
-                        <span style="background: rgba(37, 99, 235, 0.3); color: #93C5FD !important; border: 1px solid rgba(96, 165, 250, 0.35); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; display: inline-block;">
-                            {{ $review['service'] }}
-                        </span>
                     </div>
 
                 </div>
