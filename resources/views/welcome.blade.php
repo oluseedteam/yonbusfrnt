@@ -161,39 +161,20 @@
                     
                     {{-- Reviewer Top Row --}}
                     <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                {{-- Bright Colorful Avatar Circle Badge --}}
-                                @if(!empty($review['avatar']))
-                                    <img src="{{ $review['avatar'] }}" alt="{{ $review['name'] }}" style="width: 42px; height: 42px; border-radius: 9999px; object-fit: cover; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.35);">
-                                @else
-                                    <div style="background: linear-gradient(135deg, #2563EB 0%, #0284C7 100%); color: #FFFFFF !important; font-weight: 800; font-size: 14px; border: 2px solid rgba(255,255,255,0.3); width: 42px; height: 42px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.35);">
-                                        {{ $review['initials'] ?? 'CL' }}
-                                    </div>
-                                @endif
-                                <div>
-                                    <h4 style="color: #FFFFFF !important; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.25; margin: 0;">
-                                        {{ $review['name'] }}
-                                    </h4>
-                                    <p style="color: #93C5FD !important; font-size: 12px; margin: 2px 0 0 0; font-weight: 500;">
-                                        {{ $review['location'] }}
-                                    </p>
+                        <div class="flex items-center gap-3 mb-3">
+                            {{-- Bright Colorful Avatar Circle Badge --}}
+                            @if(!empty($review['avatar']))
+                                <img src="{{ $review['avatar'] }}" alt="{{ $review['name'] }}" style="width: 42px; height: 42px; border-radius: 9999px; object-fit: cover; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.35);">
+                            @else
+                                <div style="background: linear-gradient(135deg, #2563EB 0%, #0284C7 100%); color: #FFFFFF !important; font-weight: 800; font-size: 14px; border: 2px solid rgba(255,255,255,0.3); width: 42px; height: 42px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.35);">
+                                    {{ $review['initials'] ?? 'CL' }}
                                 </div>
+                            @endif
+                            <div>
+                                <h4 style="color: #FFFFFF !important; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.25; margin: 0;">
+                                    {{ $review['name'] }}
+                                </h4>
                             </div>
-                        </div>
-
-                        {{-- Stars & Timestamp --}}
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <div class="flex items-center gap-0.5" style="color: #FACC15;">
-                                @for($i = 0; $i < ($review['rating'] ?? 5); $i++)
-                                <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" style="color: #FACC15 !important;">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
-                                @endfor
-                            </div>
-                            <span style="color: #94A3B8 !important; font-size: 11.5px; font-weight: 500;">
-                                {{ $review['time'] }}
-                            </span>
                         </div>
 
                         {{-- Review Text (Crystal Clear Visible Text) --}}
