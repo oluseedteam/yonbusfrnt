@@ -84,16 +84,18 @@
                     <x-language-switcher />
 
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Dashboard</a>
+                        <a href="{{ route('dashboard') }}"
+                           class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
+                           style="background: #005DFF; color: #ffffff; padding: 9px 22px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,93,255,0.35);">
+                            Dashboard
+                        </a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium px-2 py-1.5 transition-colors" style="color: #4b5563;" onmouseenter="this.style.color='#0052ff'" onmouseleave="this.style.color='#4b5563'">Client Login</a>
+                        <a href="{{ route('login') }}"
+                           class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
+                           style="background: #005DFF; color: #ffffff; padding: 9px 22px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,93,255,0.35);">
+                            Client Login
+                        </a>
                     @endauth
-
-                    <a href="{{ route('register') }}"
-                       class="inline-flex items-center justify-center text-sm font-semibold transition-all transform hover:-translate-y-0.5"
-                       style="background: #005DFF; color: #ffffff; padding: 9px 22px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,93,255,0.35);">
-                        Get Started
-                    </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -121,8 +123,11 @@
                 <div class="flex justify-center py-1">
                     <x-language-switcher />
                 </div>
-                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="color: #0a1a4a; border: 1px solid #d1d5db;">Client Login</a>
-                <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #005DFF; color: #ffffff;">Get Started</a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #005DFF; color: #ffffff;">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-semibold rounded-lg" style="background: #005DFF; color: #ffffff;">Client Login</a>
+                @endauth
             </div>
         </div>
     </header>
@@ -144,77 +149,11 @@
             <!-- Top section: Brand + Columns -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
-                <!-- Col 1: Brand -->
-                <div class="lg:col-span-1" style="display: flex; flex-direction: column; gap: 1.25rem;">
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.04)';" onmouseleave="this.style.transform='scale(1)';">
-                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="height: 115px; max-height: 120px; width: auto; max-width: 240px; object-fit: contain; background: #ffffff; padding: 10px 18px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.3);" />
-                        </a>
-                    </div>
-
-                    <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.7; max-width: 260px;">
-                        Your trusted partner in tax, accounting &amp; financial clarity. Serving individuals and businesses across Canada.
-                    </p>
-
-                    <!-- Tagline badge -->
-                    <div>
-                        <span style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #60A5FA; background: rgba(0,93,255,0.15); border: 1px solid rgba(0,93,255,0.3); padding: 5px 12px; border-radius: 999px; display: inline-block;">
-                            Financial Clarity &amp; Growth
-                        </span>
-                    </div>
-
-                    <!-- Social Media Icons -->
-                    <div>
-                        <p style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748B; margin-bottom: 10px;">Follow Us</p>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-
-                            <!-- Facebook -->
-                            <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener" title="Facebook on @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: all 0.2s; color: #ffffff;"
-                               onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.transform='translateY(-2px)';"
-                               onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
-                               >
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-                            </a>
-
-                            <!-- Instagram -->
-                            <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener" title="Instagram @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: all 0.2s; color: #ffffff;"
-                               onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.transform='translateY(-2px)';"
-                               onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
-                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                            </a>
-
-                            <!-- TikTok -->
-                            <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener" title="TikTok @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: all 0.2s; color: #ffffff;"
-                               onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.transform='translateY(-2px)';"
-                               onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
-                               >
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
-                            </a>
-
-                            <!-- X / Twitter -->
-                            <a href="https://x.com/yonbustax" target="_blank" rel="noopener" title="X (Twitter) @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: all 0.2s; color: #ffffff;"
-                               onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.transform='translateY(-2px)';"
-                               onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
-                               >
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            </a>
-
-                            <!-- LinkedIn -->
-                            <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener" title="LinkedIn @yonbustax"
-                               style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: all 0.2s; color: #ffffff;"
-                               onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.transform='translateY(-2px)';"
-                               onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)';"
-                               >
-                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                            </a>
-
-                        </div>
-                    </div>
+                <!-- Col 1: Brand / CPB Canada Certified Member Logo -->
+                <div class="lg:col-span-1" style="display: flex; align-items: center; justify-content: flex-start;">
+                    <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; max-width: 255px; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.03)';" onmouseleave="this.style.transform='scale(1)';">
+                        <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #ffffff; padding: 22px 20px; border-radius: 22px; box-shadow: 0 10px 32px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.35);" />
+                    </a>
                 </div>
 
                 <!-- Col 2: Services -->
@@ -313,6 +252,16 @@
                         <x-flag-ca class="w-4 h-2.5 rounded-2xs inline-block" />
                         <span>Serving Canada.</span>
                     </p>
+
+                    <!-- Social Media Links -->
+                    <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener" title="Facebook @yonbustax" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8';"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a>
+                        <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener" title="Instagram @yonbustax" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8';"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                        <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener" title="TikTok @yonbustax" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8';"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+                        <a href="https://x.com/yonbustax" target="_blank" rel="noopener" title="X (Twitter) @yonbustax" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8';"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener" title="LinkedIn @yonbustax" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8';"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                    </div>
+
                     <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
                         <x-language-switcher />
                         <a href="{{ route('privacy') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Privacy Policy</a>

@@ -22,8 +22,7 @@
             onclick="window.switchYonbusLanguage('fr')"
             data-lang="fr"
             class="yonbus-lang-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-            title="Français (Canada / Québec)">
-        <span style="font-size: 13px;">⚜️</span>
+            title="Français">
         <span>FR</span>
     </button>
 </div>

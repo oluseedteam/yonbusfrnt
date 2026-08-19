@@ -6,11 +6,12 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Service;
 use App\Models\CommunicationLog;
+use App\Services\GoogleReviewService;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
 {
-    public function home()
+    public function home(GoogleReviewService $reviewService)
     {
         $services = Service::where('is_active', true)->take(9)->get();
         $featuredBlogs = Blog::with('category', 'author')
@@ -19,13 +20,15 @@ class PublicController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
+        $googleReviews = $reviewService->getReviews();
 
-        return view('welcome', compact('services', 'featuredBlogs'));
+        return view('welcome', compact('services', 'featuredBlogs', 'googleReviews'));
     }
 
-    public function about()
+    public function about(GoogleReviewService $reviewService)
     {
-        return view('pages.about');
+        $googleReviews = $reviewService->getReviews();
+        return view('pages.about', compact('googleReviews'));
     }
 
     public function services()
