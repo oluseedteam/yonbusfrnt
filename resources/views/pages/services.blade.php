@@ -127,7 +127,7 @@
                 'color' => '#DC2626',
                 'badge_bg' => '#fef2f2',
                 'badge_border' => '#fecaca',
-                'short_desc' => 'Sales tax filings (GST/HST & QST), corporate annual returns, Task audit representation, CRA/RQ inquiry defense, and formal appeals.',
+                'short_desc' => 'Sales tax filings (GST/HST & QST), corporate annual returns, Tax audit representation, CRA/RQ inquiry defense, and formal appeals.',
                 'highlights' => [
                     'GST/HST and Quebec Sales Tax (QST) calculation, reconciliation, and filing',
                     'Representation during CRA & Revenu Québec audits, inquiries, and reviews',

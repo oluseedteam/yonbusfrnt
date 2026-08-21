@@ -70,8 +70,8 @@ class DatabaseSeeder extends Seeder
                 'is_active'   => true,
             ],
             [
-                'name'        => 'Task Audit Defense & Review',
-                'description' => 'Expert representation during task reviews, audit inquiries, formal appeals, and dispute negotiations.',
+                'name'        => 'CRA Tax Audit Defense & Review',
+                'description' => 'Expert representation during CRA reviews, audit inquiries, formal appeals, and dispute negotiations.',
                 'price'       => 350.00,
                 'duration'    => 90,
                 'is_active'   => true,
