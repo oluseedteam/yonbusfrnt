@@ -6,11 +6,6 @@
             [
                 'id' => 'tax-preparation-planning',
                 'name' => 'Tax Preparation & Planning Services',
-                'tag' => 'Personal & Corporate Tax',
-                'icon' => '🧾',
-                'color' => '#0052FF',
-                'badge_bg' => '#eff6ff',
-                'badge_border' => '#bfdbfe',
                 'description' => 'We provide comprehensive Canadian tax preparation and proactive tax planning services for individuals, families, self-employed professionals, investors, and corporations. Our approach focuses on accurate filings, identifying eligible deductions and credits, and helping clients make informed tax decisions throughout the year.',
                 'features' => [
                     [
@@ -38,11 +33,6 @@
             [
                 'id' => 'accounting-bookkeeping',
                 'name' => 'Accounting & Bookkeeping Services',
-                'tag' => 'Ledgers & Financial Clarity',
-                'icon' => '🧮',
-                'color' => '#0D9488',
-                'badge_bg' => '#f0fdfa',
-                'badge_border' => '#99f6e4',
                 'description' => 'We provide accurate and efficient accounting and bookkeeping services to keep your financial records organized, up to date, and ready for informed business decisions.',
                 'features' => [
                     [
@@ -70,11 +60,6 @@
             [
                 'id' => 'payroll-services',
                 'name' => 'Payroll Services',
-                'tag' => 'Employee & Remittances',
-                'icon' => '📊',
-                'color' => '#6366F1',
-                'badge_bg' => '#eef2ff',
-                'badge_border' => '#c7d2fe',
                 'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
                 'features' => [
                     [
@@ -102,11 +87,6 @@
             [
                 'id' => 'business-consulting-advisory',
                 'name' => 'Business Consulting & Advisory',
-                'tag' => 'Strategy & Growth',
-                'icon' => '💼',
-                'color' => '#EA580C',
-                'badge_bg' => '#fff7ed',
-                'badge_border' => '#fed7aa',
                 'description' => 'We provide practical financial and business advisory services to help entrepreneurs and business owners understand their numbers, plan for growth, and make informed financial decisions.',
                 'features' => [
                     [
@@ -134,11 +114,6 @@
             [
                 'id' => 'compliance-services',
                 'name' => 'Compliance Services',
-                'tag' => 'Tax, Payroll & Corporate',
-                'icon' => '⚖️',
-                'color' => '#DC2626',
-                'badge_bg' => '#fef2f2',
-                'badge_border' => '#fecaca',
                 'description' => 'We help individuals and businesses meet their ongoing tax, payroll, and corporate compliance requirements accurately and on time, helping reduce the risk of missed filings, penalties, and compliance issues.',
                 'features' => [
                     [
@@ -170,11 +145,6 @@
             [
                 'id' => 'business-registration',
                 'name' => 'Business Registration',
-                'tag' => 'Setup & Accounts',
-                'icon' => '🏢',
-                'color' => '#0284C7',
-                'badge_bg' => '#f0f9ff',
-                'badge_border' => '#bae6fd',
                 'description' => 'We help entrepreneurs and business owners establish their businesses properly and set up the registrations and accounts needed to operate in Canada.',
                 'features' => [
                     [
@@ -241,73 +211,47 @@
         </section>
 
         {{-- ============================================================
-             SERVICES GRID (Boxes with Read More)
+             SERVICES GRID (Compact, Clean Boxes with Read More)
              ============================================================ --}}
-        <section class="py-16 sm:py-20 md:py-24 bg-slate-50 dark:bg-slate-900 relative">
+        <section class="py-14 sm:py-18 bg-slate-50 dark:bg-slate-900 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-                <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+                <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
                     <span style="font-size: 11px; font-weight: 800; color: #0052ff; text-transform: uppercase; letter-spacing: 0.08em; background: #eff6ff; padding: 5px 16px; border-radius: 999px; border: 1px solid #bfdbfe; display: inline-block;">
                         Core Practice Areas
                     </span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-slate-900 dark:text-white mt-3 mb-4">
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white mt-3 mb-3">
                         Tailored Financial Solutions for Your Success
                     </h2>
-                    <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-                        Explore our specialized services below. Click <strong>Read More</strong> on any box to see the complete breakdown and detailed features.
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Explore our specialized services below. Click <strong>Read More</strong> on any box to view the full details and service breakdown.
                     </p>
                 </div>
 
-                {{-- 6 Service Boxes Grid --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {{-- 6 Compact Service Boxes Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($servicesList as $service)
                     <div id="{{ $service['id'] }}"
-                         class="bg-white dark:bg-slate-800 rounded-3xl p-7 sm:p-8 border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
-                         style="border-top: 4px solid {{ $service['color'] }};">
+                         class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                         
                         <div>
-                            {{-- Top Icon + Badge Row --}}
-                            <div class="flex items-center justify-between gap-3 mb-5">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-sm border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform"
-                                     style="background: {{ $service['badge_bg'] }}; border-color: {{ $service['badge_border'] }};">
-                                    {{ $service['icon'] }}
-                                </div>
-                                <span class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-                                      style="background: {{ $service['badge_bg'] }}; color: {{ $service['color'] }}; border: 1px solid {{ $service['badge_border'] }};">
-                                    {{ $service['tag'] }}
-                                </span>
-                            </div>
-
                             {{-- Service Title --}}
-                            <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5 group-hover:text-[#0052ff] dark:group-hover:text-blue-400 transition-colors leading-snug">
                                 {{ $service['name'] }}
                             </h3>
 
-                            {{-- Short Description --}}
-                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                            {{-- Clean, Compact Description --}}
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
                                 {{ $service['description'] }}
                             </p>
-
-                            {{-- Key Features Preview --}}
-                            <div class="space-y-2.5 mb-6 pt-4 border-t border-slate-100 dark:border-slate-700">
-                                @foreach(array_slice($service['features'], 0, 3) as $feat)
-                                <div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                    <span class="font-semibold">{{ $feat['title'] }}</span>
-                                </div>
-                                @endforeach
-                            </div>
                         </div>
 
                         {{-- Action Button: Read More --}}
-                        <div class="pt-5 border-t border-slate-100 dark:border-slate-700 mt-2">
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80">
                             <button @click="openModal({{ json_encode($service) }})"
                                     type="button"
-                                    class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-bold text-sm text-white transition-all shadow-md group-hover:shadow-lg transform active:scale-95 cursor-pointer"
-                                    style="background: linear-gradient(135deg, #002B8A 0%, #0052FF 100%);">
-                                <span>Read More About This Service</span>
+                                    class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white transition-all shadow-md group-hover:shadow-lg transform active:scale-95 cursor-pointer bg-[#0052ff] hover:bg-[#003dc2]">
+                                <span>Read More</span>
                                 <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
@@ -365,13 +309,7 @@
                             </svg>
                         </button>
 
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="text-3xl" x-text="activeService ? activeService.icon : ''"></span>
-                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white"
-                                  x-text="activeService ? activeService.tag : ''"></span>
-                        </div>
-
-                        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white m-0 tracking-tight"
+                        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white m-0 tracking-tight pr-12"
                             x-text="activeService ? activeService.name : ''"></h2>
                     </div>
 
