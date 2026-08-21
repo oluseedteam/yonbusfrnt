@@ -40,12 +40,9 @@
                                 <span>Certified Professional Bookkeeper (CPB)</span>
                             </div>
                             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
-                                Olubukunola Eniola
+                                CPB Olubukunola Eniola
                             </h2>
                             <div class="flex flex-wrap items-center gap-3 mt-1.5">
-                                <p class="text-sm font-semibold text-[#0052ff] m-0">
-                                    Founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
-                                </p>
                                 <a href="mailto:olubukunola@yonbustax.ca" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0052ff] bg-[#f0f6ff] hover:bg-[#e0edff] px-2.5 py-1 rounded-md border border-[#bfdbfe] transition">
                                     <svg class="w-3.5 h-3.5 text-[#0052ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                     <span>olubukunola@yonbustax.ca</span>
@@ -55,7 +52,7 @@
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong class="text-[#0a1a4a]">Olubukunola Eniola</strong> is the Founder and Partner at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
+                                <strong class="text-[#0a1a4a]">CPB Olubukunola Eniola</strong> is the Founder and Partner at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
                             </p>
                             <p>
                                 She is a Certified Professional Bookkeeper (CPB) with a Bachelor’s degree in Banking and Finance and a Diploma in Accounting from Mohawk College, Ontario. She is also a trained tax professional serving clients in Quebec and other provinces.
@@ -75,7 +72,7 @@
                     <div class="w-full sm:w-80 lg:w-96 flex-shrink-0">
                         <div class="relative overflow-hidden rounded-2xl shadow-md border border-[#dbeafe] bg-white">
                             <img src="{{ asset('images/team/adeshola-eniola.jpg') }}" 
-                                 alt="Adeshola Eniola - Co-founder & Partner" 
+                                 alt="CPB Adeshola Eniola" 
                                  class="w-full h-auto object-cover aspect-[4/5] block">
                         </div>
                     </div>
@@ -88,12 +85,9 @@
                                 <span>Certified Professional Bookkeeper (CPB)</span>
                             </div>
                             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
-                                Adeshola Eniola
+                                CPB Adeshola Eniola
                             </h2>
                             <div class="flex flex-wrap items-center gap-3 mt-1.5">
-                                <p class="text-sm font-semibold text-[#0052ff] m-0">
-                                    Co-founder &amp; Partner • YONBUS Tax &amp; Accounting Services Inc.
-                                </p>
                                 <a href="mailto:adeshola.eniola@yonbustax.ca" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0052ff] bg-[#f0f6ff] hover:bg-[#e0edff] px-2.5 py-1 rounded-md border border-[#bfdbfe] transition">
                                     <svg class="w-3.5 h-3.5 text-[#0052ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                     <span>adeshola.eniola@yonbustax.ca</span>
@@ -103,7 +97,7 @@
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong class="text-[#0a1a4a]">Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional accounting and bookkeeping experience to the firm.
+                                <strong class="text-[#0a1a4a]">CPB Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional accounting and bookkeeping experience to the firm.
                             </p>
                             <p>
                                 He is a Certified Professional Bookkeeper (CPB), with a Bachelor’s degree in Accounting and a Diploma in Accounting from Mohawk College, Ontario. He is also a trained tax professional serving clients in Quebec and other provinces.
