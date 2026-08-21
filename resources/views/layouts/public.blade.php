@@ -266,8 +266,6 @@
                         <x-language-switcher />
                         <a href="{{ route('privacy') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Privacy Policy</a>
                         <span style="width: 3px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-block;"></span>
-                        <a href="{{ route('terms') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Terms of Service</a>
-                        <span style="width: 3px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-block;"></span>
                         <a href="{{ route('contact') }}" style="font-size: 0.78rem; color: #94A3B8; text-decoration: none;" onmouseenter="this.style.color='#ffffff';" onmouseleave="this.style.color='#94A3B8';">Contact</a>
                     </div>
                 </div>

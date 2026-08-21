@@ -43,7 +43,6 @@
                 <p>&copy; {{ date('Y') }} YONBUS Tax & Accounting Services Inc. All rights reserved.</p>
                 <div class="flex items-center gap-4">
                     <a href="{{ route('privacy') }}" class="hover:text-[#005DFF]">Privacy Policy</a>
-                    <a href="{{ route('terms') }}" class="hover:text-[#005DFF]">Terms of Service</a>
                     <a href="{{ route('contact') }}" class="hover:text-[#005DFF]">Support Center</a>
                 </div>
             </footer>

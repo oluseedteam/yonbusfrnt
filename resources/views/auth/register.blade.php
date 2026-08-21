@@ -403,7 +403,7 @@
 
             <div class="terms-row">
                 <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms">I agree to the <a href="{{ route('terms') }}" target="_blank">Terms of Service</a> and <a href="{{ route('privacy') }}" target="_blank">Privacy Policy</a></label>
+                <label for="terms">I agree to the <a href="{{ route('privacy') }}" target="_blank">Privacy Policy</a></label>
             </div>
 
             <button type="submit" class="btn-submit">Create Account →</button>
