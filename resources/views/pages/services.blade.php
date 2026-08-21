@@ -2,64 +2,70 @@
     <x-slot name="title">Services | YONBUS Tax & Accounting Services Inc.</x-slot>
 
     @php
-        $footerServices = [
+        $servicesList = [
             [
                 'id' => 'tax-preparation-planning',
-                'name' => 'Tax Preparation & Planning',
+                'name' => 'Tax Preparation & Planning Services',
                 'tag' => 'Personal & Corporate Tax',
                 'icon' => '🧾',
                 'color' => '#0052FF',
                 'badge_bg' => '#eff6ff',
                 'badge_border' => '#bfdbfe',
-                'short_desc' => 'Strategic tax minimization, Canadian T1 personal filings, Quebec TP1 returns, corporate T2 filings, and year-round proactive tax planning.',
-                'highlights' => [
-                    'Personal T1 & Quebec TP1 e-filings with maximum deduction discovery',
-                    'Corporate T2 & Quebec CO-17 filings with capital cost allowance (CCA) planning',
-                    'Rental properties (Form T776), investments, and capital gains calculations',
-                    'Foreign property reporting (Form T1135) & cross-border tax compliance',
-                ],
-                'full_description' => 'Our Canadian tax specialists provide thorough, proactive tax preparation and strategic planning for individuals, families, real estate investors, and incorporated enterprises. We navigate complex federal and Quebec tax statutes to protect your wealth, minimize liabilities, and ensure total compliance with the Canada Revenue Agency (CRA) and Revenu Québec.',
-                'whats_included' => [
-                    'Personal T1 & TP-1 Quebec electronic tax filing with instant CRA confirmation',
-                    'Corporate T2 & CO-17 returns, financial statements, and tax credit maximization',
-                    'Rental income & expense accounting (T776 schedules, CCA depreciation strategies)',
-                    'Foreign property and offshore asset compliance reporting (Form T1135)',
-                    'Medical expense, childcare, caregiver, and disability tax credit (DTC) optimization',
-                    'Tuition transfer, RRSP/TFSA/FHSA deduction strategies, and marginal bracket planning',
-                    'Year-end tax forecasting, salary vs. dividend optimization for shareholders',
-                    'Prior-year tax adjustments (T1-ADJ), unfiled returns, and voluntary disclosures',
-                ],
-                'deliverables' => 'Notice of Assessment verification, certified digital copy of filed returns, tax deduction summary, and next-year tax projection.',
-                'who_for' => 'Individuals, self-employed contractors, real estate owners, corporate directors, and growing business owners.',
+                'description' => 'We provide comprehensive Canadian tax preparation and proactive tax planning services for individuals, families, self-employed professionals, investors, and corporations. Our approach focuses on accurate filings, identifying eligible deductions and credits, and helping clients make informed tax decisions throughout the year.',
+                'features' => [
+                    [
+                        'title' => 'Personal Tax Returns',
+                        'desc' => 'Preparation and electronic filing of Canadian T1 personal income tax returns and Quebec TP-1 returns, with a thorough review of available deductions, credits, and benefits.'
+                    ],
+                    [
+                        'title' => 'Corporate Tax Returns',
+                        'desc' => 'Preparation and filing of corporate T2 income tax returns and Quebec CO-17 return, including the preparation of supporting financial information and year-end tax adjustments.'
+                    ],
+                    [
+                        'title' => 'Rental & Investment Tax',
+                        'desc' => 'Reporting of rental property income and expenses, investment income, capital gains, and other related transactions, with careful consideration of applicable tax rules.'
+                    ],
+                    [
+                        'title' => 'Tax Planning & Minimization',
+                        'desc' => 'Year-round tax planning designed to identify legitimate opportunities to manage tax liabilities, maximize available deductions and credits, and improve overall tax efficiency.'
+                    ],
+                    [
+                        'title' => 'Tax Compliance & Advisory',
+                        'desc' => 'Professional guidance on Canadian tax obligations, tax-related transactions, filing requirements, and strategies to help individuals and businesses remain compliant while making informed financial decisions.'
+                    ]
+                ]
             ],
             [
                 'id' => 'accounting-bookkeeping',
-                'name' => 'Accounting & Bookkeeping',
+                'name' => 'Accounting & Bookkeeping Services',
                 'tag' => 'Ledgers & Financial Clarity',
                 'icon' => '🧮',
                 'color' => '#0D9488',
                 'badge_bg' => '#f0fdfa',
                 'badge_border' => '#99f6e4',
-                'short_desc' => 'Accurate full-cycle bookkeeping, monthly bank reconciliations, Notice to Reader compilation reports, and real-time financial reporting.',
-                'highlights' => [
-                    'Cloud-based ledger management (QuickBooks Online, Xero, Sage)',
-                    'Monthly bank, credit card, and loan reconciliations',
-                    'Compilation Engagements & Notice to Reader financial statements (CSRS 4200)',
-                    'Certified Professional Bookkeeper (CPB Canada) oversight',
-                ],
-                'full_description' => 'Gain complete visibility and control over your financial health. As certified members of CPB Canada, we maintain flawless books, provide crystal-clear management statements, and structure your general ledgers to ensure smooth tax filings and audit-ready accounting records throughout the fiscal year.',
-                'whats_included' => [
-                    'Full-cycle cloud bookkeeping with automated bank feed integrations',
-                    'Monthly, quarterly, and annual transaction classification and receipt matching',
-                    'Accounts Payable (AP) and Accounts Receivable (AR) management and tracking',
-                    'Monthly Balance Sheet, Profit & Loss (P&L), and Cash Flow statement generation',
-                    'Notice to Reader / Compilation Engagement reports under Canadian CSRS 4200 standards',
-                    'Fixed asset schedules, amortization calculations, and inventory adjustments',
-                    'Year-end closing journal entries and seamless handoff to corporate tax preparers',
-                    'Dedicated CPB Canada Certified Bookkeeper assigned to your account',
-                ],
-                'deliverables' => 'Monthly financial reporting package, reconciled balance sheets, P&L statements, and year-end trial balance packages.',
-                'who_for' => 'Small-to-medium businesses, professional corporations, retail shops, tech startups, and non-profits.',
+                'description' => 'We provide accurate and efficient accounting and bookkeeping services to keep your financial records organized, up to date, and ready for informed business decisions.',
+                'features' => [
+                    [
+                        'title' => 'Full-Cycle Bookkeeping',
+                        'desc' => 'Recording transactions, maintaining ledgers, and preparing accounts for year-end reporting.'
+                    ],
+                    [
+                        'title' => 'Accounts Receivable & Payable',
+                        'desc' => 'Managing customer invoices, supplier bills, payments, collections, and outstanding balances.'
+                    ],
+                    [
+                        'title' => 'Bank & Account Reconciliations',
+                        'desc' => 'Monthly reconciliation of bank, credit card, and loan accounts to ensure accuracy.'
+                    ],
+                    [
+                        'title' => 'Cloud Accounting',
+                        'desc' => 'Bookkeeping and financial record management using platforms such as QuickBooks Online, Xero, and Sage.'
+                    ],
+                    [
+                        'title' => 'Financial Statements & Compilation',
+                        'desc' => 'Preparation of financial statements and compilation engagements.'
+                    ]
+                ]
             ],
             [
                 'id' => 'payroll-services',
@@ -69,26 +75,29 @@
                 'color' => '#6366F1',
                 'badge_bg' => '#eef2ff',
                 'badge_border' => '#c7d2fe',
-                'short_desc' => 'End-to-end payroll automation, direct deposit processing, statutory source deductions (CPP/QPP, EI), ROE filings, and annual T4/RL-1 slips.',
-                'highlights' => [
-                    'Automated Direct Deposit payouts to all Canadian financial institutions',
-                    'Accurate calculation of statutory CRA & Revenu Québec withholdings',
-                    'Electronic Record of Employment (ROE) submissions to Service Canada',
-                    'Annual preparation & E-filing of T4, T4A, and Relevé 1 summaries',
-                ],
-                'full_description' => 'Managing payroll in Canada requires strict adherence to federal and provincial labor laws, source deduction schedules, and remittance deadlines. YONBUS streamlines your entire payroll cycle, ensuring employees are paid accurately on time while eliminating the risk of costly CRA and Revenu Québec remittance penalties.',
-                'whats_included' => [
-                    'Automated bi-weekly, semi-monthly, or monthly direct deposit disbursements',
-                    'Calculation of federal & Quebec source deductions (CPP/QPP, EI, federal & provincial tax)',
-                    'Monthly CRA and Revenu Québec source remittance filings and schedule management',
-                    'Electronic Record of Employment (ROE) issuance upon employee separation',
-                    'Year-end T4, T4A, and Quebec Relevé 1 tax slip generation and E-filing',
-                    'Worker compensation reporting (WSIB in Ontario, CNESST in Quebec)',
-                    'Secure employee online portal for pay stubs and tax slip downloads',
-                    'Vacation pay tracking, statutory holiday pay, and overtime compliance',
-                ],
-                'deliverables' => 'Payroll summary register, direct deposit transmission logs, remittance confirmation receipts, and annual T4/RL-1 summaries.',
-                'who_for' => 'Canadian employers with salaried, hourly, commission-based staff, or corporate directors drawing wages.',
+                'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
+                'features' => [
+                    [
+                        'title' => 'Payroll Processing & Direct Deposit',
+                        'desc' => 'Timely payroll calculations and direct deposit processing for employees across Canada.'
+                    ],
+                    [
+                        'title' => 'Payroll Deductions & Remittances',
+                        'desc' => 'Accurate calculation of required payroll deductions and employer contributions, including CPP/QPP, EI, QPIP, and applicable provincial requirements.'
+                    ],
+                    [
+                        'title' => 'Record of Employment (ROE)',
+                        'desc' => 'Preparation and electronic submission of ROEs when an employee experiences an interruption of earnings.'
+                    ],
+                    [
+                        'title' => 'Year-End Payroll Reporting',
+                        'desc' => 'Preparation and electronic filing of T4, T4A, and Relevé 1 slips and summaries.'
+                    ],
+                    [
+                        'title' => 'Payroll Compliance Support',
+                        'desc' => 'Assistance with payroll records, remittances, year-end requirements, and payroll-related inquiries.'
+                    ]
+                ]
             ],
             [
                 'id' => 'business-consulting-advisory',
@@ -98,84 +107,97 @@
                 'color' => '#EA580C',
                 'badge_bg' => '#fff7ed',
                 'badge_border' => '#fed7aa',
-                'short_desc' => 'Actionable financial forecasting, cash flow optimization, KPI benchmarking, business valuation, and fractional CFO-level growth guidance.',
-                'highlights' => [
-                    'Fractional CFO leadership and executive strategic advisory',
-                    '3-to-5-year budget forecasting and financial scenario modeling',
-                    'Cash flow optimization, margin analysis, and cost control audits',
-                    'Financing and loan package preparation for Canadian banks & BDC',
-                ],
-                'full_description' => 'Transform raw numbers into strategic growth engines. Our advisory team helps business leaders optimize operational margins, evaluate capital investments, prepare robust loan packages, and navigate expansion opportunities with confidence and financial rigor.',
-                'whats_included' => [
-                    'Fractional CFO advisory sessions tailored to executive leadership',
-                    'Dynamic 3-year revenue and expense forecasting and cash runway modeling',
-                    'Key Performance Indicator (KPI) dashboards and industry benchmarking',
-                    'Working capital optimization, inventory turnover, and debt management',
-                    'Business plan financial section preparation for BDC and commercial lenders',
-                    'Shareholder dividend vs. salary optimization models for tax efficiency',
-                    'Merger, acquisition, and business valuation financial due diligence',
-                    'Succession planning, buy-sell agreements, and corporate reorganization guidance',
-                ],
-                'deliverables' => 'Financial forecast models, executive KPI summary dashboards, advisory action roadmaps, and financing submission packages.',
-                'who_for' => 'Entrepreneurs, growing companies, incorporated professionals, and businesses preparing for scale or investment.',
+                'description' => 'We provide practical financial and business advisory services to help entrepreneurs and business owners understand their numbers, plan for growth, and make informed financial decisions.',
+                'features' => [
+                    [
+                        'title' => 'Financial Planning & Forecasting',
+                        'desc' => 'Preparation of budgets, financial forecasts, and scenario analysis to support short- and long-term business planning.'
+                    ],
+                    [
+                        'title' => 'Cash Flow & Profitability Analysis',
+                        'desc' => 'Analysis of cash flow, revenue, expenses, margins, and financial performance to help improve business profitability and liquidity.'
+                    ],
+                    [
+                        'title' => 'Business Performance Advisory',
+                        'desc' => 'Financial analysis and KPI reporting to help business owners monitor performance and identify opportunities for growth.'
+                    ],
+                    [
+                        'title' => 'Financing & Loan Support',
+                        'desc' => 'Preparation of financial information, projections, and financing packages to support applications to Canadian banks and business lenders.'
+                    ],
+                    [
+                        'title' => 'Business Valuation & Strategic Advisory',
+                        'desc' => 'Financial analysis and business valuation support for growth planning, ownership changes, acquisitions, and other major business decisions.'
+                    ]
+                ]
             ],
             [
                 'id' => 'compliance-services',
                 'name' => 'Compliance Services',
-                'tag' => 'Sales Tax & Audit Defense',
+                'tag' => 'Tax, Payroll & Corporate',
                 'icon' => '⚖️',
                 'color' => '#DC2626',
                 'badge_bg' => '#fef2f2',
                 'badge_border' => '#fecaca',
-                'short_desc' => 'Sales tax filings (GST/HST & QST), corporate annual returns, Tax audit representation, CRA/RQ inquiry defense, and formal appeals.',
-                'highlights' => [
-                    'GST/HST and Quebec Sales Tax (QST) calculation, reconciliation, and filing',
-                    'Representation during CRA & Revenu Québec audits, inquiries, and reviews',
-                    'Drafting formal Notices of Objection and tax dispute negotiations',
-                    'Taxpayer relief applications for interest and penalty waivers',
-                ],
-                'full_description' => 'Stay fully compliant with Canadian tax regulations and protect your enterprise against audits. We handle complex multi-jurisdictional sales tax reconciliations and represent your interests before the Canada Revenue Agency and Revenu Québec to resolve disputes and mitigate penalties.',
-                'whats_included' => [
-                    'GST/HST and Quebec QST return preparation, Input Tax Credit (ITC/ITR) maximization',
-                    'Expert representation during CRA reviews, audit inquiries, and pre-assessment verifications',
-                    'Drafting formal Notices of Objection and evidence dossiers for tax appeals',
-                    'Applications under the CRA Voluntary Disclosures Program (VDP) for unfiled periods',
-                    'Taxpayer Relief requests for cancellation of statutory interest and late-filing penalties',
-                    'Federal (Corporations Canada) and provincial corporate annual compliance maintenance',
-                    'Subcontractor T5018 reporting and contractor compliance verification',
-                    'Strict adherence to Canadian privacy standards (PIPEDA & Quebec Law 25)',
-                ],
-                'deliverables' => 'Filed sales tax receipts, audit representation correspondence logs, objection filings, and annual compliance status certificates.',
-                'who_for' => 'Businesses with high transaction volumes, multi-provincial sales, overdue filings, or active CRA/RQ audit inquiries.',
+                'description' => 'We help individuals and businesses meet their ongoing tax, payroll, and corporate compliance requirements accurately and on time, helping reduce the risk of missed filings, penalties, and compliance issues.',
+                'features' => [
+                    [
+                        'title' => 'Sales Tax Compliance',
+                        'desc' => 'Preparation, reconciliation, and filing of GST/HST and QST returns.'
+                    ],
+                    [
+                        'title' => 'Corporate Compliance Filings',
+                        'desc' => 'Assistance with required corporate annual returns and other ongoing corporate filing obligations.'
+                    ],
+                    [
+                        'title' => 'Payroll Compliance',
+                        'desc' => 'Support with payroll remittances, year-end payroll reporting, and required employee information slips.'
+                    ],
+                    [
+                        'title' => 'Tax Review & Audit Support',
+                        'desc' => 'Assistance with tax reviews, audits, documentation requests, and related compliance matters.'
+                    ],
+                    [
+                        'title' => 'Tax Objections & Appeals',
+                        'desc' => 'Preparation and submission of formal objections and appeals relating to tax assessments.'
+                    ],
+                    [
+                        'title' => 'Penalty & Interest Relief',
+                        'desc' => 'Assistance with eligible applications for relief from tax penalties and interest.'
+                    ]
+                ]
             ],
             [
                 'id' => 'business-registration',
                 'name' => 'Business Registration',
-                'tag' => 'Incorporation & Structuring',
+                'tag' => 'Setup & Accounts',
                 'icon' => '🏢',
                 'color' => '#0284C7',
                 'badge_bg' => '#f0f9ff',
                 'badge_border' => '#bae6fd',
-                'short_desc' => 'Federal and provincial incorporation, Quebec NEQ registration, Business Number (BN) setup, GST/HST/QST registration, and Minute Books.',
-                'highlights' => [
-                    'Federal (Corporations Canada) & Provincial corporate registration',
-                    'Nuans name search and legal name reservation approvals',
-                    'Quebec Enterprise Number (NEQ) and Enterprise Registry filings',
-                    'CRA Business Number (BN) and sales tax / payroll program account activations',
-                ],
-                'full_description' => 'Launch your new venture on solid legal and financial ground. We manage the entire Canadian corporate formation process from name searches and share class structuring to CRA business number allocation and corporate minute book organization.',
-                'whats_included' => [
-                    'Federal incorporation with Corporations Canada or provincial incorporation (QC, ON, BC, AB)',
-                    'Nuans comprehensive corporate name search report and clearance',
-                    'Quebec Enterprise Number (NEQ) registration with the Registraire des entreprises',
-                    'Canada Revenue Agency Business Number (BN) setup and authorization',
-                    'Activation of CRA/RQ program accounts: Corporate Tax (RC), GST/HST (RT), Payroll (RP), QST (TQ)',
-                    'Corporate share structure design (common, voting, non-voting, preferred classes)',
-                    'Preparation of initial corporate bylaws, director registries, and shareholder ledgers',
-                    'Digital Corporate Minute Book creation and organizational resolutions',
-                ],
-                'deliverables' => 'Certificate of Incorporation, Articles of Incorporation, NEQ registration document, CRA Business Number confirmation, and Minute Book binder.',
-                'who_for' => 'New business founders, sole proprietors incorporating, freelancers, and foreign corporations establishing a Canadian branch.',
+                'description' => 'We help entrepreneurs and business owners establish their businesses properly and set up the registrations and accounts needed to operate in Canada.',
+                'features' => [
+                    [
+                        'title' => 'Federal & Provincial Incorporation',
+                        'desc' => 'Assistance with incorporating a business federally or provincially based on your business needs.'
+                    ],
+                    [
+                        'title' => 'Business Name Registration',
+                        'desc' => 'Support with business name searches, name selection, and registration requirements.'
+                    ],
+                    [
+                        'title' => 'Business Number (BN) Registration',
+                        'desc' => 'Assistance with obtaining a Business Number and setting up applicable program accounts.'
+                    ],
+                    [
+                        'title' => 'GST/HST & QST Registration',
+                        'desc' => 'Registration for applicable sales tax accounts and guidance on sales tax requirements.'
+                    ],
+                    [
+                        'title' => 'Payroll Account Registration',
+                        'desc' => 'Setup of payroll program accounts and guidance on employer payroll obligations.'
+                    ]
+                ]
             ],
         ];
     @endphp
@@ -196,7 +218,7 @@
     class="relative">
 
         {{-- ============================================================
-             HEADER BANNER (Deep Blue to Blue Gradient)
+             HEADER BANNER
              ============================================================ --}}
         <section class="relative overflow-hidden py-16 sm:py-20 md:py-24" style="background: linear-gradient(135deg, #001A57 0%, #0036A8 50%, #0052FF 100%); color: #ffffff;">
             <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full opacity-20 pointer-events-none blur-3xl" style="background: radial-gradient(circle, #60A5FA 0%, transparent 70%);"></div>
@@ -209,7 +231,7 @@
                     </svg>
                     <span>Our Practice Areas</span>
                 </div>
-                <h1 class="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight m-0" style="color: #ffffff !important;">
+                <h1 class="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight m-0 text-white">
                     Professional Accounting &amp; Tax Services
                 </h1>
                 <p class="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-blue-100/90 leading-relaxed font-normal">
@@ -219,34 +241,34 @@
         </section>
 
         {{-- ============================================================
-             SERVICES GRID (6 Core Services with Read More action)
+             SERVICES GRID (Boxes with Read More)
              ============================================================ --}}
-        <section class="py-16 sm:py-20 md:py-24 bg-slate-50 relative">
+        <section class="py-16 sm:py-20 md:py-24 bg-slate-50 dark:bg-slate-900 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
                     <span style="font-size: 11px; font-weight: 800; color: #0052ff; text-transform: uppercase; letter-spacing: 0.08em; background: #eff6ff; padding: 5px 16px; border-radius: 999px; border: 1px solid #bfdbfe; display: inline-block;">
                         Core Practice Areas
                     </span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-slate-900 mt-3 mb-4">
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-slate-900 dark:text-white mt-3 mb-4">
                         Tailored Financial Solutions for Your Success
                     </h2>
-                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                        Explore our 6 specialized practice areas below. Click <strong>Read More</strong> on any service to view full scopes, deliverables, and included compliance features.
+                    <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Explore our specialized services below. Click <strong>Read More</strong> on any box to see the complete breakdown and detailed features.
                     </p>
                 </div>
 
-                {{-- 6 Service Cards Grid --}}
+                {{-- 6 Service Boxes Grid --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach($footerServices as $service)
+                    @foreach($servicesList as $service)
                     <div id="{{ $service['id'] }}"
-                         class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
+                         class="bg-white dark:bg-slate-800 rounded-3xl p-7 sm:p-8 border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
                          style="border-top: 4px solid {{ $service['color'] }};">
                         
                         <div>
                             {{-- Top Icon + Badge Row --}}
                             <div class="flex items-center justify-between gap-3 mb-5">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-sm border border-slate-100 group-hover:scale-110 transition-transform"
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-sm border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform"
                                      style="background: {{ $service['badge_bg'] }}; border-color: {{ $service['badge_border'] }};">
                                     {{ $service['icon'] }}
                                 </div>
@@ -257,30 +279,30 @@
                             </div>
 
                             {{-- Service Title --}}
-                            <h3 class="font-heading font-bold text-xl text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                            <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 {{ $service['name'] }}
                             </h3>
 
                             {{-- Short Description --}}
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                                {{ $service['short_desc'] }}
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                                {{ $service['description'] }}
                             </p>
 
-                            {{-- Key Highlights Checklist --}}
-                            <div class="space-y-2.5 mb-6 pt-4 border-t border-slate-100">
-                                @foreach($service['highlights'] as $highlight)
-                                <div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
-                                    <svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {{-- Key Features Preview --}}
+                            <div class="space-y-2.5 mb-6 pt-4 border-t border-slate-100 dark:border-slate-700">
+                                @foreach(array_slice($service['features'], 0, 3) as $feat)
+                                <div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                                     </svg>
-                                    <span>{{ $highlight }}</span>
+                                    <span class="font-semibold">{{ $feat['title'] }}</span>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
 
-                        {{-- Action Button: Read More (Opens Full In-Depth Modal) --}}
-                        <div class="pt-5 border-t border-slate-100 mt-2">
+                        {{-- Action Button: Read More --}}
+                        <div class="pt-5 border-t border-slate-100 dark:border-slate-700 mt-2">
                             <button @click="openModal({{ json_encode($service) }})"
                                     type="button"
                                     class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-bold text-sm text-white transition-all shadow-md group-hover:shadow-lg transform active:scale-95 cursor-pointer"
@@ -328,7 +350,7 @@
                      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                      x-transition:leave-end="opacity-0 translate-y-4 sm:scale-95"
                      @click.away="closeModal()"
-                     class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden z-10 my-auto">
+                     class="relative w-full max-w-3xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-10 my-auto">
                     
                     {{-- Modal Header Banner --}}
                     <div class="p-6 sm:p-8 text-white relative overflow-hidden"
@@ -351,78 +373,61 @@
 
                         <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white m-0 tracking-tight"
                             x-text="activeService ? activeService.name : ''"></h2>
-                        <p class="text-blue-100 text-xs sm:text-sm mt-2 max-w-xl leading-relaxed font-normal"
-                           x-text="activeService ? activeService.short_desc : ''"></p>
                     </div>
 
                     {{-- Modal Scrollable Body --}}
-                    <div class="p-6 sm:p-8 max-h-[60vh] overflow-y-auto space-y-6 text-slate-700 text-sm leading-relaxed">
+                    <div class="p-6 sm:p-8 max-h-[60vh] overflow-y-auto space-y-6 text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
                         
-                        {{-- Comprehensive Overview --}}
+                        {{-- Overview --}}
                         <div>
-                            <h4 class="font-heading font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-2 flex items-center gap-2">
                                 <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                                Comprehensive Overview
+                                Overview
                             </h4>
-                            <p class="text-slate-600 leading-relaxed text-sm sm:text-base"
-                               x-text="activeService ? activeService.full_description : ''"></p>
+                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base"
+                               x-text="activeService ? activeService.description : ''"></p>
                         </div>
 
-                        {{-- What's Included / Detailed Scope --}}
-                        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
-                            <h4 class="font-heading font-bold text-slate-900 text-base mb-3 flex items-center gap-2">
-                                <span>📋</span> Full Scope &amp; What's Included
+                        {{-- Detailed Features / Sub-services --}}
+                        <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-3 flex items-center gap-2">
+                                <span>📋</span> Included Services &amp; Coverage
                             </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <template x-if="activeService">
-                                    <template x-for="(item, idx) in activeService.whats_included" :key="idx">
-                                        <div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
-                                            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                                            </svg>
-                                            <span x-text="item"></span>
+                            
+                            <div class="space-y-3.5">
+                                <template x-if="activeService && activeService.features">
+                                    <template x-for="(item, idx) in activeService.features" :key="idx">
+                                        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-start gap-3">
+                                            <div class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0052ff] dark:text-blue-400 flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                                •
+                                            </div>
+                                            <div>
+                                                <div class="font-bold text-slate-900 dark:text-white text-sm" x-text="item.title"></div>
+                                                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" x-text="item.desc"></div>
+                                            </div>
                                         </div>
                                     </template>
                                 </template>
                             </div>
                         </div>
 
-                        {{-- Deliverables & Target Audience in 2 Columns --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-100">
-                                <span class="font-bold text-blue-950 text-xs uppercase tracking-wider block mb-1">
-                                    📦 Client Deliverables
-                                </span>
-                                <p class="text-xs sm:text-sm text-blue-900 m-0"
-                                   x-text="activeService ? activeService.deliverables : ''"></p>
-                            </div>
-
-                            <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100">
-                                <span class="font-bold text-emerald-950 text-xs uppercase tracking-wider block mb-1">
-                                    🎯 Ideal For
-                                </span>
-                                <p class="text-xs sm:text-sm text-emerald-900 m-0"
-                                   x-text="activeService ? activeService.who_for : ''"></p>
-                            </div>
-                        </div>
-
                     </div>
 
                     {{-- Modal Footer CTA Bar --}}
-                    <div class="p-5 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <span class="text-xs text-slate-500 text-center sm:text-left">
-                            📍 Certified Professional Bookkeeper (CPB Canada) • Gatineau, QC
+                    <div class="p-5 sm:p-6 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <span class="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+                            📍 Certified Professional Bookkeeper (CPB Canada) • Serving Canada Nationwide
                         </span>
 
                         <div class="flex items-center gap-3 w-full sm:w-auto">
                             <button @click="closeModal()"
                                     type="button"
-                                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-100 transition-colors cursor-pointer">
+                                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
                                 Close
                             </button>
-                            <a href="{{ route('contact') }}"
+                            <a href="{{ route('book-appointment') }}"
                                class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition-all">
-                                Inquire About This Service
+                                Book Consultation
                             </a>
                         </div>
                     </div>
@@ -432,7 +437,7 @@
         </div>
 
         {{-- ============================================================
-             BOTTOM BANNER (Deep Blue to Blue Gradient)
+             BOTTOM BANNER
              ============================================================ --}}
         <section class="relative overflow-hidden py-16 text-center text-white"
                  style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%);">
@@ -452,9 +457,9 @@
                        class="bg-white text-[#002B8A] font-bold text-sm py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-decoration-none">
                         Contact Our Practice Office
                     </a>
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('book-appointment') }}"
                        class="bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold text-sm py-3 px-6 rounded-xl transition-all text-decoration-none">
-                        Create Client Account
+                        Book Consultation
                     </a>
                 </div>
             </div>
@@ -462,4 +467,3 @@
 
     </div>
 </x-public-layout>
-
