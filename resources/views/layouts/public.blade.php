@@ -151,8 +151,10 @@
 
                 <!-- Col 1: Brand / CPB Canada Certified Member Logo + Socials -->
                 <div class="lg:col-span-1" style="display: flex; flex-direction: column; align-items: flex-start; gap: 18px;">
-                    <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; max-width: 255px; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.03)';" onmouseleave="this.style.transform='scale(1)';">
-                        <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="width: 100%; height: auto; max-height: 200px; object-fit: contain; background: #ffffff; padding: 20px; border-radius: 22px; box-shadow: 0 10px 32px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.35);" />
+                    <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; max-width: 220px; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.03)';" onmouseleave="this.style.transform='scale(1)';">
+                        <div style="background: #ffffff; padding: 6px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.4); width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="width: 100%; height: auto; object-fit: contain; border-radius: 10px; display: block;" />
+                        </div>
                     </a>
 
                     <!-- Social Media Links below CPB Logo -->
@@ -365,6 +367,32 @@
             </svg>
         </a>
     </div>
+
+    <!-- Floating CPB Canada Certification Badge (Pops out to let users know YONBUS is a Certified CPB Member) -->
+    <div id="cpb-floating-badge"
+         style="position: fixed; bottom: 24px; left: 24px; z-index: 40; display: flex; align-items: center; gap: 12px; background: #ffffff; padding: 8px 16px 8px 8px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,26,87,0.25); border: 2px solid #0052FF; transform: translateY(100px); opacity: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #ffffff; display: flex; align-items: center; justify-content: center; border: 1.5px solid #e2e8f0; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);" />
+        </div>
+        <div style="display: flex; flex-direction: column; line-height: 1.2;">
+            <span style="font-size: 11px; font-weight: 800; color: #0052FF; text-transform: uppercase; letter-spacing: 0.04em;">CPB Certified Member</span>
+            <span style="font-size: 10px; color: #64748B; font-weight: 500;">Certified Professional Bookkeeper</span>
+        </div>
+        <button onclick="document.getElementById('cpb-floating-badge').style.opacity='0'; document.getElementById('cpb-floating-badge').style.pointerEvents='none';" style="background: none; border: none; color: #94A3B8; font-size: 16px; cursor: pointer; padding: 0 0 0 4px; line-height: 1;" title="Dismiss">&times;</button>
+    </div>
+
+    <script>
+        // Trigger CPB logo pop out shortly after page load
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var badge = document.getElementById('cpb-floating-badge');
+                if (badge) {
+                    badge.style.transform = 'translateY(0)';
+                    badge.style.opacity = '1';
+                }
+            }, 1000);
+        });
+    </script>
 
     <!-- Google Translate Seamless Engine -->
     <x-google-translate-scripts />
