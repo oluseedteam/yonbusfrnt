@@ -6,6 +6,7 @@
             [
                 'id' => 'tax-preparation-planning',
                 'name' => 'Tax Preparation & Planning Services',
+                'icon' => '🧾',
                 'description' => 'We provide comprehensive Canadian tax preparation and proactive tax planning services for individuals, families, self-employed professionals, investors, and corporations. Our approach focuses on accurate filings, identifying eligible deductions and credits, and helping clients make informed tax decisions throughout the year.',
                 'features' => [
                     [
@@ -33,6 +34,7 @@
             [
                 'id' => 'accounting-bookkeeping',
                 'name' => 'Accounting & Bookkeeping Services',
+                'icon' => '🧮',
                 'description' => 'We provide accurate and efficient accounting and bookkeeping services to keep your financial records organized, up to date, and ready for informed business decisions.',
                 'features' => [
                     [
@@ -60,6 +62,7 @@
             [
                 'id' => 'payroll-services',
                 'name' => 'Payroll Services',
+                'icon' => '📊',
                 'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
                 'features' => [
                     [
@@ -87,6 +90,7 @@
             [
                 'id' => 'business-consulting-advisory',
                 'name' => 'Business Consulting & Advisory',
+                'icon' => '💼',
                 'description' => 'We provide practical financial and business advisory services to help entrepreneurs and business owners understand their numbers, plan for growth, and make informed financial decisions.',
                 'features' => [
                     [
@@ -114,6 +118,7 @@
             [
                 'id' => 'compliance-services',
                 'name' => 'Compliance Services',
+                'icon' => '⚖️',
                 'description' => 'We help individuals and businesses meet their ongoing tax, payroll, and corporate compliance requirements accurately and on time, helping reduce the risk of missed filings, penalties, and compliance issues.',
                 'features' => [
                     [
@@ -145,6 +150,7 @@
             [
                 'id' => 'business-registration',
                 'name' => 'Business Registration',
+                'icon' => '🏢',
                 'description' => 'We help entrepreneurs and business owners establish their businesses properly and set up the registrations and accounts needed to operate in Canada.',
                 'features' => [
                     [
@@ -211,49 +217,58 @@
         </section>
 
         {{-- ============================================================
-             SERVICES GRID (Compact, Clean Boxes with Read More)
+             SERVICES GRID (Short, Clean Boxes with Logo/Icon & High-Contrast Button)
              ============================================================ --}}
-        <section class="py-14 sm:py-18 bg-slate-50 dark:bg-slate-900 relative">
+        <section class="py-14 sm:py-18 bg-slate-50 relative" style="background: #f8fafc;">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
                     <span style="font-size: 11px; font-weight: 800; color: #0052ff; text-transform: uppercase; letter-spacing: 0.08em; background: #eff6ff; padding: 5px 16px; border-radius: 999px; border: 1px solid #bfdbfe; display: inline-block;">
                         Core Practice Areas
                     </span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white mt-3 mb-3">
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 mt-3 mb-3">
                         Tailored Financial Solutions for Your Success
                     </h2>
-                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p class="text-slate-600 text-sm leading-relaxed">
                         Explore our specialized services below. Click <strong>Read More</strong> on any box to view the full details and service breakdown.
                     </p>
                 </div>
 
-                {{-- 6 Compact Service Boxes Grid --}}
+                {{-- 6 Service Boxes Grid --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($servicesList as $service)
                     <div id="{{ $service['id'] }}"
-                         class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                         style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;"
+                         onmouseenter="this.style.boxShadow='0 12px 28px rgba(0,82,255,0.12)'; this.style.borderColor='#93c5fd'; this.style.transform='translateY(-3px)';"
+                         onmouseleave="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.05)'; this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)';">
                         
                         <div>
+                            {{-- Logo / Icon Badge --}}
+                            <div style="width: 48px; height: 48px; border-radius: 14px; background: #eff6ff; border: 1px solid #dbeafe; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px;">
+                                {{ $service['icon'] }}
+                            </div>
+
                             {{-- Service Title --}}
-                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5 group-hover:text-[#0052ff] dark:group-hover:text-blue-400 transition-colors leading-snug">
+                            <h3 class="font-heading font-bold" style="color: #0f172a; font-size: 1.15rem; line-height: 1.35; margin-bottom: 10px;">
                                 {{ $service['name'] }}
                             </h3>
 
-                            {{-- Clean, Compact Description --}}
-                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                            {{-- Clean Description --}}
+                            <p style="color: #475569; font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                 {{ $service['description'] }}
                             </p>
                         </div>
 
-                        {{-- Action Button: Read More --}}
-                        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80">
+                        {{-- Action Button: Read More (Bold Vibrant Blue) --}}
+                        <div style="padding-top: 14px; border-top: 1px solid #f1f5f9;">
                             <button @click="openModal({{ json_encode($service) }})"
                                     type="button"
-                                    class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white transition-all shadow-md group-hover:shadow-lg transform active:scale-95 cursor-pointer bg-[#0052ff] hover:bg-[#003dc2]">
-                                <span>Read More</span>
-                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; border-radius: 12px; font-weight: 700; font-size: 0.88rem; color: #ffffff !important; background: #0052ff !important; border: none; box-shadow: 0 4px 12px rgba(0,82,255,0.28); cursor: pointer; transition: all 0.2s;"
+                                    onmouseenter="this.style.background='#003dc2'; this.style.boxShadow='0 6px 18px rgba(0,82,255,0.4)';"
+                                    onmouseleave="this.style.background='#0052ff'; this.style.boxShadow='0 4px 12px rgba(0,82,255,0.28)';">
+                                <span style="color: #ffffff !important; font-weight: 700;">Read More</span>
+                                <svg style="width: 16px; height: 16px; stroke: #ffffff;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
                             </button>
                         </div>
@@ -294,7 +309,7 @@
                      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                      x-transition:leave-end="opacity-0 translate-y-4 sm:scale-95"
                      @click.away="closeModal()"
-                     class="relative w-full max-w-3xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-10 my-auto">
+                     class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden z-10 my-auto">
                     
                     {{-- Modal Header Banner --}}
                     <div class="p-6 sm:p-8 text-white relative overflow-hidden"
@@ -309,39 +324,43 @@
                             </svg>
                         </button>
 
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-3xl" x-text="activeService ? activeService.icon : ''"></span>
+                        </div>
+
                         <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white m-0 tracking-tight pr-12"
                             x-text="activeService ? activeService.name : ''"></h2>
                     </div>
 
                     {{-- Modal Scrollable Body --}}
-                    <div class="p-6 sm:p-8 max-h-[60vh] overflow-y-auto space-y-6 text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                    <div class="p-6 sm:p-8 max-h-[60vh] overflow-y-auto space-y-6 text-slate-700 text-sm sm:text-base leading-relaxed">
                         
                         {{-- Overview --}}
                         <div>
-                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-2 flex items-center gap-2">
+                            <h4 class="font-heading font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
                                 <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                 Overview
                             </h4>
-                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base"
+                            <p class="text-slate-600 leading-relaxed text-sm sm:text-base"
                                x-text="activeService ? activeService.description : ''"></p>
                         </div>
 
                         {{-- Detailed Features / Sub-services --}}
-                        <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-700 space-y-4">
-                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-3 flex items-center gap-2">
+                        <div class="bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 space-y-4">
+                            <h4 class="font-heading font-bold text-slate-900 text-base mb-3 flex items-center gap-2">
                                 <span>📋</span> Included Services &amp; Coverage
                             </h4>
                             
                             <div class="space-y-3.5">
                                 <template x-if="activeService && activeService.features">
                                     <template x-for="(item, idx) in activeService.features" :key="idx">
-                                        <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-start gap-3">
-                                            <div class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0052ff] dark:text-blue-400 flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 flex items-start gap-3">
+                                            <div class="w-6 h-6 rounded-full bg-blue-100 text-[#0052ff] flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
                                                 •
                                             </div>
                                             <div>
-                                                <div class="font-bold text-slate-900 dark:text-white text-sm" x-text="item.title"></div>
-                                                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" x-text="item.desc"></div>
+                                                <div class="font-bold text-slate-900 text-sm" x-text="item.title"></div>
+                                                <div class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed" x-text="item.desc"></div>
                                             </div>
                                         </div>
                                     </template>
@@ -352,15 +371,15 @@
                     </div>
 
                     {{-- Modal Footer CTA Bar --}}
-                    <div class="p-5 sm:p-6 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <span class="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+                    <div class="p-5 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <span class="text-xs text-slate-500 text-center sm:text-left">
                             📍 Certified Professional Bookkeeper (CPB Canada) • Serving Canada Nationwide
                         </span>
 
                         <div class="flex items-center gap-3 w-full sm:w-auto">
                             <button @click="closeModal()"
                                     type="button"
-                                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-100 transition-colors cursor-pointer">
                                 Close
                             </button>
                             <a href="{{ route('book-appointment') }}"
