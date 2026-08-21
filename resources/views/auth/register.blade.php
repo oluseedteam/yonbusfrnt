@@ -345,15 +345,15 @@
                     <!-- Option 1: Olubukunola Eniola -->
                     <label id="card-olubukunola" class="consultant-card" style="border: 2px solid #005DFF; background: #F0F6FF; border-radius: 16px; padding: 14px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0, 93, 255, 0.08);">
                         <input type="radio" name="assigned_consultant" value="olubukunola" checked style="position: absolute; top: 10px; right: 10px; accent-color: #005DFF; cursor: pointer;" onchange="updateConsultantCardSelection()">
-                        <img src="/images/team/olubukunola-eniola.jpg" alt="CPB Olubukunola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #005DFF; margin-bottom: 8px;">
-                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">CPB Olubukunola Eniola</span>
+                        <img src="/images/team/olubukunola-eniola.jpg" alt="(CPB) Olubukunola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #005DFF; margin-bottom: 8px;">
+                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">(CPB) Olubukunola Eniola</span>
                     </label>
 
                     <!-- Option 2: Adeshola Eniola -->
                     <label id="card-adeshola" class="consultant-card" style="border: 1.5px solid #D1DCF0; background: #FAFCFF; border-radius: 16px; padding: 14px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s;">
                         <input type="radio" name="assigned_consultant" value="adeshola" style="position: absolute; top: 10px; right: 10px; accent-color: #005DFF; cursor: pointer;" onchange="updateConsultantCardSelection()">
-                        <img src="/images/team/adeshola-eniola.jpg" alt="CPB Adeshola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #CBD5E1; margin-bottom: 8px;">
-                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">CPB Adeshola Eniola</span>
+                        <img src="/images/team/adeshola-eniola.jpg" alt="(CPB) Adeshola Eniola" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2.5px solid #CBD5E1; margin-bottom: 8px;">
+                        <span style="font-size: 13px; font-weight: 800; color: #0B1F4B; line-height: 1.2;">(CPB) Adeshola Eniola</span>
                     </label>
                 </div>
             </div>
