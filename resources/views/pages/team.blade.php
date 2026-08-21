@@ -5,7 +5,7 @@
     <section class="relative py-16 sm:py-24 overflow-hidden" style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%); color: #ffffff;" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; background: rgba(255,255,255,0.18); padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: inline-block; margin-bottom: 1rem;">
-                Leadership &amp; Partners
+                Our Leadership
             </span>
             <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight mb-4" style="color: #ffffff;">
                 Meet Our Expert Accounting Team
@@ -20,14 +20,14 @@
     <section class="py-16 sm:py-24" style="background: #ffffff;">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
 
-            {{-- 1. Olubukunola Eniola (Founder & Partner) --}}
+            {{-- 1. CPB Olubukunola Eniola --}}
             <div style="background: #f8faff; border: 1.5px solid #dbeafe; border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: 0 8px 32px rgba(0,82,255,0.06);">
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
                     {{-- Image Container --}}
                     <div class="w-full sm:w-80 lg:w-96 flex-shrink-0">
                         <div class="relative overflow-hidden rounded-2xl shadow-md border border-[#dbeafe] bg-white">
                             <img src="{{ asset('images/team/olubukunola-eniola.jpg') }}" 
-                                 alt="Olubukunola Eniola - Founder & Partner" 
+                                 alt="CPB Olubukunola Eniola" 
                                  class="w-full h-auto object-cover aspect-[4/5] block">
                         </div>
                     </div>
@@ -52,7 +52,7 @@
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong class="text-[#0a1a4a]">CPB Olubukunola Eniola</strong> is the Founder and Partner at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
+                                <strong class="text-[#0a1a4a]">CPB Olubukunola Eniola</strong> is the Founder at Yonbus Tax &amp; Accounting Services Inc., providing professional tax, accounting, bookkeeping, payroll, and advisory services to individuals and businesses across Canada.
                             </p>
                             <p>
                                 She is a Certified Professional Bookkeeper (CPB) with a Bachelor’s degree in Banking and Finance and a Diploma in Accounting from Mohawk College, Ontario. She is also a trained tax professional serving clients in Quebec and other provinces.
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            {{-- 2. Adeshola Eniola (Co-founder & Partner) --}}
+            {{-- 2. CPB Adeshola Eniola --}}
             <div style="background: #f8faff; border: 1.5px solid #dbeafe; border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: 0 8px 32px rgba(0,82,255,0.06);">
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
                     {{-- Image Container --}}
@@ -97,7 +97,7 @@
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong class="text-[#0a1a4a]">CPB Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional accounting and bookkeeping experience to the firm.
+                                <strong class="text-[#0a1a4a]">CPB Adeshola Eniola</strong> is a Co-founder at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional accounting and bookkeeping experience to the firm.
                             </p>
                             <p>
                                 He is a Certified Professional Bookkeeper (CPB), with a Bachelor’s degree in Accounting and a Diploma in Accounting from Mohawk College, Ontario. He is also a trained tax professional serving clients in Quebec and other provinces.
@@ -148,7 +148,7 @@
 
             <div class="pt-6">
                 <a href="{{ route('book-appointment') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#002B8A] font-bold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
-                    <span>Schedule Consultation With Our Partners</span>
+                    <span>Schedule Consultation With Our Leadership Team</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
