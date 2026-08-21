@@ -200,11 +200,13 @@ class ButtonAndRouteTest extends TestCase
             'is_active' => true,
         ]);
 
+        $bookingDate = now()->next('Wednesday')->format('Y-m-d');
+
         \Livewire\Livewire::test(\App\Livewire\Public\BookingSystem::class)
             ->set('service_id', $service->id)
             ->call('nextStep')
             ->assertSet('step', 2)
-            ->set('appointment_date', now()->addDays(2)->format('Y-m-d'))
+            ->set('appointment_date', $bookingDate)
             ->set('appointment_time', '10:00')
             ->call('nextStep')
             ->assertSet('step', 3)

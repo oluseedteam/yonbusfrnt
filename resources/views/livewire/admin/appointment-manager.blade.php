@@ -4,8 +4,14 @@
             <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Appointment &amp; Booking Management</h1>
             <p class="text-slate-600 dark:text-slate-400 text-sm">Monitor, adjust booking times, send client reminders, and launch live video consultations</p>
         </div>
-        <div class="flex gap-3">
-            <select wire:model.live="statusFilter" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            {{-- Search Bar --}}
+            <div class="relative w-full sm:w-64">
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search ref, client, service..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-[#005DFF] outline-none shadow-sm">
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+
+            <select wire:model.live="statusFilter" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-[#005DFF] outline-none shadow-sm">
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
                 <option value="confirmed">Confirmed</option>

@@ -254,7 +254,8 @@
                 <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-semibold text-[11px]">
                     <tr>
                         <th class="p-3">File Name</th>
-                        <th class="p-3">Client Name</th>
+                        <th class="p-3">Client</th>
+                        <th class="p-3">Delivered / Assigned To</th>
                         <th class="p-3">Uploaded By</th>
                         <th class="p-3">File Size</th>
                         <th class="p-3">Upload Time</th>
@@ -272,11 +273,29 @@
                                 <div class="w-7 h-7 rounded-lg bg-blue-50 text-[#005DFF] font-bold text-[10px] flex items-center justify-center border border-blue-200">
                                     {{ $ext ?: 'DOC' }}
                                 </div>
-                                <span class="font-bold text-slate-900 dark:text-white">{{ $doc->original_name }}</span>
+                                <div>
+                                    <div class="font-bold text-slate-900 dark:text-white">{{ $doc->original_name }}</div>
+                                    @if($doc->notes)
+                                        <div class="text-[10px] text-slate-400 italic">{{ $doc->notes }}</div>
+                                    @endif
+                                </div>
                             </td>
                             <td class="p-3">
                                 <span class="font-semibold text-slate-900 dark:text-slate-200">{{ $doc->client?->name ?? 'Unknown Client' }}</span>
                                 <div class="text-[10px] text-slate-400">{{ $doc->client?->email }}</div>
+                            </td>
+                            <td class="p-3">
+                                @if($doc->assignedAdmin)
+                                    <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400">
+                                        <span>👤</span> {{ $doc->assignedAdmin->name }}
+                                    </span>
+                                @elseif($doc->client && $doc->client->assignedAdmin)
+                                    <span class="inline-flex items-center gap-1 font-semibold text-slate-600 dark:text-slate-400">
+                                        <span>👤</span> {{ $doc->client->assignedAdmin->name }}
+                                    </span>
+                                @else
+                                    <span class="text-slate-400 text-xs">All Admins</span>
+                                @endif
                             </td>
                             <td class="p-3">
                                 @if($isClient)
@@ -292,15 +311,16 @@
                             <td class="p-3 font-mono text-slate-500 text-[11px]">{{ $doc->file_size_human }}</td>
                             <td class="p-3 text-slate-500 text-[11px]">{{ $doc->created_at->diffForHumans() }}</td>
                             <td class="p-3 text-right">
-                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1">
-                                    <span>📥</span> Download
+                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    <span>Download</span>
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
-                                No documents uploaded yet.
+                            <td colspan="7" class="p-6 text-center text-slate-400 text-xs">
+                                No client documents uploaded yet.
                             </td>
                         </tr>
                     @endforelse

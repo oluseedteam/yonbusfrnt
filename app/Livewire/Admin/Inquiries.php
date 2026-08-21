@@ -17,6 +17,21 @@ class Inquiries extends Component
     public $selectedInquiry = null;
     public $showDetailModal = false;
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingChannelFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = CommunicationLog::query();

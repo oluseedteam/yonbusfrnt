@@ -54,7 +54,7 @@ class DashboardController extends Controller
         $recentLogs              = ActivityLog::with('user')->latest()->take(10)->get();
         $recentContactInquiries  = CommunicationLog::where('channel', 'contact_form')->latest()->take(5)->get();
         $recentCareerApps        = CommunicationLog::where('channel', 'career_application')->latest()->take(5)->get();
-        $recentDocuments         = Document::with(['client', 'uploader'])->latest()->take(5)->get();
+        $recentDocuments         = Document::with(['client.assignedAdmin', 'uploader', 'assignedAdmin'])->latest()->take(6)->get();
 
         return view('admin.dashboard', compact(
             'stats', 'revenueChart', 'serviceChart', 'recentUsers', 'recentAppointments', 'recentLogs',

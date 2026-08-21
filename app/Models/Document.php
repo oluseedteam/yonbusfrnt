@@ -13,6 +13,9 @@ class Document extends Model
     protected $fillable = [
         'client_id',
         'uploaded_by',
+        'assigned_admin_id',
+        'type',
+        'notes',
         'original_name',
         'stored_name',
         'file_type',
@@ -29,6 +32,11 @@ class Document extends Model
     public function uploader()
     {
         return $this->belongsTo(User::class, 'uploaded_by');
+    }
+
+    public function assignedAdmin()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
     }
 
     // ── Accessors ─────────────────────────────────────────────────

@@ -33,6 +33,26 @@ class DocumentManager extends Component
         'notes'            => 'nullable|string|max:300',
     ];
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingClientFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingUploaderFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingConsultantFilter()
+    {
+        $this->resetPage();
+    }
+
     public function mount()
     {
         $admin = auth()->user();
@@ -43,7 +63,7 @@ class DocumentManager extends Component
 
     public function render()
     {
-        $query = Document::with(['client.assignedAdmin', 'uploader']);
+        $query = Document::with(['client.assignedAdmin', 'uploader', 'assignedAdmin']);
 
         if ($this->clientFilter !== 'all' && !empty($this->clientFilter)) {
             $query->where('client_id', $this->clientFilter);
@@ -58,21 +78,40 @@ class DocumentManager extends Component
         if ($this->consultantFilter === 'olubukunola') {
             $partner = User::where('email', 'olubukunola@yonbustax.ca')->first();
             if ($partner) {
-                $query->whereHas('client', fn($q) => $q->where('assigned_admin_id', $partner->id));
+                $query->where(function ($q) use ($partner) {
+                    $q->where('assigned_admin_id', $partner->id)
+                      ->orWhereHas('client', fn($cq) => $cq->where('assigned_admin_id', $partner->id));
+                });
             }
         } elseif ($this->consultantFilter === 'adeshola') {
             $partner = User::where('email', 'like', 'adeshola%')->first();
             if ($partner) {
-                $query->whereHas('client', fn($q) => $q->where('assigned_admin_id', $partner->id));
+                $query->where(function ($q) use ($partner) {
+                    $q->where('assigned_admin_id', $partner->id)
+                      ->orWhereHas('client', fn($cq) => $cq->where('assigned_admin_id', $partner->id));
+                });
             }
+        } elseif ($this->consultantFilter === 'my_documents' && auth()->check()) {
+            $myId = auth()->id();
+            $query->where(function ($q) use ($myId) {
+                $q->where('assigned_admin_id', $myId)
+                  ->orWhereHas('client', fn($cq) => $cq->where('assigned_admin_id', $myId));
+            });
         }
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
                 $q->where('original_name', 'like', "%{$this->search}%")
+                  ->orWhere('notes', 'like', "%{$this->search}%")
+                  ->orWhere('type', 'like', "%{$this->search}%")
                   ->orWhereHas('client', function ($cq) {
                       $cq->where('first_name', 'like', "%{$this->search}%")
                          ->orWhere('last_name', 'like', "%{$this->search}%")
+                         ->orWhere('name', 'like', "%{$this->search}%")
+                         ->orWhere('email', 'like', "%{$this->search}%");
+                  })
+                  ->orWhereHas('assignedAdmin', function ($aq) {
+                      $aq->where('name', 'like', "%{$this->search}%")
                          ->orWhere('email', 'like', "%{$this->search}%");
                   });
             });
@@ -110,13 +149,16 @@ class DocumentManager extends Component
         $storedName   = $this->file->storeAs('documents/' . $this->target_client_id, \Str::uuid() . '.' . $extension, 'public');
 
         $doc = Document::create([
-            'client_id'     => $this->target_client_id,
-            'uploaded_by'   => auth()->id(),
-            'original_name' => $originalName,
-            'stored_name'   => $storedName,
-            'file_type'     => $this->file->getMimeType(),
-            'file_size'     => $this->file->getSize(),
-            'version'       => 1,
+            'client_id'         => $this->target_client_id,
+            'uploaded_by'       => auth()->id(),
+            'assigned_admin_id' => auth()->id(),
+            'type'              => $this->type,
+            'notes'             => $this->notes,
+            'original_name'     => $originalName,
+            'stored_name'       => $storedName,
+            'file_type'         => $this->file->getMimeType(),
+            'file_size'         => $this->file->getSize(),
+            'version'           => 1,
         ]);
 
         $client = User::find($this->target_client_id);

@@ -19,9 +19,12 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-semibold rounded-2xl flex items-center shadow-sm">
-            <svg class="w-4 h-4 mr-2 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            {{ session('message') }}
+        <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-semibold rounded-2xl flex items-center justify-between shadow-sm">
+            <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>{{ session('message') }}</span>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-800 text-lg leading-none">&times;</button>
         </div>
     @endif
 
@@ -61,9 +64,10 @@
     <!-- Filters & Search -->
     <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 mb-6 shadow-sm border border-slate-200 dark:border-slate-700/50 space-y-4">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            {{-- Search Bar with Instant Debounced Typing --}}
             <div class="flex-1 w-full">
                 <div class="relative">
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search files by original name, client name, or email..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-[#005DFF] outline-none">
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search files by original name, client name, note, or assigned advisor..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-[#005DFF] outline-none">
                     <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
             </div>
@@ -78,15 +82,15 @@
 
                 <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl text-xs">
                     <button type="button" wire:click="$set('uploaderFilter', 'all')"
-                            class="px-3 py-1 rounded-lg font-bold transition {{ $uploaderFilter === 'all' ? 'bg-[#005DFF] text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
+                            class="px-3 py-1 rounded-lg font-bold transition cursor-pointer {{ $uploaderFilter === 'all' ? 'bg-[#005DFF] text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
                         All Sources
                     </button>
                     <button type="button" wire:click="$set('uploaderFilter', 'client_uploads')"
-                            class="px-3 py-1 rounded-lg font-bold transition {{ $uploaderFilter === 'client_uploads' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
+                            class="px-3 py-1 rounded-lg font-bold transition cursor-pointer {{ $uploaderFilter === 'client_uploads' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
                         Client Uploads
                     </button>
                     <button type="button" wire:click="$set('uploaderFilter', 'admin_uploads')"
-                            class="px-3 py-1 rounded-lg font-bold transition {{ $uploaderFilter === 'admin_uploads' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
+                            class="px-3 py-1 rounded-lg font-bold transition cursor-pointer {{ $uploaderFilter === 'admin_uploads' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400' }}">
                         Admin Deliveries
                     </button>
                 </div>
@@ -96,19 +100,23 @@
         {{-- Consultant Segregation Filter --}}
         <div class="flex items-center gap-2 pt-3 border-t border-slate-100 dark:border-slate-700/60 overflow-x-auto text-xs">
             <span class="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5 flex-shrink-0">
-                <span>🛡️</span> Consultant Scope:
+                <span>🛡️</span> Admin / Advisor Scope:
             </span>
             <button type="button" wire:click="$set('consultantFilter', 'all')"
-                    class="px-3 py-1 rounded-lg font-bold transition {{ $consultantFilter === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200' }}">
-                All Client Documents
+                    class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer {{ $consultantFilter === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200' }}">
+                All Documents
+            </button>
+            <button type="button" wire:click="$set('consultantFilter', 'my_documents')"
+                    class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 {{ $consultantFilter === 'my_documents' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100' }}">
+                <span>⭐</span> Submitted to Me
             </button>
             <button type="button" wire:click="$set('consultantFilter', 'olubukunola')"
-                    class="px-3 py-1 rounded-lg font-bold transition flex items-center gap-1.5 {{ $consultantFilter === 'olubukunola' ? 'bg-blue-600 text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
-                <span>👩‍💼</span> Olubukunola's Client Documents
+                    class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 {{ $consultantFilter === 'olubukunola' ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
+                <span>👩‍💼</span> Olubukunola's Documents
             </button>
             <button type="button" wire:click="$set('consultantFilter', 'adeshola')"
-                    class="px-3 py-1 rounded-lg font-bold transition flex items-center gap-1.5 {{ $consultantFilter === 'adeshola' ? 'bg-blue-600 text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
-                <span>👨‍💼</span> Adeshola's Client Documents
+                    class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 {{ $consultantFilter === 'adeshola' ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
+                <span>👨‍💼</span> Adeshola's Documents
             </button>
         </div>
     </div>
@@ -120,7 +128,8 @@
                 <thead>
                     <tr class="border-b border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider bg-slate-50/80 dark:bg-slate-900/50">
                         <th class="px-6 py-4">Document Details</th>
-                        <th class="px-6 py-4">Associated Client</th>
+                        <th class="px-6 py-4">Client</th>
+                        <th class="px-6 py-4">Delivered / Assigned To</th>
                         <th class="px-6 py-4">Uploaded By</th>
                         <th class="px-6 py-4">Size &amp; Format</th>
                         <th class="px-6 py-4">Date Uploaded</th>
@@ -134,6 +143,7 @@
                             $ext = strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION));
                         @endphp
                         <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-700/30 transition">
+                            {{-- Document Details --}}
                             <td class="px-6 py-4 flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-200 dark:border-blue-900/40">
                                     {{ $ext ?: 'DOC' }}
@@ -142,26 +152,43 @@
                                     <div class="font-bold text-slate-900 dark:text-white text-xs flex items-center gap-1.5">
                                         <span>{{ $doc->original_name }}</span>
                                     </div>
-                                    <div class="text-[10px] text-slate-400 font-mono">{{ $doc->file_type ?? 'application/octet-stream' }}</div>
+                                    @if($doc->notes)
+                                        <div class="text-[11px] text-slate-500 italic mt-0.5">{{ $doc->notes }}</div>
+                                    @endif
+                                    <div class="text-[10px] text-slate-400 font-mono mt-0.5">{{ $doc->type ?? $doc->file_type }}</div>
                                 </div>
                             </td>
+
+                            {{-- Associated Client --}}
                             <td class="px-6 py-4">
                                 @if($doc->client)
                                     <div class="font-bold text-slate-900 dark:text-white">{{ $doc->client->name }}</div>
                                     <div class="text-[11px] text-slate-500">{{ $doc->client->email }}</div>
-                                    @if($doc->client->assignedAdmin)
-                                        <div class="text-[10px] text-blue-600 font-semibold mt-0.5">
-                                            Consultant: {{ $doc->client->assignedAdmin->name }}
-                                        </div>
-                                    @endif
                                 @else
                                     <span class="text-slate-400 italic">Unknown Client</span>
                                 @endif
                             </td>
+
+                            {{-- Delivered / Assigned To --}}
+                            <td class="px-6 py-4">
+                                @if($doc->assignedAdmin)
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-50 text-[#005DFF] dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-900/40">
+                                        <span>👤</span> {{ $doc->assignedAdmin->name }}
+                                    </span>
+                                @elseif($doc->client && $doc->client->assignedAdmin)
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                                        <span>👤</span> {{ $doc->client->assignedAdmin->name }}
+                                    </span>
+                                @else
+                                    <span class="text-slate-400 text-xs">All Admins</span>
+                                @endif
+                            </td>
+
+                            {{-- Uploaded By --}}
                             <td class="px-6 py-4">
                                 @if($isClientUpload)
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/40">
-                                        <span>👤</span> Client Upload
+                                        <span>📥</span> Client
                                     </span>
                                 @else
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-900/40">
@@ -169,29 +196,35 @@
                                     </span>
                                 @endif
                             </td>
+
+                            {{-- Size & Format --}}
                             <td class="px-6 py-4 font-mono text-slate-500">
                                 {{ $doc->file_size_human }}
                             </td>
+
+                            {{-- Date --}}
                             <td class="px-6 py-4 text-slate-500">
                                 {{ $doc->created_at->format('M j, Y • g:i A') }}
                             </td>
+
+                            {{-- Actions --}}
                             <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
-                                <a href="{{ route('documents.download', $doc) }}" class="px-3.5 py-1.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition inline-flex items-center gap-1">
+                                <a href="{{ route('documents.download', $doc) }}" class="px-3.5 py-1.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition inline-flex items-center gap-1 cursor-pointer">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                     <span>Download</span>
                                 </a>
-                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="px-2.5 py-1.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 font-semibold text-xs rounded-xl transition">
+                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="px-2.5 py-1.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 font-semibold text-xs rounded-xl transition cursor-pointer">
                                     🗑️ Delete
                                 </button>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                            <td colspan="7" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
                                 <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-slate-700 flex items-center justify-center mx-auto text-2xl mb-3">📁</div>
                                 <p class="text-base font-bold text-slate-900 dark:text-white mb-1">No documents found in vault</p>
                                 <p class="text-xs max-w-sm mx-auto mb-4">When clients upload tax forms or documents in their client portal, they will appear here immediately.</p>
-                                <button wire:click="openUploadModal" class="px-4 py-2 bg-[#005DFF] text-white text-xs font-bold rounded-xl shadow">
+                                <button wire:click="openUploadModal" class="px-4 py-2 bg-[#005DFF] text-white text-xs font-bold rounded-xl shadow cursor-pointer">
                                     + Upload Document to Client
                                 </button>
                             </td>
@@ -274,10 +307,10 @@
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
-                        <button type="button" wire:click="$set('showUploadModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100">
+                        <button type="button" wire:click="$set('showUploadModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 cursor-pointer">
                             Cancel
                         </button>
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5">
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             <span>Upload &amp; Send to Client</span>
                         </button>

@@ -3,9 +3,19 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">Document Vault</h1>
-            <p class="text-xs text-gray-500 mt-1">Upload your tax records and download documents sent to you by the YONBUS team.</p>
+            <p class="text-xs text-gray-500 mt-1">Upload your tax records directly to your assigned advisor, and view official files sent by YONBUS.</p>
         </div>
     </div>
+
+    @if (session()->has('message'))
+        <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-2xl text-sm font-semibold shadow-sm flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>{{ session('message') }}</span>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-800 text-lg leading-none">&times;</button>
+        </div>
+    @endif
 
     <!-- Documents Received from Admin / YONBUS Team -->
     @if(isset($adminDocuments) && count($adminDocuments) > 0)
@@ -17,7 +27,7 @@
                     </div>
                     <div>
                         <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading">Documents Sent to You by Admin</h3>
-                        <p class="text-[11px] text-gray-500">Official tax documents, reports, and files shared with you by YONBUS staff.</p>
+                        <p class="text-[11px] text-gray-500">Official tax documents, completed returns, and files shared with you by YONBUS staff.</p>
                     </div>
                 </div>
             </div>
@@ -49,9 +59,9 @@
                                 <td class="p-3 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
                                 <td class="p-3 text-right">
                                     <a href="{{ route('documents.download', $doc) }}" 
-                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition-all">
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition-all">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                        <span>Download File</span>
+                                        <span>Download</span>
                                     </a>
                                 </td>
                             </tr>
@@ -64,7 +74,7 @@
 
     <!-- Upload Card & Drag-Drop UI -->
     <div class="card-box mb-8">
-        <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document</h3>
+        <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document to Admin</h3>
         <form wire:submit.prevent="upload" class="space-y-4">
             <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20">
                 <input type="file" wire:model="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
@@ -74,7 +84,7 @@
                 <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading">
                     Click to upload or drag and drop file here
                 </p>
-                <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, DOCX, XLSX (max 20MB)</p>
+                <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, DOCX, XLSX (max 20MB)</p>
                 @if($file)
                     <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-950 text-[#005DFF] text-xs font-medium rounded-lg">
                         <span>Selected: {{ $file->getClientOriginalName() }}</span>
@@ -83,29 +93,45 @@
             </div>
             @error('file') <span class="text-red-500 text-[11px] block">{{ $message }}</span> @enderror
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {{-- Document Category --}}
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Document Category</label>
-                    <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Document Category *</label>
+                    <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
                         <option value="t4_t5">T4 / T5 / T3 Canadian Tax Slips</option>
                         <option value="cra_notice">CRA Notice of Assessment / Reassessment</option>
                         <option value="receipt">Business Receipts &amp; Expenses (T2125)</option>
                         <option value="bank_statement">Bank &amp; Credit Card Statements</option>
                         <option value="corporate_docs">Corporate Financials (T2 / GST/HST)</option>
                         <option value="tax_return">Prior Year Tax Return</option>
-                        <option value="other">Other Supporting Tax Document</option>
+                        <option value="other">Other Supporting Document</option>
                     </select>
                 </div>
+
+                {{-- Select Admin / Advisor recipient --}}
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Notes (Optional)</label>
-                    <input type="text" wire:model="notes" placeholder="e.g. Q1 Expenses Receipt" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin *</label>
+                    <select wire:model="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                        <option value="">-- General YONBUS Admin Pool --</option>
+                        @foreach($advisors as $advisor)
+                            <option value="{{ $advisor->id }}">{{ $advisor->name }} ({{ ucfirst($advisor->role) }})</option>
+                        @endforeach
+                    </select>
+                    <p class="text-[10px] text-gray-400 mt-1">Directly delivers to this advisor's dashboard</p>
+                </div>
+
+                {{-- Notes --}}
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
+                    <input type="text" wire:model="notes" placeholder="e.g. 2025 medical & tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
                 </div>
             </div>
 
-            <div class="flex justify-end">
-                <button type="submit" class="btn-primary text-xs" wire:loading.attr="disabled">
-                    <span wire:loading.remove>Upload Document</span>
-                    <span wire:loading>Uploading...</span>
+            <div class="flex justify-end pt-2">
+                <button type="submit" class="btn-primary text-xs flex items-center gap-1.5" wire:loading.attr="disabled">
+                    <svg wire:loading.remove class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span wire:loading.remove>Upload &amp; Submit Document</span>
+                    <span wire:loading>Uploading &amp; Submitting...</span>
                 </button>
             </div>
         </form>
@@ -113,9 +139,17 @@
 
     <!-- Documents List -->
     <div class="card-box">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading">Your Uploaded Files</h3>
-            <input type="text" wire:model.live="search" placeholder="Search files..." class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-1.5 px-3 text-xs w-48">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+                <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading">Your Uploaded Files</h3>
+                <p class="text-[11px] text-gray-500">History of all documents submitted to YONBUS</p>
+            </div>
+            
+            {{-- Search Bar --}}
+            <div class="relative w-full sm:w-64">
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search by file name or note..." class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 pl-8 pr-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                <svg class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
         </div>
 
         <div class="overflow-x-auto">
@@ -123,7 +157,8 @@
                 <thead class="bg-gray-50 dark:bg-gray-800 text-gray-500 uppercase font-semibold">
                     <tr>
                         <th class="p-3.5">Name</th>
-                        <th class="p-3.5">Type</th>
+                        <th class="p-3.5">Category</th>
+                        <th class="p-3.5">Delivered To</th>
                         <th class="p-3.5">Size</th>
                         <th class="p-3.5">Uploaded</th>
                         <th class="p-3.5 text-right">Actions</th>
@@ -133,32 +168,53 @@
                     @forelse($documents as $doc)
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
                             <td class="p-3.5 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-[10px]">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0">
                                     {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
                                 </div>
                                 <div>
                                     <p class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</p>
-                                    @if($doc->uploaded_by != auth()->id())
-                                        <span class="text-[10px] bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">Sent by Admin</span>
+                                    @if($doc->notes)
+                                        <p class="text-[11px] text-gray-500 italic mt-0.5">{{ $doc->notes }}</p>
                                     @endif
                                 </div>
                             </td>
-                            <td class="p-3.5 uppercase font-semibold text-[10px] text-gray-500">{{ str_replace('_', ' ', $doc->file_type ?? 'document') }}</td>
-                            <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
-                            <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
-                            <td class="p-3.5 text-right space-x-3">
-                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] hover:underline font-semibold">Download</a>
-                                @if($doc->uploaded_by == auth()->id())
-                                    <button wire:click="delete({{ $doc->id }})" wire:confirm="Delete file?" class="text-red-500 hover:underline font-semibold">Delete</button>
+                            <td class="p-3.5">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 uppercase">
+                                    {{ str_replace('_', ' ', $doc->type ?? $doc->file_type ?? 'Document') }}
+                                </span>
+                            </td>
+                            <td class="p-3.5">
+                                @if($doc->assignedAdmin)
+                                    <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400">
+                                        <span>👤</span> {{ $doc->assignedAdmin->name }}
+                                    </span>
+                                @else
+                                    <span class="text-gray-400 text-xs">YONBUS Team</span>
                                 @endif
+                            </td>
+                            <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
+                            <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y g:i A') }}</td>
+                            <td class="p-3.5 text-right space-x-3 whitespace-nowrap">
+                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] hover:underline font-bold">Download</a>
+                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="text-rose-600 hover:underline font-medium">Delete</button>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="text-center py-8 text-gray-500">No documents found.</td></tr>
+                        <tr>
+                            <td colspan="6" class="p-8 text-center text-gray-400">
+                                <p class="font-semibold text-gray-700 dark:text-gray-300">No documents found</p>
+                                <p class="text-[11px] mt-1">Upload your tax slips, receipts, or financial statements using the form above.</p>
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="mt-4">{{ $documents->links() }}</div>
+
+        @if($documents->hasPages())
+            <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                {{ $documents->links() }}
+            </div>
+        @endif
     </div>
 </div>

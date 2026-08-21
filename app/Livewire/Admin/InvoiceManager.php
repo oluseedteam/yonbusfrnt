@@ -37,6 +37,16 @@ class InvoiceManager extends Component
         $this->due_date = now()->addDays(30)->format('Y-m-d');
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = Invoice::with(['client', 'accountant']);

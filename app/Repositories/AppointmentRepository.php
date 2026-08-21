@@ -20,9 +20,27 @@ class AppointmentRepository implements RepositoryInterface
         if (!empty($filters['accountant_id'])) {
             $query->where('accountant_id', $filters['accountant_id']);
         }
-        if (!empty($filters['service_id'])) {
-            $query->where('service_id', $filters['service_id']);
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('appointment_number', 'like', "%{$search}%")
+                  ->orWhere('notes', 'like', "%{$search}%")
+                  ->orWhereHas('client', function ($cq) use ($search) {
+                      $cq->where('name', 'like', "%{$search}%")
+                         ->orWhere('first_name', 'like', "%{$search}%")
+                         ->orWhere('last_name', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%")
+                         ->orWhere('phone', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('service', function ($sq) use ($search) {
+                      $sq->where('name', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('accountant', function ($aq) use ($search) {
+                      $aq->where('name', 'like', "%{$search}%");
+                  });
+            });
         }
+
         if (!empty($filters['date_from'])) {
             $query->where('date', '>=', $filters['date_from']);
         }

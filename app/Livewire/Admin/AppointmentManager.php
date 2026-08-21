@@ -63,11 +63,24 @@ class AppointmentManager extends Component
         return app(AppointmentService::class);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $filters = [];
         if ($this->statusFilter !== 'all') {
             $filters['status'] = $this->statusFilter;
+        }
+        if (!empty($this->search)) {
+            $filters['search'] = $this->search;
         }
 
         $appointments = $this->repo()->paginate(15, $filters);
