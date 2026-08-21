@@ -103,13 +103,13 @@
 
                         <div class="text-[#4b5563] text-sm sm:text-base leading-relaxed space-y-3.5">
                             <p>
-                                <strong class="text-[#0a1a4a]">Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional auditing experience to the firm.
+                                <strong class="text-[#0a1a4a]">Adeshola Eniola</strong> is a Co-founder and Partner at Yonbus Tax &amp; Accounting Services Inc., bringing over 10 years of professional accounting and bookkeeping experience to the firm.
                             </p>
                             <p>
                                 He is a Certified Professional Bookkeeper (CPB), with a Bachelor’s degree in Accounting and a Diploma in Accounting from Mohawk College, Ontario. He is also a trained tax professional serving clients in Quebec and other provinces.
                             </p>
                             <p>
-                                With his strong background in auditing, accounting, and financial reporting, Adeshola specializes in helping individuals and businesses navigate complex accounting and bookkeeping issues. He is committed to providing accurate, practical, and reliable solutions that help clients maintain organized financial records and make informed business decisions.
+                                With his strong background in accounting, bookkeeping, and financial reporting, Adeshola specializes in helping individuals and businesses navigate complex accounting and bookkeeping issues. He is committed to providing accurate, practical, and reliable solutions that help clients maintain organized financial records and make informed business decisions.
                             </p>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                 <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
                     <div class="w-12 h-12 bg-white/20 border border-white/30 text-white rounded-xl flex items-center justify-center mx-auto text-xl">🎯</div>
                     <h4 class="font-bold text-sm font-heading text-white">Accounting / Book Keeping Expert</h4>
-                    <p class="text-xs text-blue-100 leading-relaxed">Backed by over a decade of professional auditing experience.</p>
+                    <p class="text-xs text-blue-100 leading-relaxed">Backed by over a decade of accounting and bookkeeping experience.</p>
                 </div>
 
                 <div class="p-6 rounded-2xl space-y-2 border border-white/20 shadow-lg" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);">
