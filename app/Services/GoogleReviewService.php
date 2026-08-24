@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Log;
 class GoogleReviewService
 {
     /**
+     * Known verified business client companies mapping.
+     */
+    protected array $knownCompanies = [
+        'Adeyemi Adesanmi' => 'Grand Car Wash Ltd.',
+        'Musiliu Muritala' => 'Thurman Healthcare Services Inc.',
+        'Olayemi Sadiku'   => 'O. Sadiku Medicine Professional Corporation',
+    ];
+
+    /**
      * Get verified client reviews for YONBUS Tax & Accounting Services Inc.
      * Checks Google Places API, database, and verified Yonbus client testimonials.
      *
@@ -17,8 +26,23 @@ class GoogleReviewService
      */
     public function getReviews(): array
     {
-        return Cache::remember('yonbus_real_reviews', 3600 * 12, function () {
+        return Cache::remember('yonbus_real_reviews_v4', 3600 * 12, function () {
             $reviews = [];
+            $seenNames = [];
+
+            // Preload database published reviews map (normalized name => Review model)
+            $dbReviewsMap = [];
+            try {
+                if (\Illuminate\Support\Facades\Schema::hasTable('reviews')) {
+                    $dbRecords = Review::where('is_published', true)->orderBy('created_at', 'asc')->get();
+                    foreach ($dbRecords as $dbr) {
+                        $norm = $this->normalizeName($dbr->name);
+                        $dbReviewsMap[$norm] = $dbr;
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Ignore DB error and continue
+            }
 
             // 1. Fetch from Google Places API if configured
             $apiKey = config('services.google.places_api_key');
@@ -34,16 +58,23 @@ class GoogleReviewService
 
                     if ($response->successful() && isset($response->json()['result']['reviews'])) {
                         foreach ($response->json()['result']['reviews'] as $r) {
+                            $authorName = $r['author_name'] ?? 'Client';
+                            $norm = $this->normalizeName($authorName);
+                            $company = $this->resolveCompany($authorName, $dbReviewsMap);
+                            $service = $this->resolveService($authorName, $dbReviewsMap);
+
                             $reviews[] = [
-                                'name'      => $r['author_name'] ?? 'Client',
+                                'name'      => $authorName,
+                                'company'   => $company,
                                 'location'  => 'Google Verified',
-                                'initials'  => $this->getInitials($r['author_name'] ?? 'CL'),
-                                'avatar'    => $r['profile_photo_url'] ?? null,
+                                'initials'  => $this->getInitials($authorName),
+                                'avatar'    => $r['profile_photo_url'] ?? ($dbReviewsMap[$norm]->avatar ?? null),
                                 'rating'    => (int) ($r['rating'] ?? 5),
                                 'time'      => $r['relative_time_description'] ?? 'Verified Review',
-                                'service'   => 'Tax & Accounting Service',
+                                'service'   => $service ?? 'Tax & Accounting Service',
                                 'text'      => $r['text'] ?? '',
                             ];
+                            $seenNames[$norm] = true;
                         }
                     }
                 } catch (\Throwable $e) {
@@ -51,35 +82,107 @@ class GoogleReviewService
                 }
             }
 
-            // 2. Fetch authentic database reviews if available
-            try {
-                if (\Illuminate\Support\Facades\Schema::hasTable('reviews')) {
-                    $dbReviews = Review::where('is_published', true)->orderBy('created_at', 'asc')->get();
-                    foreach ($dbReviews as $dbr) {
+            // 2. Append any authentic database reviews not already present from Google Places
+            if (!empty($dbReviewsMap)) {
+                foreach ($dbReviewsMap as $norm => $dbr) {
+                    if (!isset($seenNames[$norm])) {
                         $reviews[] = [
                             'name'      => $dbr->name,
-                            'company'   => $dbr->company ?? null,
+                            'company'   => $dbr->company ?: $this->resolveCompany($dbr->name),
                             'location'  => $dbr->location ?? 'Verified Review',
                             'initials'  => $this->getInitials($dbr->name),
                             'avatar'    => $dbr->avatar,
                             'rating'    => (int) $dbr->rating,
                             'time'      => $dbr->created_at ? $dbr->created_at->diffForHumans() : 'Verified Review',
-                            'service'   => $dbr->service ?? 'Tax & Accounting Service',
+                            'service'   => $dbr->service ?? $this->resolveService($dbr->name),
                             'text'      => $dbr->text,
                         ];
+                        $seenNames[$norm] = true;
                     }
                 }
-            } catch (\Throwable $e) {
-                // Ignore DB error and fallback
             }
 
-            // 3. If no external/DB reviews returned, load verified client reviews
+            // 3. Append default verified business reviews if not already present
+            foreach ($this->getDefaultVerifiedReviews() as $defaultRev) {
+                $norm = $this->normalizeName($defaultRev['name']);
+                if (!isset($seenNames[$norm])) {
+                    $reviews[] = $defaultRev;
+                    $seenNames[$norm] = true;
+                }
+            }
+
+            // 4. Fallback if still empty
             if (empty($reviews)) {
                 $reviews = $this->getDefaultVerifiedReviews();
             }
 
             return $reviews;
         });
+    }
+
+    /**
+     * Resolve company name for a given reviewer name.
+     */
+    public function resolveCompany(string $name, array $dbReviewsMap = []): ?string
+    {
+        $norm = $this->normalizeName($name);
+
+        // 1. Check DB map
+        if (isset($dbReviewsMap[$norm]) && !empty($dbReviewsMap[$norm]->company)) {
+            return $dbReviewsMap[$norm]->company;
+        }
+
+        // 2. Check known companies (exact match)
+        foreach ($this->knownCompanies as $knownName => $company) {
+            if ($this->normalizeName($knownName) === $norm) {
+                return $company;
+            }
+        }
+
+        // 3. Check partial words match (e.g. matching "Adeyemi Adesanmi")
+        $nameParts = array_filter(explode(' ', strtolower(preg_replace('/[^a-zA-Z0-9\s]/', '', $name))));
+        foreach ($this->knownCompanies as $knownName => $company) {
+            $knownParts = array_filter(explode(' ', strtolower(preg_replace('/[^a-zA-Z0-9\s]/', '', $knownName))));
+            if (count(array_intersect($knownParts, $nameParts)) >= 2) {
+                return $company;
+            }
+        }
+
+        // 4. Check default verified list
+        foreach ($this->getDefaultVerifiedReviews() as $def) {
+            if ($this->normalizeName($def['name']) === $norm && !empty($def['company'])) {
+                return $def['company'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve service tag for a given reviewer.
+     */
+    protected function resolveService(string $name, array $dbReviewsMap = []): ?string
+    {
+        $norm = $this->normalizeName($name);
+        if (isset($dbReviewsMap[$norm]) && !empty($dbReviewsMap[$norm]->service)) {
+            return $dbReviewsMap[$norm]->service;
+        }
+
+        foreach ($this->getDefaultVerifiedReviews() as $def) {
+            if ($this->normalizeName($def['name']) === $norm && !empty($def['service'])) {
+                return $def['service'];
+            }
+        }
+
+        return 'Tax & Accounting Service';
+    }
+
+    /**
+     * Normalize name for case/space-insensitive matching.
+     */
+    protected function normalizeName(string $name): string
+    {
+        return strtolower(preg_replace('/[^a-zA-Z0-9]/', '', trim($name)));
     }
 
     /**

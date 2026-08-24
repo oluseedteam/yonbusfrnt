@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         // 2. Partner Admin Accounts (Olubukunola Eniola & Adeshola Eniola)
         $this->call(AdminAccountsSeeder::class);
 
+        // 3. Verified Client Reviews
+        $this->call(GoogleReviewsSeeder::class);
+
         // 3. System Blog Categories
         $categories = [
             'Tax Tips',
