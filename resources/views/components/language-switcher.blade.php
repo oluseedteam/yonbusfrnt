@@ -14,8 +14,7 @@
             onclick="window.switchYonbusLanguage('en')"
             data-lang="en"
             class="yonbus-lang-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-[#0052FF] text-white shadow-sm"
-            title="English (Canada)">
-        <span style="font-size: 13px;">🇨🇦</span>
+            title="English">
         <span>EN</span>
     </button>
     <button type="button"

@@ -11,6 +11,7 @@ class Review extends Model
 
     protected $fillable = [
         'name',
+        'company',
         'location',
         'avatar',
         'rating',

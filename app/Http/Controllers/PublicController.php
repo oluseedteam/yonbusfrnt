@@ -7,6 +7,7 @@ use App\Models\BlogCategory;
 use App\Models\Service;
 use App\Models\CommunicationLog;
 use App\Services\GoogleReviewService;
+use App\Services\PracticeAreaService;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -31,10 +32,25 @@ class PublicController extends Controller
         return view('pages.about', compact('googleReviews'));
     }
 
-    public function services()
+    public function services(PracticeAreaService $practiceAreaService)
     {
         $services = Service::where('is_active', true)->get();
-        return view('pages.services', compact('services'));
+        $servicesList = $practiceAreaService->getAll();
+        return view('pages.services', compact('services', 'servicesList'));
+    }
+
+    public function serviceDetail($slug, PracticeAreaService $practiceAreaService)
+    {
+        $service = $practiceAreaService->findBySlug($slug);
+
+        if (!$service) {
+            abort(404);
+        }
+
+        $allServices = $practiceAreaService->getAll();
+        $otherServices = $practiceAreaService->getOtherServices($slug);
+
+        return view('pages.service-single', compact('service', 'allServices', 'otherServices'));
     }
 
     public function team()

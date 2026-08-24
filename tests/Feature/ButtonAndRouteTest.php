@@ -425,4 +425,49 @@ class ButtonAndRouteTest extends TestCase
 
         $this->assertEquals('paid', $invoice->fresh()->status);
     }
+
+    public function test_service_detail_pages_load_successfully_for_all_practice_areas(): void
+    {
+        $practiceAreas = [
+            'tax-preparation-planning'      => 'Tax Preparation & Planning Services',
+            'accounting-bookkeeping'        => 'Accounting & Bookkeeping Services',
+            'payroll-services'              => 'Payroll Services',
+            'business-consulting-advisory'  => 'Business Consulting & Advisory',
+            'compliance-services'           => 'Compliance Services',
+            'business-registration'         => 'Business Registration',
+        ];
+
+        foreach ($practiceAreas as $slug => $expectedTitle) {
+            $response = $this->get(route('services.show', $slug));
+            $response->assertStatus(200);
+            $response->assertSee(e($expectedTitle), false);
+            $response->assertSee(route('book-appointment'), false);
+            $response->assertSee('Overview &amp; Scope', false);
+            $response->assertSee('Included Services &amp; Practice Coverage', false);
+        }
+    }
+
+    public function test_service_detail_returns_404_for_invalid_slug(): void
+    {
+        $response = $this->get('/services/non-existent-service-slug');
+        $response->assertStatus(404);
+    }
+
+    public function test_services_page_contains_redirect_links_and_no_popup_modal(): void
+    {
+        $response = $this->get(route('services'));
+        $response->assertStatus(200);
+
+        // Verify each practice area has a link to its dedicated detail page
+        $response->assertSee(route('services.show', 'tax-preparation-planning'), false);
+        $response->assertSee(route('services.show', 'accounting-bookkeeping'), false);
+        $response->assertSee(route('services.show', 'payroll-services'), false);
+        $response->assertSee(route('services.show', 'business-consulting-advisory'), false);
+        $response->assertSee(route('services.show', 'compliance-services'), false);
+        $response->assertSee(route('services.show', 'business-registration'), false);
+
+        // Verify popup modal triggers are removed
+        $response->assertDontSee('openModal', false);
+        $response->assertDontSee('activeService', false);
+    }
 }

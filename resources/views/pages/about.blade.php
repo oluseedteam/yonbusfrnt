@@ -161,7 +161,7 @@
                 @foreach($displayReviews as $review)
                 <div class="about-review-card-box">
                     
-                    {{-- Reviewer Top Row --}}
+                    {{-- Reviewer Top Row & Content --}}
                     <div>
                         <div class="flex items-center gap-3 mb-3">
                             @if(!empty($review['avatar']))
@@ -183,6 +183,18 @@
                             "{!! nl2br(e($review['text'])) !!}"
                         </p>
                     </div>
+
+                    {{-- Company Name at End of Box --}}
+                    @if(!empty($review['company']))
+                    <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.12); display: flex; align-items: center; gap: 7px;">
+                        <svg style="width: 14px; height: 14px; color: #60a5fa; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <span style="color: #93c5fd !important; font-size: 12px; font-weight: 600; line-height: 1.35;">
+                            {{ $review['company'] }}
+                        </span>
+                    </div>
+                    @endif
 
                 </div>
                 @endforeach

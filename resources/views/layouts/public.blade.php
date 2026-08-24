@@ -149,22 +149,13 @@
             <!-- Top section: Brand + Columns -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
-                <!-- Col 1: Brand / CPB Canada Certified Member Logo + Socials -->
+                <!-- Col 1: Brand / CPB Canada Certified Member Logo -->
                 <div class="lg:col-span-1" style="display: flex; flex-direction: column; align-items: flex-start; gap: 18px;">
                     <a href="https://cpbcan.ca/" target="_blank" rel="noopener noreferrer" title="Certified Professional Bookkeepers of Canada (CPB Canada)" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; max-width: 220px; transition: transform 0.25s ease;" onmouseenter="this.style.transform='scale(1.03)';" onmouseleave="this.style.transform='scale(1)';">
                         <div style="background: #ffffff; padding: 6px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.4); width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                             <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada Certified Member" style="width: 100%; height: auto; object-fit: contain; border-radius: 10px; display: block;" />
                         </div>
                     </a>
-
-                    <!-- Social Media Links below CPB Logo -->
-                    <div style="display: flex; gap: 10px; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
-                        <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener" title="Facebook @yonbustax" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a>
-                        <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener" title="Instagram @yonbustax" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                        <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener" title="TikTok @yonbustax" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
-                        <a href="https://x.com/yonbustax" target="_blank" rel="noopener" title="X (Twitter) @yonbustax" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                        <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener" title="LinkedIn @yonbustax" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-                    </div>
                 </div>
 
                 <!-- Col 2: Services -->
@@ -174,20 +165,23 @@
                         Our Services
                     </h4>
                     <ul style="display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; margin: 0;">
-                        @foreach([
-                            'Tax Preparation & Planning',
-                            'Accounting & Bookkeeping',
-                            'Payroll Services',
-                            'Business Consulting & Advisory',
-                            'Compliance Services',
-                            'Business Registration'
-                        ] as $svc)
+                        @php
+                            $footerServices = [
+                                ['name' => 'Tax Preparation & Planning', 'slug' => 'tax-preparation-planning'],
+                                ['name' => 'Accounting & Bookkeeping', 'slug' => 'accounting-bookkeeping'],
+                                ['name' => 'Payroll Services', 'slug' => 'payroll-services'],
+                                ['name' => 'Business Consulting & Advisory', 'slug' => 'business-consulting-advisory'],
+                                ['name' => 'Compliance Services', 'slug' => 'compliance-services'],
+                                ['name' => 'Business Registration', 'slug' => 'business-registration'],
+                            ];
+                        @endphp
+                        @foreach($footerServices as $svc)
                         <li>
-                            <a href="{{ route('services') }}"
+                            <a href="{{ route('services.show', $svc['slug']) }}"
                                style="font-size: 0.85rem; color: #94A3B8; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.2s;"
                                onmouseenter="this.style.color='#60A5FA';" onmouseleave="this.style.color='#94A3B8';">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#005DFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                                {{ $svc }}
+                                {{ $svc['name'] }}
                             </a>
                         </li>
                         @endforeach
@@ -246,6 +240,15 @@
                             <div style="font-size: 0.85rem; line-height: 1.8;">
                                 <a href="mailto:info@yonbustax.ca" style="color: #ffffff; text-decoration: none; font-weight: 600;" onmouseenter="this.style.color='#60A5FA'; this.style.textDecoration='underline';" onmouseleave="this.style.color='#ffffff'; this.style.textDecoration='none';">info@yonbustax.ca</a>
                             </div>
+                        </div>
+
+                        <!-- Social Media Links (Connect With Us) -->
+                        <div style="padding-top: 4px; display: flex; gap: 8px; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+                            <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener" title="Facebook @yonbustax" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a>
+                            <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener" title="Instagram @yonbustax" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener" title="TikTok @yonbustax" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+                            <a href="https://x.com/yonbustax" target="_blank" rel="noopener" title="X (Twitter) @yonbustax" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                            <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener" title="LinkedIn @yonbustax" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: #94A3B8; transition: all 0.2s;" onmouseenter="this.style.background='rgba(0,93,255,0.3)'; this.style.borderColor='#005DFF'; this.style.color='#ffffff'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#94A3B8'; this.style.transform='translateY(0)';"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
                         </div>
 
                     </div>
@@ -367,32 +370,6 @@
             </svg>
         </a>
     </div>
-
-    <!-- Floating CPB Canada Certification Badge (Pops out to let users know YONBUS is a Certified CPB Member) -->
-    <div id="cpb-floating-badge"
-         style="position: fixed; bottom: 24px; left: 24px; z-index: 40; display: flex; align-items: center; gap: 12px; background: #ffffff; padding: 8px 16px 8px 8px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,26,87,0.25); border: 2px solid #0052FF; transform: translateY(100px); opacity: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;">
-        <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #ffffff; display: flex; align-items: center; justify-content: center; border: 1.5px solid #e2e8f0; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <img src="{{ asset('images/cpb-canada-logo.jpg') }}" alt="CPB Canada" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);" />
-        </div>
-        <div style="display: flex; flex-direction: column; line-height: 1.2;">
-            <span style="font-size: 11px; font-weight: 800; color: #0052FF; text-transform: uppercase; letter-spacing: 0.04em;">CPB Certified Member</span>
-            <span style="font-size: 10px; color: #64748B; font-weight: 500;">Certified Professional Bookkeeper</span>
-        </div>
-        <button onclick="document.getElementById('cpb-floating-badge').style.opacity='0'; document.getElementById('cpb-floating-badge').style.pointerEvents='none';" style="background: none; border: none; color: #94A3B8; font-size: 16px; cursor: pointer; padding: 0 0 0 4px; line-height: 1;" title="Dismiss">&times;</button>
-    </div>
-
-    <script>
-        // Trigger CPB logo pop out shortly after page load
-        window.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var badge = document.getElementById('cpb-floating-badge');
-                if (badge) {
-                    badge.style.transform = 'translateY(0)';
-                    badge.style.opacity = '1';
-                }
-            }, 1000);
-        });
-    </script>
 
     <!-- Google Translate Seamless Engine -->
     <x-google-translate-scripts />
