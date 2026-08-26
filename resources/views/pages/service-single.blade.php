@@ -173,78 +173,10 @@
                             </div>
                         </div>
 
-                        {{-- Card 3: Trust & Certification Card --}}
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-xl flex-shrink-0">
-                                    🍁
-                                </div>
-                                <div>
-                                    <div class="font-heading font-bold text-slate-900 text-sm">Certified Practice</div>
-                                    <div class="text-xs text-slate-500">CPB Canada Certified Member</div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-2.5 pt-2 border-t border-slate-100 text-xs text-slate-600">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-emerald-500 font-bold">✓</span>
-                                    <span>Authorized CRA &amp; Revenu Québec EFILE</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-emerald-500 font-bold">✓</span>
-                                    <span>256-Bit Encrypted Client Portal</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-emerald-500 font-bold">✓</span>
-                                    <span>Bilingual Service (English &amp; French)</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-emerald-500 font-bold">✓</span>
-                                    <span>Nationwide Virtual Consultations</span>
-                                </div>
-                            </div>
-
-                            <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between">
-                                <span>Office: Gatineau, QC</span>
-                                <a href="mailto:info@yonbustax.ca" class="text-blue-600 hover:underline font-semibold text-decoration-none">
-                                    info@yonbustax.ca
-                                </a>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
 
-            </div>
-        </section>
-
-        {{-- ============================================================
-             BOTTOM CALL TO ACTION BANNER
-             ============================================================ --}}
-        <section class="relative overflow-hidden py-16 text-center text-white"
-                 style="background: linear-gradient(135deg, #002B8A 0%, #0045d8 50%, #0052FF 100%);">
-            <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full opacity-20 pointer-events-none blur-3xl" style="background: radial-gradient(circle, #ffffff 0%, transparent 70%);"></div>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-100 bg-white/15 px-3.5 py-1 rounded-full border border-white/25 inline-block">
-                    Personalized Financial Advisory
-                </span>
-                <h2 class="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-white m-0">
-                    Ready to Get Started with {{ $service['short_name'] ?? $service['name'] }}?
-                </h2>
-                <p class="text-blue-100 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                    Let our certified professionals simplify your Canadian tax and accounting obligations with precision, speed, and proactive strategy.
-                </p>
-                <div class="pt-2 flex items-center justify-center gap-3 flex-wrap">
-                    <a href="{{ route('book-appointment') }}"
-                       class="bg-white text-[#002B8A] font-bold text-sm py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-decoration-none">
-                        Book a Consultation
-                    </a>
-                    <a href="{{ route('contact') }}"
-                       class="bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold text-sm py-3 px-6 rounded-xl transition-all text-decoration-none">
-                        Contact Practice Office
-                    </a>
-                </div>
             </div>
         </section>
 
