@@ -52,49 +52,37 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($servicesList as $service)
                     <div id="{{ $service['id'] }}"
-                         style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;"
+                         style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;"
                          onmouseenter="this.style.boxShadow='0 12px 28px rgba(0,82,255,0.12)'; this.style.borderColor='#93c5fd'; this.style.transform='translateY(-3px)';"
                          onmouseleave="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.05)'; this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)';">
                         
                         <div>
                             {{-- Logo / Icon Badge --}}
-                            <div style="width: 48px; height: 48px; border-radius: 14px; background: #eff6ff; border: 1px solid #dbeafe; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px;">
+                            <div style="width: 44px; height: 44px; border-radius: 12px; background: #eff6ff; border: 1px solid #dbeafe; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px;">
                                 {{ $service['icon'] }}
                             </div>
 
                             {{-- Service Title --}}
-                            <h3 class="font-heading font-bold" style="color: #0f172a; font-size: 1.15rem; line-height: 1.35; margin-bottom: 10px;">
+                            <h3 class="font-heading font-bold" style="color: #0f172a; font-size: 1.1rem; line-height: 1.35; margin-bottom: 8px;">
                                 <a href="{{ route('services.show', $service['id']) }}" class="hover:text-blue-600 transition-colors" style="text-decoration: none; color: inherit;">
                                     {{ $service['name'] }}
                                 </a>
                             </h3>
 
-                            {{-- Clean Description --}}
-                            <p style="color: #475569; font-size: 0.85rem; line-height: 1.6; margin-bottom: 16px;">
+                            {{-- Concise Description (3 Lines Clamp) --}}
+                            <p style="color: #475569; font-size: 0.84rem; line-height: 1.6; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                 {{ $service['description'] }}
                             </p>
-
-                            {{-- Key Service Points List --}}
-                            @if(!empty($service['features']))
-                            <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 8px;">
-                                @foreach($service['features'] as $feature)
-                                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #334155; line-height: 1.4;">
-                                    <span style="color: #0052ff; font-weight: 800; font-size: 12px; line-height: 1.2;">•</span>
-                                    <span style="font-weight: 600;">{{ $feature['title'] }}</span>
-                                </li>
-                                @endforeach
-                            </ul>
-                            @endif
                         </div>
 
-                        {{-- Action Button: Read More (Bold Vibrant Blue Redirect Button) --}}
-                        <div style="padding-top: 14px; border-top: 1px solid #f1f5f9;">
+                        {{-- Action Button: Read More --}}
+                        <div style="padding-top: 12px; border-top: 1px solid #f1f5f9;">
                             <a href="{{ route('services.show', $service['id']) }}"
-                               style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; border-radius: 12px; font-weight: 700; font-size: 0.88rem; color: #ffffff !important; background: #0052ff !important; text-decoration: none; border: none; box-shadow: 0 4px 12px rgba(0,82,255,0.28); cursor: pointer; transition: all 0.2s;"
-                               onmouseenter="this.style.background='#003dc2'; this.style.boxShadow='0 6px 18px rgba(0,82,255,0.4)';"
-                               onmouseleave="this.style.background='#0052ff'; this.style.boxShadow='0 4px 12px rgba(0,82,255,0.28)';">
+                               style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 11px; font-weight: 700; font-size: 0.85rem; color: #ffffff !important; background: #0052ff !important; text-decoration: none; border: none; box-shadow: 0 4px 12px rgba(0,82,255,0.25); cursor: pointer; transition: all 0.2s;"
+                               onmouseenter="this.style.background='#003dc2'; this.style.boxShadow='0 6px 18px rgba(0,82,255,0.38)';"
+                               onmouseleave="this.style.background='#0052ff'; this.style.boxShadow='0 4px 12px rgba(0,82,255,0.25)';">
                                 <span style="color: #ffffff !important; font-weight: 700;">Read More</span>
-                                <svg style="width: 16px; height: 16px; stroke: #ffffff;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg style="width: 15px; height: 15px; stroke: #ffffff;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
                             </a>
