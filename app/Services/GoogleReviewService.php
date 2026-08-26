@@ -16,6 +16,7 @@ class GoogleReviewService
         'Adeyemi Adesanmi' => 'Grand Car Wash Ltd.',
         'Musiliu Muritala' => 'Thurman Healthcare Services Inc.',
         'Olayemi Sadiku'   => 'O. Sadiku Medicine Professional Corporation',
+        'Kola Adeyemo'     => 'G-Speed Autos Inc.',
     ];
 
     /**
@@ -26,7 +27,7 @@ class GoogleReviewService
      */
     public function getReviews(): array
     {
-        return Cache::remember('yonbus_real_reviews_v4', 3600 * 12, function () {
+        return Cache::remember('yonbus_real_reviews_v5', 3600 * 12, function () {
             $reviews = [];
             $seenNames = [];
 
@@ -191,6 +192,17 @@ class GoogleReviewService
     public function getDefaultVerifiedReviews(): array
     {
         return [
+            [
+                'name'      => 'Kola Adeyemo',
+                'company'   => 'G-Speed Autos Inc.',
+                'location'  => 'Verified Client',
+                'initials'  => 'KA',
+                'avatar'    => null,
+                'rating'    => 5,
+                'time'      => '2 hours ago',
+                'service'   => 'Accounting & Tax Advisory',
+                'text'      => 'I highly recommend them for their professionalism, attention to detail, and reliability. They make accounting and tax matters simple, clear, and stress-free. Always responsive, knowledgeable, and genuinely committed to getting things done right. Excellent service from start to finish! ⭐️⭐️⭐️⭐️⭐️',
+            ],
             [
                 'name'      => 'Olayemi Sadiku',
                 'company'   => 'O. Sadiku Medicine Professional Corporation',

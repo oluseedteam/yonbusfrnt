@@ -45,43 +45,43 @@ class DatabaseSeeder extends Seeder
         // 4. Default System Services
         $services = [
             [
-                'name'        => 'Personal Income Tax Return (T1)',
-                'description' => 'Comprehensive individual tax preparation, credits optimization, and electronic filing with CRA.',
-                'price'       => 120.00,
-                'duration'    => 45,
-                'is_active'   => true,
-            ],
-            [
-                'name'        => 'Corporate Tax Filing (T2)',
-                'description' => 'Full corporate tax return preparation, financial statement review, and strategic tax minimization.',
-                'price'       => 650.00,
+                'name'        => 'Tax Preparation & Planning Services',
+                'description' => 'We provide comprehensive Canadian tax preparation and proactive tax planning services for individuals, families, self-employed professionals, investors, and corporations. Our approach focuses on accurate filings, identifying eligible deductions and credits, and helping clients make informed tax decisions throughout the year.',
+                'price'       => 150.00,
                 'duration'    => 60,
                 'is_active'   => true,
             ],
             [
-                'name'        => 'Monthly Bookkeeping & Reporting',
-                'description' => 'Accurate bank reconciliations, expense tracking, balance sheet, and monthly profit & loss reporting.',
+                'name'        => 'Accounting & Bookkeeping Services',
+                'description' => 'We provide accurate and efficient accounting and bookkeeping services to keep your financial records organized, up to date, and ready for informed business decisions.',
                 'price'       => 250.00,
                 'duration'    => 60,
                 'is_active'   => true,
             ],
             [
-                'name'        => 'Payroll Management & Remittances',
-                'description' => 'Full-service payroll processing, direct deposit setup, ROEs, T4/T4A summaries, and CRA remittances.',
+                'name'        => 'Payroll Services',
+                'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
                 'price'       => 180.00,
                 'duration'    => 45,
                 'is_active'   => true,
             ],
             [
-                'name'        => 'CRA Tax Audit Defense & Review',
-                'description' => 'Expert representation during CRA reviews, audit inquiries, formal appeals, and dispute negotiations.',
-                'price'       => 350.00,
-                'duration'    => 90,
+                'name'        => 'Business Consulting & Advisory',
+                'description' => 'We provide practical financial and business advisory services to help entrepreneurs and business owners understand their numbers, plan for growth, and make informed financial decisions.',
+                'price'       => 300.00,
+                'duration'    => 60,
                 'is_active'   => true,
             ],
             [
-                'name'        => 'Business Registration & Tax Planning',
-                'description' => 'Federal & provincial incorporation, GST/HST accounts, corporate structuring, and year-end planning.',
+                'name'        => 'Compliance Services',
+                'description' => 'We help individuals and businesses meet their ongoing tax, payroll, and corporate compliance requirements accurately and on time, helping reduce the risk of missed filings, penalties, and compliance issues.',
+                'price'       => 350.00,
+                'duration'    => 60,
+                'is_active'   => true,
+            ],
+            [
+                'name'        => 'Business Registration',
+                'description' => 'We help entrepreneurs and business owners establish their businesses properly and set up the registrations and accounts needed to operate in Canada.',
                 'price'       => 400.00,
                 'duration'    => 60,
                 'is_active'   => true,
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($services as $srv) {
-            \App\Models\Service::firstOrCreate(
+            \App\Models\Service::updateOrCreate(
                 ['name' => $srv['name']],
                 $srv
             );

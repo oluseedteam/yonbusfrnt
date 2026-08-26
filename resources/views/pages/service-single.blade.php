@@ -17,7 +17,7 @@
                     <span>/</span>
                     <a href="{{ route('services') }}" class="hover:text-white transition-colors text-decoration-none text-blue-200">Services</a>
                     <span>/</span>
-                    <span class="text-white font-semibold">{{ $service['short_name'] ?? $service['name'] }}</span>
+                    <span class="text-white font-semibold">{{ $service['name'] }}</span>
                 </div>
 
                 <div class="max-w-3xl space-y-4">
@@ -31,7 +31,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base md:text-lg text-blue-100/90 leading-relaxed font-normal">
-                        {{ $service['tagline'] ?? $service['description'] }}
+                        {{ $service['description'] }}
                     </p>
 
                     <div class="pt-2 flex flex-wrap items-center gap-3">
@@ -62,37 +62,32 @@
                     {{-- ── LEFT / MAIN CONTENT (8 Cols) ──────────────── --}}
                     <div class="lg:col-span-8 space-y-10">
 
-                        {{-- Section 1: In-Depth Overview --}}
+                        {{-- Section 1: Overview --}}
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4" data-aos="fade-up">
                             <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                <span>🔍</span> Overview &amp; Scope
+                                <span>🔍</span> Overview
                             </div>
                             <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 leading-tight">
-                                Comprehensive {{ $service['short_name'] ?? $service['name'] }} for Canadian Clients
+                                {{ $service['name'] }}
                             </h2>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
                                 {{ $service['description'] }}
                             </p>
-                            @if(!empty($service['extended_description']))
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed pt-1">
-                                {{ $service['extended_description'] }}
-                            </p>
-                            @endif
                         </div>
 
                         {{-- Section 2: Detailed Included Services & Coverage --}}
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6" data-aos="fade-up">
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                    <span>📋</span> Service Breakdown
+                                    <span>📋</span> Services Included
                                 </div>
                                 <span class="text-xs text-slate-500 font-medium">
-                                    {{ count($service['features'] ?? []) }} Core Service Modules Included
+                                    {{ count($service['features'] ?? []) }} Services Included
                                 </span>
                             </div>
 
                             <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Included Services &amp; Practice Coverage
+                                Key Offerings &amp; Coverage
                             </h3>
 
                             <div class="space-y-4">
@@ -109,149 +104,12 @@
                                             <p class="text-slate-600 text-xs sm:text-sm leading-relaxed m-0">
                                                 {{ $feature['desc'] }}
                                             </p>
-
-                                            @if(!empty($feature['highlights']))
-                                            <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                @foreach($feature['highlights'] as $highlight)
-                                                <div class="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                                                    <svg class="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                    <span>{{ $highlight }}</span>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
-
-                        {{-- Section 3: Who This Service Is For --}}
-                        @if(!empty($service['target_audience']))
-                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6" data-aos="fade-up">
-                            <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                <span>🎯</span> Target Clients
-                            </div>
-
-                            <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Who Is This Service Designed For?
-                            </h3>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                @foreach($service['target_audience'] as $audience)
-                                <div class="p-4 rounded-xl bg-blue-50/40 border border-blue-100 flex items-start gap-3">
-                                    <div class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
-                                        ✓
-                                    </div>
-                                    <span class="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed">
-                                        {{ $audience }}
-                                    </span>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-
-                        {{-- Section 4: Why Choose YONBUS --}}
-                        @if(!empty($service['why_choose_points']))
-                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6" data-aos="fade-up">
-                            <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                <span>⭐</span> The YONBUS Advantage
-                            </div>
-
-                            <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Why Choose YONBUS for {{ $service['short_name'] ?? $service['name'] }}?
-                            </h3>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                @foreach($service['why_choose_points'] as $point)
-                                <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 space-y-2">
-                                    <h4 class="font-heading font-bold text-slate-900 text-sm sm:text-base m-0 flex items-center gap-2">
-                                        <span class="text-blue-600 font-extrabold">•</span>
-                                        {{ $point['title'] }}
-                                    </h4>
-                                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed m-0">
-                                        {{ $point['desc'] }}
-                                    </p>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-
-                        {{-- Section 5: Our 4-Step Process --}}
-                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6" data-aos="fade-up">
-                            <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                <span>⚙️</span> How It Works
-                            </div>
-
-                            <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Our Streamlined 4-Step Client Workflow
-                            </h3>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
-                                    <div class="w-9 h-9 mx-auto rounded-full bg-[#0052ff] text-white flex items-center justify-center font-extrabold text-sm shadow-sm">1</div>
-                                    <h5 class="font-heading font-bold text-slate-900 text-sm">Consultation</h5>
-                                    <p class="text-slate-600 text-xs leading-relaxed">Discovery call to evaluate your tax and financial requirements.</p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
-                                    <div class="w-9 h-9 mx-auto rounded-full bg-[#0052ff] text-white flex items-center justify-center font-extrabold text-sm shadow-sm">2</div>
-                                    <h5 class="font-heading font-bold text-slate-900 text-sm">Secure Upload</h5>
-                                    <p class="text-slate-600 text-xs leading-relaxed">Upload slips and financial files to our encrypted client portal.</p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
-                                    <div class="w-9 h-9 mx-auto rounded-full bg-[#0052ff] text-white flex items-center justify-center font-extrabold text-sm shadow-sm">3</div>
-                                    <h5 class="font-heading font-bold text-slate-900 text-sm">CPB Review</h5>
-                                    <p class="text-slate-600 text-xs leading-relaxed">Precision execution, deduction audit, and quality check.</p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
-                                    <div class="w-9 h-9 mx-auto rounded-full bg-[#0052ff] text-white flex items-center justify-center font-extrabold text-sm shadow-sm">4</div>
-                                    <h5 class="font-heading font-bold text-slate-900 text-sm">Filing &amp; Growth</h5>
-                                    <p class="text-slate-600 text-xs leading-relaxed">Electronic submission to CRA/RQ and ongoing advisory.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Section 6: Frequently Asked Questions (Accordion) --}}
-                        @if(!empty($service['faqs']))
-                        <div x-data="{ openFaq: 0 }" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6" data-aos="fade-up">
-                            <div class="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full w-fit border border-blue-100">
-                                <span>💬</span> FAQs
-                            </div>
-
-                            <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Frequently Asked Questions
-                            </h3>
-
-                            <div class="space-y-3">
-                                @foreach($service['faqs'] as $faqIndex => $faq)
-                                <div class="border border-slate-200 rounded-2xl overflow-hidden transition-colors"
-                                     :class="openFaq === {{ $faqIndex }} ? 'bg-blue-50/40 border-blue-300' : 'bg-slate-50/60'">
-                                    <button @click="openFaq = (openFaq === {{ $faqIndex }} ? null : {{ $faqIndex }})"
-                                            type="button"
-                                            class="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 font-heading font-bold text-sm sm:text-base text-slate-900 cursor-pointer">
-                                        <span>{{ $faq['question'] }}</span>
-                                        <svg class="w-4 h-4 text-blue-600 transition-transform duration-200 flex-shrink-0"
-                                             :class="openFaq === {{ $faqIndex }} ? 'rotate-180' : ''"
-                                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
-                                        </svg>
-                                    </button>
-                                    <div x-show="openFaq === {{ $faqIndex }}"
-                                         x-cloak
-                                         x-collapse
-                                         class="px-4 sm:px-5 pb-5 text-slate-600 text-xs sm:text-sm leading-relaxed border-t border-slate-200/60 pt-3">
-                                        {{ $faq['answer'] }}
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
 
                     </div>
 
@@ -270,11 +128,11 @@
                                 </span>
 
                                 <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white m-0 leading-tight">
-                                    Need Expert Assistance with {{ $service['short_name'] ?? 'This Service' }}?
+                                    Need Expert Assistance with {{ $service['short_name'] ?? $service['name'] }}?
                                 </h3>
 
                                 <p class="text-blue-100 text-xs sm:text-sm leading-relaxed m-0">
-                                    Schedule a one-on-one session with our Gatineau CPB-certified advisors. We serve clients nationwide across Canada.
+                                    Schedule a one-on-one session with our certified advisors. We serve clients nationwide across Canada.
                                 </p>
 
                                 <div class="pt-2 space-y-2.5">
@@ -313,7 +171,7 @@
                                        class="flex items-center justify-between p-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-decoration-none {{ $isActive ? 'bg-[#0052ff] text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100' }}">
                                         <div class="flex items-center gap-2.5 truncate">
                                             <span>{{ $navService['icon'] }}</span>
-                                            <span class="truncate">{{ $navService['short_name'] ?? $navService['name'] }}</span>
+                                            <span class="truncate">{{ $navService['name'] }}</span>
                                         </div>
                                         <svg class="w-3.5 h-3.5 flex-shrink-0 {{ $isActive ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>

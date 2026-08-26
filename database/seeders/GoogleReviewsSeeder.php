@@ -17,6 +17,17 @@ class GoogleReviewsSeeder extends Seeder
 
         $reviews = [
             [
+                'name'         => 'Kola Adeyemo',
+                'company'      => 'G-Speed Autos Inc.',
+                'location'     => 'Verified Client',
+                'avatar'       => null,
+                'rating'       => 5,
+                'service'      => 'Accounting & Tax Advisory',
+                'text'         => 'I highly recommend them for their professionalism, attention to detail, and reliability. They make accounting and tax matters simple, clear, and stress-free. Always responsive, knowledgeable, and genuinely committed to getting things done right. Excellent service from start to finish! ⭐️⭐️⭐️⭐️⭐️',
+                'source'       => 'google',
+                'is_published' => true,
+            ],
+            [
                 'name'         => 'Olayemi Sadiku',
                 'company'      => 'O. Sadiku Medicine Professional Corporation',
                 'location'     => 'Verified Client',

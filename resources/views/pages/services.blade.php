@@ -70,9 +70,21 @@
                             </h3>
 
                             {{-- Clean Description --}}
-                            <p style="color: #475569; font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            <p style="color: #475569; font-size: 0.85rem; line-height: 1.6; margin-bottom: 16px;">
                                 {{ $service['description'] }}
                             </p>
+
+                            {{-- Key Service Points List --}}
+                            @if(!empty($service['features']))
+                            <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 8px;">
+                                @foreach($service['features'] as $feature)
+                                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #334155; line-height: 1.4;">
+                                    <span style="color: #0052ff; font-weight: 800; font-size: 12px; line-height: 1.2;">•</span>
+                                    <span style="font-weight: 600;">{{ $feature['title'] }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
                         </div>
 
                         {{-- Action Button: Read More (Bold Vibrant Blue Redirect Button) --}}
