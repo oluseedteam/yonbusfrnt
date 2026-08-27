@@ -32,7 +32,7 @@
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">💵</div>
             </div>
             <div class="text-3xl font-extrabold text-emerald-600 font-heading mt-2">${{ number_format($stats['total_revenue'], 2) }}</div>
-            <div class="text-xs text-emerald-600 font-medium mt-1">Paid Invoices Total</div>
+            <div class="text-xs text-emerald-600 font-medium mt-1">Total payments received</div>
         </div>
 
         <div class="card-box">
@@ -80,12 +80,12 @@
                 <p class="text-[11px] text-purple-600 font-medium">Add · Edit · Assign Roles</p>
             </div>
         </a>
-        <a href="{{ route('admin.invoices') }}" class="card-box flex items-center gap-4 hover:border-amber-500 border-2 border-transparent transition-all group">
-            <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">💵</div>
+        <a href="{{ route('admin.documents') }}" class="card-box flex items-center gap-4 hover:border-amber-500 border-2 border-transparent transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">📁</div>
             <div>
-                <p class="text-xs font-bold text-gray-500 uppercase font-heading">Billing</p>
-                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Invoices</p>
-                <p class="text-[11px] text-amber-600 font-medium">Issue · Track · Mark Paid</p>
+                <p class="text-xs font-bold text-gray-500 uppercase font-heading">File Management</p>
+                <p class="text-sm font-extrabold text-gray-900 dark:text-white font-heading">Documents Vault</p>
+                <p class="text-[11px] text-amber-600 font-medium">View · Download · Manage</p>
             </div>
         </a>
     </div>

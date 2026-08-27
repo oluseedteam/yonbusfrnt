@@ -36,7 +36,6 @@
                 <x-nav-item route="admin.users" icon="users" label="User &amp; Client Management" />
                 <x-nav-item route="admin.services" icon="briefcase" label="Services" />
                 <x-nav-item route="admin.appointments" icon="calendar" label="Appointments" />
-                <x-nav-item route="admin.invoices" icon="credit-card" label="Invoices" />
                 <x-nav-item route="admin.messages" icon="chat" label="Messages" />
                 <x-nav-item route="admin.blogs" icon="document-text" label="Blog System" />
                 <x-nav-item route="admin.reports" icon="chart" label="Reporting System" />
