@@ -146,11 +146,7 @@ class AdminInquiriesAndAppointmentConflictTest extends TestCase
 
     public function test_appointment_booking_locks_time_slot_and_lists_availability(): void
     {
-        $targetDate = now()->addDays(2)->format('Y-m-d');
-        // Ensure test date is not a Sunday
-        if (\Carbon\Carbon::parse($targetDate)->isSunday()) {
-            $targetDate = now()->addDays(3)->format('Y-m-d');
-        }
+        $targetDate = now()->next(\Carbon\Carbon::TUESDAY)->format('Y-m-d');
 
         $serviceAppt = app(AppointmentService::class);
 

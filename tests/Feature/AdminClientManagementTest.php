@@ -151,4 +151,75 @@ class AdminClientManagementTest extends TestCase
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
     }
+
+    public function test_admin_can_create_another_admin(): void
+    {
+        Livewire::actingAs($this->admin)
+            ->test(UserManager::class)
+            ->call('openModal', 'admin')
+            ->set('first_name', 'Robert')
+            ->set('last_name', 'Tremblay')
+            ->set('email', 'robert.tremblay@yonbus.ca')
+            ->set('role', 'admin')
+            ->set('password', 'AdminPass2026!')
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertSet('showModal', false);
+
+        $newAdmin = User::where('email', 'robert.tremblay@yonbus.ca')->first();
+        $this->assertNotNull($newAdmin);
+        $this->assertEquals('admin', $newAdmin->role);
+        $this->assertTrue($newAdmin->isAdmin());
+
+        // New admin can log in and access admin dashboard
+        Auth::logout();
+        $loginRes = $this->post('/login', [
+            'email' => 'robert.tremblay@yonbus.ca',
+            'password' => 'AdminPass2026!',
+        ]);
+        $this->assertAuthenticated();
+        $loginRes->assertRedirect(route('dashboard', absolute: false));
+
+        $adminDash = $this->get(route('admin.dashboard'));
+        $adminDash->assertStatus(200);
+    }
+
+    public function test_admin_can_delete_another_admin(): void
+    {
+        $targetAdmin = User::factory()->create([
+            'first_name' => 'Marc',
+            'last_name'  => 'Duval',
+            'email'      => 'marc.duval@yonbus.ca',
+            'role'       => 'admin',
+            'is_active'  => true,
+        ]);
+        $targetAdmin->assignRole('admin');
+
+        $this->assertDatabaseHas('users', ['id' => $targetAdmin->id]);
+
+        // Admin initiates and confirms deletion of target admin
+        Livewire::actingAs($this->admin)
+            ->test(UserManager::class)
+            ->call('confirmDelete', $targetAdmin->id)
+            ->assertSet('showDeleteModal', true)
+            ->assertSet('confirmingDeleteId', $targetAdmin->id)
+            ->call('deleteConfirmed')
+            ->assertSet('showDeleteModal', false)
+            ->assertHasNoErrors();
+
+        // Target admin should be deleted from database
+        $this->assertDatabaseMissing('users', ['id' => $targetAdmin->id]);
+    }
+
+    public function test_admin_cannot_delete_their_own_account(): void
+    {
+        Livewire::actingAs($this->admin)
+            ->test(UserManager::class)
+            ->call('confirmDelete', $this->admin->id)
+            ->assertSet('showDeleteModal', false)
+            ->assertSet('confirmingDeleteId', null);
+
+        // Account remains in database
+        $this->assertDatabaseHas('users', ['id' => $this->admin->id]);
+    }
 }

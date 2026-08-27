@@ -34,6 +34,19 @@
         </div>
     @endif
 
+    @if (session()->has('error'))
+        <div class="mb-6 p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-200 rounded-2xl text-sm shadow-sm flex items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold flex-shrink-0 mt-0.5">!</div>
+                <div>
+                    <h4 class="font-bold text-rose-950 dark:text-rose-100 text-sm">Notice</h4>
+                    <p class="text-xs text-rose-800 dark:text-rose-300 mt-0.5">{{ session('error') }}</p>
+                </div>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="text-rose-600 hover:text-rose-800 text-lg leading-none">&times;</button>
+        </div>
+    @endif
+
     <!-- Filters & Search -->
     <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 mb-6 shadow-sm border border-slate-200 dark:border-slate-700/50 space-y-4">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -332,16 +345,35 @@
 
     <!-- Custom Popout Delete Confirmation Modal -->
     @if ($showDeleteModal)
+        @php
+            $targetUser = $confirmingDeleteId ? \App\Models\User::find($confirmingDeleteId) : null;
+        @endphp
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
             <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 text-center">
                 <div class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto mb-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Delete User Account?</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Are you sure you want to permanently delete this user? This action cannot be undone and will remove all access.</p>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">
+                    Delete {{ $targetUser ? ucfirst($targetUser->getRoleNames()->first() ?? $targetUser->role ?? 'User') : 'User' }} Account?
+                </h3>
+                @if($targetUser)
+                    <div class="my-3 p-3 bg-slate-50 dark:bg-slate-900/80 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-left flex items-center gap-3">
+                        <img src="{{ $targetUser->avatar_url }}" alt="{{ $targetUser->name }}" class="w-9 h-9 rounded-full object-cover border border-slate-200">
+                        <div class="overflow-hidden">
+                            <div class="font-bold text-slate-900 dark:text-white truncate">{{ $targetUser->name }}</div>
+                            <div class="text-slate-500 font-mono text-[11px] truncate">{{ $targetUser->email }}</div>
+                        </div>
+                        <span class="ml-auto px-2 py-0.5 rounded text-[10px] font-bold uppercase {{ in_array($targetUser->role, ['admin', 'superadmin', 'subadmin']) ? 'bg-purple-100 text-purple-800' : 'bg-slate-200 text-slate-700' }}">
+                            {{ $targetUser->getRoleNames()->first() ?? $targetUser->role ?? 'User' }}
+                        </span>
+                    </div>
+                @endif
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">
+                    Are you sure you want to permanently delete this account? This action cannot be undone and will remove all access immediately.
+                </p>
                 <div class="flex items-center justify-center gap-3">
-                    <button wire:click="cancelDelete" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
-                    <button wire:click="deleteConfirmed" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md shadow-rose-600/20 transition">Yes, Delete User</button>
+                    <button wire:click="cancelDelete" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer">Cancel</button>
+                    <button wire:click="deleteConfirmed" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md shadow-rose-600/20 transition cursor-pointer">Yes, Permanently Delete</button>
                 </div>
             </div>
         </div>

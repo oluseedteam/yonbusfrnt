@@ -139,4 +139,93 @@ class ClientAndAdminDocumentSyncTest extends TestCase
         $clientDownload = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
         $clientDownload->assertStatus(200);
     }
+
+    public function test_client_uploads_image_receipt_successfully(): void
+    {
+        Storage::fake('public');
+
+        $receiptImage = UploadedFile::fake()->image('medical_expense_receipt.jpg', 600, 800);
+
+        Livewire::actingAs($this->client)
+            ->test(ClientDocumentManager::class)
+            ->set('file', $receiptImage)
+            ->set('type', 'receipt')
+            ->set('notes', 'Pharmacy prescription receipt for 2025 medical claims')
+            ->call('upload')
+            ->assertHasNoErrors()
+            ->assertSee('medical_expense_receipt.jpg');
+
+        $this->assertDatabaseHas('documents', [
+            'client_id'     => $this->client->id,
+            'original_name' => 'medical_expense_receipt.jpg',
+            'type'          => 'receipt',
+        ]);
+
+        $doc = Document::where('original_name', 'medical_expense_receipt.jpg')->firstOrFail();
+        $this->assertTrue($doc->is_image);
+
+        // Verify download of image
+        $res = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
+        $res->assertStatus(200);
+    }
+
+    public function test_client_document_validation_and_deletion(): void
+    {
+        Storage::fake('public');
+
+        // Test invalid file validation
+        $invalidExe = UploadedFile::fake()->create('malicious_file.exe', 500, 'application/x-msdownload');
+        Livewire::actingAs($this->client)
+            ->test(ClientDocumentManager::class)
+            ->set('file', $invalidExe)
+            ->call('upload')
+            ->assertHasErrors(['file']);
+
+        // Upload valid file then test deletion
+        $validPdf = UploadedFile::fake()->create('charity_donation.pdf', 300, 'application/pdf');
+        $testComponent = Livewire::actingAs($this->client)
+            ->test(ClientDocumentManager::class)
+            ->set('file', $validPdf)
+            ->call('upload')
+            ->assertHasNoErrors();
+
+        $doc = Document::where('original_name', 'charity_donation.pdf')->firstOrFail();
+
+        $testComponent->call('delete', $doc->id)
+            ->assertHasNoErrors();
+
+        $this->assertSoftDeleted('documents', [
+            'id' => $doc->id,
+        ]);
+    }
+
+    public function test_admin_uploads_image_to_client_and_client_can_view_and_download(): void
+    {
+        Storage::fake('public');
+
+        $craNoticeImg = UploadedFile::fake()->image('2025_cra_assessment_stamp.png', 800, 1000);
+
+        Livewire::actingAs($this->olubukunola)
+            ->test(AdminDocumentManager::class)
+            ->call('openUploadModal', $this->client->id)
+            ->set('target_client_id', (string)$this->client->id)
+            ->set('file', $craNoticeImg)
+            ->set('type', 'cra_notice')
+            ->set('notes', 'Scanned CRA assessment stamp')
+            ->call('uploadDocument')
+            ->assertHasNoErrors();
+
+        $doc = Document::where('original_name', '2025_cra_assessment_stamp.png')->firstOrFail();
+        $this->assertTrue($doc->is_image);
+
+        // Client views in document manager
+        Auth::logout();
+        Livewire::actingAs($this->client)
+            ->test(ClientDocumentManager::class)
+            ->assertSee('2025_cra_assessment_stamp.png');
+
+        // Client downloads image
+        $downloadRes = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
+        $downloadRes->assertStatus(200);
+    }
 }

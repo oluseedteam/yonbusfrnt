@@ -43,7 +43,6 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'verified', 'role:
     Route::get('/appointments', \App\Livewire\Client\AppointmentManager::class)->name('appointments');
     Route::get('/documents', \App\Livewire\Client\DocumentManager::class)->name('documents');
     Route::get('/tax-returns', \App\Livewire\Client\TaxReturnTracker::class)->name('tax-returns');
-    Route::get('/invoices', \App\Livewire\Client\InvoiceManager::class)->name('invoices');
     Route::get('/messages', \App\Livewire\Client\Messages::class)->name('messages');
     Route::get('/reports', \App\Livewire\Client\Reports::class)->name('reports');
     Route::get('/profile', \App\Livewire\Client\Profile::class)->name('profile');

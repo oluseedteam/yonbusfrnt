@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Document;
 use App\Models\TaxReturn;
-use App\Models\Invoice;
 use App\Models\Message;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -24,8 +23,6 @@ class DashboardController extends Controller
             'appointments'          => Appointment::where('client_id', $user->id)->count(),
             'appointments_upcoming' => Appointment::where('client_id', $user->id)->whereIn('status', ['pending', 'confirmed'])->where('date', '>=', $today)->count(),
             'documents'             => Document::where('client_id', $user->id)->count(),
-            'invoices'              => Invoice::where('client_id', $user->id)->count(),
-            'invoices_pending'      => Invoice::where('client_id', $user->id)->where('status', 'pending')->count(),
         ];
 
         $upcomingAppointment = Appointment::where('client_id', $user->id)
@@ -40,7 +37,6 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        $recentInvoices  = Invoice::where('client_id', $user->id)->latest()->take(3)->get();
         $recentDocuments = Document::where('client_id', $user->id)->latest()->take(5)->get();
         $adminDocuments  = Document::where('client_id', $user->id)->where('uploaded_by', '!=', $user->id)->with('uploader')->latest()->take(5)->get();
 
@@ -49,7 +45,7 @@ class DashboardController extends Controller
 
         return view('client.dashboard', compact(
             'user', 'consultant', 'stats', 'upcomingAppointment',
-            'recentActivity', 'recentInvoices', 'recentDocuments', 'adminDocuments'
+            'recentActivity', 'recentDocuments', 'adminDocuments'
         ));
     }
 }

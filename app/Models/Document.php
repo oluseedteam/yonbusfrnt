@@ -50,6 +50,23 @@ class Document extends Model
 
     public function getFileExtensionAttribute(): string
     {
-        return pathinfo($this->original_name, PATHINFO_EXTENSION);
+        return strtolower(pathinfo($this->original_name, PATHINFO_EXTENSION));
+    }
+
+    public function getIsImageAttribute(): bool
+    {
+        $ext = $this->file_extension;
+        if (in_array($ext, ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg', 'bmp', 'heic', 'heif'])) {
+            return true;
+        }
+        return str_starts_with($this->file_type ?? '', 'image/');
+    }
+
+    public function getFileUrlAttribute(): ?string
+    {
+        if ($this->stored_name && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->stored_name)) {
+            return asset('storage/' . $this->stored_name);
+        }
+        return null;
     }
 }

@@ -26,9 +26,16 @@ class DocumentManager extends Component
 
     protected $rules = [
         'client_id' => 'required|exists:users,id',
-        'file'      => 'required|file|max:20480',
+        'file'      => 'required|file|max:20480|mimes:pdf,png,jpg,jpeg,webp,gif,heic,heif,docx,doc,xlsx,xls,csv,txt',
         'type'      => 'required|string',
         'notes'     => 'nullable|string|max:300',
+    ];
+
+    protected $messages = [
+        'client_id.required' => 'Please select a recipient client.',
+        'file.required'      => 'Please select a document or image file.',
+        'file.max'           => 'File size must not exceed 20MB.',
+        'file.mimes'         => 'Supported formats: PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX, CSV, TXT.',
     ];
 
     public function render()

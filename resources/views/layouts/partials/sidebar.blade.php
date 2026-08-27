@@ -16,7 +16,6 @@
                 <x-nav-item route="client.appointments" icon="calendar" label="Appointments" />
                 <x-nav-item route="client.documents" icon="folder" label="Documents" />
                 <x-nav-item route="client.tax-returns" icon="document-tax" label="Tax Returns" />
-                <x-nav-item route="client.invoices" icon="credit-card" label="Invoices" />
                 <x-nav-item route="client.messages" icon="chat" label="Messages" />
                 <x-nav-item route="client.reports" icon="chart" label="Reports" />
                 <x-nav-item route="client.profile" icon="user" label="Profile" />

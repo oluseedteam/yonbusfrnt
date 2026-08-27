@@ -204,6 +204,16 @@ class UserManager extends Component
 
     public function confirmDelete($id)
     {
+        $user = User::find($id);
+        if (!$user) {
+            return;
+        }
+
+        if ($user->id === auth()->id()) {
+            session()->flash('error', 'You cannot delete your own logged-in account.');
+            return;
+        }
+
         $this->confirmingDeleteId = $id;
         $this->showDeleteModal = true;
     }
@@ -217,10 +227,36 @@ class UserManager extends Component
     public function deleteConfirmed()
     {
         if ($this->confirmingDeleteId) {
-            $user = User::findOrFail($this->confirmingDeleteId);
-            AuditService::log('user.deleted', "Deleted user: {$user->name}", 'User', $user->id);
-            $this->repo()->delete($this->confirmingDeleteId);
-            session()->flash('message', "User '{$user->name}' deleted successfully.");
+            $user = User::find($this->confirmingDeleteId);
+            if (!$user) {
+                $this->confirmingDeleteId = null;
+                $this->showDeleteModal = false;
+                return;
+            }
+
+            if ($user->id === auth()->id()) {
+                session()->flash('error', 'You cannot delete your own logged-in account.');
+                $this->confirmingDeleteId = null;
+                $this->showDeleteModal = false;
+                return;
+            }
+
+            $userName = $user->name ?: $user->email;
+            $userEmail = $user->email;
+            $userRole = ucfirst($user->getRoleNames()->first() ?? $user->role ?? 'User');
+
+            // Log administrative action
+            AuditService::log('user.deleted', "Deleted {$userRole} account: {$userName} ({$userEmail})", 'User', $user->id);
+
+            // Clean up avatar if stored
+            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+
+            // Delete user via repository
+            $this->repo()->delete($user->id);
+
+            session()->flash('message', "{$userRole} account '{$userName}' ({$userEmail}) deleted successfully.");
         }
         $this->confirmingDeleteId = null;
         $this->showDeleteModal = false;

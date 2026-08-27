@@ -28,10 +28,24 @@ class DocumentManager extends Component
 
     protected $rules = [
         'target_client_id' => 'required|exists:users,id',
-        'file'             => 'required|file|max:20480',
+        'file'             => 'required|file|max:20480|mimes:pdf,png,jpg,jpeg,webp,gif,heic,heif,docx,doc,xlsx,xls,csv,txt',
         'type'             => 'required|string',
         'notes'            => 'nullable|string|max:300',
     ];
+
+    protected $messages = [
+        'target_client_id.required' => 'Please select a recipient client.',
+        'target_client_id.exists'   => 'The selected client does not exist.',
+        'file.required'             => 'Please select a document or image to upload.',
+        'file.file'                 => 'The uploaded item must be a valid file.',
+        'file.max'                  => 'The file size must not exceed 20MB.',
+        'file.mimes'                => 'Supported formats: PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX, CSV, TXT.',
+    ];
+
+    public function removeSelectedFile()
+    {
+        $this->reset('file');
+    }
 
     public function updatingSearch()
     {

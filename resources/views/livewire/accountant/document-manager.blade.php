@@ -41,9 +41,13 @@
                     @forelse($documents as $doc)
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
                             <td class="p-3.5 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-[10px]">
-                                    {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
-                                </div>
+                                @if($doc->is_image && $doc->file_url)
+                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" class="w-8 h-8 rounded-lg object-cover border border-blue-200 dark:border-blue-900/60 shadow-sm flex-shrink-0">
+                                @else
+                                    <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-[10px]">
+                                        {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
+                                    </div>
+                                @endif
                                 <span class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</span>
                             </td>
                             <td class="p-3.5 font-medium text-gray-800 dark:text-gray-200">{{ $doc->client?->name ?? 'N/A' }}</td>
@@ -88,9 +92,14 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select File</label>
-                        <input type="file" wire:model="file" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
-                        @error('file') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select Document or Image</label>
+                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs">
+                        @if($file)
+                            <div class="mt-2 text-xs font-semibold text-[#005DFF] bg-blue-50 dark:bg-blue-950/60 py-1 px-3 rounded-lg inline-block">
+                                Selected: {{ $file->getClientOriginalName() }}
+                            </div>
+                        @endif
+                        @error('file') <span class="text-red-500 text-[11px] block mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>

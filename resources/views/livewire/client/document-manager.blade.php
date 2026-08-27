@@ -74,24 +74,59 @@
 
     <!-- Upload Card & Drag-Drop UI -->
     <div class="card-box mb-8">
-        <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document to Admin</h3>
+        <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document or Image</h3>
         <form wire:submit.prevent="upload" class="space-y-4">
-            <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20">
-                <input type="file" wire:model="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3">
+            <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20 group">
+                <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                
+                <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 </div>
+                
                 <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading">
-                    Click to upload or drag and drop file here
+                    Click to upload or drag and drop files &amp; photos here
                 </p>
-                <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, DOCX, XLSX (max 20MB)</p>
+                <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+                
+                {{-- Livewire Upload Loading Progress --}}
+                <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
+                    <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    <span>Uploading file... please wait</span>
+                </div>
+
+                {{-- Selected File & Image Preview --}}
                 @if($file)
-                    <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-950 text-[#005DFF] text-xs font-medium rounded-lg">
-                        <span>Selected: {{ $file->getClientOriginalName() }}</span>
+                    <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-gray-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
+                        @php
+                            $isImg = false;
+                            try {
+                                $isImg = str_starts_with($file->getMimeType(), 'image/');
+                            } catch (\Throwable $e) {}
+                        @endphp
+
+                        @if($isImg)
+                            <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 dark:border-blue-900 flex-shrink-0 shadow-sm">
+                        @else
+                            <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
+                            </div>
+                        @endif
+
+                        <div class="overflow-hidden">
+                            <p class="font-bold text-xs text-gray-900 dark:text-white truncate max-w-xs font-heading">{{ $file->getClientOriginalName() }}</p>
+                            <p class="text-[10px] text-gray-500 font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to submit</p>
+                        </div>
+
+                        <button type="button" wire:click.prevent="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition">
+                            Remove
+                        </button>
                     </div>
                 @endif
             </div>
-            @error('file') <span class="text-red-500 text-[11px] block">{{ $message }}</span> @enderror
+            @error('file') <span class="text-red-500 text-[11px] block font-medium">{{ $message }}</span> @enderror
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {{-- Document Category --}}
@@ -123,15 +158,15 @@
                 {{-- Notes --}}
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
-                    <input type="text" wire:model="notes" placeholder="e.g. 2025 medical & tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    <input type="text" wire:model="notes" placeholder="e.g. 2025 medical &amp; tuition expenses, receipt photo" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
                 </div>
             </div>
 
             <div class="flex justify-end pt-2">
-                <button type="submit" class="btn-primary text-xs flex items-center gap-1.5" wire:loading.attr="disabled">
-                    <svg wire:loading.remove class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                    <span wire:loading.remove>Upload &amp; Submit Document</span>
-                    <span wire:loading>Uploading &amp; Submitting...</span>
+                <button type="submit" class="btn-primary text-xs flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-500/20" wire:loading.attr="disabled">
+                    <svg wire:loading.remove wire:target="upload" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span wire:loading.remove wire:target="upload">Upload &amp; Submit Document</span>
+                    <span wire:loading wire:target="upload">Uploading &amp; Submitting...</span>
                 </button>
             </div>
         </form>
@@ -142,7 +177,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
             <div>
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading">Your Uploaded Files</h3>
-                <p class="text-[11px] text-gray-500">History of all documents submitted to YONBUS</p>
+                <p class="text-[11px] text-gray-500">History of all documents and images submitted to YONBUS</p>
             </div>
             
             {{-- Search Bar --}}
@@ -156,7 +191,7 @@
             <table class="w-full text-left text-xs">
                 <thead class="bg-gray-50 dark:bg-gray-800 text-gray-500 uppercase font-semibold">
                     <tr>
-                        <th class="p-3.5">Name</th>
+                        <th class="p-3.5">Document / Image</th>
                         <th class="p-3.5">Category</th>
                         <th class="p-3.5">Delivered To</th>
                         <th class="p-3.5">Size</th>
@@ -166,11 +201,15 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                     @forelse($documents as $doc)
-                        <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40">
+                        <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40 transition-colors">
                             <td class="p-3.5 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0">
-                                    {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
-                                </div>
+                                @if($doc->is_image && $doc->file_url)
+                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" class="w-9 h-9 object-cover rounded-lg border border-blue-200 dark:border-blue-900 shadow-sm flex-shrink-0">
+                                @else
+                                    <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                        {{ strtoupper($doc->file_extension ?: 'DOC') }}
+                                    </div>
+                                @endif
                                 <div>
                                     <p class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</p>
                                     @if($doc->notes)
@@ -195,15 +234,22 @@
                             <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y g:i A') }}</td>
                             <td class="p-3.5 text-right space-x-3 whitespace-nowrap">
-                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] hover:underline font-bold">Download</a>
-                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="text-rose-600 hover:underline font-medium">Delete</button>
+                                <a href="{{ route('documents.download', $doc) }}" class="inline-flex items-center gap-1 text-[#005DFF] hover:underline font-bold">
+                                    <span>📥</span> Download
+                                </a>
+                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="text-rose-600 hover:underline font-medium cursor-pointer">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="6" class="p-8 text-center text-gray-400">
-                                <p class="font-semibold text-gray-700 dark:text-gray-300">No documents found</p>
-                                <p class="text-[11px] mt-1">Upload your tax slips, receipts, or financial statements using the form above.</p>
+                                <div class="w-12 h-12 mx-auto rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 flex items-center justify-center mb-2">
+                                    📁
+                                </div>
+                                <p class="font-semibold text-gray-700 dark:text-gray-300">No documents or images found</p>
+                                <p class="text-[11px] mt-1">Upload your tax slips, receipts, photos, or financial statements using the form above.</p>
                             </td>
                         </tr>
                     @endforelse

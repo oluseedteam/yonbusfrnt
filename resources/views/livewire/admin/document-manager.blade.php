@@ -145,9 +145,13 @@
                         <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-700/30 transition">
                             {{-- Document Details --}}
                             <td class="px-6 py-4 flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-200 dark:border-blue-900/40">
-                                    {{ $ext ?: 'DOC' }}
-                                </div>
+                                @if($doc->is_image && $doc->file_url)
+                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" class="w-10 h-10 rounded-xl object-cover border border-blue-200 dark:border-blue-900/60 shadow-sm flex-shrink-0">
+                                @else
+                                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-200 dark:border-blue-900/40">
+                                        {{ $ext ?: 'DOC' }}
+                                    </div>
+                                @endif
                                 <div>
                                     <div class="font-bold text-slate-900 dark:text-white text-xs flex items-center gap-1.5">
                                         <span>{{ $doc->original_name }}</span>
@@ -155,7 +159,7 @@
                                     @if($doc->notes)
                                         <div class="text-[11px] text-slate-500 italic mt-0.5">{{ $doc->notes }}</div>
                                     @endif
-                                    <div class="text-[10px] text-slate-400 font-mono mt-0.5">{{ $doc->type ?? $doc->file_type }}</div>
+                                    <div class="text-[10px] text-slate-400 font-mono mt-0.5">{{ str_replace('_', ' ', $doc->type ?? $doc->file_type) }}</div>
                                 </div>
                             </td>
 
@@ -271,23 +275,56 @@
                         @error('target_client_id') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
                     </div>
 
-                    {{-- File Input --}}
-                    <div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30">
-                        <input type="file" wire:model="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base">
+                    {{-- File Input & Image Preview --}}
+                    <div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group">
+                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
                             📁
                         </div>
                         <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
-                            Click or drag document to upload
+                            Click or drag document or photo to upload
                         </p>
-                        <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, DOCX, XLSX (max 20MB)</p>
+                        <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+
+                        {{-- Livewire Upload Loading Progress --}}
+                        <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
+                            <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                            <span>Processing file... please wait</span>
+                        </div>
+
+                        {{-- Selected File & Image Preview --}}
                         @if($file)
-                            <div class="mt-2 text-xs font-bold text-[#005DFF] bg-blue-50 dark:bg-blue-950/60 py-1 px-3 rounded-lg inline-block">
-                                Selected: {{ $file->getClientOriginalName() }}
+                            <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
+                                @php
+                                    $isImg = false;
+                                    try {
+                                        $isImg = str_starts_with($file->getMimeType(), 'image/');
+                                    } catch (\Throwable $e) {}
+                                @endphp
+
+                                @if($isImg)
+                                    <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 dark:border-blue-900 flex-shrink-0 shadow-sm">
+                                @else
+                                    <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                        {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
+                                    </div>
+                                @endif
+
+                                <div class="overflow-hidden">
+                                    <p class="font-bold text-xs text-slate-900 dark:text-white truncate max-w-xs">{{ $file->getClientOriginalName() }}</p>
+                                    <p class="text-[10px] text-slate-500 font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to upload</p>
+                                </div>
+
+                                <button type="button" wire:click.prevent="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer">
+                                    Remove
+                                </button>
                             </div>
                         @endif
                     </div>
-                    @error('file') <span class="text-xs text-rose-500 block">{{ $message }}</span> @enderror
+                    @error('file') <span class="text-xs text-rose-500 block font-medium">{{ $message }}</span> @enderror
 
                     {{-- Document Category --}}
                     <div>
@@ -310,9 +347,10 @@
                         <button type="button" wire:click="$set('showUploadModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 cursor-pointer">
                             Cancel
                         </button>
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            <span>Upload &amp; Send to Client</span>
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer" wire:loading.attr="disabled">
+                            <svg wire:loading.remove wire:target="uploadDocument" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span wire:loading.remove wire:target="uploadDocument">Upload &amp; Send to Client</span>
+                            <span wire:loading wire:target="uploadDocument">Uploading &amp; Sending...</span>
                         </button>
                     </div>
                 </form>

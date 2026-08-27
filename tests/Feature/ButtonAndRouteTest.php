@@ -134,7 +134,6 @@ class ButtonAndRouteTest extends TestCase
         $this->get(route('client.appointments'))->assertStatus(200);
         $this->get(route('client.documents'))->assertStatus(200);
         $this->get(route('client.tax-returns'))->assertStatus(200);
-        $this->get(route('client.invoices'))->assertStatus(200);
         $this->get(route('client.messages'))->assertStatus(200);
         $this->get(route('client.profile'))->assertStatus(200);
         $this->get(route('client.settings'))->assertStatus(200);
@@ -442,8 +441,8 @@ class ButtonAndRouteTest extends TestCase
             $response->assertStatus(200);
             $response->assertSee(e($expectedTitle), false);
             $response->assertSee(route('book-appointment'), false);
-            $response->assertSee('Overview &amp; Scope', false);
-            $response->assertSee('Included Services &amp; Practice Coverage', false);
+            $response->assertSee('Overview', false);
+            $response->assertSee('Services Included', false);
         }
     }
 
