@@ -21,23 +21,39 @@ class DocumentManager extends Component
     public $notes = '';
     public $search = '';
 
-    protected $rules = [
-        'file'              => 'required|file|max:20480|mimes:pdf,png,jpg,jpeg,webp,gif,heic,heif,docx,doc,xlsx,xls,csv,txt', // 20MB
-        'type'              => 'required|string',
-        'assigned_admin_id' => 'nullable|exists:users,id',
-        'notes'             => 'nullable|string|max:500',
-    ];
+    public $previewDocId = null;
+
+    protected function rules()
+    {
+        return [
+            'file'              => 'required|file|max:20480|mimes:pdf,png,jpg,jpeg,webp,gif,heic,heif,docx,doc,xlsx,xls,csv,txt', // 20MB
+            'type'              => 'required|string',
+            'assigned_admin_id' => 'nullable|exists:users,id',
+            'notes'             => 'nullable|string|max:500',
+        ];
+    }
 
     protected $messages = [
         'file.required' => 'Please select a document or image file to upload.',
         'file.file'     => 'The uploaded item must be a valid file.',
         'file.max'      => 'The file size must not exceed 20MB.',
         'file.mimes'    => 'Supported formats: PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX, CSV, TXT.',
+        'assigned_admin_id.exists' => 'The selected advisor does not exist.',
     ];
 
     public function removeSelectedFile()
     {
         $this->reset('file');
+    }
+
+    public function previewDocument($id)
+    {
+        $this->previewDocId = $id;
+    }
+
+    public function closePreview()
+    {
+        $this->previewDocId = null;
     }
 
     public function mount()
@@ -76,17 +92,24 @@ class DocumentManager extends Component
             ->latest()
             ->paginate(10);
 
+        // Active document being previewed
+        $previewDocument = $this->previewDocId ? Document::where('client_id', $clientId)->find($this->previewDocId) : null;
+
         // List of all active Advisors / Admins for client to select
         $advisors = User::whereIn('role', ['admin', 'superadmin', 'subadmin', 'accountant'])
             ->orWhereHas('roles', fn($q) => $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin', 'accountant']))
             ->get();
 
-        return view('livewire.client.document-manager', compact('documents', 'adminDocuments', 'advisors'))
+        return view('livewire.client.document-manager', compact('documents', 'adminDocuments', 'advisors', 'previewDocument'))
             ->layout('layouts.client');
     }
 
     public function upload()
     {
+        if (empty($this->assigned_admin_id)) {
+            $this->assigned_admin_id = null;
+        }
+
         $this->validate();
 
         $originalName = $this->file->getClientOriginalName();
@@ -125,11 +148,11 @@ class DocumentManager extends Component
             }
         }
 
-        $assignedName = $doc->assignedAdmin ? "to {$doc->assignedAdmin->name}" : "to YONBUS Team";
+        $assignedName = $doc->assignedAdmin ? "to {$doc->assignedAdmin->name}" : "to Central YONBUS Practice";
         ActivityLog::log('document.uploaded', "Uploaded document: {$doc->original_name} {$assignedName}", $doc);
 
         $this->reset(['file', 'notes']);
-        session()->flash('message', "Document uploaded successfully and delivered {$assignedName}!");
+        session()->flash('message', "Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!");
     }
 
     public function delete($id)
@@ -140,6 +163,9 @@ class DocumentManager extends Component
         }
         ActivityLog::log('document.deleted', "Deleted document: {$doc->original_name}", $doc);
         $doc->delete();
+        if ($this->previewDocId == $id) {
+            $this->previewDocId = null;
+        }
         session()->flash('message', 'Document deleted.');
     }
 }

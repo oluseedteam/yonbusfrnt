@@ -18,7 +18,10 @@ class DocumentResource extends JsonResource
             'version'       => $this->version,
             'client_id'     => $this->client_id,
             'uploaded_by'   => $this->uploaded_by,
+            'view_url'      => $this->view_url,
+            'download_url'  => $this->download_url,
             'created_at'    => $this->created_at?->toIso8601String(),
         ];
     }
 }
+

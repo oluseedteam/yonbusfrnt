@@ -75,6 +75,18 @@ class DocumentManager extends Component
         }
     }
 
+    public $previewDocId = null;
+
+    public function previewDocument($id)
+    {
+        $this->previewDocId = $id;
+    }
+
+    public function closePreview()
+    {
+        $this->previewDocId = null;
+    }
+
     public function render()
     {
         $query = Document::with(['client.assignedAdmin', 'uploader', 'assignedAdmin']);
@@ -109,7 +121,8 @@ class DocumentManager extends Component
             $myId = auth()->id();
             $query->where(function ($q) use ($myId) {
                 $q->where('assigned_admin_id', $myId)
-                  ->orWhereHas('client', fn($cq) => $cq->where('assigned_admin_id', $myId));
+                  ->orWhereHas('client', fn($cq) => $cq->where('assigned_admin_id', $myId))
+                  ->orWhereNull('assigned_admin_id');
             });
         }
 
@@ -141,9 +154,12 @@ class DocumentManager extends Component
             'admin_uploads'  => Document::whereColumn('uploaded_by', '!=', 'client_id')->count(),
         ];
 
-        return view('livewire.admin.document-manager', compact('documents', 'clients', 'consultants', 'stats'))
+        $previewDocument = $this->previewDocId ? Document::with(['client', 'uploader', 'assignedAdmin'])->find($this->previewDocId) : null;
+
+        return view('livewire.admin.document-manager', compact('documents', 'clients', 'consultants', 'stats', 'previewDocument'))
             ->layout('layouts.admin');
     }
+
 
     public function openUploadModal($clientId = null)
     {

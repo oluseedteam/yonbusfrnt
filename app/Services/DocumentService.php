@@ -17,10 +17,16 @@ class DocumentService
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'image/jpeg',
         'image/png',
+        'image/webp',
+        'image/gif',
+        'image/heic',
+        'image/heif',
         'text/csv',
+        'text/plain',
     ];
 
     const MAX_SIZE_MB = 25;
+
 
     public function upload(UploadedFile $file, int $clientId, int $uploadedById): Document
     {
@@ -53,20 +59,42 @@ class DocumentService
 
     public function download(Document $document): \Symfony\Component\HttpFoundation\StreamedResponse
     {
-        if (!Storage::disk('public')->exists($document->stored_name)) {
+        $diskName = Storage::disk('public')->exists($document->stored_name) ? 'public' : (Storage::disk('local')->exists($document->stored_name) ? 'local' : null);
+
+        if (!$diskName) {
             abort(404, 'Document file not found on storage.');
         }
 
-        return Storage::disk('public')->download($document->stored_name, $document->original_name);
+        return Storage::disk($diskName)->download($document->stored_name, $document->original_name);
+    }
+
+    public function view(Document $document): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $diskName = Storage::disk('public')->exists($document->stored_name) ? 'public' : (Storage::disk('local')->exists($document->stored_name) ? 'local' : null);
+
+        if (!$diskName) {
+            abort(404, 'Document file not found on storage.');
+        }
+
+        $mimeType = $document->file_type ?: Storage::disk($diskName)->mimeType($document->stored_name);
+        $headers = [
+            'Content-Type'        => $mimeType ?: 'application/octet-stream',
+            'Content-Disposition' => 'inline; filename="' . addslashes($document->original_name) . '"',
+            'Cache-Control'       => 'private, max-age=3600',
+        ];
+
+        return Storage::disk($diskName)->response($document->stored_name, $document->original_name, $headers);
     }
 
     public function delete(Document $document): void
     {
-        if (Storage::disk('public')->exists($document->stored_name)) {
-            Storage::disk('public')->delete($document->stored_name);
+        $diskName = Storage::disk('public')->exists($document->stored_name) ? 'public' : (Storage::disk('local')->exists($document->stored_name) ? 'local' : null);
+        if ($diskName) {
+            Storage::disk($diskName)->delete($document->stored_name);
         }
         $document->delete();
     }
+
 
     public function getVersionHistory(int $clientId, string $originalName): \Illuminate\Database\Eloquent\Collection
     {

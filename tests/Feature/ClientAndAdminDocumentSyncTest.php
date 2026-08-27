@@ -99,9 +99,31 @@ class ClientAndAdminDocumentSyncTest extends TestCase
         $adminDashA->assertStatus(200);
         $adminDashA->assertSee('2025_T4_Employment_Income.pdf');
 
-        // 6. Verify Admin can securely download the document
+        // 6. Verify Admin can securely view (inline) and download the document
+        $viewRes = $this->actingAs($this->olubukunola)->get(route('documents.view', $document->id));
+        $viewRes->assertStatus(200);
+        $this->assertStringContainsString('inline', $viewRes->headers->get('content-disposition'));
+
         $downloadRes = $this->actingAs($this->olubukunola)->get(route('documents.download', $document->id));
         $downloadRes->assertStatus(200);
+
+        // 7. Verify Client can securely view (inline) and download their uploaded document
+        $clientViewRes = $this->actingAs($this->client)->get(route('documents.view', $document->id));
+        $clientViewRes->assertStatus(200);
+        $this->assertStringContainsString('inline', $clientViewRes->headers->get('content-disposition'));
+
+        $clientDownloadRes = $this->actingAs($this->client)->get(route('documents.download', $document->id));
+        $clientDownloadRes->assertStatus(200);
+
+        // 8. Verify unauthorized client cannot view or download this document
+        $unauthorizedClient = User::factory()->create(['role' => 'client']);
+        $unauthorizedClient->assignRole('client');
+
+        $unauthView = $this->actingAs($unauthorizedClient)->get(route('documents.view', $document->id));
+        $unauthView->assertStatus(403);
+
+        $unauthDownload = $this->actingAs($unauthorizedClient)->get(route('documents.download', $document->id));
+        $unauthDownload->assertStatus(403);
     }
 
     public function test_admin_uploads_document_to_client_and_it_shows_for_both(): void
@@ -135,7 +157,10 @@ class ClientAndAdminDocumentSyncTest extends TestCase
         $clientDash->assertStatus(200);
         $clientDash->assertSee('2025_CRA_Notice_of_Assessment.pdf');
 
-        // 3. Client can download the delivered document
+        // 3. Client can view and download the delivered document
+        $clientView = $this->actingAs($this->client)->get(route('documents.view', $doc->id));
+        $clientView->assertStatus(200);
+
         $clientDownload = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
         $clientDownload->assertStatus(200);
     }
@@ -164,9 +189,18 @@ class ClientAndAdminDocumentSyncTest extends TestCase
         $doc = Document::where('original_name', 'medical_expense_receipt.jpg')->firstOrFail();
         $this->assertTrue($doc->is_image);
 
-        // Verify download of image
-        $res = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
-        $res->assertStatus(200);
+        // Verify view and download of image for both Client and Admin
+        $resView = $this->actingAs($this->client)->get(route('documents.view', $doc->id));
+        $resView->assertStatus(200);
+
+        $resDownload = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
+        $resDownload->assertStatus(200);
+
+        $adminView = $this->actingAs($this->olubukunola)->get(route('documents.view', $doc->id));
+        $adminView->assertStatus(200);
+
+        $adminDownload = $this->actingAs($this->olubukunola)->get(route('documents.download', $doc->id));
+        $adminDownload->assertStatus(200);
     }
 
     public function test_client_document_validation_and_deletion(): void
@@ -224,8 +258,12 @@ class ClientAndAdminDocumentSyncTest extends TestCase
             ->test(ClientDocumentManager::class)
             ->assertSee('2025_cra_assessment_stamp.png');
 
-        // Client downloads image
+        // Client views and downloads image
+        $viewRes = $this->actingAs($this->client)->get(route('documents.view', $doc->id));
+        $viewRes->assertStatus(200);
+
         $downloadRes = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
         $downloadRes->assertStatus(200);
     }
 }
+

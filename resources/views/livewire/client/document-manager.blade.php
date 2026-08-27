@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">Document Vault</h1>
-            <p class="text-xs text-gray-500 mt-1">Upload your tax records directly to your assigned advisor, and view official files sent by YONBUS.</p>
+            <p class="text-xs text-gray-500 mt-1">Upload your tax records directly to your assigned advisor, and view/download official files shared by YONBUS.</p>
         </div>
     </div>
 
@@ -40,26 +40,42 @@
                             <th class="p-3">Sent By</th>
                             <th class="p-3">Size</th>
                             <th class="p-3">Date Sent</th>
-                            <th class="p-3 text-right">Action</th>
+                            <th class="p-3 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-blue-100 dark:divide-blue-900/40">
                         @foreach($adminDocuments as $doc)
                             <tr class="hover:bg-blue-100/40 dark:hover:bg-blue-900/20">
                                 <td class="p-3 flex items-center gap-3">
-                                    <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-[10px]">
-                                        {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
+                                    @if($doc->is_image && $doc->file_url)
+                                        <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" wire:click="previewDocument({{ $doc->id }})" class="w-8 h-8 rounded-lg object-cover border border-blue-200 cursor-pointer hover:scale-105 transition flex-shrink-0">
+                                    @else
+                                        <div wire:click="previewDocument({{ $doc->id }})" class="w-8 h-8 rounded-lg bg-[#005DFF] text-white flex items-center justify-center font-bold text-[10px] cursor-pointer flex-shrink-0">
+                                            {{ strtoupper(pathinfo($doc->original_name, PATHINFO_EXTENSION)) }}
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <button type="button" wire:click="previewDocument({{ $doc->id }})" class="font-bold text-gray-900 dark:text-white font-heading hover:text-[#005DFF] text-left transition">
+                                            {{ $doc->original_name }}
+                                        </button>
+                                        @if($doc->notes)
+                                            <p class="text-[10px] text-gray-500 italic mt-0.5">{{ $doc->notes }}</p>
+                                        @endif
                                     </div>
-                                    <span class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</span>
                                 </td>
                                 <td class="p-3 font-medium text-blue-700 dark:text-blue-300">
                                     {{ $doc->uploader?->name ?? 'YONBUS Admin' }}
                                 </td>
                                 <td class="p-3 font-mono text-gray-500">{{ $doc->file_size_human }}</td>
                                 <td class="p-3 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
-                                <td class="p-3 text-right">
+                                <td class="p-3 text-right space-x-2 whitespace-nowrap">
+                                    <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer"
+                                       class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold text-blue-700 dark:text-blue-200 bg-blue-100 dark:bg-blue-900/60 hover:bg-blue-200 transition">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                        <span>View</span>
+                                    </a>
                                     <a href="{{ route('documents.download', $doc) }}" 
-                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition-all">
+                                       class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                         <span>Download</span>
                                     </a>
@@ -120,7 +136,7 @@
                             <p class="text-[10px] text-gray-500 font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to submit</p>
                         </div>
 
-                        <button type="button" wire:click.prevent="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition">
+                        <button type="button" wire:click.prevent="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer">
                             Remove
                         </button>
                     </div>
@@ -141,11 +157,12 @@
                         <option value="tax_return">Prior Year Tax Return</option>
                         <option value="other">Other Supporting Document</option>
                     </select>
+                    @error('type') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 {{-- Select Admin / Advisor recipient --}}
                 <div>
-                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin *</label>
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin</label>
                     <select wire:model="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
                         <option value="">-- General YONBUS Admin Pool --</option>
                         @foreach($advisors as $advisor)
@@ -153,12 +170,14 @@
                         @endforeach
                     </select>
                     <p class="text-[10px] text-gray-400 mt-1">Directly delivers to this advisor's dashboard</p>
+                    @error('assigned_admin_id') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 {{-- Notes --}}
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
                     <input type="text" wire:model="notes" placeholder="e.g. 2025 medical &amp; tuition expenses, receipt photo" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    @error('notes') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -204,14 +223,16 @@
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/40 transition-colors">
                             <td class="p-3.5 flex items-center gap-3">
                                 @if($doc->is_image && $doc->file_url)
-                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" class="w-9 h-9 object-cover rounded-lg border border-blue-200 dark:border-blue-900 shadow-sm flex-shrink-0">
+                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" wire:click="previewDocument({{ $doc->id }})" class="w-9 h-9 object-cover rounded-lg border border-blue-200 dark:border-blue-900 shadow-sm flex-shrink-0 cursor-pointer hover:scale-105 transition">
                                 @else
-                                    <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                    <div wire:click="previewDocument({{ $doc->id }})" class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-100 dark:border-blue-900 cursor-pointer hover:scale-105 transition">
                                         {{ strtoupper($doc->file_extension ?: 'DOC') }}
                                     </div>
                                 @endif
                                 <div>
-                                    <p class="font-bold text-gray-900 dark:text-white font-heading">{{ $doc->original_name }}</p>
+                                    <button type="button" wire:click="previewDocument({{ $doc->id }})" class="font-bold text-gray-900 dark:text-white font-heading hover:text-[#005DFF] text-left transition">
+                                        {{ $doc->original_name }}
+                                    </button>
                                     @if($doc->notes)
                                         <p class="text-[11px] text-gray-500 italic mt-0.5">{{ $doc->notes }}</p>
                                     @endif
@@ -233,11 +254,16 @@
                             </td>
                             <td class="p-3.5 text-gray-500 font-mono">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y g:i A') }}</td>
-                            <td class="p-3.5 text-right space-x-3 whitespace-nowrap">
-                                <a href="{{ route('documents.download', $doc) }}" class="inline-flex items-center gap-1 text-[#005DFF] hover:underline font-bold">
-                                    <span>📥</span> Download
+                            <td class="p-3.5 text-right space-x-2 whitespace-nowrap">
+                                <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold text-blue-600 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <span>View</span>
                                 </a>
-                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="text-rose-600 hover:underline font-medium cursor-pointer">
+                                <a href="{{ route('documents.download', $doc) }}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 transition shadow-sm">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    <span>Download</span>
+                                </a>
+                                <button wire:click="delete({{ $doc->id }})" wire:confirm="Are you sure you want to delete this document?" class="text-rose-600 hover:underline font-medium cursor-pointer text-xs ml-1">
                                     Delete
                                 </button>
                             </td>
@@ -263,4 +289,64 @@
             </div>
         @endif
     </div>
+
+    <!-- In-Page Document Preview Modal -->
+    @if($previewDocument)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto" wire:keydown.escape="closePreview">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 my-8 max-h-[90vh] flex flex-col">
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-slate-700">
+                    <div class="overflow-hidden">
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#005DFF]">
+                            {{ strtoupper($previewDocument->file_extension ?: 'FILE') }} &bull; {{ str_replace('_', ' ', $previewDocument->type ?? 'Document') }}
+                        </span>
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white font-heading truncate mt-1">
+                            {{ $previewDocument->original_name }}
+                        </h3>
+                    </div>
+                    <button wire:click="closePreview" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 hover:text-slate-600 flex items-center justify-center cursor-pointer text-sm font-bold">
+                        ✕
+                    </button>
+                </div>
+
+                {{-- Preview Canvas --}}
+                <div class="flex-1 overflow-y-auto rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 p-4 flex items-center justify-center min-h-[300px] mb-4">
+                    @if($previewDocument->is_image && $previewDocument->file_url)
+                        <img src="{{ $previewDocument->file_url }}" alt="{{ $previewDocument->original_name }}" class="max-h-[55vh] max-w-full object-contain rounded-xl shadow-sm">
+                    @elseif($previewDocument->is_pdf && $previewDocument->file_url)
+                        <iframe src="{{ $previewDocument->view_url }}" class="w-full h-[55vh] rounded-xl border border-slate-200 dark:border-slate-700"></iframe>
+                    @else
+                        <div class="text-center p-8">
+                            <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-xl mx-auto mb-3">
+                                {{ strtoupper($previewDocument->file_extension ?: 'DOC') }}
+                            </div>
+                            <p class="font-bold text-slate-900 dark:text-white text-sm">{{ $previewDocument->original_name }}</p>
+                            <p class="text-xs text-slate-400 mt-1 font-mono">{{ $previewDocument->file_size_human }}</p>
+                            <p class="text-xs text-slate-500 mt-2">Direct in-browser preview is available in a new tab or via download.</p>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Document Details & Action Buttons --}}
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+                    <div class="text-xs text-slate-500">
+                        <span>Uploaded {{ $previewDocument->created_at->format('M j, Y g:i A') }}</span>
+                        @if($previewDocument->notes)
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 italic mt-0.5">{{ $previewDocument->notes }}</p>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('documents.view', $previewDocument) }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] font-bold text-xs hover:bg-blue-100 transition inline-flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <span>Open in Tab</span>
+                        </a>
+                        <a href="{{ route('documents.download', $previewDocument) }}" class="px-4 py-2 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-md transition inline-flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span>Download File</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
+

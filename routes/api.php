@@ -30,9 +30,13 @@ Route::prefix('v1')->group(function () {
         Route::post('/appointments/{id}/cancel', [AppointmentController::class, 'cancel']);
 
         // Documents
-        Route::get('/documents',         [DocumentController::class, 'index']);
-        Route::post('/documents',        [DocumentController::class, 'store']);
-        Route::delete('/documents/{id}', [DocumentController::class, 'destroy']);
+        Route::get('/documents',               [DocumentController::class, 'index']);
+        Route::post('/documents',              [DocumentController::class, 'store']);
+        Route::get('/documents/{id}',          [DocumentController::class, 'show']);
+        Route::get('/documents/{id}/view',     [DocumentController::class, 'view']);
+        Route::get('/documents/{id}/download', [DocumentController::class, 'download']);
+        Route::delete('/documents/{id}',       [DocumentController::class, 'destroy']);
+
 
         // Reports
         Route::get('/reports/dashboard',    [ReportController::class, 'dashboard']);

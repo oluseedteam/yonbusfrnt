@@ -97,7 +97,9 @@ Route::post('/livekit/token', [\App\Http\Controllers\LiveKitController::class, '
     ->middleware(['auth'])
     ->name('livekit.token');
 
-// Document download
+// Document download & view/preview
+Route::get('/documents/{document}/view', [ClientDocument::class, 'view'])
+    ->middleware(['auth'])->name('documents.view');
 Route::get('/documents/{document}/download', [ClientDocument::class, 'download'])
     ->middleware(['auth'])->name('documents.download');
 

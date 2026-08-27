@@ -62,6 +62,11 @@ class Document extends Model
         return str_starts_with($this->file_type ?? '', 'image/');
     }
 
+    public function getIsPdfAttribute(): bool
+    {
+        return $this->file_extension === 'pdf' || str_contains($this->file_type ?? '', 'pdf');
+    }
+
     public function getFileUrlAttribute(): ?string
     {
         if ($this->stored_name && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->stored_name)) {
@@ -69,4 +74,15 @@ class Document extends Model
         }
         return null;
     }
+
+    public function getViewUrlAttribute(): string
+    {
+        return route('documents.view', $this->id);
+    }
+
+    public function getDownloadUrlAttribute(): string
+    {
+        return route('documents.download', $this->id);
+    }
 }
+

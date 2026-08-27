@@ -146,16 +146,16 @@
                             {{-- Document Details --}}
                             <td class="px-6 py-4 flex items-center gap-3">
                                 @if($doc->is_image && $doc->file_url)
-                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" class="w-10 h-10 rounded-xl object-cover border border-blue-200 dark:border-blue-900/60 shadow-sm flex-shrink-0">
+                                    <img src="{{ $doc->file_url }}" alt="{{ $doc->original_name }}" wire:click="previewDocument({{ $doc->id }})" class="w-10 h-10 rounded-xl object-cover border border-blue-200 dark:border-blue-900/60 shadow-sm flex-shrink-0 cursor-pointer hover:scale-105 transition">
                                 @else
-                                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-200 dark:border-blue-900/40">
+                                    <div wire:click="previewDocument({{ $doc->id }})" class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-[10px] flex-shrink-0 border border-blue-200 dark:border-blue-900/40 cursor-pointer hover:scale-105 transition">
                                         {{ $ext ?: 'DOC' }}
                                     </div>
                                 @endif
                                 <div>
-                                    <div class="font-bold text-slate-900 dark:text-white text-xs flex items-center gap-1.5">
+                                    <button type="button" wire:click="previewDocument({{ $doc->id }})" class="font-bold text-slate-900 dark:text-white text-xs hover:text-[#005DFF] text-left transition flex items-center gap-1.5">
                                         <span>{{ $doc->original_name }}</span>
-                                    </div>
+                                    </button>
                                     @if($doc->notes)
                                         <div class="text-[11px] text-slate-500 italic mt-0.5">{{ $doc->notes }}</div>
                                     @endif
@@ -213,7 +213,11 @@
 
                             {{-- Actions --}}
                             <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
-                                <a href="{{ route('documents.download', $doc) }}" class="px-3.5 py-1.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition inline-flex items-center gap-1 cursor-pointer">
+                                <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 dark:hover:bg-blue-900 text-[#005DFF] dark:text-blue-300 font-bold text-xs rounded-xl transition inline-flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <span>View</span>
+                                </a>
+                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1.5 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition inline-flex items-center gap-1 cursor-pointer">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                     <span>Download</span>
                                 </a>
@@ -243,6 +247,69 @@
             </div>
         @endif
     </div>
+
+    <!-- Admin Document Quick Preview Modal -->
+    @if($previewDocument)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto" wire:keydown.escape="closePreview">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 my-8 max-h-[90vh] flex flex-col">
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-slate-700">
+                    <div class="overflow-hidden">
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#005DFF]">
+                            {{ strtoupper($previewDocument->file_extension ?: 'FILE') }} &bull; {{ str_replace('_', ' ', $previewDocument->type ?? 'Document') }}
+                        </span>
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white font-heading truncate mt-1">
+                            {{ $previewDocument->original_name }}
+                        </h3>
+                        <p class="text-[11px] text-slate-400">
+                            Client: {{ $previewDocument->client?->name ?? 'N/A' }} ({{ $previewDocument->client?->email }})
+                        </p>
+                    </div>
+                    <button wire:click="closePreview" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 hover:text-slate-600 flex items-center justify-center cursor-pointer text-sm font-bold">
+                        ✕
+                    </button>
+                </div>
+
+                {{-- Preview Canvas --}}
+                <div class="flex-1 overflow-y-auto rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 p-4 flex items-center justify-center min-h-[300px] mb-4">
+                    @if($previewDocument->is_image && $previewDocument->file_url)
+                        <img src="{{ $previewDocument->file_url }}" alt="{{ $previewDocument->original_name }}" class="max-h-[55vh] max-w-full object-contain rounded-xl shadow-sm">
+                    @elseif($previewDocument->is_pdf && $previewDocument->file_url)
+                        <iframe src="{{ $previewDocument->view_url }}" class="w-full h-[55vh] rounded-xl border border-slate-200 dark:border-slate-700"></iframe>
+                    @else
+                        <div class="text-center p-8">
+                            <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-xl mx-auto mb-3">
+                                {{ strtoupper($previewDocument->file_extension ?: 'DOC') }}
+                            </div>
+                            <p class="font-bold text-slate-900 dark:text-white text-sm">{{ $previewDocument->original_name }}</p>
+                            <p class="text-xs text-slate-400 mt-1 font-mono">{{ $previewDocument->file_size_human }}</p>
+                            <p class="text-xs text-slate-500 mt-2">Direct in-browser preview is available in a new tab or via download.</p>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Details & Actions --}}
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+                    <div class="text-xs text-slate-500">
+                        <span>Uploaded {{ $previewDocument->created_at->format('M j, Y • g:i A') }}</span>
+                        @if($previewDocument->notes)
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 italic mt-0.5">{{ $previewDocument->notes }}</p>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('documents.view', $previewDocument) }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] font-bold text-xs hover:bg-blue-100 transition inline-flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <span>Open in Tab</span>
+                        </a>
+                        <a href="{{ route('documents.download', $previewDocument) }}" class="px-4 py-2 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-md transition inline-flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span>Download File</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
 
     <!-- Admin Upload Document Modal -->
     @if ($showUploadModal)

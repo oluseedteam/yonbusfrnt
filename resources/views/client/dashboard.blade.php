@@ -114,12 +114,19 @@
                                 <span class="text-[10px] text-gray-400">By {{ $doc->uploader?->name ?? 'Admin' }} &bull; {{ $doc->created_at->format('M j, Y') }}</span>
                             </div>
                         </div>
-                        <a href="{{ route('documents.download', $doc) }}" 
-                           class="ml-2 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm flex-shrink-0 transition-all">
-                            Download
-                        </a>
+                        <div class="flex items-center gap-1.5 ml-2 flex-shrink-0">
+                            <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer"
+                               class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-blue-700 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/40 hover:bg-blue-100 transition">
+                                View
+                            </a>
+                            <a href="{{ route('documents.download', $doc) }}" 
+                               class="px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-[#005DFF] hover:bg-blue-700 shadow-sm transition">
+                                Download
+                            </a>
+                        </div>
                     </div>
                 @endforeach
+
             </div>
         </div>
     @endif
@@ -293,11 +300,15 @@
                             </td>
                             <td class="p-3 font-mono text-slate-500 text-[11px]">{{ $doc->file_size_human }}</td>
                             <td class="p-3 text-slate-500 text-[11px]">{{ $doc->created_at->format('M j, Y') }}</td>
-                            <td class="p-3 text-right">
-                                <a href="{{ route('documents.download', $doc) }}" class="px-3 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1">
+                            <td class="p-3 text-right space-x-2 whitespace-nowrap">
+                                <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] dark:text-blue-300 font-bold text-xs rounded-lg transition inline-flex items-center gap-1">
+                                    <span>👁️</span> View
+                                </a>
+                                <a href="{{ route('documents.download', $doc) }}" class="px-2.5 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm transition inline-flex items-center gap-1">
                                     <span>📥</span> Download
                                 </a>
                             </td>
+
                         </tr>
                     @empty
                         <tr>

@@ -47,12 +47,49 @@ class DocumentController extends Controller
         }
     }
 
+    public function show(int $id, Request $request): JsonResponse
+    {
+        $document = Document::findOrFail($id);
+        $user = $request->user();
+        if ($document->client_id !== $user->id && !$user->isAdmin() && !$user->isAccountant()) {
+            abort(403, 'Unauthorized access to this document.');
+        }
+
+        return (new DocumentResource($document))->response();
+    }
+
+    public function view(int $id, Request $request)
+    {
+        $document = Document::findOrFail($id);
+        $user = $request->user();
+        if ($document->client_id !== $user->id && !$user->isAdmin() && !$user->isAccountant()) {
+            abort(403, 'Unauthorized access to view this document.');
+        }
+
+        return $this->service->view($document);
+    }
+
+    public function download(int $id, Request $request)
+    {
+        $document = Document::findOrFail($id);
+        $user = $request->user();
+        if ($document->client_id !== $user->id && !$user->isAdmin() && !$user->isAccountant()) {
+            abort(403, 'Unauthorized access to download this document.');
+        }
+
+        return $this->service->download($document);
+    }
+
     public function destroy(int $id, Request $request): JsonResponse
     {
         $document = Document::findOrFail($id);
-        $this->authorize('delete', $document);
+        $user = $request->user();
+        if ($document->client_id !== $user->id && !$user->isAdmin() && !$user->isAccountant()) {
+            abort(403, 'Unauthorized access to delete this document.');
+        }
 
         $this->service->delete($document);
         return response()->json(['message' => 'Document deleted']);
     }
 }
+

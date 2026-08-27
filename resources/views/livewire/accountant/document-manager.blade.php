@@ -60,9 +60,15 @@
                             </td>
                             <td class="p-3.5 font-mono text-gray-500">{{ $doc->file_size_human }}</td>
                             <td class="p-3.5 text-gray-500">{{ $doc->created_at->format('M j, Y') }}</td>
-                            <td class="p-3.5 text-right">
-                                <a href="{{ route('documents.download', $doc) }}" class="text-[#005DFF] font-semibold hover:underline">Download File</a>
+                            <td class="p-3.5 text-right space-x-2 whitespace-nowrap">
+                                <a href="{{ route('documents.view', $doc) }}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 text-[#005DFF] dark:text-blue-300 font-bold text-xs rounded-lg transition inline-flex items-center gap-1">
+                                    <span>👁️</span> View
+                                </a>
+                                <a href="{{ route('documents.download', $doc) }}" class="px-2.5 py-1 bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition inline-flex items-center gap-1">
+                                    <span>📥</span> Download
+                                </a>
                             </td>
+
                         </tr>
                     @empty
                         <tr><td colspan="6" class="text-center py-8 text-gray-500">No client documents found.</td></tr>
