@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ removeAvatarModal: false }">
     <div class="mb-8">
         <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">My Profile</h1>
         <p class="text-xs text-gray-500 mt-1">Manage your personal details, business information, and profile picture.</p>
@@ -37,7 +37,7 @@
                             </label>
 
                             @if(auth()->user()->avatar)
-                                <button type="button" wire:click="removeAvatar" wire:confirm="Remove profile picture?" class="px-3 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl text-xs font-semibold transition">
+                                <button type="button" @click="removeAvatarModal = true" class="px-3 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl text-xs font-semibold transition cursor-pointer">
                                     Remove Picture
                                 </button>
                             @endif
@@ -105,6 +105,56 @@
                 <button type="submit" class="btn-primary text-xs">Save Profile Changes</button>
             </div>
         </form>
+    </div>
+
+    <!-- Remove Photo Confirmation Popup Dialog Box -->
+    <div
+        x-show="removeAvatarModal"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm"
+        style="display: none;"
+    >
+        <div
+            @click.away="removeAvatarModal = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+            class="bg-white dark:bg-gray-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-800 text-center"
+        >
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center mb-4">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </div>
+
+            <h3 class="text-base font-bold text-gray-900 dark:text-white font-heading">Remove Profile Photo?</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
+                Are you sure you want to remove your custom profile photo? Your avatar will revert to your name initials.
+            </p>
+
+            <div class="flex items-center justify-center gap-3 mt-6">
+                <button
+                    type="button"
+                    @click="removeAvatarModal = false"
+                    class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold text-xs hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    @click="$wire.removeAvatar(); removeAvatarModal = false"
+                    class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-lg shadow-rose-600/20 transition cursor-pointer"
+                >
+                    Yes, Remove
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

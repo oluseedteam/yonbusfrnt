@@ -1,4 +1,4 @@
-<div class="p-6">
+<div class="p-6" x-data="{ cancelModal: { open: false, id: null } }">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
             <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Appointment &amp; Booking Management</h1>
@@ -141,7 +141,7 @@
 
                                 @if(in_array($appt->status, ['pending', 'confirmed', 'rescheduled']))
                                     <button wire:click="complete({{ $appt->id }})" class="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold text-xs px-1">Done</button>
-                                    <button wire:click="cancel({{ $appt->id }})" wire:confirm="Are you sure you want to cancel this booking?" class="text-rose-600 dark:text-rose-400 hover:underline font-semibold text-xs px-1">Cancel</button>
+                                    <button type="button" @click="cancelModal = { open: true, id: {{ $appt->id }} }" class="text-rose-600 dark:text-rose-400 hover:underline font-semibold text-xs px-1 cursor-pointer">Cancel</button>
                                 @endif
                             </td>
                         </tr>
@@ -360,4 +360,54 @@
     @if($showVideoCallModal)
         @include('livewire.client.video-call-modal')
     @endif
+
+    <!-- Cancel Appointment Confirmation Popup Dialog Box -->
+    <div
+        x-show="cancelModal.open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+        style="display: none;"
+    >
+        <div
+            @click.away="cancelModal.open = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+            class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 text-center"
+        >
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center mb-4">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+
+            <h3 class="text-base font-bold text-slate-900 dark:text-white font-heading">Cancel Booking?</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                Are you sure you want to cancel this appointment? The client will be updated accordingly.
+            </p>
+
+            <div class="flex items-center justify-center gap-3 mt-6">
+                <button
+                    type="button"
+                    @click="cancelModal.open = false"
+                    class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer"
+                >
+                    Keep Booking
+                </button>
+                <button
+                    type="button"
+                    @click="$wire.cancel(cancelModal.id); cancelModal.open = false"
+                    class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-lg shadow-rose-600/20 transition cursor-pointer"
+                >
+                    Yes, Cancel
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

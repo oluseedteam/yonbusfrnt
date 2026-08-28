@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ deleteModal: { open: false, id: null } }">
     <!-- Page Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
@@ -171,7 +171,7 @@
                                         Reply
                                     </a>
                                 @endif
-                                <button wire:click="delete({{ $item->id }})" wire:confirm="Delete this submission?" class="px-2 py-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg text-xs transition">
+                                <button type="button" @click="deleteModal = { open: true, id: {{ $item->id }} }" class="px-2 py-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg text-xs transition cursor-pointer">
                                     🗑️
                                 </button>
                             </td>
@@ -270,11 +270,11 @@
 
                     <!-- Modal Actions -->
                     <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
-                        <button type="button" wire:click="delete({{ $selectedInquiry->id }})" wire:confirm="Delete this submission?" class="text-rose-600 hover:underline font-semibold text-xs">
+                        <button type="button" @click="deleteModal = { open: true, id: {{ $selectedInquiry->id }} }" class="text-rose-600 hover:underline font-semibold text-xs cursor-pointer">
                             Delete Submission
                         </button>
                         <div class="flex items-center gap-3">
-                            <button type="button" wire:click="$set('showDetailModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100">
+                            <button type="button" wire:click="$set('showDetailModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 cursor-pointer">
                                 Close
                             </button>
                             @if($selectedInquiry->email)
@@ -288,4 +288,54 @@
             </div>
         </div>
     @endif
+
+    <!-- Delete Confirmation Popup Dialog Box -->
+    <div
+        x-show="deleteModal.open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+        style="display: none;"
+    >
+        <div
+            @click.away="deleteModal.open = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+            class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 text-center"
+        >
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center mb-4">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </div>
+
+            <h3 class="text-base font-bold text-slate-900 dark:text-white font-heading">Delete Submission?</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                Are you sure you want to permanently delete this inquiry / application record?
+            </p>
+
+            <div class="flex items-center justify-center gap-3 mt-6">
+                <button
+                    type="button"
+                    @click="deleteModal.open = false"
+                    class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    @click="$wire.delete(deleteModal.id); deleteModal.open = false; $wire.set('showDetailModal', false)"
+                    class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-lg shadow-rose-600/20 transition cursor-pointer"
+                >
+                    Yes, Delete
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
