@@ -35,7 +35,7 @@
                     </p>
 
                     <div class="pt-2 flex flex-wrap items-center gap-3">
-                        <a href="{{ route('book-appointment') }}"
+                        <a href="{{ route('book-appointment', ['service' => $service['id']]) }}"
                            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-[#002B8A] font-bold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-decoration-none">
                             <span>Book Consultation</span>
                             <svg class="w-4 h-4 text-[#002B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@
                                 </p>
 
                                 <div class="pt-2">
-                                    <a href="{{ route('book-appointment') }}"
+                                    <a href="{{ route('book-appointment', ['service' => $service['id']]) }}"
                                        class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white text-[#002B8A] font-bold text-xs sm:text-sm shadow-md hover:bg-blue-50 transition-all text-decoration-none text-center">
                                         <span>Book Consultation Now</span>
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

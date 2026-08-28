@@ -37,7 +37,21 @@ class BookingSystem extends Component
     {
         $this->appointment_date = now()->addDays(1)->format('Y-m-d');
         if (request()->has('service')) {
-            $this->service_id = request()->get('service');
+            $param = request()->get('service');
+            if (is_numeric($param)) {
+                $service = Service::where('is_active', true)->find($param);
+            } else {
+                $normalized = str_replace('-', ' ', $param);
+                $service = Service::where('is_active', true)
+                    ->where(function ($q) use ($param, $normalized) {
+                        $q->where('name', $param)
+                          ->orWhere('name', 'like', '%' . $normalized . '%');
+                    })
+                    ->first();
+            }
+            if ($service) {
+                $this->service_id = $service->id;
+            }
         }
 
         // Auto select first partner or consultant

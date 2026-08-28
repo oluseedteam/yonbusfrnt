@@ -33,15 +33,20 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @forelse($services as $s)
-                    <label class="relative flex p-4 rounded-2xl border cursor-pointer transition-all {{ $service_id == $s->id ? 'border-[#005DFF] bg-blue-50/50 dark:bg-blue-900/20 ring-2 ring-[#005DFF]/20' : 'border-slate-200 dark:border-slate-700 hover:border-slate-300' }}">
+                    <label class="relative flex p-4 rounded-2xl border cursor-pointer transition-all {{ $service_id == $s->id ? 'border-[#005DFF] bg-blue-50/60 dark:bg-blue-900/20 ring-2 ring-[#005DFF]/25 shadow-md shadow-blue-500/5' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-600' }}">
                         <input type="radio" wire:model.live="service_id" value="{{ $s->id }}" class="sr-only">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-[#005DFF] flex items-center justify-center font-bold text-lg shrink-0">
-                                ✓
+                        <div class="flex items-start space-x-4 w-full">
+                            <div class="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xl shrink-0 transition-colors {{ $service_id == $s->id ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900/40 text-[#005DFF]' }}">
+                                {{ $s->icon ?? '✓' }}
                             </div>
-                            <div>
-                                <div class="font-bold text-slate-900 dark:text-white text-base font-heading">{{ $s->name }}</div>
-                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{{ $s->description }}</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2">
+                                    <div class="font-bold text-slate-900 dark:text-white text-base font-heading">{{ $s->name }}</div>
+                                    @if($service_id == $s->id)
+                                        <span class="w-5 h-5 rounded-full bg-[#005DFF] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                                    @endif
+                                </div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">{{ $s->description }}</div>
                             </div>
                         </div>
                     </label>

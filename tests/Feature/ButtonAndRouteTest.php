@@ -469,4 +469,28 @@ class ButtonAndRouteTest extends TestCase
         $response->assertDontSee('openModal', false);
         $response->assertDontSee('activeService', false);
     }
+
+    public function test_booking_page_shows_only_services_available_on_services_page(): void
+    {
+        $this->seed(\Database\Seeders\DatabaseSeeder::class);
+
+        $response = $this->get(route('book-appointment'));
+        $response->assertStatus(200);
+
+        // Core 6 practice areas from services page must be present
+        $response->assertSee('Tax Preparation &amp; Planning Services', false);
+        $response->assertSee('Accounting &amp; Bookkeeping Services', false);
+        $response->assertSee('Payroll Services', false);
+        $response->assertSee('Business Consulting &amp; Advisory', false);
+        $response->assertSee('Compliance Services', false);
+        $response->assertSee('Business Registration', false);
+
+        // Legacy / obsolete duplicate items must not be present
+        $response->assertDontSee('Personal Income Tax Return (T1)', false);
+        $response->assertDontSee('Corporate Tax Filing (T2)', false);
+        $response->assertDontSee('Monthly Bookkeeping &amp; Reporting', false);
+        $response->assertDontSee('Payroll Management &amp; Remittances', false);
+        $response->assertDontSee('CRA Tax Audit Defense &amp; Review', false);
+        $response->assertDontSee('Business Registration &amp; Tax Planning', false);
+    }
 }

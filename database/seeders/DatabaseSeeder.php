@@ -42,13 +42,14 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 4. Default System Services
+        // 4. Default System Services (6 Official Core Practice Areas)
         $services = [
             [
                 'name'        => 'Tax Preparation & Planning Services',
                 'description' => 'We provide comprehensive Canadian tax preparation and proactive tax planning services for individuals, families, self-employed professionals, investors, and corporations. Our approach focuses on accurate filings, identifying eligible deductions and credits, and helping clients make informed tax decisions throughout the year.',
                 'price'       => 150.00,
                 'duration'    => 60,
+                'icon'        => '🧾',
                 'is_active'   => true,
             ],
             [
@@ -56,6 +57,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'We provide accurate and efficient accounting and bookkeeping services to keep your financial records organized, up to date, and ready for informed business decisions.',
                 'price'       => 250.00,
                 'duration'    => 60,
+                'icon'        => '🧮',
                 'is_active'   => true,
             ],
             [
@@ -63,6 +65,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
                 'price'       => 180.00,
                 'duration'    => 45,
+                'icon'        => '📊',
                 'is_active'   => true,
             ],
             [
@@ -70,6 +73,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'We provide practical financial and business advisory services to help entrepreneurs and business owners understand their numbers, plan for growth, and make informed financial decisions.',
                 'price'       => 300.00,
                 'duration'    => 60,
+                'icon'        => '💼',
                 'is_active'   => true,
             ],
             [
@@ -77,6 +81,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'We help individuals and businesses meet their ongoing tax, payroll, and corporate compliance requirements accurately and on time, helping reduce the risk of missed filings, penalties, and compliance issues.',
                 'price'       => 350.00,
                 'duration'    => 60,
+                'icon'        => '⚖️',
                 'is_active'   => true,
             ],
             [
@@ -84,9 +89,12 @@ class DatabaseSeeder extends Seeder
                 'description' => 'We help entrepreneurs and business owners establish their businesses properly and set up the registrations and accounts needed to operate in Canada.',
                 'price'       => 400.00,
                 'duration'    => 60,
+                'icon'        => '🏢',
                 'is_active'   => true,
             ],
         ];
+
+        \App\Models\Service::whereNotIn('name', array_column($services, 'name'))->delete();
 
         foreach ($services as $srv) {
             \App\Models\Service::updateOrCreate(
