@@ -131,7 +131,7 @@
                 x-on:livewire-upload-progress="progress = $event.detail.progress"
                 class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20 group"
             >
-                <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': {{ $file ? 'true' : 'false' }} }">
+                <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': isUploading }">
                 
                 <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>

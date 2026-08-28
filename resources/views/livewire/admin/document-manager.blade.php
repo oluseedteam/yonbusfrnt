@@ -380,7 +380,7 @@
                         x-on:livewire-upload-progress="progress = $event.detail.progress"
                         class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group"
                     >
-                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': {{ $file ? 'true' : 'false' }} }">
+                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': isUploading }">
                         <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
                             📁
                         </div>
