@@ -82,7 +82,7 @@
                         <div>
                             <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#eff6ff] text-[#0052ff] border border-[#bfdbfe] text-xs font-bold rounded-lg mb-3">
                                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                                <span>Certified Professional Bookkeeper (CPB)</span>
+                                <span>Certified Professional Bookkeeper(CPB)</span>
                             </div>
                             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0a1a4a] font-heading">
                                 Adeshola Eniola CPB
