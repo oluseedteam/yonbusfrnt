@@ -34,30 +34,31 @@ class PartnerConsultantAndAdminLoginsTest extends TestCase
 
     public function test_both_partner_admin_accounts_exist_and_can_authenticate(): void
     {
-        // 1. Olubukunola login test
-        $responseO = $this->post('/login', [
+        // 1. Verify Admin CANNOT log in through client login form (/login)
+        $clientLoginFail = $this->post('/login', [
+            'email' => 'olubukunola@yonbustax.ca',
+            'password' => 'Password123!',
+        ]);
+        $this->assertGuest();
+        $clientLoginFail->assertSessionHasErrors(['email']);
+
+        // 2. Olubukunola admin login test via /admin/login
+        $responseO = $this->post(route('admin.login.store'), [
             'email' => 'olubukunola@yonbustax.ca',
             'password' => 'Password123!',
         ]);
         $this->assertAuthenticatedAs($this->olubukunola);
-        $responseO->assertRedirect(route('dashboard', absolute: false));
-
-        // Follow redirect to admin dashboard
-        $dashResponseO = $this->get('/dashboard');
-        $dashResponseO->assertRedirect(route('admin.dashboard'));
+        $responseO->assertRedirect(route('admin.dashboard', absolute: false));
 
         Auth::logout();
 
-        // 2. Adeshola login test
-        $responseA = $this->post('/login', [
+        // 3. Adeshola admin login test via /admin/login
+        $responseA = $this->post(route('admin.login.store'), [
             'email' => 'adeshola.eniola@yonbustax.ca',
             'password' => 'Password123!',
         ]);
         $this->assertAuthenticatedAs($this->adeshola);
-        $responseA->assertRedirect(route('dashboard', absolute: false));
-
-        $dashResponseA = $this->get('/dashboard');
-        $dashResponseA->assertRedirect(route('admin.dashboard'));
+        $responseA->assertRedirect(route('admin.dashboard', absolute: false));
     }
 
     public function test_client_registration_with_olubukunola_as_consultant(): void

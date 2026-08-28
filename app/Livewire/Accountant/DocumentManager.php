@@ -72,16 +72,26 @@ class DocumentManager extends Component
         $storedName   = $this->file->storeAs('documents/' . $this->client_id, \Str::uuid() . '.' . $extension, 'public');
 
         $doc = Document::create([
-            'client_id'     => $this->client_id,
-            'uploaded_by'   => auth()->id(),
-            'original_name' => $originalName,
-            'stored_name'   => $storedName,
-            'file_type'     => $this->file->getMimeType(),
-            'file_size'     => $this->file->getSize(),
-            'version'       => 1,
+            'client_id'         => $this->client_id,
+            'uploaded_by'       => auth()->id(),
+            'assigned_admin_id' => auth()->id(),
+            'type'              => $this->type,
+            'notes'             => $this->notes,
+            'original_name'     => $originalName,
+            'stored_name'       => $storedName,
+            'file_type'         => $this->file->getMimeType(),
+            'file_size'         => $this->file->getSize(),
+            'version'           => 1,
         ]);
 
-        ActivityLog::log('document.sent_to_client', "Sent document: {$doc->original_name} to client ID {$this->client_id}", $doc);
+        $client = User::find($this->client_id);
+        if ($client) {
+            try {
+                $client->notify(new \App\Notifications\DocumentDeliveredToClientNotification($doc));
+            } catch (\Throwable $e) {}
+        }
+
+        ActivityLog::log('document.sent_to_client', "Sent document: {$doc->original_name} to client " . ($client ? $client->name : "ID {$this->client_id}"), $doc);
         
         $this->showUploadModal = false;
         $this->reset(['client_id', 'file', 'type', 'notes']);

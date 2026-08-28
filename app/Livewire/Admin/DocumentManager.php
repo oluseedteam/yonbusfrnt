@@ -194,11 +194,25 @@ class DocumentManager extends Component
         $client = User::find($this->target_client_id);
         $clientName = $client ? $client->name : "ID {$this->target_client_id}";
 
+        // Notify the client that a document has been delivered to their portal
+        if ($client) {
+            try {
+                $client->notify(new \App\Notifications\DocumentDeliveredToClientNotification($doc));
+            } catch (\Throwable $e) {
+                // Ignore notification errors on local environments
+            }
+        }
+
         AuditService::log('document.admin_uploaded', "Admin uploaded file {$doc->original_name} to client {$clientName}", $doc);
-        
+
         $this->showUploadModal = false;
         $this->reset(['target_client_id', 'file', 'type', 'notes']);
-        session()->flash('message', "Document uploaded and delivered to {$clientName}'s client portal successfully!");
+
+        $this->dispatch('notify', [
+            'message' => "✅ Document \"{$doc->original_name}\" uploaded and delivered to {$clientName}'s client portal successfully!",
+            'type'    => 'success',
+        ]);
+        session()->flash('message', "Document \"{$doc->original_name}\" uploaded and delivered to {$clientName}'s client portal successfully!");
     }
 
     public function delete($id)

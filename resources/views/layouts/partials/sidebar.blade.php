@@ -32,8 +32,8 @@
             @elseif($role === 'admin' || $role === 'superadmin')
                 <x-nav-item route="admin.dashboard" icon="squares" label="Dashboard" />
                 <x-nav-item route="admin.documents" icon="folder" label="Documents Vault" />
-                <x-nav-item route="admin.inquiries" icon="inbox" label="Inquiries &amp; Careers" />
-                <x-nav-item route="admin.users" icon="users" label="User &amp; Client Management" />
+                <x-nav-item route="admin.inquiries" icon="inbox" label="Inquiries & Careers" />
+                <x-nav-item route="admin.users" icon="users" label="User & Client Management" />
                 <x-nav-item route="admin.services" icon="briefcase" label="Services" />
                 <x-nav-item route="admin.appointments" icon="calendar" label="Appointments" />
                 <x-nav-item route="admin.messages" icon="chat" label="Messages" />

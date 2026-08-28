@@ -1,4 +1,34 @@
-<div>
+<div
+    x-data="{
+        toast: { show: false, message: '' },
+        showToast(event) {
+            this.toast.message = event.detail[0]?.message ?? event.detail?.message ?? '';
+            this.toast.show    = true;
+            clearTimeout(this._toastTimer);
+            this._toastTimer   = setTimeout(() => { this.toast.show = false; }, 4500);
+        }
+    }"
+    x-on:notify.window="showToast($event)"
+>
+    {{-- ── Toast Notification ──────────────────────────────────────── --}}
+    <div
+        x-show="toast.show"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-[-16px]"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-[-16px]"
+        class="fixed top-5 right-5 z-[9999] max-w-sm w-full"
+        style="display:none"
+    >
+        <div class="flex items-start gap-3 p-4 rounded-2xl shadow-2xl bg-emerald-600 text-white text-sm font-semibold border border-emerald-500">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <span x-text="toast.message" class="flex-1 leading-snug"></span>
+            <button @click="toast.show = false" class="text-emerald-100 hover:text-white ml-1 flex-shrink-0">&times;</button>
+        </div>
+    </div>
+
     <!-- Page Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
@@ -329,7 +359,7 @@
                     </button>
                 </div>
 
-                <form wire:submit.prevent="uploadDocument" class="space-y-4">
+                <form wire:submit="uploadDocument" class="space-y-4" x-data="{ isUploading: false, progress: 0, uploadError: null }">
                     {{-- Target Client Selection --}}
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Select Recipient Client *</label>
@@ -343,8 +373,16 @@
                     </div>
 
                     {{-- File Input & Image Preview --}}
-                    <div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group">
-                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <div 
+                        x-on:livewire-upload-start="isUploading = true; progress = 0; uploadError = null"
+                        x-on:livewire-upload-finish="isUploading = false; progress = 100"
+                        x-on:livewire-upload-error="isUploading = false; uploadError = 'Upload failed. File exceeds 20MB limit or is unsupported.'"
+                        x-on:livewire-upload-progress="progress = $event.detail.progress"
+                        class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group"
+                    >
+                        @if(!$file)
+                            <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        @endif
                         <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
                             📁
                         </div>
@@ -353,18 +391,25 @@
                         </p>
                         <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
 
-                        {{-- Livewire Upload Loading Progress --}}
-                        <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
-                            <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                            </svg>
-                            <span>Processing file... please wait</span>
+                        {{-- Upload Progress Bar --}}
+                        <div x-show="isUploading" class="mt-4 max-w-xs mx-auto space-y-1.5" style="display: none;">
+                            <div class="flex items-center justify-between text-xs font-bold text-[#005DFF]">
+                                <span>Uploading file...</span>
+                                <span x-text="progress + '%'"></span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                                <div class="bg-[#005DFF] h-2 rounded-full transition-all duration-200" :style="'width: ' + progress + '%'"></div>
+                            </div>
+                        </div>
+
+                        {{-- Upload Error Alert --}}
+                        <div x-show="uploadError" class="mt-3 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs rounded-xl font-medium" style="display: none;">
+                            <span x-text="uploadError"></span>
                         </div>
 
                         {{-- Selected File & Image Preview --}}
                         @if($file)
-                            <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
+                            <div class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
                                 @php
                                     $isImg = false;
                                     try {
@@ -414,7 +459,7 @@
                         <button type="button" wire:click="$set('showUploadModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 cursor-pointer">
                             Cancel
                         </button>
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer" wire:loading.attr="disabled">
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer" wire:loading.attr="disabled" wire:target="uploadDocument, file" :disabled="isUploading">
                             <svg wire:loading.remove wire:target="uploadDocument" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             <span wire:loading.remove wire:target="uploadDocument">Upload &amp; Send to Client</span>
                             <span wire:loading wire:target="uploadDocument">Uploading &amp; Sending...</span>

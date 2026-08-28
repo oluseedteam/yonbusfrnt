@@ -152,7 +152,13 @@ class DocumentManager extends Component
         ActivityLog::log('document.uploaded', "Uploaded document: {$doc->original_name} {$assignedName}", $doc);
 
         $this->reset(['file', 'notes']);
-        session()->flash('message', "Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!");
+        $this->resetPage();
+
+        // Dispatch in-page toast notification (picked up by Alpine in blade)
+        $this->dispatch('notify', [
+            'message' => "✅ Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!",
+            'type'    => 'success',
+        ]);
     }
 
     public function delete($id)

@@ -171,14 +171,14 @@ class AdminClientManagementTest extends TestCase
         $this->assertEquals('admin', $newAdmin->role);
         $this->assertTrue($newAdmin->isAdmin());
 
-        // New admin can log in and access admin dashboard
+        // New admin can log in via Admin Portal and access admin dashboard
         Auth::logout();
-        $loginRes = $this->post('/login', [
+        $loginRes = $this->post(route('admin.login.store'), [
             'email' => 'robert.tremblay@yonbus.ca',
             'password' => 'AdminPass2026!',
         ]);
         $this->assertAuthenticated();
-        $loginRes->assertRedirect(route('dashboard', absolute: false));
+        $loginRes->assertRedirect(route('admin.dashboard', absolute: false));
 
         $adminDash = $this->get(route('admin.dashboard'));
         $adminDash->assertStatus(200);
