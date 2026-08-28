@@ -265,5 +265,49 @@ class ClientAndAdminDocumentSyncTest extends TestCase
         $downloadRes = $this->actingAs($this->client)->get(route('documents.download', $doc->id));
         $downloadRes->assertStatus(200);
     }
+
+    public function test_direct_http_post_document_upload_from_client_and_admin(): void
+    {
+        Storage::fake('public');
+
+        $t4Direct = UploadedFile::fake()->create('2025_Direct_T4.pdf', 500, 'application/pdf');
+
+        // 1. Client uploads via direct HTTP POST
+        $response = $this->actingAs($this->client)->post(route('client.documents.upload'), [
+            'file'              => $t4Direct,
+            'type'              => 't4_t5',
+            'assigned_admin_id' => (string)$this->olubukunola->id,
+            'notes'             => 'Direct HTTP POST upload',
+        ]);
+
+        $response->assertRedirect(route('client.documents'));
+        $response->assertSessionHas('message');
+
+        $this->assertDatabaseHas('documents', [
+            'client_id'         => $this->client->id,
+            'uploaded_by'       => $this->client->id,
+            'assigned_admin_id' => $this->olubukunola->id,
+            'original_name'     => '2025_Direct_T4.pdf',
+        ]);
+
+        // 2. Admin uploads via direct HTTP POST
+        $noticeDirect = UploadedFile::fake()->create('2025_Direct_CRA_Notice.pdf', 600, 'application/pdf');
+
+        $adminRes = $this->actingAs($this->olubukunola)->post(route('admin.documents.upload'), [
+            'target_client_id' => (string)$this->client->id,
+            'file'             => $noticeDirect,
+            'type'             => 'cra_notice',
+            'notes'            => 'Admin direct HTTP POST delivery',
+        ]);
+
+        $adminRes->assertRedirect(route('admin.documents'));
+        $adminRes->assertSessionHas('message');
+
+        $this->assertDatabaseHas('documents', [
+            'client_id'         => $this->client->id,
+            'uploaded_by'       => $this->olubukunola->id,
+            'original_name'     => '2025_Direct_CRA_Notice.pdf',
+        ]);
+    }
 }
 

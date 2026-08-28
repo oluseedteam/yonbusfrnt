@@ -134,14 +134,17 @@
             </div>
         @endif
 
-        <form wire:submit.prevent="upload" class="space-y-4">
+        <form method="POST" action="{{ route('client.documents.upload') }}" enctype="multipart/form-data" class="space-y-4" id="client_doc_upload_form">
+            @csrf
+
             {{-- File Drop Zone using standard label and hidden file input --}}
             <div>
                 <input type="file"
                        id="client_doc_upload_input"
-                       wire:model="file"
+                       name="file"
                        accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf"
-                       class="sr-only">
+                       class="sr-only"
+                       onchange="previewSelectedDocument(this)">
 
                 <label for="client_doc_upload_input" class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors cursor-pointer bg-gray-50/50 dark:bg-gray-800/20 group block">
                     <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -151,49 +154,31 @@
                     <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading">
                         Click to browse or drag and drop files &amp; photos here
                     </p>
-                    <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+                    <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX, CSV (max 20MB)</p>
 
                     <div class="mt-3">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-[#005DFF] dark:text-blue-300 text-xs font-bold shadow-sm">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-[#005DFF] dark:text-blue-300 text-xs font-bold shadow-sm pointer-events-none">
                             📁 Choose File
                         </span>
                     </div>
-
-                    {{-- Uploading indicator --}}
-                    <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
-                        <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                        </svg>
-                        <span>Uploading file to browser… please wait</span>
-                    </div>
                 </label>
 
-                {{-- Selected File Preview --}}
-                @if($file)
-                    <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm flex items-center justify-between gap-3 text-left">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            @php
-                                $isImg = false;
-                                try { $isImg = str_starts_with($file->getMimeType(), 'image/'); } catch (\Throwable $e) {}
-                            @endphp
-                            @if($isImg)
-                                <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 flex-shrink-0 shadow-sm">
-                            @else
-                                <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
-                                    {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
-                                </div>
-                            @endif
-                            <div class="overflow-hidden">
-                                <p class="font-bold text-xs text-gray-900 dark:text-white truncate max-w-xs font-heading">{{ $file->getClientOriginalName() }}</p>
-                                <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to submit</p>
-                            </div>
+                {{-- Selected File Preview (Instant vanilla JS preview) --}}
+                <div id="selected_file_preview_box" class="hidden mt-3 p-3 bg-white dark:bg-gray-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm flex items-center justify-between gap-3 text-left">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div id="selected_file_preview_badge" class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                            FILE
                         </div>
-                        <button type="button" wire:click="removeSelectedFile" class="text-rose-500 hover:text-rose-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer flex-shrink-0">
-                            Remove
-                        </button>
+                        <div class="overflow-hidden">
+                            <p id="selected_file_preview_name" class="font-bold text-xs text-gray-900 dark:text-white truncate max-w-xs font-heading">selected_file.pdf</p>
+                            <p id="selected_file_preview_size" class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">0 KB &bull; Ready to submit</p>
+                        </div>
                     </div>
-                @endif
+                    <button type="button" onclick="clearSelectedDocument()" class="text-rose-500 hover:text-rose-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer flex-shrink-0">
+                        Remove
+                    </button>
+                </div>
+
                 @error('file') <span class="text-red-500 text-[11px] block font-medium mt-1.5">{{ $message }}</span> @enderror
             </div>
 
@@ -201,7 +186,7 @@
                 {{-- Document Category --}}
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Document Category *</label>
-                    <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    <select name="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
                         <option value="t4_t5">T4 / T5 / T3 Canadian Tax Slips</option>
                         <option value="cra_notice">CRA Notice of Assessment / Reassessment</option>
                         <option value="receipt">Business Receipts &amp; Expenses (T2125)</option>
@@ -216,7 +201,7 @@
                 {{-- Select Advisor --}}
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin</label>
-                    <select wire:model="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                    <select name="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
                         <option value="">-- General YONBUS Admin Pool --</option>
                         @foreach($advisors as $advisor)
                             <option value="{{ $advisor->id }}">{{ $advisor->name }} ({{ ucfirst($advisor->role) }})</option>
@@ -229,7 +214,7 @@
                 {{-- Notes --}}
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
-                    <input type="text" wire:model="notes" placeholder="e.g. 2025 medical &amp; tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    <input type="text" name="notes" placeholder="e.g. 2025 medical &amp; tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
                     @error('notes') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -237,16 +222,45 @@
             {{-- Submit Button --}}
             <div class="flex justify-end pt-2">
                 <button type="submit"
-                        class="btn-primary text-xs flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-500/20"
-                        wire:loading.attr="disabled"
-                        wire:target="upload">
-                    <svg wire:loading.remove wire:target="upload" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                    <span wire:loading.remove wire:target="upload">Upload &amp; Submit Document</span>
-                    <svg wire:loading wire:target="upload" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                    <span wire:loading wire:target="upload">Uploading &amp; Submitting…</span>
+                        id="client_submit_doc_btn"
+                        class="btn-primary text-xs flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-500/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span>Upload &amp; Submit Document</span>
                 </button>
             </div>
         </form>
+
+        <script>
+            function previewSelectedDocument(input) {
+                const previewBox   = document.getElementById('selected_file_preview_box');
+                const previewName  = document.getElementById('selected_file_preview_name');
+                const previewSize  = document.getElementById('selected_file_preview_size');
+                const previewBadge = document.getElementById('selected_file_preview_badge');
+
+                if (input.files && input.files[0]) {
+                    const file = input.files[0];
+                    if (previewName) previewName.textContent = file.name;
+                    if (previewSize) {
+                        const sizeKb = (file.size / 1024).toFixed(1);
+                        previewSize.textContent = sizeKb + ' KB \u2022 Ready to submit';
+                    }
+                    if (previewBadge) {
+                        const ext = file.name.split('.').pop().toUpperCase();
+                        previewBadge.textContent = ext || 'FILE';
+                    }
+                    if (previewBox) previewBox.classList.remove('hidden');
+                } else {
+                    if (previewBox) previewBox.classList.add('hidden');
+                }
+            }
+
+            function clearSelectedDocument() {
+                const input = document.getElementById('client_doc_upload_input');
+                if (input) input.value = '';
+                const previewBox = document.getElementById('selected_file_preview_box');
+                if (previewBox) previewBox.classList.add('hidden');
+            }
+        </script>
     </div>
 
     <!-- Documents List -->

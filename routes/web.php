@@ -42,6 +42,7 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'verified', 'role:
     Route::get('/dashboard', ClientDashboard::class)->name('dashboard');
     Route::get('/appointments', \App\Livewire\Client\AppointmentManager::class)->name('appointments');
     Route::get('/documents', \App\Livewire\Client\DocumentManager::class)->name('documents');
+    Route::post('/documents/upload', [ClientDocument::class, 'upload'])->name('documents.upload');
     Route::get('/tax-returns', \App\Livewire\Client\TaxReturnTracker::class)->name('tax-returns');
     Route::get('/messages', \App\Livewire\Client\Messages::class)->name('messages');
     Route::get('/reports', \App\Livewire\Client\Reports::class)->name('reports');
@@ -80,6 +81,7 @@ Route::get('/admin', function () {
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'role:admin,superadmin,subadmin'])->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/documents', \App\Livewire\Admin\DocumentManager::class)->name('documents');
+    Route::post('/documents/upload', [\App\Http\Controllers\Admin\DocumentController::class, 'upload'])->name('documents.upload');
     Route::get('/inquiries', \App\Livewire\Admin\Inquiries::class)->name('inquiries');
     Route::get('/users', \App\Livewire\Admin\UserManager::class)->name('users');
     Route::get('/services', \App\Livewire\Admin\ServiceManager::class)->name('services');

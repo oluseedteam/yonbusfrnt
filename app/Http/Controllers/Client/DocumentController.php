@@ -53,5 +53,65 @@ class DocumentController extends Controller
 
         return Storage::disk($diskName)->response($document->stored_name, $document->original_name, $headers);
     }
+
+    /**
+     * Handle direct HTTP POST document upload from client portal.
+     */
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'file'              => 'required|file|max:20480',
+            'type'              => 'required|string',
+            'assigned_admin_id' => 'nullable',
+            'notes'             => 'nullable|string|max:500',
+        ], [
+            'file.required' => 'Please select a document or image file to upload.',
+            'file.file'     => 'The uploaded item must be a valid file.',
+            'file.max'      => 'The file size must not exceed 20MB.',
+        ]);
+
+        $file         = $request->file('file');
+        $originalName = $file->getClientOriginalName();
+        $extension    = $file->getClientOriginalExtension() ?: 'bin';
+        $storedName   = $file->storeAs('documents/' . auth()->id(), \Illuminate\Support\Str::uuid() . '.' . $extension, 'public');
+
+        $assignedId = !empty($request->assigned_admin_id) ? (int)$request->assigned_admin_id : auth()->user()->assigned_admin_id;
+
+        $doc = Document::create([
+            'client_id'         => auth()->id(),
+            'uploaded_by'       => auth()->id(),
+            'assigned_admin_id' => $assignedId ?: null,
+            'type'              => $request->type,
+            'notes'             => $request->notes,
+            'original_name'     => $originalName,
+            'stored_name'       => $storedName,
+            'file_type'         => $file->getMimeType() ?: 'application/octet-stream',
+            'file_size'         => $file->getSize() ?: 0,
+            'version'           => 1,
+        ]);
+
+        // If client selected an assigned admin, also update client profile if not set
+        if ($assignedId && !auth()->user()->assigned_admin_id) {
+            auth()->user()->update(['assigned_admin_id' => $assignedId]);
+        }
+
+        // Notify assigned admin if present
+        if ($assignedId) {
+            $assignedAdmin = \App\Models\User::find($assignedId);
+            if ($assignedAdmin) {
+                try {
+                    $assignedAdmin->notify(new \App\Notifications\DocumentUploadedNotification($doc));
+                } catch (\Throwable $e) {
+                    // Ignore mail exceptions on local environments
+                }
+            }
+        }
+
+        $assignedName = $doc->assignedAdmin ? "to {$doc->assignedAdmin->name}" : "to Central YONBUS Practice";
+        \App\Models\ActivityLog::log('document.uploaded', "Uploaded document: {$doc->original_name} {$assignedName}", $doc);
+
+        return redirect()->route('client.documents')
+            ->with('message', "✅ Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!");
+    }
 }
 

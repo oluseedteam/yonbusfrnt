@@ -19,9 +19,20 @@ class GoogleAuthController extends Controller
      */
     public function redirect(): RedirectResponse
     {
-        return Socialite::driver('google')
-            ->scopes(['openid', 'profile', 'email'])
-            ->redirect();
+        try {
+            if (!class_exists(\Laravel\Socialite\Facades\Socialite::class)) {
+                return redirect()->route('login')
+                    ->withErrors(['email' => 'Google authentication is currently being configured on the server. Please sign in with your email and password.']);
+            }
+
+            return Socialite::driver('google')
+                ->scopes(['openid', 'profile', 'email'])
+                ->redirect();
+        } catch (Throwable $e) {
+            \Log::error('[Google OAuth] Redirect error: ' . $e->getMessage());
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Google sign-in is temporarily unavailable: ' . $e->getMessage()]);
+        }
     }
 
     /**
