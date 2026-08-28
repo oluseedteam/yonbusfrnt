@@ -380,9 +380,7 @@
                         x-on:livewire-upload-progress="progress = $event.detail.progress"
                         class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group"
                     >
-                        @if(!$file)
-                            <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                        @endif
+                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': {{ $file ? 'true' : 'false' }} }">
                         <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
                             📁
                         </div>
@@ -391,15 +389,13 @@
                         </p>
                         <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
 
-                        {{-- Upload Progress Bar --}}
-                        <div x-show="isUploading" class="mt-4 max-w-xs mx-auto space-y-1.5" style="display: none;">
-                            <div class="flex items-center justify-between text-xs font-bold text-[#005DFF]">
-                                <span>Uploading file...</span>
-                                <span x-text="progress + '%'"></span>
-                            </div>
-                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
-                                <div class="bg-[#005DFF] h-2 rounded-full transition-all duration-200" :style="'width: ' + progress + '%'"></div>
-                            </div>
+                        {{-- Livewire Upload Loading Progress --}}
+                        <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
+                            <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                            <span>Processing file... please wait</span>
                         </div>
 
                         {{-- Upload Error Alert --}}
@@ -409,7 +405,7 @@
 
                         {{-- Selected File & Image Preview --}}
                         @if($file)
-                            <div class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
+                            <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
                                 @php
                                     $isImg = false;
                                     try {
@@ -459,7 +455,7 @@
                         <button type="button" wire:click="$set('showUploadModal', false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 cursor-pointer">
                             Cancel
                         </button>
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer" wire:loading.attr="disabled" wire:target="uploadDocument, file" :disabled="isUploading">
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#005DFF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5 cursor-pointer" wire:loading.attr="disabled" wire:target="uploadDocument">
                             <svg wire:loading.remove wire:target="uploadDocument" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             <span wire:loading.remove wire:target="uploadDocument">Upload &amp; Send to Client</span>
                             <span wire:loading wire:target="uploadDocument">Uploading &amp; Sending...</span>
