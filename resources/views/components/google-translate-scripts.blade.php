@@ -197,58 +197,33 @@
     });
 
     // 6. Aggressive Cleanup of Google Translate Top Bar & Body Offset
+    // 6. Safe Cleanup of Google Translate Top Bar & Body Offset
     function cleanGoogleTranslateBanner() {
         try {
             if (document.body) {
                 if (document.body.style.top && document.body.style.top !== '0px') {
-                    document.body.style.setProperty('top', '0px', 'important');
-                }
-                if (document.body.style.position && document.body.style.position !== 'static') {
-                    document.body.style.setProperty('position', 'static', 'important');
+                    document.body.style.top = '0px';
                 }
                 if (document.body.style.marginTop && document.body.style.marginTop !== '0px') {
-                    document.body.style.setProperty('margin-top', '0px', 'important');
+                    document.body.style.marginTop = '0px';
                 }
             }
-            if (document.documentElement) {
-                if (document.documentElement.style.top && document.documentElement.style.top !== '0px') {
-                    document.documentElement.style.setProperty('top', '0px', 'important');
-                }
+            if (document.documentElement && document.documentElement.style.top && document.documentElement.style.top !== '0px') {
+                document.documentElement.style.top = '0px';
             }
 
-            var frames = document.querySelectorAll('iframe.goog-te-banner-frame, iframe.skiptranslate, iframe[src*="translate.google"], .goog-te-banner-frame, .VIpgJd-ZVi9od-OR9G1-bStiqf, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf');
+            var frames = document.querySelectorAll('iframe.goog-te-banner-frame, iframe.skiptranslate, .goog-te-banner-frame');
             frames.forEach(function(f) {
-                f.style.setProperty('display', 'none', 'important');
-                f.style.setProperty('visibility', 'hidden', 'important');
-                f.style.setProperty('height', '0px', 'important');
-                f.style.setProperty('width', '0px', 'important');
-                f.style.setProperty('top', '-9999px', 'important');
-                f.style.setProperty('position', 'absolute', 'important');
-            });
-
-            var skipDivs = document.querySelectorAll('body > .skiptranslate');
-            skipDivs.forEach(function(el) {
-                if (el.id !== 'google_translate_element' && !el.querySelector('.goog-te-combo')) {
-                    el.style.setProperty('display', 'none', 'important');
-                }
+                f.style.display = 'none';
             });
         } catch(e) {}
     }
 
-    setInterval(cleanGoogleTranslateBanner, 50);
-
-    if (window.MutationObserver) {
-        var observer = new MutationObserver(function() {
-            cleanGoogleTranslateBanner();
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.documentElement, {
-                attributes: true,
-                childList: true,
-                subtree: true,
-                attributeFilter: ['style', 'class']
-            });
-        });
-    }
+    // Run clean once after DOM is ready, and on window load
+    document.addEventListener('DOMContentLoaded', cleanGoogleTranslateBanner);
+    window.addEventListener('load', function() {
+        setTimeout(cleanGoogleTranslateBanner, 500);
+        setTimeout(cleanGoogleTranslateBanner, 2000);
+    });
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>

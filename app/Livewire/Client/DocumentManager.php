@@ -28,7 +28,7 @@ class DocumentManager extends Component
         return [
             'file'              => 'required|file|max:20480|mimes:pdf,png,jpg,jpeg,webp,gif,heic,heif,docx,doc,xlsx,xls,csv,txt', // 20MB
             'type'              => 'required|string',
-            'assigned_admin_id' => 'nullable|exists:users,id',
+            'assigned_admin_id' => 'nullable',
             'notes'             => 'nullable|string|max:500',
         ];
     }
@@ -38,7 +38,6 @@ class DocumentManager extends Component
         'file.file'     => 'The uploaded item must be a valid file.',
         'file.max'      => 'The file size must not exceed 20MB.',
         'file.mimes'    => 'Supported formats: PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX, CSV, TXT.',
-        'assigned_admin_id.exists' => 'The selected advisor does not exist.',
     ];
 
     public function removeSelectedFile()

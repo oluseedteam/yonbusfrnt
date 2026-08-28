@@ -123,6 +123,17 @@
     <div class="card-box mb-8">
         <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document or Image</h3>
 
+        {{-- Validation Errors Summary --}}
+        @if ($errors->any())
+            <div class="mb-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs rounded-xl font-medium">
+                <ul class="list-disc pl-4 space-y-0.5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form wire:submit.prevent="upload" class="space-y-4">
             {{-- File Drop Zone using standard label and hidden file input --}}
             <div>
@@ -141,6 +152,12 @@
                         Click to browse or drag and drop files &amp; photos here
                     </p>
                     <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-[#005DFF] dark:text-blue-300 text-xs font-bold shadow-sm">
+                            📁 Choose File
+                        </span>
+                    </div>
 
                     {{-- Uploading indicator --}}
                     <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
