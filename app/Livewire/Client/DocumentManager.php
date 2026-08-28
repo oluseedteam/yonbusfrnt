@@ -154,6 +154,8 @@ class DocumentManager extends Component
         $this->reset(['file', 'notes']);
         $this->resetPage();
 
+        session()->flash('message', "✅ Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!");
+
         // Dispatch in-page toast notification (picked up by Alpine in blade)
         $this->dispatch('notify', [
             'message' => "✅ Document \"{$doc->original_name}\" uploaded successfully and delivered {$assignedName}!",

@@ -359,7 +359,7 @@
                     </button>
                 </div>
 
-                <form wire:submit="uploadDocument" class="space-y-4" x-data="{ isUploading: false, progress: 0, uploadError: null }">
+                <form wire:submit.prevent="uploadDocument" class="space-y-4">
                     {{-- Target Client Selection --}}
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Select Recipient Client *</label>
@@ -373,66 +373,64 @@
                     </div>
 
                     {{-- File Input & Image Preview --}}
-                    <div 
-                        x-on:livewire-upload-start="isUploading = true; progress = 0; uploadError = null"
-                        x-on:livewire-upload-finish="isUploading = false; progress = 100"
-                        x-on:livewire-upload-error="isUploading = false; uploadError = 'Upload failed. File exceeds 20MB limit or is unsupported.'"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress"
-                        class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition relative bg-slate-50/50 dark:bg-slate-900/30 group"
-                    >
-                        <input type="file" wire:model="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" :class="{ 'pointer-events-none': isUploading }">
-                        <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
-                            📁
-                        </div>
-                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
-                            Click or drag document or photo to upload
-                        </p>
-                        <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+                    <div>
+                        <input type="file"
+                               id="admin_doc_upload_input"
+                               wire:model="file"
+                               accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf"
+                               class="sr-only">
 
-                        {{-- Livewire Upload Loading Progress --}}
-                        <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
-                            <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                            </svg>
-                            <span>Processing file... please wait</span>
-                        </div>
+                        <label for="admin_doc_upload_input" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center hover:border-[#005DFF] transition cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 group block">
+                            <div class="w-10 h-10 mx-auto rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-2 font-bold text-base group-hover:scale-110 transition-transform">
+                                📁
+                            </div>
+                            <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                                Click to browse or drag document or photo to upload
+                            </p>
+                            <p class="text-[10px] text-slate-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
 
-                        {{-- Upload Error Alert --}}
-                        <div x-show="uploadError" class="mt-3 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs rounded-xl font-medium" style="display: none;">
-                            <span x-text="uploadError"></span>
-                        </div>
+                            {{-- Livewire Upload Loading Progress --}}
+                            <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
+                                <svg class="animate-spin h-4 w-4 text-[#005DFF]" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                                <span>Uploading file to browser... please wait</span>
+                            </div>
+                        </label>
 
                         {{-- Selected File & Image Preview --}}
                         @if($file)
-                            <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left relative z-20 max-w-full">
-                                @php
-                                    $isImg = false;
-                                    try {
-                                        $isImg = str_starts_with($file->getMimeType(), 'image/');
-                                    } catch (\Throwable $e) {}
-                                @endphp
+                            <div class="mt-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm flex items-center justify-between gap-3 text-left">
+                                <div class="flex items-center gap-3 overflow-hidden">
+                                    @php
+                                        $isImg = false;
+                                        try {
+                                            $isImg = str_starts_with($file->getMimeType(), 'image/');
+                                        } catch (\Throwable $e) {}
+                                    @endphp
 
-                                @if($isImg)
-                                    <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 dark:border-blue-900 flex-shrink-0 shadow-sm">
-                                @else
-                                    <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
-                                        {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
+                                    @if($isImg)
+                                        <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 dark:border-blue-900 flex-shrink-0 shadow-sm">
+                                    @else
+                                        <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                            {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
+                                        </div>
+                                    @endif
+
+                                    <div class="overflow-hidden">
+                                        <p class="font-bold text-xs text-slate-900 dark:text-white truncate max-w-xs">{{ $file->getClientOriginalName() }}</p>
+                                        <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to upload</p>
                                     </div>
-                                @endif
-
-                                <div class="overflow-hidden">
-                                    <p class="font-bold text-xs text-slate-900 dark:text-white truncate max-w-xs">{{ $file->getClientOriginalName() }}</p>
-                                    <p class="text-[10px] text-slate-500 font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to upload</p>
                                 </div>
 
-                                <button type="button" wire:click.prevent="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer">
+                                <button type="button" wire:click="removeSelectedFile" class="text-rose-500 hover:text-rose-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer flex-shrink-0">
                                     Remove
                                 </button>
                             </div>
                         @endif
+                        @error('file') <span class="text-xs text-rose-500 block font-medium mt-1.5">{{ $message }}</span> @enderror
                     </div>
-                    @error('file') <span class="text-xs text-rose-500 block font-medium">{{ $message }}</span> @enderror
 
                     {{-- Document Category --}}
                     <div>

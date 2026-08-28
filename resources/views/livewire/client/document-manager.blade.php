@@ -120,126 +120,116 @@
     @endif
 
     <!-- Upload Card & Drag-Drop UI -->
-    <div class="card-box mb-8"
-         x-data="{ isUploading: false, progress: 0, uploadError: null, uploading: false }"
-         x-on:livewire-upload-start="isUploading = true; progress = 0; uploadError = null"
-         x-on:livewire-upload-finish="isUploading = false; progress = 100"
-         x-on:livewire-upload-error="isUploading = false; uploadError = 'Upload failed. The file may exceed 20MB or is an unsupported format.'"
-         x-on:livewire-upload-progress="progress = $event.detail.progress"
-    >
+    <div class="card-box mb-8">
         <h3 class="text-sm font-bold text-gray-900 dark:text-white font-heading mb-4">Upload New Document or Image</h3>
 
-        {{-- File Drop Zone --}}
-        <div class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors relative bg-gray-50/50 dark:bg-gray-800/20 group mb-4">
+        <form wire:submit.prevent="upload" class="space-y-4">
+            {{-- File Drop Zone using standard label and hidden file input --}}
+            <div>
+                <input type="file"
+                       id="client_doc_upload_input"
+                       wire:model="file"
+                       accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf"
+                       class="sr-only">
 
-            {{-- Invisible file input - only covers this box, NOT the button below --}}
-            <input type="file"
-                   wire:model="file"
-                   accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.docx,.doc,.xlsx,.xls,.csv,.txt,image/*,application/pdf"
-                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                   style="z-index: 5;"
-                   :style="isUploading ? 'pointer-events:none' : ''">
-
-            <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform" style="position:relative;z-index:1;">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-            </div>
-
-            <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading" style="position:relative;z-index:1;">
-                Click to upload or drag and drop files &amp; photos here
-            </p>
-            <p class="text-[11px] text-gray-400 mt-1" style="position:relative;z-index:1;">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
-
-            {{-- Uploading spinner --}}
-            <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse" style="position:relative;z-index:1;">
-                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                </svg>
-                <span>Processing file… please wait</span>
-            </div>
-
-            {{-- Upload Error --}}
-            <div x-show="uploadError" class="mt-3 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 text-rose-700 text-xs rounded-xl font-medium" style="display:none;position:relative;z-index:1;">
-                <span x-text="uploadError"></span>
-            </div>
-
-            {{-- Selected File Preview --}}
-            @if($file)
-                <div wire:loading.remove wire:target="file" class="mt-4 p-3 bg-white dark:bg-gray-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm inline-flex items-center gap-3 text-left max-w-full" style="position:relative;z-index:10;">
-                    @php
-                        $isImg = false;
-                        try { $isImg = str_starts_with($file->getMimeType(), 'image/'); } catch (\Throwable $e) {}
-                    @endphp
-                    @if($isImg)
-                        <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 flex-shrink-0 shadow-sm">
-                    @else
-                        <div class="w-12 h-12 rounded-lg bg-blue-50 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100">
-                            {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
-                        </div>
-                    @endif
-                    <div class="overflow-hidden">
-                        <p class="font-bold text-xs text-gray-900 dark:text-white truncate max-w-xs font-heading">{{ $file->getClientOriginalName() }}</p>
-                        <p class="text-[10px] text-gray-500 font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to submit</p>
+                <label for="client_doc_upload_input" class="border-2 border-dashed border-gray-200 dark:border-gray-700/80 rounded-2xl p-6 text-center hover:border-[#005DFF] transition-colors cursor-pointer bg-gray-50/50 dark:bg-gray-800/20 group block">
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#005DFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                     </div>
-                    <button type="button" wire:click="removeSelectedFile" class="ml-2 text-rose-500 hover:text-rose-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-rose-50 transition cursor-pointer" style="position:relative;z-index:20;">
-                        Remove
-                    </button>
+
+                    <p class="text-xs font-semibold text-gray-800 dark:text-gray-200 font-heading">
+                        Click to browse or drag and drop files &amp; photos here
+                    </p>
+                    <p class="text-[11px] text-gray-400 mt-1">PDF, PNG, JPG, JPEG, WEBP, DOCX, XLSX (max 20MB)</p>
+
+                    {{-- Uploading indicator --}}
+                    <div wire:loading wire:target="file" class="mt-3 text-xs text-[#005DFF] font-semibold flex items-center justify-center gap-2 animate-pulse">
+                        <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                        </svg>
+                        <span>Uploading file to browser… please wait</span>
+                    </div>
+                </label>
+
+                {{-- Selected File Preview --}}
+                @if($file)
+                    <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded-xl border border-blue-200 dark:border-blue-800/80 shadow-sm flex items-center justify-between gap-3 text-left">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            @php
+                                $isImg = false;
+                                try { $isImg = str_starts_with($file->getMimeType(), 'image/'); } catch (\Throwable $e) {}
+                            @endphp
+                            @if($isImg)
+                                <img src="{{ $file->temporaryUrl() }}" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-blue-200 flex-shrink-0 shadow-sm">
+                            @else
+                                <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#005DFF] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-blue-100 dark:border-blue-900">
+                                    {{ strtoupper($file->getClientOriginalExtension() ?: 'FILE') }}
+                                </div>
+                            @endif
+                            <div class="overflow-hidden">
+                                <p class="font-bold text-xs text-gray-900 dark:text-white truncate max-w-xs font-heading">{{ $file->getClientOriginalName() }}</p>
+                                <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">{{ round($file->getSize() / 1024, 1) }} KB &bull; Ready to submit</p>
+                            </div>
+                        </div>
+                        <button type="button" wire:click="removeSelectedFile" class="text-rose-500 hover:text-rose-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer flex-shrink-0">
+                            Remove
+                        </button>
+                    </div>
+                @endif
+                @error('file') <span class="text-red-500 text-[11px] block font-medium mt-1.5">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {{-- Document Category --}}
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Document Category *</label>
+                    <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="t4_t5">T4 / T5 / T3 Canadian Tax Slips</option>
+                        <option value="cra_notice">CRA Notice of Assessment / Reassessment</option>
+                        <option value="receipt">Business Receipts &amp; Expenses (T2125)</option>
+                        <option value="bank_statement">Bank &amp; Credit Card Statements</option>
+                        <option value="corporate_docs">Corporate Financials (T2 / GST/HST)</option>
+                        <option value="tax_return">Prior Year Tax Return</option>
+                        <option value="other">Other Supporting Document</option>
+                    </select>
+                    @error('type') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
                 </div>
-            @endif
-        </div>
 
-        @error('file') <span class="text-red-500 text-[11px] block font-medium mb-3">{{ $message }}</span> @enderror
+                {{-- Select Advisor --}}
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin</label>
+                    <select wire:model="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                        <option value="">-- General YONBUS Admin Pool --</option>
+                        @foreach($advisors as $advisor)
+                            <option value="{{ $advisor->id }}">{{ $advisor->name }} ({{ ucfirst($advisor->role) }})</option>
+                        @endforeach
+                    </select>
+                    <p class="text-[10px] text-gray-400 mt-1">Directly delivers to this advisor's dashboard</p>
+                    @error('assigned_admin_id') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
+                </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            {{-- Document Category --}}
-            <div>
-                <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Document Category *</label>
-                <select wire:model="type" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
-                    <option value="t4_t5">T4 / T5 / T3 Canadian Tax Slips</option>
-                    <option value="cra_notice">CRA Notice of Assessment / Reassessment</option>
-                    <option value="receipt">Business Receipts &amp; Expenses (T2125)</option>
-                    <option value="bank_statement">Bank &amp; Credit Card Statements</option>
-                    <option value="corporate_docs">Corporate Financials (T2 / GST/HST)</option>
-                    <option value="tax_return">Prior Year Tax Return</option>
-                    <option value="other">Other Supporting Document</option>
-                </select>
-                @error('type') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
+                {{-- Notes --}}
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
+                    <input type="text" wire:model="notes" placeholder="e.g. 2025 medical &amp; tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    @error('notes') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
+                </div>
             </div>
 
-            {{-- Select Advisor --}}
-            <div>
-                <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Submit To Advisor / Admin</label>
-                <select wire:model="assigned_admin_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none font-medium">
-                    <option value="">-- General YONBUS Admin Pool --</option>
-                    @foreach($advisors as $advisor)
-                        <option value="{{ $advisor->id }}">{{ $advisor->name }} ({{ ucfirst($advisor->role) }})</option>
-                    @endforeach
-                </select>
-                <p class="text-[10px] text-gray-400 mt-1">Directly delivers to this advisor's dashboard</p>
-                @error('assigned_admin_id') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
+            {{-- Submit Button --}}
+            <div class="flex justify-end pt-2">
+                <button type="submit"
+                        class="btn-primary text-xs flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-500/20"
+                        wire:loading.attr="disabled"
+                        wire:target="upload">
+                    <svg wire:loading.remove wire:target="upload" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span wire:loading.remove wire:target="upload">Upload &amp; Submit Document</span>
+                    <svg wire:loading wire:target="upload" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                    <span wire:loading wire:target="upload">Uploading &amp; Submitting…</span>
+                </button>
             </div>
-
-            {{-- Notes --}}
-            <div>
-                <label class="block text-xs font-bold uppercase text-gray-700 dark:text-gray-300 mb-1">Notes / Description (Optional)</label>
-                <input type="text" wire:model="notes" placeholder="e.g. 2025 medical &amp; tuition expenses" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
-                @error('notes') <span class="text-red-500 text-[11px] block font-medium mt-1">{{ $message }}</span> @enderror
-            </div>
-        </div>
-
-        {{-- Submit Button - completely outside file drop zone, no wire:submit form wrapping it --}}
-        <div class="flex justify-end pt-2">
-            <button type="button"
-                    wire:click="upload"
-                    wire:loading.attr="disabled"
-                    wire:target="upload,file"
-                    class="btn-primary text-xs flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-500/20 disabled:opacity-60 disabled:cursor-not-allowed">
-                <svg wire:loading.remove wire:target="upload" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                <span wire:loading.remove wire:target="upload">Upload &amp; Submit Document</span>
-                <svg wire:loading wire:target="upload" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                <span wire:loading wire:target="upload">Submitting…</span>
-            </button>
-        </div>
+        </form>
     </div>
 
     <!-- Documents List -->
