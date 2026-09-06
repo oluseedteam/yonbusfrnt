@@ -100,6 +100,14 @@ class InvoiceManager extends Component
 
         AuditService::log('invoice.created', "Created invoice #{$inv->invoice_number} for client ID {$this->client_id}", 'Invoice', $inv->id);
 
+        if ($inv->client) {
+            try {
+                $inv->client->notify(new \App\Notifications\InvoiceCreatedNotification($inv));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify client {$inv->client->email} of invoice: " . $e->getMessage());
+            }
+        }
+
         $this->showModal = false;
         session()->flash('message', "Invoice #{$inv->invoice_number} created successfully.");
     }

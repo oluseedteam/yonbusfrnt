@@ -53,7 +53,7 @@
                 </div>
                 <div class="space-y-3 text-xs">
                     @forelse($notifications as $notif)
-                        <div class="p-2.5 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 flex items-start gap-2.5">
+                        <a href="{{ $notif->data['url'] ?? '#' }}" class="p-2.5 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 flex items-start gap-2.5 hover:bg-blue-100/60 dark:hover:bg-blue-900/40 transition-colors block">
                             <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center flex-shrink-0">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
@@ -62,7 +62,7 @@
                                 <p class="text-gray-500 text-[11px]">{{ $notif->data['message'] ?? 'You have a new update.' }}</p>
                                 <span class="text-[10px] text-gray-400 mt-1 block">{{ $notif->created_at->diffForHumans() }}</span>
                             </div>
-                        </div>
+                        </a>
                     @empty
                         <div class="p-2.5 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 flex items-start gap-2.5">
                             <div class="w-7 h-7 rounded-lg bg-[#005DFF] text-white flex items-center justify-center flex-shrink-0">

@@ -32,6 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_active',
         'notification_email',
         'notification_database',
+        'email_notifications',
+        'sms_reminders',
     ];
 
     protected $hidden = [
@@ -47,6 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'is_active'              => 'boolean',
             'notification_email'     => 'boolean',
             'notification_database'  => 'boolean',
+            'email_notifications'    => 'boolean',
+            'sms_reminders'          => 'boolean',
         ];
     }
 
@@ -61,6 +65,18 @@ class User extends Authenticatable implements MustVerifyEmail
         $parts = explode(' ', trim($value ?? ''), 2);
         $this->attributes['first_name'] = $parts[0] ?? '';
         $this->attributes['last_name']  = $parts[1] ?? '';
+    }
+
+    public function setEmailNotificationsAttribute($value): void
+    {
+        $this->attributes['email_notifications'] = (bool) $value;
+        $this->attributes['notification_email']  = (bool) $value;
+    }
+
+    public function setNotificationEmailAttribute($value): void
+    {
+        $this->attributes['notification_email']  = (bool) $value;
+        $this->attributes['email_notifications'] = (bool) $value;
     }
 
     public function getRoleAttribute(): string

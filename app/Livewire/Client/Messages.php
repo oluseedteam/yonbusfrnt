@@ -140,7 +140,17 @@ class Messages extends Component
             $data['attachment_name'] = $this->attachment->getClientOriginalName();
         }
 
-        Message::create($data);
+        $msg = Message::create($data);
+
+        $receiver = User::find($this->selectedAdminId);
+        if ($receiver) {
+            try {
+                $receiver->notify(new \App\Notifications\NewMessageNotification($msg));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify receiver {$receiver->email} of new message: " . $e->getMessage());
+            }
+        }
+
         $this->reset(['body', 'attachment']);
         session()->flash('message', 'Message sent successfully.');
     }

@@ -41,6 +41,15 @@ class TaxReturnManager extends Component
         };
         if ($field) $updates[$field] = now();
         $tr->update($updates);
+
+        if ($tr->client) {
+            try {
+                $tr->client->notify(new \App\Notifications\TaxReturnStatusNotification($tr));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify client {$tr->client->email} of tax return status: " . $e->getMessage());
+            }
+        }
+
         session()->flash('message', 'Tax return status updated.');
     }
 }

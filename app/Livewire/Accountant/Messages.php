@@ -53,11 +53,21 @@ class Messages extends Component
     public function send()
     {
         $this->validate(['body' => 'required|string|max:1000']);
-        Message::create([
+        $msg = Message::create([
             'sender_id'   => auth()->id(),
             'receiver_id' => $this->selectedClientId,
             'body'        => $this->body,
         ]);
+
+        $receiver = User::find($this->selectedClientId);
+        if ($receiver) {
+            try {
+                $receiver->notify(new \App\Notifications\NewMessageNotification($msg));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify client {$receiver->email} of accountant message: " . $e->getMessage());
+            }
+        }
+
         $this->reset('body');
     }
 }

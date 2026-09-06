@@ -135,16 +135,31 @@ class DocumentManager extends Component
             auth()->user()->update(['assigned_admin_id' => $assignedId]);
         }
 
-        // Notify assigned admin if present
+        // Notify assigned admin if present, or all active admins if none assigned
+        $adminsToNotify = collect();
         if ($assignedId) {
             $assignedAdmin = User::find($assignedId);
             if ($assignedAdmin) {
-                try {
-                    $assignedAdmin->notify(new DocumentUploadedNotification($doc));
-                } catch (\Throwable $e) {
-                    // Ignore mail exceptions on local environments
-                }
+                $adminsToNotify->push($assignedAdmin);
             }
+        }
+        if ($adminsToNotify->isEmpty()) {
+            $adminsToNotify = User::whereIn('role', ['admin', 'superadmin'])->where('is_active', true)->get();
+        }
+
+        foreach ($adminsToNotify->unique('id') as $admin) {
+            try {
+                $admin->notify(new DocumentUploadedNotification($doc));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify admin {$admin->email} of document upload: " . $e->getMessage());
+            }
+        }
+
+        // Also send confirmation notification to the uploading client
+        try {
+            auth()->user()->notify(new DocumentUploadedNotification($doc));
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning("Failed to notify client " . auth()->user()->email . " of document upload: " . $e->getMessage());
         }
 
         $assignedName = $doc->assignedAdmin ? "to {$doc->assignedAdmin->name}" : "to Central YONBUS Practice";

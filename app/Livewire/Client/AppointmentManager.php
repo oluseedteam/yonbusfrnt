@@ -5,6 +5,8 @@ namespace App\Livewire\Client;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\ActivityLog;
+use App\Events\AppointmentBooked;
+use App\Events\AppointmentCancelled;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
@@ -163,6 +165,7 @@ class AppointmentManager extends Component
                 'notes'         => $this->notes,
                 'status'        => 'pending',
             ]);
+            event(new AppointmentBooked($appt));
             ActivityLog::log('appointment.created', 'Appointment booked successfully.', $appt);
             session()->flash('message', 'Appointment booked successfully! Your dedicated consultant has received the schedule.');
         }
@@ -175,6 +178,7 @@ class AppointmentManager extends Component
     {
         $appt = Appointment::where('id', $id)->where('client_id', auth()->id())->firstOrFail();
         $appt->update(['status' => 'cancelled']);
+        event(new AppointmentCancelled($appt));
         ActivityLog::log('appointment.cancelled', 'Appointment cancelled.', $appt);
         session()->flash('message', 'Appointment cancelled.');
     }

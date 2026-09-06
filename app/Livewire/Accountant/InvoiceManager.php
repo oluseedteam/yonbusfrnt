@@ -37,8 +37,7 @@ class InvoiceManager extends Component
 
     public function create()
     {
-        $this->validate();
-        Invoice::create([
+        $inv = Invoice::create([
             'client_id'     => $this->client_id,
             'accountant_id' => auth()->id(),
             'amount'        => $this->amount,
@@ -48,6 +47,15 @@ class InvoiceManager extends Component
             'due_date'      => $this->due_date,
             'description'   => $this->description,
         ]);
+
+        if ($inv->client) {
+            try {
+                $inv->client->notify(new \App\Notifications\InvoiceCreatedNotification($inv));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify client {$inv->client->email} of invoice: " . $e->getMessage());
+            }
+        }
+
         $this->reset(['showModal', 'client_id', 'amount', 'tax', 'due_date', 'description']);
         session()->flash('message', 'Invoice generated successfully.');
     }

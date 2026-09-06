@@ -108,7 +108,7 @@ class PublicController extends Controller
             'message' => 'required|string|max:2000',
         ]);
 
-        CommunicationLog::create([
+        $log = CommunicationLog::create([
             'name'    => $validated['name'],
             'email'   => $validated['email'],
             'phone'   => $validated['phone'] ?? null,
@@ -116,6 +116,15 @@ class PublicController extends Controller
             'message' => $validated['message'],
             'channel' => 'contact_form',
         ]);
+
+        $admins = \App\Models\User::whereIn('role', ['admin', 'superadmin'])->where('is_active', true)->get();
+        foreach ($admins as $admin) {
+            try {
+                $admin->notify(new \App\Notifications\ContactInquiryReceivedNotification($log));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify admin {$admin->email} of contact inquiry: " . $e->getMessage());
+            }
+        }
 
         return back()->with('success', 'Thank you for reaching out! A YONBUS representative will contact you shortly.');
     }
@@ -147,7 +156,7 @@ class PublicController extends Controller
             $resumePath = $request->file('resume')->store('career-applications', 'public');
         }
 
-        CommunicationLog::create([
+        $careerLog = CommunicationLog::create([
             'name'    => $validated['name'],
             'email'   => $validated['email'],
             'phone'   => $validated['phone'] ?? null,
@@ -155,6 +164,15 @@ class PublicController extends Controller
             'message' => $validated['message'] . ($resumePath ? "\n\n[Resume: " . $resumePath . "]" : ''),
             'channel' => 'career_application',
         ]);
+
+        $admins = \App\Models\User::whereIn('role', ['admin', 'superadmin'])->where('is_active', true)->get();
+        foreach ($admins as $admin) {
+            try {
+                $admin->notify(new \App\Notifications\ContactInquiryReceivedNotification($careerLog));
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning("Failed to notify admin {$admin->email} of career application: " . $e->getMessage());
+            }
+        }
 
         return back()->with('success', 'Thank you for applying! Our HR team will review your application and be in touch within 5 business days.');
     }

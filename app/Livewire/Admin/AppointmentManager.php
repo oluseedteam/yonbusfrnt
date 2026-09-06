@@ -6,6 +6,8 @@ use App\Repositories\AppointmentRepository;
 use App\Services\AppointmentService;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Events\AppointmentConfirmed;
+use App\Events\AppointmentCancelled;
 use App\Notifications\AppointmentReminderNotification;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -122,6 +124,7 @@ class AppointmentManager extends Component
         ]);
 
         $appt = Appointment::findOrFail($this->editId);
+        $oldStatus = $appt->status;
         $appt->update([
             'date'          => $this->editDate,
             'time'          => $this->editTime,
@@ -130,6 +133,12 @@ class AppointmentManager extends Component
             'status'        => $this->editStatus,
             'notes'         => $this->editNotes,
         ]);
+
+        if ($this->editStatus === 'confirmed' && $oldStatus !== 'confirmed') {
+            event(new AppointmentConfirmed($appt));
+        } elseif ($this->editStatus === 'cancelled' && $oldStatus !== 'cancelled') {
+            event(new AppointmentCancelled($appt));
+        }
 
         $this->showEditModal = false;
         $this->reset(['editId', 'editClientName', 'editServiceName', 'editDate', 'editTime', 'editDuration', 'editAccountantId', 'editStatus', 'editNotes']);
@@ -207,6 +216,8 @@ class AppointmentManager extends Component
             'accountant_id' => $this->scheduleAccountantId ?: null,
             'status'        => 'confirmed',
         ]);
+
+        event(new AppointmentConfirmed($appt));
 
         $this->showScheduleModal = false;
         $this->reset(['scheduleId', 'scheduleDate', 'scheduleTime', 'scheduleDuration', 'scheduleAccountantId']);

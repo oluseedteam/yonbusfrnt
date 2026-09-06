@@ -14,12 +14,16 @@ class WelcomeClientNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        $channels = ['database'];
+        if (!empty($notifiable->email)) {
+            $channels[] = 'mail';
+        }
+        return $channels;
     }
 
     public function toMail(object $notifiable): MailMessage
     {
-        $firstName = $notifiable->first_name ?? 'Valued Client';
+        $firstName = $notifiable->first_name ?? $notifiable->name ?? 'Valued Client';
 
         return (new MailMessage)
             ->subject('Welcome to YONBUS — Your Account is Ready')
@@ -37,5 +41,15 @@ class WelcomeClientNotification extends Notification
             ->line('If you did not register, please ignore this email.')
             ->action('Log In to Dashboard', url('/login'))
             ->salutation('The YONBUS Team');
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'title'   => 'Welcome to YONBUS!',
+            'message' => 'Your account is active and ready. Explore services, book consultations, and manage your tax documents.',
+            'type'    => 'welcome',
+            'url'     => '/client/dashboard',
+        ];
     }
 }

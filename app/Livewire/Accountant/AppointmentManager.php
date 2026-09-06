@@ -5,6 +5,8 @@ namespace App\Livewire\Accountant;
 use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Service;
+use App\Events\AppointmentConfirmed;
+use App\Events\AppointmentCancelled;
 use Livewire\Component;
 
 class AppointmentManager extends Component
@@ -32,7 +34,16 @@ class AppointmentManager extends Component
 
     public function updateStatus($id, $status)
     {
-        Appointment::where('id', $id)->where('accountant_id', auth()->id())->update(['status' => $status]);
+        $appt = Appointment::where('id', $id)->where('accountant_id', auth()->id())->firstOrFail();
+        $oldStatus = $appt->status;
+        $appt->update(['status' => $status]);
+
+        if ($status === 'confirmed' && $oldStatus !== 'confirmed') {
+            event(new AppointmentConfirmed($appt));
+        } elseif ($status === 'cancelled' && $oldStatus !== 'cancelled') {
+            event(new AppointmentCancelled($appt));
+        }
+
         session()->flash('message', 'Appointment updated.');
     }
 }
