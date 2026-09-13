@@ -90,8 +90,9 @@
 
             <div>
                 <div class="flex items-center justify-between mb-3">
-                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300">
-                        Select Consultation Time Slot
+                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                        <span>Select Consultation Time Slot</span>
+                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-900/50 normal-case">EST</span>
                     </label>
                     <div class="flex items-center gap-3 text-xs">
                         <span class="flex items-center gap-1 text-emerald-600 font-semibold">
@@ -109,14 +110,14 @@
                             <button type="button"
                                     wire:click="selectTimeSlot('{{ $slot['time'] }}', true)"
                                     class="py-3 px-3.5 rounded-2xl border text-center transition flex flex-col items-center justify-center gap-1 {{ $appointment_time === $slot['time'] ? 'bg-[#005DFF] text-white border-[#005DFF] shadow-lg shadow-blue-500/20 ring-2 ring-[#005DFF]/30' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-[#005DFF] hover:shadow-sm' }}">
-                                <span class="text-sm font-bold">{{ $slot['formatted'] }}</span>
+                                <span class="text-sm font-bold">{{ $slot['formatted'] }} <span class="text-[11px] font-normal opacity-80">EST</span></span>
                                 <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full {{ $appointment_time === $slot['time'] ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300' }}">
                                     Available
                                 </span>
                             </button>
                         @else
                             <div class="py-3 px-3.5 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-400 dark:text-slate-500 flex flex-col items-center justify-center gap-1 cursor-not-allowed opacity-60">
-                                <span class="text-sm font-semibold line-through">{{ $slot['formatted'] }}</span>
+                                <span class="text-sm font-semibold line-through">{{ $slot['formatted'] }} EST</span>
                                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400">
                                     🔒 Booked
                                 </span>
@@ -211,7 +212,7 @@
                     <span class="font-bold text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2 py-0.5 rounded uppercase">Pending Confirmation</span>
                 </div>
                 <div class="text-sm font-bold text-slate-900 dark:text-white">Service: {{ $confirmedAppointment->service->name ?? 'Tax Service' }}</div>
-                <div class="text-xs text-slate-600 dark:text-slate-400">Date: {{ $confirmedAppointment->date?->format('M d, Y') }} at {{ date('h:i A', strtotime($confirmedAppointment->time)) }}</div>
+                <div class="text-xs text-slate-600 dark:text-slate-400">Date: {{ $confirmedAppointment->date?->format('M d, Y') }} at {{ date('h:i A', strtotime($confirmedAppointment->time)) }} EST</div>
                 <div class="text-xs text-slate-600 dark:text-slate-400">Assigned Accountant: {{ $confirmedAppointment->accountant->name ?? 'YONBUS Specialist' }}</div>
             </div>
 

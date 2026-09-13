@@ -68,23 +68,6 @@ class AdminAccountsSeeder extends Seeder
         );
         $adeshola->safeAssignRole('admin');
 
-        // Also create alias adeshola@yonbustax.ca if needed
-        $adesholaAlias = User::updateOrCreate(
-            ['email' => 'adeshola@yonbustax.ca'],
-            [
-                'first_name'            => 'Adeshola',
-                'last_name'             => 'Eniola',
-                'password'              => Hash::make('Password123!'),
-                'role'                  => 'admin',
-                'phone'                 => '+1 (438) 555-0102',
-                'email_verified_at'     => now(),
-                'is_active'             => true,
-                'avatar'                => 'images/team/adeshola-eniola.jpg',
-                'notification_email'    => true,
-                'notification_database' => true,
-            ]
-        );
-        $adesholaAlias->safeAssignRole('admin');
 
         Accountant::updateOrCreate(
             ['user_id' => $adeshola->id],

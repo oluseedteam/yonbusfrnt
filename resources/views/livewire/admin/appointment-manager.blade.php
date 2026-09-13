@@ -75,7 +75,7 @@
                                         {{ $appt->date->format('M d, Y') }}
                                     </div>
                                     <div class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                                        {{ $appt->time ? date('g:i A', strtotime($appt->time)) : 'Time pending' }}
+                                        {{ $appt->time ? date('g:i A', strtotime($appt->time)) . ' EST' : 'Time pending' }}
                                     </div>
                                 @else
                                     <span class="text-amber-600 dark:text-amber-400 text-xs font-semibold bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded">Pending Scheduling</span>
@@ -189,7 +189,7 @@
                             @error('editDate') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Appointment Time *</label>
+                            <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Appointment Time (EST) *</label>
                             <input type="time" wire:model="editTime" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2.5 px-3 text-xs sm:text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none">
                             @error('editTime') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
@@ -314,7 +314,7 @@
                             @error('scheduleDate') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Start Time</label>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Start Time (EST) *</label>
                             <input type="time" wire:model="scheduleTime" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2 px-3 text-xs focus:ring-blue-500 focus:border-blue-500 outline-none">
                             @error('scheduleTime') <span class="text-red-500 text-[11px]">{{ $message }}</span> @enderror
                         </div>

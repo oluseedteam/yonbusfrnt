@@ -54,7 +54,7 @@
                                 {{ $appt->accountant?->name ?? 'YONBUS Admin Team' }}
                             </td>
                             <td class="p-3.5 font-medium text-gray-800 dark:text-gray-200">
-                                {{ $appt->date?->format('M j, Y') }} at {{ date('g:i A', strtotime($appt->time)) }}
+                                {{ $appt->date?->format('M j, Y') }} at {{ date('g:i A', strtotime($appt->time)) }} EST
                             </td>
                             <td class="p-3.5">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider 
@@ -68,11 +68,14 @@
                             <!-- Live Room Access -->
                             <td class="p-3.5">
                                 @if(in_array($appt->status, ['confirmed', 'pending']))
-                                    <button wire:click="startConsultation({{ $appt->id }})" 
-                                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all">
+                                    {{-- Temporarily deactivated (#). To reactivate in the future, change to: <button wire:click="startConsultation({{ $appt->id }})" ...> --}}
+                                    <a href="#" 
+                                       onclick="return false;"
+                                       title="Live room consultation is currently unavailable"
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                                         <span>Join Room (Video & Chat)</span>
-                                    </button>
+                                    </a>
                                 @else
                                     <span class="text-gray-400 text-[11px]">—</span>
                                 @endif
@@ -126,7 +129,7 @@
                         <select wire:model="service_id" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-3 text-xs focus:ring-[#005DFF] outline-none">
                             <option value="">-- Select a Service --</option>
                             @foreach($services as $s)
-                                <option value="{{ $s->id }}">{{ $s->name }} ({{ $s->duration ?? 45 }} mins)</option>
+                                <option value="{{ $s->id }}">{{ $s->name }}</option>
                             @endforeach
                         </select>
                         @error('service_id') <span class="text-rose-500 text-[11px] block mt-1">{{ $message }}</span> @enderror
@@ -153,8 +156,10 @@
                     {{-- Time Slot Selection with Availability/Booked Status --}}
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300">
-                                Available Time Slots *
+                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                                <span>Available Time Slots</span>
+                                <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-1.5 py-0.5 rounded border border-blue-200 dark:border-blue-900/40">EST</span>
+                                <span class="text-rose-500">*</span>
                             </label>
                             <div class="flex items-center gap-2 text-[10px] font-semibold">
                                 <span class="text-emerald-600 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Available</span>
@@ -168,11 +173,11 @@
                                     <button type="button"
                                             wire:click="selectTimeSlot('{{ $slot['time'] }}', true)"
                                             class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center {{ $time === $slot['time'] || $time === $slot['time_short'] ? 'bg-[#005DFF] text-white border-[#005DFF] shadow-sm font-bold' : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-[#005DFF]' }}">
-                                        <span class="text-xs font-bold">{{ $slot['formatted'] }}</span>
+                                        <span class="text-xs font-bold">{{ $slot['formatted'] }} <span class="text-[10px] font-medium opacity-75">EST</span></span>
                                     </button>
                                 @else
                                     <div class="p-2 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-100/60 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 text-center cursor-not-allowed opacity-50 flex flex-col items-center justify-center">
-                                        <span class="text-xs font-medium line-through">{{ $slot['formatted'] }}</span>
+                                        <span class="text-xs font-medium line-through">{{ $slot['formatted'] }} EST</span>
                                         <span class="text-[9px] text-rose-500 font-bold">Booked</span>
                                     </div>
                                 @endif

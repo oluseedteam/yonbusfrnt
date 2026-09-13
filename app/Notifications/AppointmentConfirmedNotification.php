@@ -28,7 +28,7 @@ class AppointmentConfirmedNotification extends Notification
         $clientName  = $this->appointment->client->name ?? 'Client';
         $serviceName = $this->appointment->service->name ?? 'Consultation';
         $dateStr     = $this->appointment->date ? (is_string($this->appointment->date) ? $this->appointment->date : $this->appointment->date->format('Y-m-d')) : 'TBD';
-        $timeStr     = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) : 'TBD';
+        $timeStr     = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) . ' EST' : 'TBD';
 
         $isStaff = in_array($notifiable->role ?? '', ['admin', 'superadmin', 'subadmin', 'accountant'])
             || ($notifiable->id !== $this->appointment->client_id);

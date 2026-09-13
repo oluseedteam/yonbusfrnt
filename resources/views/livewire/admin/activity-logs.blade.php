@@ -33,7 +33,7 @@
                 class="px-3.5 py-1.5 rounded-xl font-bold transition {{ empty($adminFilter) ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200' }}">
             All Staff &amp; System Events
         </button>
-        @foreach($adminUsers->whereIn('email', ['olubukunola@yonbustax.ca', 'adeshola.eniola@yonbustax.ca', 'adeshola@yonbustax.ca']) as $partner)
+        @foreach($adminUsers->whereIn('email', ['olubukunola@yonbustax.ca', 'adeshola.eniola@yonbustax.ca']) as $partner)
             <button type="button" wire:click="$set('adminFilter', '{{ $partner->id }}')"
                     class="px-3.5 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 {{ (string)$adminFilter === (string)$partner->id ? 'bg-[#005DFF] text-white shadow-sm' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100' }}">
                 <img src="{{ $partner->avatar_url }}" class="w-4 h-4 rounded-full object-cover">

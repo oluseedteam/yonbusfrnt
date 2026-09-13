@@ -175,6 +175,8 @@ class AppointmentService
                 'time'         => $timeVal,
                 'time_short'   => substr($timeVal, 0, 5),
                 'formatted'    => $label,
+                'formatted_tz' => $label . ' EST',
+                'timezone'     => 'EST',
                 'is_available' => !$isTaken,
                 'status'       => $isTaken ? 'booked' : 'available',
                 'reason'       => $isTaken ? 'Already Booked' : 'Available',

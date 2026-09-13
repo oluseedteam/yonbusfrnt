@@ -26,7 +26,7 @@ class AppointmentReminderNotification extends Notification
     {
         $serviceName = $this->appointment->service->name ?? 'Accounting & Tax Consultation';
         $dateFormatted = $this->appointment->date ? $this->appointment->date->format('l, F j, Y') : 'Pending Schedule';
-        $timeFormatted = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) : 'Pending Schedule';
+        $timeFormatted = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) . ' EST' : 'Pending Schedule';
         $advisorName = $this->appointment->accountant->name ?? 'YONBUS Specialist';
 
         $mail = (new MailMessage)

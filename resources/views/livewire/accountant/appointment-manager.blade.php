@@ -30,7 +30,7 @@
                                 </div>
                             </td>
                             <td class="p-3.5 font-bold text-gray-800 dark:text-gray-200 font-heading">{{ $appt->service?->name }}</td>
-                            <td class="p-3.5 font-medium text-gray-700 dark:text-gray-300">{{ $appt->date->format('M j, Y') }} at {{ date('g:i A', strtotime($appt->time)) }}</td>
+                            <td class="p-3.5 font-medium text-gray-700 dark:text-gray-300">{{ $appt->date->format('M j, Y') }} at {{ date('g:i A', strtotime($appt->time)) }} EST</td>
                             <td class="p-3.5">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider {{ $appt->status_color }}">
                                     {{ $appt->status }}
