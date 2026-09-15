@@ -20,6 +20,8 @@ class Appointment extends Model
         'duration',
         'status',
         'notes',
+        'meeting_link',
+        'reminder_sent_at',
     ];
 
     protected static function booted(): void
@@ -33,7 +35,8 @@ class Appointment extends Model
     }
 
     protected $casts = [
-        'date' => 'date',
+        'date'             => 'date',
+        'reminder_sent_at' => 'datetime',
     ];
 
     // ── Statuses ──────────────────────────────────────────────────

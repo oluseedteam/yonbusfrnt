@@ -75,8 +75,12 @@ class UserManager extends Component
         }
 
         $users = $this->repo()->paginate(10, $filters);
-        $consultants = User::whereIn('role', ['admin', 'superadmin'])
-            ->orWhere('email', 'like', '%@yonbustax.ca')
+        $consultants = User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin'])
+                  ->orWhere('email', 'like', '%@yonbustax.ca');
+            })
+            ->where('is_active', true)
             ->get();
 
         return view('livewire.admin.user-manager', compact('users', 'consultants'))->layout('layouts.admin');
@@ -90,7 +94,12 @@ class UserManager extends Component
             'city', 'province', 'postal_code', 'avatar'
         ]);
         $this->role = $defaultRole;
-        $this->assigned_admin_id = auth()->id();
+        $defaultAdminId = auth()->id();
+        if (auth()->user()?->isDeveloper()) {
+            $defaultAdmin = User::excludeDeveloper()->where('email', 'olubukunola@yonbustax.ca')->first();
+            $defaultAdminId = $defaultAdmin?->id;
+        }
+        $this->assigned_admin_id = $defaultAdminId;
         $this->generatePassword();
         $this->showModal = true;
     }

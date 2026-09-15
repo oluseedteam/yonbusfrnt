@@ -120,7 +120,12 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ $user->email }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">
+                                        {{ $user->email }}
+                                        @if($user->phone)
+                                            • <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $user->phone }}</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4">

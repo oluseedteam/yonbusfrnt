@@ -24,14 +24,45 @@ class AppointmentReminderNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $serviceName = $this->appointment->service->name ?? 'Accounting & Tax Consultation';
-        $dateFormatted = $this->appointment->date ? $this->appointment->date->format('l, F j, Y') : 'Pending Schedule';
-        $timeFormatted = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) . ' EST' : 'Pending Schedule';
-        $advisorName = $this->appointment->accountant->name ?? 'YONBUS Specialist';
+        $this->appointment->loadMissing(['client', 'service', 'accountant']);
 
+        $clientName    = $this->appointment->client?->name ?? 'Valued Client';
+        $serviceName   = $this->appointment->service?->name ?? 'Accounting & Tax Consultation';
+        $dateFormatted = $this->appointment->date ? $this->appointment->date->format('l, F j, Y') : 'Scheduled Date';
+        $timeFormatted = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) . ' EST' : 'Scheduled Time';
+        $advisorName   = $this->appointment->accountant?->name ?? 'YONBUS Practice Advisor';
+
+        $isStaff = in_array($notifiable->role ?? '', ['admin', 'superadmin', 'subadmin', 'accountant'])
+            || ($notifiable->id !== $this->appointment->client_id);
+
+        if ($isStaff) {
+            $manageUrl = ($notifiable->role ?? '') === 'accountant'
+                ? url('/accountant/appointments')
+                : url('/admin/appointments');
+
+            $mail = (new MailMessage)
+                ->subject("Upcoming Appointment Reminder: {$serviceName} (#{$this->appointment->appointment_number})")
+                ->greeting('Hello ' . ($notifiable->name ?? 'Advisor') . ',')
+                ->line("This is a reminder for your upcoming consultation with **{$clientName}**.")
+                ->line('**Reference Number:** ' . $this->appointment->appointment_number)
+                ->line('**Client:** ' . $clientName)
+                ->line('**Service:** ' . $serviceName)
+                ->line('**Scheduled Date:** ' . $dateFormatted)
+                ->line('**Scheduled Time:** ' . $timeFormatted);
+
+            if ($this->appointment->notes) {
+                $mail->line('**Client Notes:** ' . $this->appointment->notes);
+            }
+
+            return $mail
+                ->action('View Appointment in Portal', $manageUrl)
+                ->salutation('YONBUS Tax & Accounting Services Inc.');
+        }
+
+        // Client Email
         $mail = (new MailMessage)
-            ->subject('Appointment Reminder: ' . $serviceName . ' (' . $this->appointment->appointment_number . ')')
-            ->greeting('Hello ' . ($notifiable->name ?? 'Valued Client') . ',')
+            ->subject("Appointment Reminder: {$serviceName} (#{$this->appointment->appointment_number})")
+            ->greeting('Hello ' . ($notifiable->first_name ?? $notifiable->name ?? 'Valued Client') . ',')
             ->line('This is a friendly reminder regarding your upcoming consultation with **YONBUS Tax & Accounting Services Inc.**')
             ->line('**Reference Number:** ' . $this->appointment->appointment_number)
             ->line('**Service:** ' . $serviceName)
@@ -44,16 +75,40 @@ class AppointmentReminderNotification extends Notification
         }
 
         return $mail
-            ->action('Access Client Portal & Video Room', url('/client/appointments'))
-            ->line('If you need to reschedule or prepare any tax/accounting slips prior to the meeting, please log into your client dashboard.')
-            ->salutation('Warm regards,  \nYONBUS Tax & Accounting Services Inc.');
+            ->action('Access Client Portal & Appointment Details', url('/client/appointments'))
+            ->line('If you need to reschedule or prepare your tax/accounting slips prior to the session, please log into your client dashboard.')
+            ->salutation("Warm regards,  \nYONBUS Tax & Accounting Services Inc.");
     }
 
     public function toDatabase(object $notifiable): array
     {
+        $this->appointment->loadMissing(['client', 'service', 'accountant']);
+
+        $clientName    = $this->appointment->client?->name ?? 'Client';
+        $serviceName   = $this->appointment->service?->name ?? 'Consultation';
+        $dateFormatted = $this->appointment->date ? $this->appointment->date->format('M j, Y') : 'Upcoming';
+        $timeFormatted = $this->appointment->time ? date('g:i A', strtotime($this->appointment->time)) . ' EST' : '';
+
+        $isStaff = in_array($notifiable->role ?? '', ['admin', 'superadmin', 'subadmin', 'accountant'])
+            || ($notifiable->id !== $this->appointment->client_id);
+
+        if ($isStaff) {
+            $manageUrl = ($notifiable->role ?? '') === 'accountant'
+                ? '/accountant/appointments'
+                : '/admin/appointments';
+
+            return [
+                'title'          => 'Appointment Reminder',
+                'message'        => "Reminder: Consultation with {$clientName} for {$serviceName} (#{$this->appointment->appointment_number}) is scheduled for {$dateFormatted} at {$timeFormatted}.",
+                'type'           => 'appointment_reminder',
+                'url'            => $manageUrl,
+                'appointment_id' => $this->appointment->id,
+            ];
+        }
+
         return [
             'title'          => 'Appointment Reminder',
-            'message'        => 'Reminder for your upcoming appointment #' . $this->appointment->appointment_number . ($this->appointment->date ? ' on ' . $this->appointment->date->format('M d, Y') : ''),
+            'message'        => "Reminder: Your {$serviceName} appointment (#{$this->appointment->appointment_number}) is scheduled for {$dateFormatted} at {$timeFormatted}.",
             'type'           => 'appointment_reminder',
             'url'            => '/client/appointments',
             'appointment_id' => $this->appointment->id,

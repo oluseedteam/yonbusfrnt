@@ -198,7 +198,12 @@
                             <td class="px-6 py-4">
                                 @if($doc->client)
                                     <div class="font-bold text-slate-900 dark:text-white">{{ $doc->client->name }}</div>
-                                    <div class="text-[11px] text-slate-500">{{ $doc->client->email }}</div>
+                                    <div class="text-[11px] text-slate-500">
+                                        {{ $doc->client->email }}
+                                        @if($doc->client->phone)
+                                            • <span class="text-slate-600 dark:text-slate-300 font-medium">{{ $doc->client->phone }}</span>
+                                        @endif
+                                    </div>
                                 @else
                                     <span class="text-slate-400 italic">Unknown Client</span>
                                 @endif

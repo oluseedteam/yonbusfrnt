@@ -65,8 +65,12 @@ class AppointmentManager extends Component
             $services = Service::all();
         }
 
-        $consultants = \App\Models\User::whereIn('role', ['admin', 'superadmin', 'accountant'])
-            ->orWhere('email', 'like', '%@yonbustax.ca')
+        $consultants = \App\Models\User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'accountant'])
+                  ->orWhere('email', 'like', '%@yonbustax.ca');
+            })
+            ->where('is_active', true)
             ->get();
 
         // Calculate available time slots for the modal date & consultant
@@ -107,12 +111,15 @@ class AppointmentManager extends Component
 
     public function startConsultation($appointmentId)
     {
+        // Temporarily deactivated (#) - will be reactivated in future release
+        /*
         $appt = Appointment::where('id', $appointmentId)
             ->where('client_id', auth()->id())
             ->firstOrFail();
 
         $this->activeRoomName = 'yonbus-consultation-apt-' . $appt->id;
         $this->showVideoCallModal = true;
+        */
     }
 
     public function closeVideoCall()

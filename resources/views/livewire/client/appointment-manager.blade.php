@@ -204,10 +204,12 @@
         </div>
     @endif
 
-    <!-- LiveKit / WebRTC Video Call & Consultation Room Modal -->
+    <!-- LiveKit / WebRTC Video Call & Consultation Room Modal (Temporarily deactivated) -->
+    {{--
     @if($showVideoCallModal)
         @include('livewire.client.video-call-modal')
     @endif
+    --}}
 
     <!-- Cancel Appointment Confirmation Popup Dialog Box -->
     <div

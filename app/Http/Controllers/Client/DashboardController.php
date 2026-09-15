@@ -41,7 +41,11 @@ class DashboardController extends Controller
         $adminDocuments  = Document::where('client_id', $user->id)->where('uploaded_by', '!=', $user->id)->with('uploader')->latest()->take(5)->get();
 
         $user = auth()->user()->load(['assignedAdmin.accountantProfile', 'clientProfile']);
-        $consultant = $user->assignedAdmin ?? \App\Models\User::where('email', 'olubukunola@yonbustax.ca')->first();
+        $assignedAdmin = $user->assignedAdmin;
+        if ($assignedAdmin && $assignedAdmin->isDeveloper()) {
+            $assignedAdmin = null;
+        }
+        $consultant = $assignedAdmin ?? \App\Models\User::where('email', 'olubukunola@yonbustax.ca')->first();
 
         return view('client.dashboard', compact(
             'user', 'consultant', 'stats', 'upcomingAppointment',

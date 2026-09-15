@@ -167,12 +167,18 @@ class AppointmentManager extends Component
         $appt = Appointment::with(['client', 'service', 'accountant'])->findOrFail($this->reminderId);
 
         if ($appt->client) {
-            $appt->client->notify(new AppointmentReminderNotification($appt, $this->reminderCustomMessage));
+            try {
+                $appt->client->notify(new AppointmentReminderNotification($appt, $this->reminderCustomMessage));
+                $appt->update(['reminder_sent_at' => now()]);
+                session()->flash('message', 'Appointment reminder sent successfully to ' . ($appt->client?->name ?? 'client') . ' via dashboard notification and email.');
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error("Failed to send reminder for #{$appt->appointment_number}: " . $e->getMessage());
+                session()->flash('error', 'Failed to dispatch reminder: ' . $e->getMessage());
+            }
         }
 
         $this->showReminderModal = false;
         $this->reset(['reminderId', 'reminderClientName', 'reminderClientEmail', 'reminderCustomMessage']);
-        session()->flash('message', 'Appointment reminder notification and email sent successfully to ' . ($appt->client?->name ?? 'client') . '.');
     }
 
     public function sendQuickReminder($id)
@@ -180,10 +186,15 @@ class AppointmentManager extends Component
         $appt = Appointment::with(['client', 'service', 'accountant'])->findOrFail($id);
 
         if ($appt->client) {
-            $appt->client->notify(new AppointmentReminderNotification($appt));
+            try {
+                $appt->client->notify(new AppointmentReminderNotification($appt));
+                $appt->update(['reminder_sent_at' => now()]);
+                session()->flash('message', 'Quick appointment reminder sent to ' . ($appt->client?->name ?? 'client') . ' (' . ($appt->client?->email ?? '') . ') via dashboard notification and email.');
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error("Failed to send quick reminder for #{$appt->appointment_number}: " . $e->getMessage());
+                session()->flash('error', 'Failed to send reminder: ' . $e->getMessage());
+            }
         }
-
-        session()->flash('message', 'Quick appointment reminder sent to ' . ($appt->client?->name ?? 'client') . ' (' . ($appt->client?->email ?? '') . ').');
     }
 
     public function closeReminderModal()
@@ -239,9 +250,12 @@ class AppointmentManager extends Component
 
     public function startConsultation($appointmentId)
     {
+        // Temporarily deactivated (#) - will be reactivated in future release
+        /*
         $appt = Appointment::findOrFail($appointmentId);
         $this->activeRoomName = 'yonbus-consultation-apt-' . $appt->id;
         $this->showVideoCallModal = true;
+        */
     }
 
     public function closeVideoCall()

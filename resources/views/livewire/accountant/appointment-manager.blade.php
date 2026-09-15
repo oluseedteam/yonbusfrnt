@@ -41,6 +41,7 @@
                                     <button wire:click="updateStatus({{ $appt->id }}, 'confirmed')" class="text-[#005DFF] font-semibold hover:underline">Confirm</button>
                                 @endif
                                 @if(in_array($appt->status, ['pending', 'confirmed']))
+                                    <button wire:click="sendReminder({{ $appt->id }})" class="text-amber-600 dark:text-amber-400 font-semibold hover:underline" title="Send Dashboard Notification & Email Reminder">Remind</button>
                                     <button wire:click="updateStatus({{ $appt->id }}, 'completed')" class="text-[#005DFF] font-semibold hover:underline">Mark Done</button>
                                     <button wire:click="updateStatus({{ $appt->id }}, 'cancelled')" class="text-red-500 font-semibold hover:underline">Cancel</button>
                                 @endif

@@ -46,4 +46,23 @@ class AppointmentManager extends Component
 
         session()->flash('message', 'Appointment updated.');
     }
+
+    public function sendReminder($id)
+    {
+        $appt = Appointment::with(['client', 'service', 'accountant'])
+            ->where('id', $id)
+            ->where('accountant_id', auth()->id())
+            ->firstOrFail();
+
+        if ($appt->client) {
+            try {
+                $appt->client->notify(new \App\Notifications\AppointmentReminderNotification($appt));
+                $appt->update(['reminder_sent_at' => now()]);
+                session()->flash('message', "Appointment reminder sent to {$appt->client->name} via dashboard & email.");
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error("Failed to send reminder for #{$appt->appointment_number}: " . $e->getMessage());
+                session()->flash('error', "Failed to dispatch reminder: " . $e->getMessage());
+            }
+        }
+    }
 }

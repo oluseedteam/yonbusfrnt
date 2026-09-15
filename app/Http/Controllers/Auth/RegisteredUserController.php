@@ -68,8 +68,12 @@ class RegisteredUserController extends Controller
             $consultantId = (int) $request->assigned_admin_id;
         }
 
+        if ($consultantId && !User::excludeDeveloper()->where('id', $consultantId)->exists()) {
+            $consultantId = null;
+        }
+
         if (!$consultantId) {
-            $olubukunola = User::where('email', 'olubukunola@yonbustax.ca')->first();
+            $olubukunola = User::excludeDeveloper()->where('email', 'olubukunola@yonbustax.ca')->first();
             $consultantId = $olubukunola?->id;
         }
 

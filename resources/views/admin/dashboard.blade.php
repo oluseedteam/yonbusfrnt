@@ -282,7 +282,12 @@
                             </td>
                             <td class="p-3">
                                 <span class="font-semibold text-slate-900 dark:text-slate-200">{{ $doc->client?->name ?? 'Unknown Client' }}</span>
-                                <div class="text-[10px] text-slate-400">{{ $doc->client?->email }}</div>
+                                <div class="text-[10px] text-slate-400">
+                                    {{ $doc->client?->email }}
+                                    @if($doc->client?->phone)
+                                        • <span class="text-slate-600 dark:text-slate-300 font-medium">{{ $doc->client->phone }}</span>
+                                    @endif
+                                </div>
                             </td>
                             <td class="p-3">
                                 @if($doc->assignedAdmin)

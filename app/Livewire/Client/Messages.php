@@ -29,34 +29,46 @@ class Messages extends Component
 
     private function getAdminIds(): array
     {
-        $ids = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
-            ->orWhereHas('roles', function ($q) {
-                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+        $ids = User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'subadmin'])
+                  ->orWhereHas('roles', function ($rq) {
+                      $rq->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+                  });
             })
             ->pluck('id')
             ->toArray();
-
-        if (empty($ids)) {
-            $first = User::first();
-            $ids = $first ? [$first->id] : [1];
-        }
 
         return array_unique($ids);
     }
 
     private function getPrimaryAdmin(): ?User
     {
-        $admin = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
-            ->orWhereHas('roles', function ($q) {
-                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
-            })
-            ->first();
-
-        if (!$admin) {
-            $admin = User::first();
+        // 1. If client has an assigned practice admin that is not developer, use them
+        $assignedId = auth()->user()?->assigned_admin_id;
+        if ($assignedId) {
+            $assigned = User::excludeDeveloper()->find($assignedId);
+            if ($assigned) {
+                return $assigned;
+            }
         }
 
-        return $admin;
+        // 2. Default to Olubukunola Eniola (Founder & Partner)
+        $founder = User::excludeDeveloper()->where('email', 'olubukunola@yonbustax.ca')->first();
+        if ($founder) {
+            return $founder;
+        }
+
+        // 3. Fallback to any active non-developer admin
+        return User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'subadmin'])
+                  ->orWhereHas('roles', function ($rq) {
+                      $rq->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+                  });
+            })
+            ->where('is_active', true)
+            ->first();
     }
 
     public function selectAdmin($adminId)
@@ -66,7 +78,8 @@ class Messages extends Component
 
     public function startVideoCall()
     {
-        $this->showVideoCallModal = true;
+        // Temporarily deactivated (#) - will be reactivated in future release
+        // $this->showVideoCallModal = true;
     }
 
     public function closeVideoCall()
@@ -76,10 +89,14 @@ class Messages extends Component
 
     public function render()
     {
-        $admins = User::whereIn('role', ['admin', 'superadmin', 'subadmin'])
-            ->orWhereHas('roles', function ($q) {
-                $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+        $admins = User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'subadmin'])
+                  ->orWhereHas('roles', function ($rq) {
+                      $rq->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin']);
+                  });
             })
+            ->where('is_active', true)
             ->get();
 
         if ($admins->isEmpty()) {
@@ -89,20 +106,33 @@ class Messages extends Component
             }
         }
 
+        // Ensure selectedAdminId is valid and not developer
+        if (!$this->selectedAdminId || !$admins->contains('id', $this->selectedAdminId)) {
+            $this->selectedAdminId = $admins->first()?->id;
+        }
+
         $userId = auth()->id();
         $hasAppointment = \App\Models\Appointment::where('client_id', $userId)->exists();
 
-        // Get all messages between client and ANY admin user
-        $messages = Message::where('sender_id', $userId)
-            ->orWhere('receiver_id', $userId)
+        // Get messages between client and selected admin
+        $messages = collect();
+        if ($this->selectedAdminId) {
+            $targetId = $this->selectedAdminId;
+            $messages = Message::where(function ($q) use ($userId, $targetId) {
+                $q->where('sender_id', $userId)->where('receiver_id', $targetId);
+            })->orWhere(function ($q) use ($userId, $targetId) {
+                $q->where('sender_id', $targetId)->where('receiver_id', $userId);
+            })
             ->with(['sender', 'receiver'])
             ->orderBy('created_at')
             ->get();
 
-        // Mark unread received messages as read
-        Message::where('receiver_id', $userId)
-            ->whereNull('read_at')
-            ->update(['read_at' => now()]);
+            // Mark unread received messages as read
+            Message::where('receiver_id', $userId)
+                ->where('sender_id', $targetId)
+                ->whereNull('read_at')
+                ->update(['read_at' => now()]);
+        }
 
         return view('livewire.client.messages', compact('admins', 'messages', 'hasAppointment'))
             ->layout('layouts.client');
@@ -121,6 +151,14 @@ class Messages extends Component
         if (!$this->selectedAdminId) {
             $admin = $this->getPrimaryAdmin();
             $this->selectedAdminId = $admin?->id;
+        }
+
+        // Guard: ensure recipient is not developer
+        if ($this->selectedAdminId) {
+            $validRecipient = User::excludeDeveloper()->find($this->selectedAdminId);
+            if (!$validRecipient) {
+                $this->selectedAdminId = $this->getPrimaryAdmin()?->id;
+            }
         }
 
         if (!$this->selectedAdminId) {

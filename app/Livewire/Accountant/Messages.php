@@ -42,7 +42,8 @@ class Messages extends Component
 
     public function startVideoCall()
     {
-        $this->showVideoCallModal = true;
+        // Temporarily deactivated (#) - will be reactivated in future release
+        // $this->showVideoCallModal = true;
     }
 
     public function closeVideoCall()

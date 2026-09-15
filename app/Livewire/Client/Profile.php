@@ -30,8 +30,12 @@ class Profile extends Component
 
     public function render()
     {
-        $consultants = \App\Models\User::whereIn('role', ['admin', 'superadmin'])
-            ->orWhere('email', 'like', '%@yonbustax.ca')
+        $consultants = \App\Models\User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin'])
+                  ->orWhere('email', 'like', '%@yonbustax.ca');
+            })
+            ->where('is_active', true)
             ->get();
 
         return view('livewire.client.profile', [
@@ -56,11 +60,16 @@ class Profile extends Component
         $user = auth()->user();
         $parts = explode(' ', trim($this->name), 2);
         
+        $assignedId = $this->assigned_admin_id;
+        if ($assignedId && !\App\Models\User::excludeDeveloper()->where('id', $assignedId)->exists()) {
+            $assignedId = null;
+        }
+
         $updateData = [
             'first_name'                => $parts[0] ?? '',
             'last_name'                 => $parts[1] ?? '',
             'email'                     => $this->email,
-            'assigned_admin_id'         => $this->assigned_admin_id,
+            'assigned_admin_id'         => $assignedId,
             'phone'                     => $this->phone,
             'company_name'              => $this->company_name,
             'tax_identification_number' => $this->tax_identification_number,
@@ -79,7 +88,7 @@ class Profile extends Component
 
         \App\Models\Client::updateOrCreate(
             ['user_id' => $user->id],
-            ['assigned_admin_id' => $this->assigned_admin_id]
+            ['assigned_admin_id' => $assignedId]
         );
 
         $this->reset('avatar');

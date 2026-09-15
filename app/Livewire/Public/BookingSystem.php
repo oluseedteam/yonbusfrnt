@@ -90,7 +90,7 @@ class BookingSystem extends Component
                 $this->accountant_id ? (int)$this->accountant_id : null,
                 $this->appointment_date,
                 $this->appointment_time,
-                45
+                60
             );
 
             if (!$isValid) {
@@ -161,9 +161,18 @@ class BookingSystem extends Component
 
         // 2. Resolve assigned accountant
         $accountantId = $this->accountant_id;
+        if ($accountantId && !User::excludeDeveloper()->where('id', $accountantId)->exists()) {
+            $accountantId = null;
+        }
         if (!$accountantId) {
-            $firstAccountant = User::whereIn('role', ['admin', 'accountant'])->first();
-            $accountantId = $firstAccountant ? $firstAccountant->id : 1;
+            $firstAccountant = User::excludeDeveloper()
+                ->where(function ($q) {
+                    $q->whereIn('role', ['admin', 'accountant'])
+                      ->orWhere('email', 'like', '%@yonbustax.ca');
+                })
+                ->where('is_active', true)
+                ->first();
+            $accountantId = $firstAccountant?->id;
         }
 
         // 3. Book via AppointmentService
@@ -173,7 +182,7 @@ class BookingSystem extends Component
             'service_id'    => $this->service_id,
             'date'          => $this->appointment_date,
             'time'          => $this->appointment_time,
-            'duration'      => 45,
+            'duration'      => 60,
             'status'        => 'pending',
             'notes'         => $this->notes,
         ];
@@ -194,8 +203,12 @@ class BookingSystem extends Component
     public function render()
     {
         $services    = Service::where('is_active', true)->get();
-        $accountants = User::whereIn('role', ['admin', 'superadmin', 'accountant'])
-            ->orWhere('email', 'like', '%@yonbustax.ca')
+        $accountants = User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'accountant'])
+                  ->orWhere('email', 'like', '%@yonbustax.ca');
+            })
+            ->where('is_active', true)
             ->get();
 
         // Calculate available and booked time slots

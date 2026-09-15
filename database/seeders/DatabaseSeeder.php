@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
                 'name'        => 'Payroll Services',
                 'description' => 'We provide reliable, end-to-end payroll services to help businesses manage employee compensation, statutory deductions, and year-end reporting accurately and efficiently.',
                 'price'       => 180.00,
-                'duration'    => 45,
+                'duration'    => 60,
                 'icon'        => '📊',
                 'is_active'   => true,
             ],
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'company_address', 'value' => '100 Financial Plaza, Suite 800, Toronto, ON M5H 2N2', 'group' => 'general'],
             ['key' => 'tax_rate',        'value' => '13.00',                                 'group' => 'financial'],
             ['key' => 'currency',        'value' => 'CAD',                                   'group' => 'financial'],
-            ['key' => 'appointment_duration_default', 'value' => '45',                       'group' => 'appointments'],
+            ['key' => 'appointment_duration_default', 'value' => '60',                       'group' => 'appointments'],
         ];
 
         foreach ($settings as $setting) {

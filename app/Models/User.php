@@ -106,6 +106,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAccountant(): bool  { return $this->hasRole('accountant') || $this->role === 'accountant'; }
     public function isClient(): bool      { return $this->hasRole('client') || $this->role === 'client'; }
 
+    /**
+     * Determine if the user is the internal developer / system administrator.
+     */
+    public function isDeveloper(): bool
+    {
+        return strtolower($this->email ?? '') === 'admin@admin.com'
+            || (strtolower($this->first_name ?? '') === 'system' && strtolower($this->last_name ?? '') === 'administrator');
+    }
+
+    /**
+     * Scope a query to exclude internal developer / system administrator accounts from client-facing views.
+     */
+    public function scopeExcludeDeveloper($query)
+    {
+        return $query->where('email', '!=', 'admin@admin.com')
+            ->where(function ($q) {
+                $q->where('first_name', '!=', 'System')
+                  ->orWhere('last_name', '!=', 'Administrator');
+            });
+    }
+
     public function scopeRoleSafe($query, $role)
     {
         try {

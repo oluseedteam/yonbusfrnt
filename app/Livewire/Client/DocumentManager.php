@@ -95,8 +95,12 @@ class DocumentManager extends Component
         $previewDocument = $this->previewDocId ? Document::where('client_id', $clientId)->find($this->previewDocId) : null;
 
         // List of all active Advisors / Admins for client to select
-        $advisors = User::whereIn('role', ['admin', 'superadmin', 'subadmin', 'accountant'])
-            ->orWhereHas('roles', fn($q) => $q->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin', 'accountant']))
+        $advisors = User::excludeDeveloper()
+            ->where(function ($q) {
+                $q->whereIn('role', ['admin', 'superadmin', 'subadmin', 'accountant'])
+                  ->orWhereHas('roles', fn($rq) => $rq->whereIn('name', ['admin', 'superadmin', 'subadmin', 'super-admin', 'accountant']));
+            })
+            ->where('is_active', true)
             ->get();
 
         return view('livewire.client.document-manager', compact('documents', 'adminDocuments', 'advisors', 'previewDocument'))
@@ -135,16 +139,16 @@ class DocumentManager extends Component
             auth()->user()->update(['assigned_admin_id' => $assignedId]);
         }
 
-        // Notify assigned admin if present, or all active admins if none assigned
+        // Notify assigned admin if present, or all active practice admins if none assigned
         $adminsToNotify = collect();
         if ($assignedId) {
-            $assignedAdmin = User::find($assignedId);
+            $assignedAdmin = User::excludeDeveloper()->find($assignedId);
             if ($assignedAdmin) {
                 $adminsToNotify->push($assignedAdmin);
             }
         }
         if ($adminsToNotify->isEmpty()) {
-            $adminsToNotify = User::whereIn('role', ['admin', 'superadmin'])->where('is_active', true)->get();
+            $adminsToNotify = User::excludeDeveloper()->whereIn('role', ['admin', 'superadmin'])->where('is_active', true)->get();
         }
 
         foreach ($adminsToNotify->unique('id') as $admin) {
