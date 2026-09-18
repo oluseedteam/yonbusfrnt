@@ -8,16 +8,19 @@ use Illuminate\Console\Command;
 
 class SendAppointmentRemindersCommand extends Command
 {
-    protected $signature = 'appointments:send-reminders {--force : Force send even if already sent today}';
-    protected $description = 'Send automated appointment reminders (dashboard notification and email) for upcoming consultations.';
+    protected $signature = 'appointments:send-reminders {--force : Force send even if already sent} {--window=90 : Window in minutes before appointment time} {--all : Process all appointments today/tomorrow regardless of 90m window}';
+    protected $description = 'Send automated appointment reminders (dashboard notification and email) when it is 1hr 30min to appointment time.';
 
     public function handle(): int
     {
-        $this->info('Checking for upcoming appointments to remind...');
+        $this->info('Checking for upcoming appointments to remind (1h 30m window)...');
 
-        $today = now()->toDateString();
-        $tomorrow = now()->addDay()->toDateString();
+        $now = now(config('app.timezone'));
+        $today = $now->toDateString();
+        $tomorrow = $now->copy()->addDay()->toDateString();
         $force = (bool) $this->option('force');
+        $all = (bool) $this->option('all');
+        $windowMinutes = (int) ($this->option('window') ?? 90);
 
         // Find confirmed and pending appointments for today or tomorrow
         $query = \App\Models\Appointment::with(['client', 'service', 'accountant'])
@@ -34,7 +37,14 @@ class SendAppointmentRemindersCommand extends Command
             });
         }
 
-        $appointments = $query->get();
+        $candidates = $query->get();
+
+        // Filter to appointments within the 1hr 30min window unless --all is specified
+        $appointments = $all ? $candidates : $candidates->filter(function ($appt) use ($now, $windowMinutes) {
+            $scheduledAt = $appt->scheduledAt();
+            return $scheduledAt->greaterThan($now->copy()->subMinutes(15))
+                && $scheduledAt->lessThanOrEqualTo($now->copy()->addMinutes($windowMinutes));
+        });
 
         if ($appointments->isEmpty()) {
             $this->info('No appointments need reminders at this time.');

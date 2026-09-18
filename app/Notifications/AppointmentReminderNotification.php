@@ -63,7 +63,7 @@ class AppointmentReminderNotification extends Notification
         $mail = (new MailMessage)
             ->subject("Appointment Reminder: {$serviceName} (#{$this->appointment->appointment_number})")
             ->greeting('Hello ' . ($notifiable->first_name ?? $notifiable->name ?? 'Valued Client') . ',')
-            ->line('This is a friendly reminder regarding your upcoming consultation with **YONBUS Tax & Accounting Services Inc.**')
+            ->line('This is a friendly reminder that your upcoming consultation with **YONBUS Tax & Accounting Services Inc.** is scheduled in approximately **1 hour and 30 minutes**.')
             ->line('**Reference Number:** ' . $this->appointment->appointment_number)
             ->line('**Service:** ' . $serviceName)
             ->line('**Scheduled Date:** ' . $dateFormatted)
@@ -99,7 +99,7 @@ class AppointmentReminderNotification extends Notification
 
             return [
                 'title'          => 'Appointment Reminder',
-                'message'        => "Reminder: Consultation with {$clientName} for {$serviceName} (#{$this->appointment->appointment_number}) is scheduled for {$dateFormatted} at {$timeFormatted}.",
+                'message'        => "Reminder: Consultation with {$clientName} for {$serviceName} (#{$this->appointment->appointment_number}) is in 1 hour 30 minutes ({$dateFormatted} at {$timeFormatted}).",
                 'type'           => 'appointment_reminder',
                 'url'            => $manageUrl,
                 'appointment_id' => $this->appointment->id,
@@ -108,7 +108,7 @@ class AppointmentReminderNotification extends Notification
 
         return [
             'title'          => 'Appointment Reminder',
-            'message'        => "Reminder: Your {$serviceName} appointment (#{$this->appointment->appointment_number}) is scheduled for {$dateFormatted} at {$timeFormatted}.",
+            'message'        => "Reminder: Your {$serviceName} appointment (#{$this->appointment->appointment_number}) is in 1 hour 30 minutes ({$dateFormatted} at {$timeFormatted}).",
             'type'           => 'appointment_reminder',
             'url'            => '/client/appointments',
             'appointment_id' => $this->appointment->id,

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Events\AppointmentBooked;
+use App\Jobs\SendAppointmentReminderJob;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
@@ -9,6 +11,7 @@ use App\Notifications\AppointmentReminderNotification;
 use Database\Seeders\AdminAccountsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class AppointmentReminderDashboardAndEmailTest extends TestCase
@@ -118,16 +121,73 @@ class AppointmentReminderDashboardAndEmailTest extends TestCase
         $this->assertStringContainsString(url('/client/appointments'), (string) $rendered);
     }
 
-    public function test_automated_command_finds_and_reminds_upcoming_appointments(): void
+    public function test_booking_appointment_dispatches_1h30m_reminder_job(): void
+    {
+        Queue::fake();
+
+        $appt = Appointment::create([
+            'client_id'     => $this->client->id,
+            'accountant_id' => $this->admin->id,
+            'service_id'    => $this->service->id,
+            'date'          => now(config('app.timezone'))->addDays(2)->toDateString(),
+            'time'          => '14:00:00',
+            'status'        => 'pending',
+        ]);
+
+        event(new AppointmentBooked($appt));
+
+        Queue::assertPushed(SendAppointmentReminderJob::class, function ($job) use ($appt) {
+            return $job->appointmentId === $appt->id;
+        });
+    }
+
+    public function test_reminder_job_sends_notification_to_client_and_advisor(): void
     {
         Notification::fake();
 
-        // Appointment scheduled for tomorrow
+        $appt = Appointment::create([
+            'client_id'     => $this->client->id,
+            'accountant_id' => $this->admin->id,
+            'service_id'    => $this->service->id,
+            'date'          => now(config('app.timezone'))->toDateString(),
+            'time'          => now(config('app.timezone'))->addMinutes(90)->format('H:i:s'),
+            'status'        => 'confirmed',
+        ]);
+
+        (new SendAppointmentReminderJob($appt->id))->handle();
+
+        Notification::assertSentTo($this->client, AppointmentReminderNotification::class, function ($n) use ($appt) {
+            return $n->appointment->id === $appt->id;
+        });
+
+        Notification::assertSentTo($this->admin, AppointmentReminderNotification::class, function ($n) use ($appt) {
+            return $n->appointment->id === $appt->id;
+        });
+
+        $appt->refresh();
+        $this->assertNotNull($appt->reminder_sent_at);
+    }
+
+    public function test_automated_command_finds_and_reminds_upcoming_appointments_in_1h30m_window(): void
+    {
+        Notification::fake();
+
+        // Appointment scheduled within 90 minutes (e.g. 75 minutes from now)
+        $apptSoon = Appointment::create([
+            'client_id'     => $this->client->id,
+            'accountant_id' => $this->admin->id,
+            'service_id'    => $this->service->id,
+            'date'          => now(config('app.timezone'))->toDateString(),
+            'time'          => now(config('app.timezone'))->addMinutes(75)->format('H:i:s'),
+            'status'        => 'confirmed',
+        ]);
+
+        // Appointment scheduled for tomorrow (more than 90 minutes away, should NOT be reminded yet)
         $apptTomorrow = Appointment::create([
             'client_id'     => $this->client->id,
             'accountant_id' => $this->admin->id,
             'service_id'    => $this->service->id,
-            'date'          => now()->addDay()->toDateString(),
+            'date'          => now(config('app.timezone'))->addDay()->toDateString(),
             'time'          => '10:00:00',
             'status'        => 'confirmed',
         ]);
@@ -137,7 +197,7 @@ class AppointmentReminderDashboardAndEmailTest extends TestCase
             'client_id'     => $this->client->id,
             'accountant_id' => $this->admin->id,
             'service_id'    => $this->service->id,
-            'date'          => now()->addDays(7)->toDateString(),
+            'date'          => now(config('app.timezone'))->addDays(7)->toDateString(),
             'time'          => '10:00:00',
             'status'        => 'confirmed',
         ]);
@@ -146,7 +206,11 @@ class AppointmentReminderDashboardAndEmailTest extends TestCase
             ->expectsOutputToContain('Found 1 appointment(s) needing reminders')
             ->assertSuccessful();
 
-        Notification::assertSentTo($this->client, AppointmentReminderNotification::class, function ($n) use ($apptTomorrow) {
+        Notification::assertSentTo($this->client, AppointmentReminderNotification::class, function ($n) use ($apptSoon) {
+            return $n->appointment->id === $apptSoon->id;
+        });
+
+        Notification::assertNotSentTo($this->client, AppointmentReminderNotification::class, function ($n) use ($apptTomorrow) {
             return $n->appointment->id === $apptTomorrow->id;
         });
 
@@ -154,8 +218,8 @@ class AppointmentReminderDashboardAndEmailTest extends TestCase
             return $n->appointment->id === $apptNextWeek->id;
         });
 
-        $apptTomorrow->refresh();
-        $this->assertNotNull($apptTomorrow->reminder_sent_at);
+        $apptSoon->refresh();
+        $this->assertNotNull($apptSoon->reminder_sent_at);
     }
 
     public function test_automated_command_skips_already_reminded_appointments(): void
@@ -166,8 +230,8 @@ class AppointmentReminderDashboardAndEmailTest extends TestCase
             'client_id'        => $this->client->id,
             'accountant_id'    => $this->admin->id,
             'service_id'       => $this->service->id,
-            'date'             => now()->addDay()->toDateString(),
-            'time'             => '10:00:00',
+            'date'             => now(config('app.timezone'))->toDateString(),
+            'time'             => now(config('app.timezone'))->addMinutes(75)->format('H:i:s'),
             'status'           => 'confirmed',
             'reminder_sent_at' => now()->subHours(2),
         ]);

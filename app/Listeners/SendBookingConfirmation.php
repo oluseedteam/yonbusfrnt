@@ -46,5 +46,17 @@ class SendBookingConfirmation
             'Appointment',
             $appointment->id
         );
+
+        // Schedule automated reminder for 1 hour 30 minutes before appointment
+        try {
+            $reminderDueAt = $appointment->reminderDueAt();
+            if ($reminderDueAt->isFuture()) {
+                \App\Jobs\SendAppointmentReminderJob::dispatch($appointment->id)->delay($reminderDueAt);
+            } elseif ($appointment->scheduledAt()->isFuture()) {
+                \App\Jobs\SendAppointmentReminderJob::dispatch($appointment->id);
+            }
+        } catch (\Throwable $e) {
+            Log::warning("Failed to schedule reminder job for appointment #{$appointment->appointment_number}: " . $e->getMessage());
+        }
     }
 }

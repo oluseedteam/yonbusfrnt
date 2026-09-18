@@ -42,6 +42,36 @@ class Appointment extends Model
     // ── Statuses ──────────────────────────────────────────────────
     const STATUSES = ['pending', 'confirmed', 'completed', 'cancelled', 'rescheduled'];
 
+    /**
+     * Get the full scheduled Carbon date & time for this appointment in app timezone.
+     */
+    public function scheduledAt(): \Illuminate\Support\Carbon
+    {
+        $dateStr = $this->date instanceof \Carbon\CarbonInterface ? $this->date->format('Y-m-d') : (string) $this->date;
+        $timeStr = $this->time ? trim($this->time) : '09:00:00';
+        return \Illuminate\Support\Carbon::parse("{$dateStr} {$timeStr}", config('app.timezone'));
+    }
+
+    /**
+     * Get the exact time the 1 hour 30 minute reminder is due (90 minutes before scheduled start).
+     */
+    public function reminderDueAt(): \Illuminate\Support\Carbon
+    {
+        return $this->scheduledAt()->copy()->subMinutes(90);
+    }
+
+    /**
+     * Determine whether the 1 hour 30 minute reminder is currently due to be sent.
+     */
+    public function isReminderDue(): bool
+    {
+        $now = now(config('app.timezone'));
+        $scheduledAt = $this->scheduledAt();
+
+        return $scheduledAt->greaterThan($now->copy()->subMinutes(15))
+            && $scheduledAt->lessThanOrEqualTo($now->copy()->addMinutes(90));
+    }
+
     // ── Scopes ────────────────────────────────────────────────────
     public function scopeUpcoming($query)
     {

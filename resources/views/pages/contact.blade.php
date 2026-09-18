@@ -69,7 +69,7 @@
                             <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem; margin-bottom: 14px;">Follow Us</div>
                             <div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
-                                <a href="https://facebook.com/yonbustax" target="_blank" rel="noopener"
+                                <a href="https://www.facebook.com/share/19adRFMY1m/" target="_blank" rel="noopener"
                                    title="Facebook"
                                    style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; text-decoration: none; color: #ffffff; font-size: 0.82rem; font-weight: 600;"
                                    onmouseenter="this.style.background='rgba(255,255,255,0.22)';"
@@ -78,7 +78,7 @@
                                     Facebook
                                 </a>
 
-                                <a href="https://instagram.com/yonbustax" target="_blank" rel="noopener"
+                                <a href="https://www.instagram.com/yonbustaxandaccounting?utm_source=qr&amp;stkn=bjI3aDRlYTFoZjFt" target="_blank" rel="noopener"
                                    title="Instagram"
                                    style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; text-decoration: none; color: #ffffff; font-size: 0.82rem; font-weight: 600;"
                                    onmouseenter="this.style.background='rgba(255,255,255,0.22)';"
@@ -87,7 +87,7 @@
                                     Instagram
                                 </a>
 
-                                <a href="https://tiktok.com/@yonbustax" target="_blank" rel="noopener"
+                                <a href="https://www.tiktok.com/@yonbustaxandaccounting?_r=1&amp;_t=ZS-99lgWjKRAPJ" target="_blank" rel="noopener"
                                    title="TikTok"
                                    style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; text-decoration: none; color: #ffffff; font-size: 0.82rem; font-weight: 600;"
                                    onmouseenter="this.style.background='rgba(255,255,255,0.22)';"
@@ -105,7 +105,7 @@
                                     X (Twitter)
                                 </a>
 
-                                <a href="https://linkedin.com/company/yonbustax" target="_blank" rel="noopener"
+                                <a href="https://www.linkedin.com/company/yonbustaxandaccounting/" target="_blank" rel="noopener"
                                    title="LinkedIn"
                                    style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; text-decoration: none; color: #ffffff; font-size: 0.82rem; font-weight: 600;"
                                    onmouseenter="this.style.background='rgba(255,255,255,0.22)';"
