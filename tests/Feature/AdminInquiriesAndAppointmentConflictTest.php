@@ -235,6 +235,8 @@ class AdminInquiriesAndAppointmentConflictTest extends TestCase
         ]);
         $client1->assignRole('client');
 
+        config(['services.microsoft_bookings.url' => null]);
+
         // Existing booking at 09:00 AM for Adeshola
         Appointment::create([
             'client_id'     => $client1->id,

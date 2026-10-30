@@ -13,7 +13,16 @@
     <!-- Booking Component Container -->
     <section class="py-16 bg-slate-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            @livewire('public.booking-system')
+            @if(config('services.microsoft_bookings.url'))
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 sm:p-12 text-center space-y-6">
+                    <h2 class="font-heading font-bold text-2xl text-slate-900">Book your consultation online</h2>
+                    <p class="text-slate-600">Use YONBUS Microsoft Bookings to choose your service and an available appointment time, then enter your contact details to complete your booking.</p>
+                    <a href="{{ config('services.microsoft_bookings.url') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#002B8A] text-white font-bold hover:bg-[#0045d8] transition-colors">Schedule online</a>
+                    <p class="text-sm text-slate-500">You will continue to Microsoft Bookings. For changes or cancellations, follow the instructions in your booking confirmation email or contact YONBUS.</p>
+                </div>
+            @else
+                @livewire('public.booking-system')
+            @endif
         </div>
     </section>
 </x-public-layout>

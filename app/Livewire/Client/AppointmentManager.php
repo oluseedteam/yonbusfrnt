@@ -89,6 +89,10 @@ class AppointmentManager extends Component
 
     public function openModal()
     {
+        if ($url = config('services.microsoft_bookings.url')) {
+            return $this->redirect($url);
+        }
+
         $this->reset(['editId', 'service_id', 'date', 'time', 'notes', 'errorMessage']);
         $this->accountant_id = auth()->user()->assigned_admin_id ?? '';
         $this->date = now()->addDays(1)->format('Y-m-d');
@@ -130,6 +134,11 @@ class AppointmentManager extends Component
 
     public function save()
     {
+        // Existing portal appointments can still be rescheduled here.
+        if (!$this->editId && ($url = config('services.microsoft_bookings.url'))) {
+            return $this->redirect($url);
+        }
+
         $this->errorMessage = '';
         $this->validate();
 

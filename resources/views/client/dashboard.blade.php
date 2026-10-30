@@ -1,4 +1,5 @@
 <x-client-layout>
+    <x-booking-notice />
     <!-- Welcome Header with Dedicated Consultant Card -->
     <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>

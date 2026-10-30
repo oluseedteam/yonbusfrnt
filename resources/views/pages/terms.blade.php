@@ -276,7 +276,7 @@
                             We value our clients' time and maintain dedicated consultation slots with our certified professionals:
                         </p>
                         <ul class="list-disc pl-5 space-y-2 text-slate-600">
-                            <li><strong>Rescheduling:</strong> You may reschedule or cancel consultation appointments via the client portal or by phone at least <strong>24 hours</strong> prior to your scheduled time without penalty.</li>
+                            <li><strong>Rescheduling:</strong> For Microsoft Bookings appointments, follow the instructions in your booking confirmation email or contact us by phone. Appointments booked in the client portal may be changed there or by phone. Please reschedule or cancel at least <strong>24 hours</strong> prior to your scheduled time without penalty.</li>
                             <li><strong>Virtual Consultations:</strong> For video/teleconference consultations, please ensure a stable internet connection and have relevant financial questions prepared in advance.</li>
                         </ul>
                     </div>

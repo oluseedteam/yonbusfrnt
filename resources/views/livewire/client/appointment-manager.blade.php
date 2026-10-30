@@ -5,11 +5,17 @@
             <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white font-heading">Appointment Manager</h1>
             <p class="text-xs text-gray-500 mt-1">Book and manage your tax & accounting consultations with YONBUS experts.</p>
         </div>
-        <button wire:click="openModal" class="btn-primary flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            <span>Book New Appointment</span>
-        </button>
+        @if(config('services.microsoft_bookings.url'))
+            <a href="{{ config('services.microsoft_bookings.url') }}" class="btn-primary flex items-center gap-2">Schedule online</a>
+        @else
+            <button wire:click="openModal" class="btn-primary flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <span>Book New Appointment</span>
+            </button>
+        @endif
     </div>
+
+    <x-booking-notice />
 
     @if(session()->has('message'))
         <div class="mb-6 p-4 rounded-xl bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold shadow-sm">
@@ -89,7 +95,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-8 text-gray-500">No appointments found. Click "Book New Appointment" to schedule your consultation!</td>
+                            <td colspan="6" class="text-center py-8 text-gray-500">{{ config('services.microsoft_bookings.url') ? 'No portal appointments found. Use Schedule online to book with Microsoft Bookings.' : 'No appointments found. Click "Book New Appointment" to schedule your consultation!' }}</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -110,6 +110,11 @@ class BookingSystem extends Component
 
     public function submitBooking()
     {
+        // Old browser tabs must also use the current booking provider.
+        if ($url = config('services.microsoft_bookings.url')) {
+            return $this->redirect($url);
+        }
+
         $this->errorMessage = '';
 
         $this->validate([

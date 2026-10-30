@@ -6,6 +6,22 @@
 
 ---
 
+## Microsoft Bookings
+
+New website and client portal bookings use the YONBUS Microsoft Bookings page. Existing public booking links (including service-specific links) still open `/book-appointment`, which provides a **Schedule online** link. Service selection happens in Microsoft Bookings; local service IDs are not forwarded.
+
+The default URL is the client's supplied link. To change it, set:
+
+```env
+MICROSOFT_BOOKINGS_URL="https://bookings.cloud.microsoft/book/Copy@yonbustax.ca/?ismsaljsauthenabled"
+```
+
+After deployment or changing this setting, run `php artisan config:cache` and `php artisan view:clear`. Set `MICROSOFT_BOOKINGS_URL=` to restore the existing local booking forms.
+
+This is a booking link integration, with no Microsoft API credentials required. Availability and new reservations are handled in Microsoft Bookings. The website does not import Microsoft bookings, create portal accounts for those bookings, or send its own reminders for them. Staff must manage those reservations in Microsoft Bookings. Existing portal appointments, reports, reminders, and the internal appointment API continue to use the local database. Portal messaging still requires a local appointment; Microsoft booking customers are directed to the contact page for support.
+
+Before going live, the owner should open the booking link in a private browser window, check its published services and availability, and complete a test booking in Microsoft Bookings.
+
 ## 🔑 Pre-Seeded System Credentials & Access Portals
 
 All administrative and client accounts are pre-seeded in `database/seeders/DatabaseSeeder.php`:

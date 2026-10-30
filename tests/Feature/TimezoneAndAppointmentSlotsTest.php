@@ -18,6 +18,7 @@ class TimezoneAndAppointmentSlotsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['services.microsoft_bookings.url' => null]);
         $this->seed(AdminAccountsSeeder::class);
     }
 

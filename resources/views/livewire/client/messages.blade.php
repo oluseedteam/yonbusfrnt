@@ -114,7 +114,12 @@
         </div>
 
         <!-- Input Form or Appointment Requirement Notice -->
-        @if(!$hasAppointment)
+        @if(!$hasAppointment && config('services.microsoft_bookings.url'))
+            <div class="p-6 border-t border-gray-100 dark:border-gray-800 text-center space-y-3">
+                <p class="text-sm text-gray-600 dark:text-gray-400">Microsoft Bookings appointments do not automatically unlock portal messaging. For help with your booking, contact YONBUS directly.</p>
+                <a href="{{ route('contact') }}" class="btn-primary inline-flex">Contact YONBUS</a>
+            </div>
+        @elseif(!$hasAppointment)
             <div class="p-6 border-t border-gray-100 dark:border-gray-800 bg-amber-50/60 dark:bg-amber-950/30 text-center space-y-3">
                 <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>

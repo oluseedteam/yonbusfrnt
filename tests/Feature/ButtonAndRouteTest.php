@@ -191,6 +191,8 @@ class ButtonAndRouteTest extends TestCase
 
     public function test_booking_system_livewire_button_flow(): void
     {
+        config(['services.microsoft_bookings.url' => null]);
+
         $service = Service::create([
             'name' => 'Bookkeeping Monthly',
             'description' => 'Full-service monthly bookkeeping',
@@ -472,6 +474,8 @@ class ButtonAndRouteTest extends TestCase
 
     public function test_booking_page_shows_only_services_available_on_services_page(): void
     {
+        config(['services.microsoft_bookings.url' => null]);
+
         $this->seed(\Database\Seeders\DatabaseSeeder::class);
 
         $response = $this->get(route('book-appointment'));

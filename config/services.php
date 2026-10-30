@@ -2,6 +2,10 @@
 
 return [
 
+    'microsoft_bookings' => [
+        'url' => env('MICROSOFT_BOOKINGS_URL', 'https://bookings.cloud.microsoft/book/Copy@yonbustax.ca/?ismsaljsauthenabled'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
