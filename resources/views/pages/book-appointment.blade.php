@@ -17,7 +17,7 @@
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 sm:p-12 text-center space-y-6">
                     <h2 class="font-heading font-bold text-2xl text-slate-900">Book your consultation online</h2>
                     <p class="text-slate-600">Use YONBUS Microsoft Bookings to choose your service and an available appointment time, then enter your contact details to complete your booking.</p>
-                    <a href="{{ config('services.microsoft_bookings.url') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#002B8A] text-white font-bold hover:bg-[#0045d8] transition-colors">Schedule online</a>
+                    <a id="schedule-online-button" href="{{ config('services.microsoft_bookings.url') }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; background: #002B8A; color: #ffffff; font-weight: 700; font-size: 1rem; text-decoration: none; box-shadow: 0 8px 20px rgba(0,43,138,0.3);" onmouseover="this.style.background='#0045d8'" onmouseout="this.style.background='#002B8A'">Schedule online</a>
                     <p class="text-sm text-slate-500">You will continue to Microsoft Bookings. For changes or cancellations, follow the instructions in your booking confirmation email or contact YONBUS.</p>
                 </div>
             @else
